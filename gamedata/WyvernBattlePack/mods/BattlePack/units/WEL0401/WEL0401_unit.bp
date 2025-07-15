@@ -315,7 +315,7 @@ UnitBlueprint{
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 1.8,
-            FiringTolerance = 2,
+            FiringTolerance = 25,
 
             Label = "Rockets",
 
@@ -329,7 +329,8 @@ UnitBlueprint{
 
             NotExclusive = true,
 
-            ProjectileId = "/mods/BattlePack/projectiles/NapalmMissile/NapalmMissile_proj.bp",
+            ProjectileId = "/mods/BattlePack/projectiles/BPNapalmMissile/BPNapalmMissile_proj.bp",
+
             ProjectileLifetime = 9,
 
             RackBones = {
@@ -358,14 +359,14 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1,
 
             TurretBoneMuzzle = "Napalm_MissileRack",
             TurretBonePitch = "Napalm_MissileRack",
             TurretBoneYaw = "Napalm_Missile_Yaw",
 
-            TurretPitch = 0,
-            TurretPitchRange = 75,
+            TurretPitch = 45,
+            TurretPitchRange = 25,
             TurretPitchSpeed = 28,
 
             TurretYaw = 0,

@@ -222,17 +222,17 @@ WEL0416 = Class(TWalkingLandUnit) {
         TWalkingLandUnit.OnKilled(self, inst, type, okr)
     end,
 
-    CreateDamageEffects = function(self, bone, Army )
+    CreateDamageEffects = function(self, bone )
     
         for k, v in EffectTemplate.TNapalmCarpetBombHitLand01 do  
-            CreateAttachedEmitter( self, bone, Army, v ):ScaleEmitter(0.3)
+            CreateAttachedEmitter( self, bone, self.Army, v ):ScaleEmitter(0.3)
         end
     end,
 
-    CreateExplosionDebris = function( self, Army )
+    CreateExplosionDebris = function( self )
     
         for k, v in EffectTemplate.ExplosionEffectsSml01 do
-            CreateAttachedEmitter( self, 'NewTorso', Army, v )
+            CreateAttachedEmitter( self, 'NewTorso', self.Army, v )
         end
     end,
 
@@ -255,7 +255,7 @@ WEL0416 = Class(TWalkingLandUnit) {
             proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[2], velocity[3])
             proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(1, 4)):SetCollision(false)            
             
-            local emitter = CreateEmitterOnEntity(proj, Army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
+            local emitter = CreateEmitterOnEntity(proj, self.Army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
             local lifetime = utilities.GetRandomFloat( 10, 20 )
         end
     end,
@@ -273,25 +273,25 @@ WEL0416 = Class(TWalkingLandUnit) {
             
             self:PlayUnitSound('Destroyed')
             CreateDeathExplosion( self, self.MechDestructionEffectBones[ ranBone ], Random(0.125,0.5) )
-            self:CreateFirePlumes( Army, {ranBone}, Random(0,2) )
-            self:CreateDamageEffects( ranBone, Army )
-            self:CreateExplosionDebris( Army )
+            self:CreateFirePlumes( self.Army, {ranBone}, Random(0,2) )
+            self:CreateDamageEffects( ranBone, self.Army )
+            self:CreateExplosionDebris( self.Army )
             self:ShakeCamera(1, 0.5, 0.25, duration)
             WaitSeconds( duration )
         end
 
         -- Create main body explosions
         CreateDeathExplosion( self, 'Left_MissileRack', Random(1,5))
-        self:CreateDamageEffects( 'Left_MissileRack', Army )
+        self:CreateDamageEffects( 'Left_MissileRack', self.Army )
         self:ShakeCamera(2, 1, 0.5, 0.5)
         self:PlayUnitSound('Destroyed')  
         CreateDeathExplosion( self, 'Right_MissileRack', Random(1,5))
-        self:CreateDamageEffects( 'Right_MissileRack', Army )
+        self:CreateDamageEffects( 'Right_MissileRack', self.Army )
         self:ShakeCamera(2, 1, 0.5, 0.5)
         self:PlayUnitSound('Destroyed')
         WaitSeconds( 0.5 )
         CreateDeathExplosion( self, 'Body', Random(1,10))
-        self:CreateDamageEffects( 'Body', Army )
+        self:CreateDamageEffects( 'Body', self.Army )
         self:ShakeCamera(4, 2, 1, 1)
         self:PlayUnitSound('Destroyed')
     end,
@@ -302,19 +302,19 @@ WEL0416 = Class(TWalkingLandUnit) {
 
         -- Create full-screen glow flash
         self:PlayUnitSound('Nuke')
-        CreateAttachedEmitter(self, 'NewTorso', Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.2)
+        CreateAttachedEmitter(self, 'NewTorso', self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.2)
         self:ForkThread(self.CreateOuterRingWaveSmokeRing)
-        CreateLightParticle(self, -1, Army, 10, 4, 'glow_02', 'ramp_red_02')
+        CreateLightParticle(self, -1, self.Army, 10, 4, 'glow_02', 'ramp_red_02')
         WaitSeconds( 0.25 )
-        CreateLightParticle(self, -1, Army, 10, 20, 'glow_03', 'ramp_fire_06')
+        CreateLightParticle(self, -1, self.Army, 10, 20, 'glow_03', 'ramp_fire_06')
         WaitSeconds( 0.55 )        
-        CreateLightParticle(self, -1, Army, 20, 250, 'glow_03', 'ramp_nuke_04')
+        CreateLightParticle(self, -1, self.Army, 20, 250, 'glow_03', 'ramp_nuke_04')
       
         -- Create ground decals
         local orientation = RandomFloat( 0, 6.28 )
-        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', 8, 8, 400, 120, Army)
-        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 8, 8, 400, 120, Army)      
-        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 12, 12, 400, 120, Army)
+        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', 8, 8, 400, 120, self.Army)
+        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 8, 8, 400, 120, self.Army)      
+        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 12, 12, 400, 120, self.Army)
    
         -- Knockdown force rings
         DamageRing(self, position, 0.1, 20, 1, 'Force', false)
