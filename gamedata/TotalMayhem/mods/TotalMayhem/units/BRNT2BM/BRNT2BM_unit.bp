@@ -205,14 +205,8 @@ UnitBlueprint {
             ProjectileLifetime = 3,
 
             RackBones = {
-                {
-                    MuzzleBones = {'rl01','rl02'},
-                    RackBone = 'rocketlauncher',
-                },
-                {
-                    MuzzleBones = {'rl03','rl04'},
-                    RackBone = 'rocketlauncher01',
-                },
+                { MuzzleBones = {'rl01','rl02'}, RackBone = 'rocketlauncher' },
+                { MuzzleBones = {'rl03','rl04'}, RackBone = 'rocketlauncher01' },
             },
             RackFireTogether = true,
 
@@ -295,14 +289,8 @@ UnitBlueprint {
 			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'minigunmuzzle'},
-                    RackBone = 'minigun',
-                },
-                {
-                    MuzzleBones = {'minigunmuzzle01'},
-                    RackBone = 'minigun01',
-                },
+                { MuzzleBones = {'minigunmuzzle'}, RackBone = 'minigun' },
+                { MuzzleBones = {'minigunmuzzle01'}, RackBone = 'minigun01' },
             },
             RackFireTogether = true,
 
@@ -318,7 +306,7 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL,SATELLITE',
             TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'minigunmuzzle',
@@ -382,14 +370,8 @@ UnitBlueprint {
 			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'minigunmuzzle02'},
-                    RackBone = 'minigun02',
-                },
-                {
-                    MuzzleBones = {'minigunmuzzle03'},
-                    RackBone = 'minigun03',
-                },
+                { MuzzleBones = {'minigunmuzzle02'}, RackBone = 'minigun02' },
+                { MuzzleBones = {'minigunmuzzle03'}, RackBone = 'minigun03' },
             },
             RackFireTogether = true,
 
@@ -405,7 +387,7 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL,SATELLITE',
             TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'minigunmuzzle02',
