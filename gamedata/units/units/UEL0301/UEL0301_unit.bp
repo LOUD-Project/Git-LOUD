@@ -98,28 +98,14 @@ UnitBlueprint {
         AnimationWalk = '/units/uel0301/uel0301_awalk01.sca',
         AnimationWalkRate = 3.2,
 
-        Mesh = {
-            IconFadeInZoom = 130,
+        Mesh = { IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'uel0301_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'uel0301_lod1_specteam.dds',
-                },
+                { LODCutoff = 130, ShaderName = 'Unit' },
+                { LODCutoff = 240, ShaderName = 'Unit', AlbedoName = 'uel0301_lod1_albedo.dds', SpecularName = 'uel0301_lod1_specteam.dds' },
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/UEL0301/UEL0301_afold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { { Animation = '/units/UEL0301/UEL0301_afold.sca', Weight = 100 } },
 
         UniformScale = 0.17,
     },
@@ -610,7 +596,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
             
             TurretBoneMuzzle = 'Arm_Left_Muzzle',
             TurretBonePitch = 'Arm_Left_Barrel01',

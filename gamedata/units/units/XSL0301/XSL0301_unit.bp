@@ -507,7 +507,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE, HIGHALTAIR',
             
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',

@@ -486,7 +486,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,HIGHALTAIR',
             
             TurretBoneMuzzle = 'Laser',
             TurretBonePitch = 'Pulse_Laser',
@@ -559,7 +559,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE','SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             
             TrackingRadius = 1.3,
             TurretBoneMuzzle = 'Muzzle01',
