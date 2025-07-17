@@ -1774,10 +1774,9 @@ function CleanupEffectBag( self, EffectBag )
 		for _, v in self[EffectBag] do
 			v:Destroy()
 		end
-		
-	end
 	
-    self[EffectBag] = {}
+        self[EffectBag] = {}		
+	end
 	
 end
 
