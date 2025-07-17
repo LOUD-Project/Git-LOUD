@@ -95,11 +95,11 @@ UnitBlueprint {
                 {LODCutoff = 500, ShaderName = 'Unit'},
             },
         },
-        
+--[[        
         MovementEffects = {
             Air = { Effects = { { Bones = {'Engine_Left','Engine_Right'}, Type = 'AirMoveExhaust01' } } },
         },
-        
+--]]        
         UniformScale = 0.0038,
     },
 

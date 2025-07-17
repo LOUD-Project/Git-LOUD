@@ -123,10 +123,12 @@ UnitBlueprint {
         },
         
         MovementEffects = {
+--[[
             Air = {
                 Contrails = { Bones = {'Left_Exhaust','Right_Exhaust'} },
                 Effects = { { Bones = {'Left_Projectile','Right_Projectile'}, Type = 'AirMoveExhaust03' } },
             },
+--]]
             Land = {
                 Effects = { { Bones = {0}, Type = 'Landing01' } },
             },

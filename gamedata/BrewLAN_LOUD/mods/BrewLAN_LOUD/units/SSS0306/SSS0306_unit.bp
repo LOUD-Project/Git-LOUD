@@ -218,6 +218,7 @@ UnitBlueprint {
     Transport = {
         TransportClass = 3,
     },
+
     Weapon = {
         {
         
@@ -250,14 +251,8 @@ UnitBlueprint {
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 9,
 
-            --ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
-            --ProjectileLifetime = 10,
-
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle01','Muzzle02','Muzzle03'},
-                    RackBone = 'Muzzle01',
-                },
+                { MuzzleBones = {'Muzzle01','Muzzle02','Muzzle03'}, RackBone = 'Muzzle01' },
             },
 
             RackSalvoReloadTime = 1.5,  -- 1200 damage every 2.4 = 500 DPS
@@ -276,18 +271,19 @@ UnitBlueprint {
             },
 
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 0,
             TurretBoneYaw = 0,
-            TurretDualManipulators = false,
+
             TurretPitch = -20,
             TurretPitchRange = 0,
             TurretPitchSpeed = 0,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
         },
     },
