@@ -32,7 +32,8 @@ UnitBlueprint {
         MaxHealth = 1300,
         RegenRate = 2,
 
-        EconomyThreatLevel = 34,
+        EconomyThreatLevel = 36,
+    	NoTeleDistance = 72,
     },
 	
     Description = '<LOC bab4309_desc>Adv. Anti-Teleport Generator',
@@ -53,6 +54,8 @@ UnitBlueprint {
         BuildCostEnergy = 30900,
         BuildCostMass = 1750,
         BuildTime = 2500,
+
+		EnergyStorage = 600,
 		
         MaintenanceConsumptionPerSecondEnergy = 1050,
     },

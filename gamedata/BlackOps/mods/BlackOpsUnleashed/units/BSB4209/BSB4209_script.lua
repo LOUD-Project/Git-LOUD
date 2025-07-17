@@ -1,5 +1,7 @@
 local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
+local LOUDINSERT = table.insert
+
 BSB4209 = Class(SStructureUnit) {
 
 AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
@@ -8,49 +10,42 @@ AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
 
     	SStructureUnit.OnStopBeingBuilt(self,builder,layer)
 
+       	self.Rotator1 = CreateRotator( self, 'Array01', 'y', nil, 0, 15, 120 )
+        self.Trash:Add(self.Rotator1)
+        self.Rotator1:SetAccel(60)
+        
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
 
-        self.antiteleportEmitterTable = {}
-        self.AntiTeleportBag = {}
+        self.AmbientEffectsBag = {}
 
         self:ForkThread(self.ResourceThread)
     end,
     
-     OnScriptBitSet = function(self, bit)
+    AntiteleportEffects = function(self)
+
+        for k, v in self.AmbientEffectsBag do
+            v:Destroy()
+            self.AmbientEffectsBag[k] = nil
+        end
+        
+        local army = self.Army
+
+        for k, v in self.AntiTeleport do
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Light01', army, v ):ScaleEmitter(0.22) )
+        end
+    end,
+
+    OnScriptBitSet = function(self, bit)
 
         SStructureUnit.OnScriptBitSet(self, bit)
 
         if bit == 0 then
 
-            self.FieldActive = true
-            self:ForkThread(self.antiteleportEmitter)
             self:ForkThread(self.AntiteleportEffects)
+
             self:SetMaintenanceConsumptionActive()
-        
-        	if(not self.Rotator1) then
-            	self.Rotator1 = CreateRotator(self, 'Array01', 'y')
-            	self.Trash:Add(self.Rotator1)
-        	end
             
-        	self.Rotator1:SetTargetSpeed(-70)
-        	self.Rotator1:SetAccel(30)
-        end
-    end,
-    
-    
-    AntiteleportEffects = function(self)
-
-        if self.AntiTeleportBag then
-
-            for k, v in self.AntiTeleportBag do
-                v:Destroy()
-            end
-
-		    self.AntiTeleportBag = {}
-		end
-
-        for k, v in self.AntiTeleport do
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Light01', self:GetArmy(), v ):ScaleEmitter(0.5) )
+        	self.Rotator1:SetTargetSpeed(-120)
         end
     end,
     
@@ -60,76 +55,41 @@ AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
 
         if bit == 0 then 
 
-            self.FieldActive = false
-            self:ForkThread(self.KillantiteleportEmitter)
             self:SetMaintenanceConsumptionInactive()
 
-        	if(not self.Rotator1) then
-            	self.Rotator1 = CreateRotator(self, 'Array01', 'y')
-            	self.Trash:Add(self.Rotator1)
-        	end
-
         	self.Rotator1:SetTargetSpeed(0)
-        	self.Rotator1:SetAccel(30)
-        	
-        	if self.AntiTeleportBag then
 
-            	for k, v in self.AntiTeleportBag do
-                	v:Destroy()
-            	end
-
-		    	self.AntiTeleportBag = {}
+           	for k, v in self.AmbientEffectsBag do
+               	v:Destroy()
+                self.AmbientEffectsBag[k] = nil                    
 			end
 		end
 	end,
 	
-    
+    OnKilled = function(self, instigator, type, overkillRatio)
 
-    antiteleportEmitter = function(self)
+      	for k, v in self.AmbientEffectsBag do
+           	v:Destroy()
+		end
+        
+        self.AmbientEffectsBag = nil
 
-    	if not self:IsDead() then
+        SStructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        	WaitSeconds(0.5)
+    end,
 
-        	if not self:IsDead() then
-
-            	local platOrient = self:GetOrientation()
-            
-            	local location = self:GetPosition('BSB4209')
-
-            	local antiteleportEmitter = CreateUnit('beb0004', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
-
-            	table.insert (self.antiteleportEmitterTable, antiteleportEmitter)
-
-            	antiteleportEmitter:SetParent(self, 'bsb4209')
-            	antiteleportEmitter:SetCreator(self)  
-
-            	self.Trash:Add(antiteleportEmitter)
-        	end
-    	end 
-	end,
-
-
-	KillantiteleportEmitter = function(self, instigator, type, overkillRatio)
-
-    	if table.getn({self.antiteleportEmitterTable}) > 0 then
-
-        	for k, v in self.antiteleportEmitterTable do 
-            	IssueClearCommands({self.antiteleportEmitterTable[k]}) 
-            	IssueKillSelf({self.antiteleportEmitterTable[k]})
-        	end
-    	end
-	end,
-    
     ResourceThread = function(self) 
 
-    	if not self:IsDead() then
+    	if not self.Dead then
 
         	local energy = self:GetAIBrain():GetEconomyStored('Energy')
 
-        	if  energy <= 10 then 
+        	if  energy <= 350 then 
 
             	self:SetScriptBit('RULEUTC_ShieldToggle', false)
+                
+                self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
             	self:ForkThread(self.ResourceThread2)
 
         	else
@@ -142,11 +102,11 @@ AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
 
 	EconomyWaitUnit = function(self)
 
-    	if not self:IsDead() then
+    	if not self.Dead then
 
             WaitSeconds(2)
 
-        	if not self:IsDead() then
+        	if not self.Dead then
             	self:ForkThread(self.ResourceThread)
         	end
     	end
@@ -154,11 +114,13 @@ AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
 	
 	ResourceThread2 = function(self) 
 
-    	if not self:IsDead() then
+    	if not self.Dead then
 
         	local energy = self:GetAIBrain():GetEconomyStored('Energy')
 
         	if  energy >= 3000 then 
+
+                self:AddToggleCap('RULEUTC_ShieldToggle')
 
             	self:SetScriptBit('RULEUTC_ShieldToggle', true)
             	self:ForkThread(self.ResourceThread)
@@ -172,11 +134,11 @@ AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
 
 	EconomyWaitUnit2 = function(self)
 
-    	if not self:IsDead() then
+    	if not self.Dead then
 
             WaitSeconds(2)
 
-        	if not self:IsDead() then
+        	if not self.Dead then
             	self:ForkThread(self.ResourceThread2)
         	end
     	end

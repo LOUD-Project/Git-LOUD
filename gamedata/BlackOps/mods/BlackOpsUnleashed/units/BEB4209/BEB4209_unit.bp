@@ -34,9 +34,11 @@ UnitBlueprint {
 		RegenRate = 1,
 
         EconomyThreatLevel = 24,    -- 50% of NoTeleDistance -- 
+
+    	NoTeleDistance = 48,
     },
 	
-    Description = '<LOC beb4209_desc>Anti-Teleport Field Tower',
+    Description = '<LOC beb4209_desc>Anti-Teleport Tower',
 	
     Display = {
         Abilities = {
@@ -59,6 +61,8 @@ UnitBlueprint {
 		BuildRate = 15,
 		
 		BuildableCategory = {'beb4309'},
+
+		EnergyStorage = 350,
 
         MaintenanceConsumptionPerSecondEnergy = 350,
     },
@@ -91,7 +95,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Anti-Teleport Field Tower',
+        HelpText = 'Anti-Teleport Tower',
     },
 	
     LifeBarHeight = 0.075,

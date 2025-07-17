@@ -34,6 +34,7 @@ UnitBlueprint {
         RegenRate = 1,
 
         EconomyThreatLevel = 24,
+    	NoTeleDistance = 48,
     },
 	
     Description = '<LOC bsb4209_desc>Anti-Teleport Tower',
@@ -77,6 +78,8 @@ UnitBlueprint {
 		BuildRate = 15,
         
 		BuildableCategory = {'bsb4309'},
+
+		EnergyStorage = 350,
 		
         MaintenanceConsumptionPerSecondEnergy = 315,
     },
@@ -151,7 +154,6 @@ UnitBlueprint {
             Damage = 0,
         
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water',
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },

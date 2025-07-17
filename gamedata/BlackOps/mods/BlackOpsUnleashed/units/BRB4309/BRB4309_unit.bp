@@ -32,6 +32,7 @@ UnitBlueprint {
         RegenRate = 3,
         
         EconomyThreatLevel = 34,        
+    	NoTeleDistance = 72,
     },
 	
     Description = '<LOC brb4309_desc>Advanced Anti-Teleport Tower',
@@ -52,6 +53,8 @@ UnitBlueprint {
         BuildCostEnergy = 32500,
         BuildCostMass = 1900,
         BuildTime = 2500,
+
+		EnergyStorage = 600,
 		
         MaintenanceConsumptionPerSecondEnergy = 1050,
     },

@@ -32,6 +32,7 @@ UnitBlueprint {
         RegenRate = 3,
 
         EconomyThreatLevel = 34,
+    	NoTeleDistance = 70,
     },
 	
     Description = '<LOC bsb4309_desc>Advanced Anti-Teleport Tower',
@@ -54,16 +55,7 @@ UnitBlueprint {
             },
         },
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', ShaderName = 'Seraphim' } } },
 
         UniformScale = 0.075,
     },
@@ -72,6 +64,8 @@ UnitBlueprint {
         BuildCostEnergy = 32500,
         BuildCostMass = 1900,
         BuildTime = 2500,
+
+		EnergyStorage = 600,
 		
         MaintenanceConsumptionPerSecondEnergy = 945,
     },
@@ -147,7 +141,6 @@ UnitBlueprint {
             Damage = 0,
 			
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water',
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },

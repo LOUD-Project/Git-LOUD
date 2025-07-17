@@ -6,18 +6,56 @@ local LOUDINSERT = table.insert
 
 BEB4209 = Class(TStructureUnit) {
 
-	AntiTeleport = {'/effects/emitters/seraphim_shield_generator_t3_03_emit.bp','/effects/emitters/seraphim_shield_generator_t2_03_emit.bp'},
+    AmbientEffects = {'/effects/emitters/aeon_shield_generator_t3_04_emit.bp'},
+
+    ShieldEffects = {
+       '/effects/emitters/terran_shield_generator_t2_01_emit.bp',
+        '/effects/emitters/terran_shield_generator_t2_02_emit.bp',
+    },
     
     OnStopBeingBuilt = function(self,builder,layer)
 
         TStructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
+        self.Slider1 = CreateSlider( self, 'Spinner_middle', 0, 0, 0, 0.1, true )
+        self.Trash:Add(self.Slider1)
+        
+        self.Slider2 = CreateSlider( self, 'Spinner_lower', 0, 0, 0, 0.1, true )
+        self.Trash:Add(self.Slider2)
+
+        self.Rotator2 = CreateRotator(self, 'Spinner_middle', 'y', nil, 0, 0, 0)
+       	self.Rotator2:SetAccel(40)
+
+        self.Trash:Add(self.Rotator2)
 
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
-		
-        self.antiteleportEmitterTable = {}
-        self.AntiTeleportBag = {}
+
+        self.AmbientEffectsBag = {}
 		
         self:ForkThread(self.ResourceThread)
+    end,
+	
+    AntiteleportEffects = function(self)
+
+        for k, v in self.AmbientEffectsBag do
+            v:Destroy()
+            self.AmbientEffectsBag[k] = nil
+        end
+	
+        local army = self.Army
+
+        for k, v in self.AmbientEffects do
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter(self,'BEB4209',army,v):ScaleEmitter(0.2):OffsetEmitter(0,-0.5, 0) )
+        end
+   
+        for k, v in self.ShieldEffects do
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.15):OffsetEmitter(0, 0, -0.46) )
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.15):OffsetEmitter(0, 0, -0.46) )
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.15):OffsetEmitter(0, 0.27, -0.46) )
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.15):OffsetEmitter(0,-0.27, -0.46) )
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.15):OffsetEmitter(0, 0.27, -0.46) )
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.15):OffsetEmitter(0,-0.27, -0.46) )
+        end
     end,
     
     OnScriptBitSet = function(self, bit)
@@ -25,47 +63,15 @@ BEB4209 = Class(TStructureUnit) {
         TStructureUnit.OnScriptBitSet(self, bit)
 
         if bit == 0 then 
-		
-            self:ForkThread(self.antiteleportEmitter)
-            self:SetMaintenanceConsumptionActive()
 
-            if(not self.Rotator2) then
-                self.Rotator2 = CreateRotator(self, 'Spinner_middle', 'y')
-                self.Trash:Add(self.Rotator2)
-            end
+        	self:ForkThread(self.AntiteleportEffects)
             
-        	self.Rotator2:SetTargetSpeed(300)
-        	self.Rotator2:SetAccel(30)
-        end
-    end,
-	
-    AntiteleportEffects = function(self)
-	
-    	if self.AntiTeleportBag then
-            for k, v in self.AntiTeleportBag do
-                v:Destroy()
-            end
-		    self.AntiTeleportBag = {}
-		end
-        
-        local army = self.Army
-		local CreateAttachedEmitter = CreateAttachedEmitter
-        
-        for k, v in self.AntiTeleport do
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1) )
-            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
+            self.Slider1:SetGoal(0,0,0)
+            self.Slider2:SetGoal(0,0,0)
+
+        	self.Rotator2:SetTargetSpeed(80)
+
+            self:SetMaintenanceConsumptionActive()
         end
     end,
     
@@ -74,56 +80,32 @@ BEB4209 = Class(TStructureUnit) {
         TStructureUnit.OnScriptBitClear(self, bit)
 		
         if bit == 0 then 
-		
-			self:ForkThread(self.KillantiteleportEmitter)
-			self:SetMaintenanceConsumptionInactive()
-        	
-        	if (not self.Rotator2) then
-            	self.Rotator2 = CreateRotator(self, 'Spinner_middle', 'y')
-            	self.Trash:Add(self.Rotator2)
-        	end
 			
+            self.Slider1:SetGoal(0,-0.4,0)
+            self.Slider2:SetGoal(0,-0.4,0)
+
         	self.Rotator2:SetTargetSpeed(0)
-        	self.Rotator2:SetAccel(50)
+
+           	for k, v in self.AmbientEffectsBag do
+               	v:Destroy()
+                self.AmbientEffectsBag[k] = nil                    
+			end
+
+			self:SetMaintenanceConsumptionInactive()
 		end
     end,
+	
+    OnKilled = function(self, instigator, type, overkillRatio)
 
-    antiteleportEmitter = function(self)
+      	for k, v in self.AmbientEffectsBag do
+           	v:Destroy()
+		end
+        
+        self.AmbientEffectsBag = nil
 
-    	if not self.Dead then
-		
-        	WaitSeconds(0.5)
+        TStructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        	if not self.Dead then
-
-            	local platOrient = self:GetOrientation()
-            
-            	local location = self:GetPosition('BEB4209')
-
-            	local antiteleportEmitter = CreateUnit('beb0004', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
-
-            	LOUDINSERT (self.antiteleportEmitterTable, antiteleportEmitter)
-
-            	antiteleportEmitter:SetParent(self, 'beb4209')
-            	antiteleportEmitter:SetCreator(self)  
-
-            	self.Trash:Add(antiteleportEmitter)
-        	end
-    	end 
-
-	end,
-
-
-	KillantiteleportEmitter = function(self, instigator, type, overkillRatio)
-
-    	if table.getn({self.antiteleportEmitterTable}) > 0 then
-        	for k, v in self.antiteleportEmitterTable do 
-            	IssueClearCommands({self.antiteleportEmitterTable[k]}) 
-            	IssueKillSelf({self.antiteleportEmitterTable[k]})
-        	end
-    	end
-
-	end,
+    end,
     
     ResourceThread = function(self) 
 
@@ -131,9 +113,12 @@ BEB4209 = Class(TStructureUnit) {
 		
         	local energy = self:GetAIBrain():GetEconomyStored('Energy')
 
-        	if  energy <= 10 then 
+        	if  energy <= 350 then 
 
             	self:SetScriptBit('RULEUTC_ShieldToggle', false)
+                
+                self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
             	self:ForkThread(self.ResourceThread2)
 
         	else
@@ -164,7 +149,10 @@ BEB4209 = Class(TStructureUnit) {
 
         	if  energy >= 3000 then 
 
+                self:AddToggleCap('RULEUTC_ShieldToggle')
+
             	self:SetScriptBit('RULEUTC_ShieldToggle', true)
+
             	self:ForkThread(self.ResourceThread)
 
         	else
@@ -182,8 +170,9 @@ BEB4209 = Class(TStructureUnit) {
             	self:ForkThread(self.ResourceThread2)
         	end
     	end
+
 	end,
-	
+
 }
 
 TypeClass = BEB4209

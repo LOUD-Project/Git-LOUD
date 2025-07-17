@@ -37,6 +37,8 @@ UnitBlueprint {
         RegenRate = 1,
 
         EconomyThreatLevel = 16,
+
+    	NoTeleDistance = 48,
     },
 	
     Description = '<LOC bab4209_desc>Anti-Teleport Generator',
@@ -63,11 +65,19 @@ UnitBlueprint {
 		
         BuildRate = 15,
         
-		BuildableCategory = {'bab4309'},		
-		
+		BuildableCategory = {'bab4309'},
+
+		EnergyStorage = 350,
+
         MaintenanceConsumptionPerSecondEnergy = 350,
     },
-	
+    
+    Footprint = {
+        MinWaterDepth = 3,
+        SizeX = 2,
+        SizeZ = 2,
+    },
+
     General = {
         FactionName = 'Aeon',
         Icon = 'amph',

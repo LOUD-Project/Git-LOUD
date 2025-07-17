@@ -1,27 +1,66 @@
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local Shield = import('/lua/shield.lua').Shield
+local CreateAttachedEmitter = CreateAttachedEmitter
 
-local ForkThread = ForkThread
+local LOUDINSERT = table.insert
 
 BRB4209 = Class(CStructureUnit) {
+
+    AmbientEffects = {'/effects/emitters/aeon_shield_generator_t3_04_emit.bp'},
+
+    ShieldEffects = {
+       '/effects/emitters/terran_shield_generator_t2_01_emit.bp',
+        '/effects/emitters/terran_shield_generator_t2_02_emit.bp',
+    },
 
     OnStopBeingBuilt = function(self,builder,layer)
 
         CStructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
+        self.Slider1 = CreateSlider( self, 'Shaft', 0, 0, 0, 0.15, true )
+        self.Trash:Add(self.Slider1)
+         
+        self.Rotator1 = CreateRotator(self, 'Shaft', 'y', nil, 0, 15, 20 + Random(0, 20))
+        self.Trash:Add(self.Rotator1)
+        self.Rotator1:SetAccel(10)
 
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
 
-        self.antiteleportEmitterTable = {}
+        self.AmbientEffectsBag = {}
+
         self:ForkThread(self.ResourceThread)
     end,
-
+	
+	AntiteleportEffects = function(self)
+	
+        for k, v in self.AmbientEffectsBag do
+            v:Destroy()
+            self.AmbientEffectsBag[k] = nil
+		end
+		
+        local army = self.Army
+        
+        for k, v in self.AmbientEffects do
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter(self,'BRB4209',army,v):ScaleEmitter(0.21) )
+        end
+		
+        for k, v in self.ShieldEffects do
+            LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'Spike', army, v ):ScaleEmitter(0.25):OffsetEmitter(0,0.65,-0.8) )
+        end        
+    end,
+   
     OnScriptBitSet = function(self, bit)
 
        	CStructureUnit.OnScriptBitSet(self, bit)
 
        	if bit == 0 then 
-       		self:ForkThread(self.antiteleportEmitter)
+
+        	self:ForkThread(self.AntiteleportEffects)
+
+            self.Slider1:SetGoal(0,0.45,0)            
+
+            self.Rotator1:SetTargetSpeed(20 + Random(0,20))
+
         	self:SetMaintenanceConsumptionActive()
         end
     end,
@@ -31,59 +70,43 @@ BRB4209 = Class(CStructureUnit) {
         CStructureUnit.OnScriptBitClear(self, bit)
         
         if bit == 0 then 
-        	self:ForkThread(self.KillantiteleportEmitter)
+
+            self.Slider1:SetGoal(0,0,0)
+        
+            self.Rotator1:SetTargetSpeed(0)
+
         	self:SetMaintenanceConsumptionInactive()
+
+           	for k, v in self.AmbientEffectsBag do
+               	v:Destroy()
+                self.AmbientEffectsBag[k] = nil                    
+			end
         end
     end,
-    
-    antiteleportEmitter = function(self)
+	
+    OnKilled = function(self, instigator, type, overkillRatio)
 
-    	if not self.Dead then
+      	for k, v in self.AmbientEffectsBag do
+           	v:Destroy()
+		end
+        
+        self.AmbientEffectsBag = nil
 
-        	WaitSeconds(0.5)
+        CStructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        	if not self.Dead then
+    end,
 
-            	local platOrient = self:GetOrientation()
-
-            	local location = self:GetPosition('Shaft')
-
-            	local antiteleportEmitter = CreateUnit('beb0004', self.Army, location[1], location[2]+1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
-
-            	table.insert (self.antiteleportEmitterTable, antiteleportEmitter)
-            
-            	antiteleportEmitter:AttachTo(self, 'Shaft') 
-
-            	antiteleportEmitter:SetParent(self, 'brb4209')
-            	antiteleportEmitter:SetCreator(self)  
-
-            	self.Trash:Add(antiteleportEmitter)
-        	end
-    	end 
-	end,
-
-
-	KillantiteleportEmitter = function(self, instigator, type, overkillRatio)
-
-    	if table.getn({self.antiteleportEmitterTable}) > 0 then
-
-        	for k, v in self.antiteleportEmitterTable do 
-            	IssueClearCommands({self.antiteleportEmitterTable[k]}) 
-            	IssueKillSelf({self.antiteleportEmitterTable[k]})
-        	end
-            
-    	end
-	end,
-    
    	ResourceThread = function(self) 
 
     	if not self.Dead then
 
         	local energy = self:GetAIBrain():GetEconomyStored('Energy')
 
-        	if  energy <= 10 then 
+        	if  energy <= 350 then 
 
             	self:SetScriptBit('RULEUTC_ShieldToggle', false)
+                
+                self:RemoveToggleCap('RULEUTC_ShieldToggle')
 
             	self:ForkThread(self.ResourceThread2)
 
@@ -116,6 +139,8 @@ BRB4209 = Class(CStructureUnit) {
 
         	if  energy >= 3000 then 
 
+                self:AddToggleCap('RULEUTC_ShieldToggle')
+                
             	self:SetScriptBit('RULEUTC_ShieldToggle', true)
             	self:ForkThread(self.ResourceThread)
 
