@@ -1,5 +1,5 @@
 name = "Wyvern Battle Pack for LOUD"
-version = 6.3
+version = 7.11
 copyright = "Copyright © 2010, Brandon"
 description = "Selected Wyvern Battle Pack units for The LOUD Project"
 author = "Brandon Potter"
