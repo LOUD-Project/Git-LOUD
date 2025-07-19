@@ -3162,6 +3162,10 @@ Unit = Class(UnitMethods) {
 			end
             
 		end
+
+        if not self.OnBeingBuiltEffectsBag[1] then
+            self.OnBeingBuiltEffectsBag = nil
+        end        
 		
 		if bp.Defense.LifeTime then
 			self:ForkThread( self.LifeTimeThread, bp.Defense.Lifetime )
