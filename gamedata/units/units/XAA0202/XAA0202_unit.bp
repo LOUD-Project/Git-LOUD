@@ -224,10 +224,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Muzzle',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Muzzle' },
             },
 
             RangeCategory = 'UWRC_AntiAir',

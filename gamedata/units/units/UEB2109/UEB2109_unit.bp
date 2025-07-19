@@ -53,16 +53,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 50,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ueb2109_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ueb2109_lod1_specteam.dds',
-                },
+                { LODCutoff = 130, ShaderName = 'Unit' },
+                { LODCutoff = 215, ShaderName = 'Unit', AlbedoName = 'ueb2109_lod1_albedo.dds', SpecularName = 'ueb2109_lod1_specteam.dds' },
             },
         },
         UniformScale = 0.05,
@@ -171,16 +163,13 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 6.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Turret_Muzzle'},
-                    RackBone = 'Turret_Muzzle',
-                },
+                { MuzzleBones = {'Turret_Muzzle'}, RackBone = 'Turret_Muzzle' },
             },
 
             RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
@@ -202,7 +191,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -10,
             TurretPitchRange = 35,
