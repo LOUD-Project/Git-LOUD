@@ -26,14 +26,14 @@ AeonBROT1BTproj         = Class(MultiPolyTrailProjectile) {
 
 AeonBROT1PDROproj       = Class(MultiPolyTrailProjectile) {
     FxTrails = EffectTemplate.AAntiMissileFlare,
-    FxTrailScale = .5,
+    FxTrailScale = .1,
     FxImpactUnit = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
-    FxUnitHitScale = .6,
+    FxUnitHitScale = .4,
     FxImpactProp = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
-    FxPropHitScale = .6,
+    FxPropHitScale = .4,
     FxImpactLand = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
-    FxLandHitScale = .6,
-    FxImpactUnderWater = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
+    FxLandHitScale = .3,
+
     FxImpactWater = EffectTemplate.AMercyGuidedMissileSplitMissileHitLand,
 }
 

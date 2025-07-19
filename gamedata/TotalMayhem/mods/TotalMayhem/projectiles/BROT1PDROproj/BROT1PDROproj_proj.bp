@@ -9,7 +9,7 @@ ProjectileBlueprint {
     },
 
     Display = {
-        ImpactEffects = {Scale = 0.5,Type = 'Large01'},
+        ImpactEffects = {Scale = 0.5,Type = 'Medium01'},
         Mesh = {
             LODs = {
                 {
@@ -21,17 +21,17 @@ ProjectileBlueprint {
             },
         },
         StrategicIconSize = 1,
-        UniformScale = 0.35,
+        UniformScale = 0.25,
     },
 
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,
-        InitialSpeed = 65,
-        MaxSpeed = 65,
+        InitialSpeed = 25,
+        MaxSpeed = 45,
         MaxZigZag = 5,
         TrackTarget = false,
-        TurnRate = 360,
+        TurnRate = 180,
         VelocityAlign = true,
         ZigZagFrequency = 1,
     },

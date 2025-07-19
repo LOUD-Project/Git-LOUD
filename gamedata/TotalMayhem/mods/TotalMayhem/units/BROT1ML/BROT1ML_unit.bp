@@ -170,7 +170,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 18,
             MuzzleVelocity = 14.5,
 			MuzzleVelocityReduceDistance = 25,
-			
+
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1PDROproj/BROT1PDROproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
 			
