@@ -1,6 +1,6 @@
 name = "BrewLAN for LOUD"
 uid = "25D57D85-7D84-27HT-A501-BR3WL4N000079" -- this is UID hard coded into hook/lua/game.lua and hook/lua/system/blueprints.lua
-version = 6.3
+version = 7.0
 copyright = "� 2009 - 2023 Sean Wheeldon"
 description = "Adds most of the BrewLAN units, specifically tailored for use with The LOUD Project"
 author = "Sean Wheeldon"
