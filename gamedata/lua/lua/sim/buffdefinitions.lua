@@ -181,22 +181,6 @@ BuffBlueprint { Name = 'PerimeterOpticsPackage',
     },
 }
 
-BuffBlueprint { Name = 'AIRSTAGING',
-	BuffType = 'AIRSTAGING',
-	Stacks = 'IGNORE',
-	Duration = -1,
-	Affects = {
-		Health = {
-			Add = 0,
-			Mult = 1.06,
-		},
-		FuelRatio = {
-			Add = 0.085,
-			Mult = 1.0,
-		}
-	},
-}
-
 BuffBlueprint { Name = 'CybranOpticalDisruptionField',
     DisplayName = 'CybranOpticalDisruptionField',
     BuffType = 'COUNTERINTEL',
@@ -1007,6 +991,22 @@ BuffBlueprint { Name = 'CheatALL',
     },
 }
 
+BuffBlueprint { Name = 'AIRSTAGING',
+	BuffType = 'AIRSTAGING',
+	Stacks = 'IGNORE',
+	Duration = -1,
+	Affects = {
+		Health = {
+			Add = 0,
+			Mult = 1.06,
+		},
+		FuelRatio = {
+			Add = 0.085,
+			Mult = 1.0,
+		},
+	},
+}
+
 BuffBlueprint { Name = 'OutOfFuel',
     BuffType = 'MOVEMENTCHEAT',
 	ParsedEntityCategory = categories.MOBILE * categories.AIR,
@@ -1024,6 +1024,39 @@ BuffBlueprint { Name = 'OutOfFuel',
         TurnMult = {
             Add = 0,
             Mult = 0.3,
+        },
+        MaxRadius = {
+            Add = 0,
+            Mult = 0.8,
+        }
+	},
+}
+
+BuffBlueprint { Name = 'Landing',
+    BuffType = 'MOVEMENTCHEAT',
+	ParsedEntityCategory = categories.MOBILE * categories.AIR,
+    Stacks = 'IGNORE',
+    Duration = 3,
+    Affects = {
+        -- to facilitate 'braking'
+        AccelMult = {
+            Add = 0,
+            Mult = 3.5,
+        },
+        -- but not speed
+		SpeedMult = {
+			Add = 0,
+			Mult = 0.1,
+		},
+        -- turn more quickly
+        TurnMult = {
+            Add = 0,
+            Mult = 3.5,
+        },
+        -- desensitize weapons to avoid distraction
+        MaxRadius = {
+            Add = 0,
+            Mult = 0.1,
         }
 	},
 }
@@ -1045,6 +1078,10 @@ BuffBlueprint { Name = 'HeavyDamageAir',
         TurnMult = {
             Add = 0,
             Mult = 0.75,
+        },
+        MaxRadius = {
+            Add = 0,
+            Mult = 0.65,
         }
 	},
 }
@@ -1066,6 +1103,10 @@ BuffBlueprint { Name = 'SevereDamageAir',
         TurnMult = {
             Add = 0,
             Mult = 0.75,
+        },
+        MaxRadius = {
+            Add = 0,
+            Mult = 0.4,
         }
 	},
 }

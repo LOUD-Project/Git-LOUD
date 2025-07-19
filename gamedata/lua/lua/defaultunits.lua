@@ -1732,6 +1732,7 @@ MobileUnit = Class(Unit) {
                 PlayAnim( self.SurfaceAnimator, surfaceAnim ):SetRate(1)
             end
         end
+
 	end,
 
     OnLayerChange = function(self, new, old)
@@ -3978,6 +3979,8 @@ AirUnit = Class(MobileUnit) {
 	end,
 
     OnMotionHorzEventChange = function( self, new, old )
+        
+        --LOG("*AI DEBUG AirUnit Horiz change from "..repr(old).." to "..repr(new) )
     
         MobileUnitOnMotionHorzEventChange( self, new, old)
         
@@ -3986,9 +3989,15 @@ AirUnit = Class(MobileUnit) {
     OnMotionVertEventChange = function( self, new, old )
 
 		if not self.Dead then
+        
+            --LOG("*AI DEBUG AirUnit Verti change from "..repr(old).." to "..repr(new) )
 
 			if (new == 'Down') then
 
+                if not HasBuff( self,'Landing') then
+                    ApplyBuff(self,'Landing')
+                end
+  
 				PlayUnitSound(self,'Landing')
 
 			elseif (new == 'Bottom') or (new == 'Hover') then
@@ -4016,8 +4025,10 @@ AirUnit = Class(MobileUnit) {
 
     end,
 
-	--- fires when the unit fuel falls below the trigger threshold
+	--- fires when the unit fuel falls below the trigger threshold ?
     OnRunOutOfFuel = function(self)
+        
+        --LOG("*AI DEBUG AirUnit OnRunOutOfFuel")
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
@@ -4032,18 +4043,22 @@ AirUnit = Class(MobileUnit) {
         self.HasFuel = false
     end,
 
-	--- fires when the unit fuel is above the trigger threshold
+	--- fires when the unit fuel is above the trigger threshold ?
     OnGotFuel = function(self)
 
 		if HasBuff( self,'OutOfFuel') then
             RemoveBuff(self,'OutOfFuel')
         end
+        
+        --LOG("*AI DEBUG AirUnit OnGotFuel")
 
 		self.HasFuel = true
     end,
 
 	--- this fires when the unit attaches to an airpad
     OnStartRefueling = function(self)
+        
+        --LOG("*AI DEBUG AirUnit OnStartRefueling")
 
         PlayUnitSound(self,'Refueling')
 		
