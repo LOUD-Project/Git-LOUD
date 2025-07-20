@@ -1,3 +1,25 @@
+### Release 07-19-2025
+
+Black Ops for LOUD 7.15
+BrewLAN for LOUD 0.8.8.9.118
+Total Mayhem for LOUD 7.09
+UNITS 7.16
+Wyvern for LOUD 7.11
+
+- fixed Dragonite death animation
+- Littleboy Napalm rocket fixed
+- Banshee T2 bot - fixed SATELLITE targeting
+- All SACU - fixed SATELLITE targeting
+- reworked all the BO Anti-teleport structures to revised effects and removed need for 'invisible' unit 
+    -- this also fixes an error that was being caused when building anti-teleport structures
+- added new air unit buff 'Landing' to address speed & turn issues while landing at airpads
+    -- reduce speed, increase brake & turn, reduce weapon range to prevent target distraction 
+    -- non-stacking buff that lasts 3 seconds (enough time to effect a quick airpad landing)
+    -- affects only landings at airpads - or actual 'stop' commands
+- revised 'Out Of Fuel' air unit buff to include weapon range reduction of 20%
+- revised 'Heavy Damage' and 'Severe Damage' buffs for air units to include weapon range reductions (35% and 60% respectively)
+
+
 ### Release 07-12-2025
 
 LUA 7.26
@@ -6,6 +28,7 @@ Black Ops for LOUD 7.14
 BrewLAN for LOUD 0.8.8.9.117
 PROJECTILES 7.06
 UNITS 7.15
+Wyvern for LOUD 7.10
 
 - Black Ops ACU - torso turn speed standardized at 40 for all torso yaw weapons
 - T2 Gunships flight parameters tightened to more closely align with T3, lift parameters, fuel recharge, turret yaw rates
