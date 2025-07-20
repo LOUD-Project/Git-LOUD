@@ -4045,11 +4045,15 @@ Unit = Class(UnitMethods) {
                 effects = GetTerrainTypeEffects( FxBlockType, FxBlockKey, Position, vTypeGroup.Type, TypeSuffix )
             end
             
-            --LOG("*AI DEBUG CreateTerrainEffects for "..repr(FxBlockType).." "..repr(FxBlockKey).." "..repr(vTypeGroup).." Effects are "..repr(effects) )
+            --LOG("*AI DEBUG CreateTerrainEffects for "..repr(FxBlockType).." "..repr(FxBlockKey).." "..repr(vTypeGroup).." in bag "..repr(EffectBag).." Effects are "..repr(effects) )
 
 			if effects then
             
                 local emit
+                
+                if EffectBag and not self[EffectBag] then
+                    self[EffectBag] = {}
+                end
 			
 				for _, vBone in vTypeGroup.Bones do
 				
@@ -4060,12 +4064,14 @@ Unit = Class(UnitMethods) {
 						if vTypeGroup.Offset then
 							emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
 						end
-						
-						if EffectBag then
-							LOUDINSERT( EffectBag, emit )
+                        
+                        if EffectBag then
+							LOUDINSERT( self[EffectBag], emit )
 						end
 					end
 				end
+                
+                --LOG("*AI DEBUG EffectBag "..repr(EffectBag).." after create terrain effect is "..repr(self[EffectBag]))
 			end
         end
 		

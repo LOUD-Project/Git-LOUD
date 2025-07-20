@@ -1771,11 +1771,13 @@ function CleanupEffectBag( self, EffectBag )
 
 	if self[EffectBag] then
 	
-		for _, v in self[EffectBag] do
+		for k, v in self[EffectBag] do
 			v:Destroy()
+            self[EffectBag][k] = nil
 		end
-	
-        self[EffectBag] = {}		
+        
+        --LOG("*AI DEBUG Effect Bag "..repr(EffectBag).." after cleanup is "..repr(self[EffectBag]))
+
 	end
 	
 end

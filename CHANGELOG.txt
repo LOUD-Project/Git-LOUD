@@ -1,5 +1,13 @@
+### Release 07-20-2025
+
+LUA 7.28
+
+- fixed an issue where movement effects were not being properly cleaned up causing late-game crashes
+
+
 ### Release 07-19-2025
 
+LUA 7.27
 Black Ops for LOUD 7.15
 BrewLAN for LOUD 0.8.8.9.118
 Total Mayhem for LOUD 7.09

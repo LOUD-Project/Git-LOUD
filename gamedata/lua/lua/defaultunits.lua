@@ -1296,7 +1296,7 @@ MobileUnit = Class(Unit) {
 				end
 
 				if bpMTable[self.CacheLayer].TopSpeedFX then
-					self:CreateMovementEffects( self.TopSpeedEffectsBag, 'TopSpeed' )
+					self:CreateMovementEffects( 'TopSpeedEffectsBag', 'TopSpeed' )
 				end
 
 			end
@@ -1306,7 +1306,7 @@ MobileUnit = Class(Unit) {
 				self:DestroyIdleEffects()
 				self:DestroyMovementEffects()
 
-				self:CreateMovementEffects( self.MovementEffectsBag, nil )
+				self:CreateMovementEffects( 'MovementEffectsBag', nil )
 
 				if bpMTable.BeamExhaust then
 					self:UpdateBeamExhaust( 'Cruise' )
@@ -1480,7 +1480,7 @@ MobileUnit = Class(Unit) {
 
             self:DestroyMovementEffects()
 
-            self:CreateMovementEffects( self.MovementEffectsBag, nil, new )
+            self:CreateMovementEffects( 'MovementEffectsBag', nil, new )
         end
 
     end,
@@ -1603,6 +1603,8 @@ MobileUnit = Class(Unit) {
     DestroyMovementEffects = function( self )
 
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
+        
+        --LOG("*AI DEBUG Destroy Movement Effects "..repr(self.MovementEffectsBag))
 
         CleanupEffectBag(self,'MovementEffectsBag')
 
