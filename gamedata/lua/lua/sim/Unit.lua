@@ -338,12 +338,11 @@ Unit = Class(UnitMethods) {
 
         GetStat( self, 'FUELTIME', bp.Physics.FuelUseTime or -1 )
         SetStat( self, 'FUELTIME', bp.Physics.FuelUseTime or -1 )
-
-        -- would be nice to review the need for this as well
-        self.DamageEffectsBag = { {}, {}, {}, }
      
         local damageamounts = 1
         local vol = bp.SizeX * bp.SizeY * bp.SizeZ
+        
+        self.FxDamageAmount = {0,0,0}
 
         if vol >= 30 then
             damageamounts = 4
@@ -359,9 +358,9 @@ Unit = Class(UnitMethods) {
             damageamounts = 2
         end
 
-        self.FxDamage1Amount = self.FxDamage1Amount or damageamounts
-        self.FxDamage2Amount = self.FxDamage2Amount or damageamounts
-        self.FxDamage3Amount = self.FxDamage3Amount or damageamounts
+        self.FxDamageAmount[1] = self.FxDamage1Amount or damageamounts
+        self.FxDamageAmount[2] = self.FxDamage2Amount or damageamounts
+        self.FxDamageAmount[3] = self.FxDamage3Amount or damageamounts
    
         if self.LandBuiltHiddenBones then
 		
@@ -1537,35 +1536,39 @@ Unit = Class(UnitMethods) {
         self:ManageDamageEffects( new, old )
 
         self:DoOnHealthChangedCallbacks( new, old )
+
+        --LOG("*AI DEBUG DamageEffectsBag after HealthChange is "..repr(self.DamageEffectsBag) )
 		
     end,
 
     ManageDamageEffects = function(self, newHealth, oldHealth)
 
 		if not self.Dead then
+        
+            --LOG("*AI DEBUG ManageDamageEffects from "..oldHealth.." to "..newHealth )
 		
 			-- Health values come in at fixed 25% intervals
 			if newHealth < oldHealth then
 			
 				-- if we have any damage effects in the blueprint
-				if self.FxDamage1Amount or self.FxDamage2Amount or self.FxDamage3Amount then
+				if self.FxDamageAmount[1] then
 			
 					if oldHealth == 0.75 then
 				
-						for i = 1, self.FxDamage1Amount do
-							self:PlayDamageEffect(self.FxDamage1, self.DamageEffectsBag[1])
+						for i = 1, self.FxDamageAmount[1] do
+							self:PlayDamageEffect(self.FxDamage1, 1 )
 						end
 					
 					elseif oldHealth == 0.5 then
 				
-						for i = 1, self.FxDamage2Amount do
-							self:PlayDamageEffect(self.FxDamage2, self.DamageEffectsBag[2])
+						for i = 1, self.FxDamageAmount[2] do
+							self:PlayDamageEffect(self.FxDamage2, 2 )
 						end
 					
 					elseif oldHealth == 0.25 then
 				
-						for i = 1, self.FxDamage3Amount do
-							self:PlayDamageEffect(self.FxDamage3, self.DamageEffectsBag[3])
+						for i = 1, self.FxDamageAmount[3] do
+							self:PlayDamageEffect(self.FxDamage3, 3 )
 						end
 					
 					end
@@ -1581,28 +1584,31 @@ Unit = Class(UnitMethods) {
 				
 						for k, v in self.DamageEffectsBag[3] do
 							v:Destroy()
+                            self.DamageEffectsBag[3][k] = nil
 						end
 					
 					elseif newHealth <= 0.5 and newHealth > 0.25 and self.DamageEffectsBag[2] then
 				
 						for k, v in self.DamageEffectsBag[2] do
 							v:Destroy()
+                            self.DamageEffectsBag[2][k] = nil
 						end
 					
 					elseif newHealth <= 0.75 and newHealth > 0.5 and self.DamageEffectsBag[1] then
 				
 						for k, v in self.DamageEffectsBag[1] do
 							v:Destroy()
+                            self.DamageEffectsBag[1][k] = nil
 						end
 					
 					elseif newHealth > 0.75 then
 				
-						self:DestroyAllDamageEffects()    
+						self:DestroyAllDamageEffects()
 					
 					end
 					
 				end
-				
+			
 			end
 			
 		end
@@ -1612,10 +1618,16 @@ Unit = Class(UnitMethods) {
     PlayDamageEffect = function(self, fxTable, fxBag)
 	
         local effects = fxTable[Random(1,LOUDGETN(fxTable))]
+        
+        --LOG("*AI DEBUG PlayDamageEffect fxTable is "..repr(fxTable).." bag is "..repr(fxBag))
 		
         if not effects then
 			return
 		end
+        
+        if not self.DamageEffectsBag then
+            self.DamageEffectsBag = { {},{},{} }
+        end
 		
         local army = self.Army
 		
@@ -1644,7 +1656,7 @@ Unit = Class(UnitMethods) {
                 fx = LOUDATTACHEMITTER(self, bone, army, v):ScaleEmitter(self.FxDamageScale)
             end
 			
-            LOUDINSERT(fxBag, fx)
+            LOUDINSERT(self.DamageEffectsBag[fxBag], fx)
         end
 		
     end,
@@ -1656,10 +1668,12 @@ Unit = Class(UnitMethods) {
 			for kb, vb in self.DamageEffectsBag do
 			
 				for ke, ve in vb do
-				
 					ve:Destroy()
+                    self.DamageEffectsBag[kb][ke] = nil
 				end
 			end
+            
+            self.DamageEffectsBag = nil
 		end
 
     end,
@@ -1693,22 +1707,12 @@ Unit = Class(UnitMethods) {
 		self.Dead = true
         
         self.Killed = true
-        
-		--self.Weapons = nil
-
-		self.FxScale = nil
-		self.FxDamageScale = nil
-		self.FxDamage1 = nil
-		self.FxDamage2 = nil
-		self.FxDamage3 = nil
-		
+	
 		self.DisallowCollisions = nil
 
 		self.EconomyProductionInitiallyActive = nil
 
-		self.FxDamage1Amount = nil
-		self.FxDamage2Amount = nil
-		self.FxDamage3Amount = nil
+		self.FxDamageAmount = nil
 
 		self.HasFuel = nil
 		self.Buffs = nil
@@ -4095,7 +4099,7 @@ Unit = Class(UnitMethods) {
 					self.IdleEffectsBag = {}
 				end
 			
-				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, self.IdleEffectsBag )
+				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, 'IdleEffectsBag' )
 			end
 		end
 		

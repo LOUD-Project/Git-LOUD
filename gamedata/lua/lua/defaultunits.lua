@@ -1595,7 +1595,7 @@ MobileUnit = Class(Unit) {
 			local Effects = MotionEffects[self.CacheLayer..old..new] or false
 
 			if bpTable then
-				self:CreateTerrainTypeEffects( Effects, 'FXMotionChange', key, nil, self.IdleEffectsBag )
+				self:CreateTerrainTypeEffects( Effects, 'FXMotionChange', key, nil, 'IdleEffectsBag' )
 			end
 		end
     end,
@@ -2911,12 +2911,12 @@ WallStructureUnit = Class(StructureUnit) {
 
 		self.CacheLayer = moho.unit_methods.GetCurrentLayer(self)
 		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
+        
+        self.FxDamageAmount = {0,0,0}
 
-        self.FxDamage1Amount = self.FxDamage1Amount or 1
-        self.FxDamage2Amount = self.FxDamage2Amount or 1
-        self.FxDamage3Amount = self.FxDamage3Amount or 1
-
-        self.DamageEffectsBag = { {}, {}, {}, }
+        self.FxDamageAmount[1] = self.FxDamage1Amount or 1
+        self.FxDamageAmount[2] = self.FxDamage2Amount or 1
+        self.FxDamageAmount[3] = self.FxDamage3Amount or 1
 
         self.BuildEffectsBag = TrashBag()
 
@@ -3246,7 +3246,7 @@ RadarJammerUnit = Class(StructureUnit) {
 
 			self.IntelEffectsBag = {}
 
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, 'IntelEffectsBag' )
             
 			self.IntelFxOn = true
 
@@ -3395,10 +3395,7 @@ WalkingLandUnit = Class(MobileUnit) {
 	SetupEngineerCallbacks = function( eng, EM )
 		ConstructionUnit.SetupEngineerCallbacks( eng, EM )
 	end,
-    
-    --OnKilled = function(self, instigator, type, overkillRatio)
-      --  MobileUnitOnKilled(self, instigator, type, overkillRatio) 
-    --end,
+
 }
 
 DirectionalWalkingLandUnit = Class(WalkingLandUnit) {
