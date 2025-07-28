@@ -796,31 +796,34 @@ EngineerManager = Class(BuilderManager) {
 		-- looks for threats
 		local function DrawBaseMonitorRadius( range )
 
-			Position = aiBrain.BuilderManagers[self.LocationType].Position
-		
-			local color = 'cc0055'      -- red --
-		
-			if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase then
-            
-				color = '00cc55'        -- green --
-			end
-            
-            if aiBrain.BuilderManagers[LocationType].PrimarySeaAttackBase then
-            
-                color = '0066cc'        -- bluish
-            end
+			Position = aiBrain.BuilderManagers[self.LocationType].Position or false
 
-			if GetFocusArmy() == -1 or (ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), ArmyIndex) then
+			if Position then
+  		
+                local color = 'cc0055'      -- red --
+		
+                if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase then
+            
+                    color = '00cc55'        -- green --
+                end
+            
+                if aiBrain.BuilderManagers[LocationType].PrimarySeaAttackBase then
+            
+                    color = '0099dd'        -- bluish
+                end
+          
+                if GetFocusArmy() == -1 or (ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), ArmyIndex) then
 
-				for j = 1, 3 do
+                    for j = 1, 3 do
 			
-					for i = 0,9 do
+                        for i = 0,9 do
 				
-						DrawC( Position, range - i, color)
-						WaitTicks(1)
-					end
-				end
-			end
+                            DrawC( Position, range - i, color)
+                            WaitTicks(1)
+                        end
+                    end
+                end
+            end
 		end
 
 		-- This function is used by the AI to put markers on a map so that Allied Humans can see them
