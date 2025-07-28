@@ -635,11 +635,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
       
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
 			
-			-- can't be a major enemy base within 13km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 200 }},
+			-- can't be a major enemy base within 15km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 			
-			-- find a safe, unused, naval marker within 12km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+			-- find a safe, unused, naval marker within 14km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -654,7 +654,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 600,
+                LocationRadius = 725,
 				
                 ThreatMax = 50,
                 ThreatRings = 2,
@@ -748,7 +748,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
 			-- find a safe, unused, naval marker within 8km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 1, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 500, -250, 50, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -763,7 +763,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 400,
+                LocationRadius = 500,
 				
                 ThreatMax = 50,
                 ThreatRings = 1,
@@ -794,7 +794,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
 			-- find a safe, unused, naval marker within 8km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 1, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -809,7 +809,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 400,
+                LocationRadius = 600,
 				
                 ThreatMax = 50,
                 ThreatRings = 1,
@@ -854,7 +854,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             -- must be 5 T3 yards before we expand
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1100, -250, 50, 2, 'AntiSurface' } },
 			
 			-- all other 'counted' Sea bases must have at least 5 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Sea', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
@@ -870,7 +870,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 1250,
+                LocationRadius = 1100,
 
                 ThreatMax = 50,
                 ThreatRings = 2,

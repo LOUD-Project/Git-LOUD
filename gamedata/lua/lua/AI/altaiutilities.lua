@@ -345,7 +345,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
-		local minimum_baserange = 200
+		local minimum_baserange = 250
     
 		local Brains = ArmyBrains
         
@@ -419,7 +419,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		local Brains = ArmyBrains
 
 		-- minimum range that a DP can be from an existing base -- Land	
-		local minimum_baserange = 180
+		local minimum_baserange = 200
 
         local removed = false
         
@@ -489,7 +489,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 180
+		local minimum_baserange = 220
         
         local removed = false
 	
