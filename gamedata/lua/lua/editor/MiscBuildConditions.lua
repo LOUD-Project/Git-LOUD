@@ -51,9 +51,9 @@ function ReclaimablesInArea(aiBrain, locType, range)
     return false
 end
 
-function ReclaimablesInAreaEnergy(aiBrain, locType)
+function ReclaimablesInAreaEnergy(aiBrain, locType, range)
 
-    local ents = AIGetReclaimablesAroundLocation( aiBrain, locType )
+    local ents = AIGetReclaimablesAroundLocation( aiBrain, locType, range )
 	
     if ents[1] then
 	
