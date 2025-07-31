@@ -449,6 +449,9 @@ end
 function NoBaseAlert( aiBrain, locType )
 
 	if aiBrain.BuilderManagers[locType].EngineerManager.Active then
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locType.." has "..aiBrain.BuilderManagers[locType].EngineerManager.BaseMonitor.ActiveAlerts.." alerts" )
+
 		return aiBrain.BuilderManagers[locType].EngineerManager.BaseMonitor.ActiveAlerts == 0
 	end
 
@@ -1477,7 +1480,8 @@ function SetPrimarySeaAttackBase( aiBrain )
         WaitTicks(21)
     end
     
-    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+    local AttackPlanDialog      = ScenarioInfo.AttackPlanDialog or false
+    local GetClosestPathNode    = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
 
     -- clear existing base reference if it's no longer active
     if not aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].EngineerManager.Active then
@@ -1488,8 +1492,14 @@ function SetPrimarySeaAttackBase( aiBrain )
     local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
 
     if aiBrain.AttackPlan.Goal then
-    
-        local goal = aiBrain.AttackPlan.Goal
+
+        -- this is almost always a land position so it's not really valid for the sea attack base
+        -- perhaps we should locate the closest naval path marker to this position
+        local reason, goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
+
+        if AttackPlanDialog then    
+            LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase Goal is "..repr(goal))
+        end
         
         local Bases = {}
 		local counter = 0
@@ -1508,9 +1518,17 @@ function SetPrimarySeaAttackBase( aiBrain )
                 pathlength = 0
 			
 				-- here is the distance calculation
-                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
-                
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Water', v.Position, goal, 99999, 200)
+
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase using path "..repr(path))
+                end
+
                 if path then
+
+                    if AttackPlanDialog then
+                        ForkThread( DrawPath, v.Position, path, goal )
+                    end
                 
                     Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
                     counter = counter + 1
@@ -1547,6 +1565,11 @@ function SetPrimarySeaAttackBase( aiBrain )
 
 		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
+        
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Current goal distance is "..repr(currentgoaldistance).." to "..repr(goal) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Sea Bases are "..repr(Bases) )
+        end
 		
         -- a new base must be 10% closer then the existing one -- or don't change --
         if (currentgoaldistance and Bases[1].Distance < (currentgoaldistance * 0.9)) or LOUDGETN(Bases) == 1 then
