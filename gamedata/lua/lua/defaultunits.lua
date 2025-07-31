@@ -3417,8 +3417,16 @@ SubUnit = Class(MobileUnit) {
     FxDamage2 = {EffectTemplate.DamageSparks01},
     FxDamage3 = {EffectTemplate.DamageSparks01},
 
-    -- DESTRUCTION PARAMS
     PlayDestructionEffects = false,
+    
+    OnStopBeingBuilt = function(self,builder,layer)
+
+        UnitOnStopBeingBuilt(self,builder,layer)
+        
+        self:SetTurnMult(0.4)
+
+        self:SetMaintenanceConsumptionActive()
+    end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
@@ -3435,6 +3443,27 @@ SubUnit = Class(MobileUnit) {
 		end
 
         MobileUnitOnKilled(self, instigator, type, overkillRatio)
+    end,
+
+    OnMotionHorzEventChange = function( self, new, old )
+
+        if self.Dead then
+            return
+        end
+    
+        MobileUnitOnMotionHorzEventChange( self, new, old)
+  
+        if new == 'Cruise' then
+			self:SetTurnMult(0.7)
+        end
+
+        if (new == 'Stopped' or new == 'Stopping') then
+			self:SetTurnMult(0.5)
+        end
+        
+        if new == 'TopSpeed' then
+            self:SetTurnMult(1)
+        end
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
@@ -3610,6 +3639,8 @@ SeaUnit = Class(MobileUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 
         UnitOnStopBeingBuilt(self,builder,layer)
+        
+        self:SetTurnMult(0.4)
 
         self:SetMaintenanceConsumptionActive()
     end,
@@ -3629,6 +3660,28 @@ SeaUnit = Class(MobileUnit) {
         end
 
         MobileUnitOnKilled(self, instigator, type, overkillRatio)
+    end,
+
+    -- naval units don't get full turn rate until at max speed
+    OnMotionHorzEventChange = function( self, new, old )
+
+        if self.Dead then
+            return
+        end
+    
+        MobileUnitOnMotionHorzEventChange( self, new, old)
+  
+        if new == 'Cruise' then
+			self:SetTurnMult(0.7)
+        end
+
+        if (new == 'Stopped' or new == 'Stopping') then
+			self:SetTurnMult(0.4)
+        end
+        
+        if new == 'TopSpeed' then
+            self:SetTurnMult(1)
+        end
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
