@@ -48,7 +48,7 @@
 
     
     -- AI will display the route and goal of his current attack plan
-	ScenarioInfo.DisplayAttackPlans = false
+	ScenarioInfo.DisplayAttackPlans = true
 	LOG("*AI DEBUG      Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
     
     -- the AttackPlanner will dialog their selection and plotting data and decisions to the LOG
@@ -131,6 +131,9 @@
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
     
+    ScenarioInfo.DisplayTransportPaths = true
+    LOG("*AI DEBUG      Display Transport Paths is "..repr(ScenarioInfo.DisplayTransportPaths))    
+
     -- PATHFINDING dialogs - report pathfinding failures to log (useful in debugging poorly marked maps and doing threat evaluation debugging)
     ScenarioInfo.PathFindingDialog = false
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
@@ -368,7 +371,7 @@ function SetAIDebug(data)
                 for i, brain in BRAINS do
                 
                     if brain.BrainType == 'AI' and not brain.DrawPlanThread then
-                        brain.DrawPlanThread = ForkThread(LoudUtils.DrawPlanNodes, brain)
+                        brain.DrawPlanThread = ForkThread(LoudUtils.DrawAttackPlanNodes, brain)
                     end
                 end
                 

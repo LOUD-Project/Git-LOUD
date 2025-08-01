@@ -2129,17 +2129,18 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
 
             --end
 
-            if TransportDialog then
+            if TransportDialog or ScenarioInfo.DisplayTransportPaths then
             
-                if not safePath then
+                if not safePath and TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." no safe path to "..repr(location).." using threat of "..airthreatMax.." reason "..reason )
                 else
-                    
-                    if GetFocusArmy() == aiBrain.ArmyIndex then
-                        ForkTo ( import('/lua/loudutilities.lua').DrawPath, platpos, safePath, location )
+                    if ScenarioInfo.DisplayTransportPaths and GetFocusArmy() == aiBrain.ArmyIndex then
+                        ForkTo ( import('/lua/loudutilities.lua').DrawPath, platpos, safePath, location, 'cccc00' )
                     end
-                    
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - reason "..reason.." - cost "..pathcost)
+
+                    if TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - reason "..reason.." - cost "..pathcost)
+                    end
 
                 end
             end

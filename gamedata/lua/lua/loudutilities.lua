@@ -1526,8 +1526,8 @@ function SetPrimarySeaAttackBase( aiBrain )
 
                 if path then
 
-                    if AttackPlanDialog then
-                        ForkThread( DrawPath, v.Position, path, goal )
+                    if ScenarioInfo.DisplayAttackPlans then
+                        ForkThread( DrawPath, v.Position, path, goal, '0099dd' )
                     end
                 
                     Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
@@ -6599,7 +6599,7 @@ function CreateAttackPlan( self, enemyPosition )
     
 end
 
-function DrawPlanNodes(self)
+function DrawAttackPlanNodes(self)
 
 	local DC = DrawCircle
 	local DLP = DrawLinePop
@@ -6619,7 +6619,7 @@ function DrawPlanNodes(self)
 				-- draw the movement path --
 				for _,v in self.AttackPlan.StagePoints[0].Path do
 				
-					DLP( lastdraw, v, '0303ff' )
+					DLP( lastdraw, v, '00cc33' )
 					lastdraw = v
 				
 				end
@@ -6639,7 +6639,7 @@ function DrawPlanNodes(self)
 				
 					for _,v in self.AttackPlan.StagePoints[i].Path do
 				
-						DLP( lastdraw,v, '0303ff' )
+						DLP( lastdraw,v, '00cc33' )
 						lastdraw = v
 				
 					end
@@ -6671,7 +6671,7 @@ function AttackPlanMonitor(self)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
         
             if not self.DrawPlanThread then
-                self.DrawPlanThread = ForkThread( DrawPlanNodes, self )
+                self.DrawPlanThread = ForkThread( DrawAttackPlanNodes, self )
             end
 		end         
 
@@ -6948,14 +6948,14 @@ function RecheckHiPriTarget( aiBrain, targetlocation, targetclass, nulrange, Ent
 end
 
 
-function DrawPath ( origin, path, destination )
+function DrawPath ( origin, path, destination, overridecolor )
  
     for i = 0, 300 do
     
         local lastpoint = LOUDCOPY(origin)
         
         for _, v in path do
-            DrawLinePop( lastpoint, v, 'ffffff' )
+            DrawLinePop( lastpoint, v, overridecolor or 'ffffff' )
             lastpoint = LOUDCOPY(v)
         end
         
