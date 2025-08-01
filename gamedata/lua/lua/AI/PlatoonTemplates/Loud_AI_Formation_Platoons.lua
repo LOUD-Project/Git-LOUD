@@ -772,8 +772,8 @@ PlatoonTemplate { Name = 'SeaAttack Local',
 		UEF = {
 	
 			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 			
 		},
@@ -781,8 +781,8 @@ PlatoonTemplate { Name = 'SeaAttack Local',
 		Aeon = {
 	
 			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 		
 		},
@@ -790,8 +790,8 @@ PlatoonTemplate { Name = 'SeaAttack Local',
 		Cybran = {
 	
 			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 		
 		},
@@ -799,8 +799,8 @@ PlatoonTemplate { Name = 'SeaAttack Local',
 		Seraphim = {
 	
 			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
 		
 		},
 		
@@ -816,8 +816,8 @@ PlatoonTemplate { Name = 'SeaAttack Raiding',
 		UEF = {
 	
 			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
 			
 		},
@@ -825,8 +825,8 @@ PlatoonTemplate { Name = 'SeaAttack Raiding',
 		Aeon = {
 	
 			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
 		
 		},
@@ -834,8 +834,8 @@ PlatoonTemplate { Name = 'SeaAttack Raiding',
 		Cybran = {
 	
 			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
             { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
 		
 		},
@@ -843,8 +843,8 @@ PlatoonTemplate { Name = 'SeaAttack Raiding',
 		Seraphim = {
 	
 			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
-            { categories.DESTROYER, 0, 2, 'Support', 'none' },
-            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DESTROYER, 0, 4, 'Support', 'none' },
+            { categories.CRUISER, 0, 4, 'Guard', 'none' },
 		
 		},
 		
