@@ -638,7 +638,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 			
-			-- find a safe, unused, naval marker within 14km of this base
+			-- find a safe, unused, naval marker within 14.5km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		

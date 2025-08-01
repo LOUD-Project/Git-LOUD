@@ -5311,7 +5311,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
 
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 150, 'Land', 125 }},            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 250 }},            
         
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
