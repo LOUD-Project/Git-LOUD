@@ -288,9 +288,9 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		FactionIndex = 1,
 		
         Priority = 600,
-        
+
         PriorityFunction = IsEnemyNavalActive,
-		
+
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
@@ -311,7 +311,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
     },
 	
     Builder {BuilderName = 'Counter Intel Boat - Cybran',
-	
+
         PlatoonTemplate = 'T2CounterIntelBoat',
 		
 		FactionIndex = 3,

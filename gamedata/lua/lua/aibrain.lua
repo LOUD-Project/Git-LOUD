@@ -211,8 +211,8 @@ local import = import
 
 local SetBaseRallyPoints = import('/lua/loudutilities.lua').SetBaseRallyPoints
 
-local SetPrimaryLandAttackBase = import('/lua/loudutilities.lua').SetPrimaryLandAttackBase
-local SetPrimarySeaAttackBase = import('/lua/loudutilities.lua').SetPrimarySeaAttackBase
+local SetPrimaryLandAttackBase  = import('/lua/loudutilities.lua').SetPrimaryLandAttackBase
+local SetPrimarySeaAttackBase   = import('/lua/loudutilities.lua').SetPrimarySeaAttackBase
 
 --LOG('aibrain_methods.__index = ',moho.aibrain_methods.__index,' ',repr(moho.aibrain_methods))
 

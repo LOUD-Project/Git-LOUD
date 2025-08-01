@@ -1,19 +1,19 @@
 --**  File     :  /lua/AI/aiattackutilities.lua
 
-local IsAlly = IsAlly
+local GetTerrainHeight  = GetTerrainHeight
+local GetSurfaceHeight  = GetSurfaceHeight
+local IsAlly            = IsAlly
 
 local STRINGFIND = string.find
 
-local LOUDCOPY = table.copy
+local LOUDCOPY  = table.copy
 local LOUDFLOOR = math.floor
-local LOUDMAX = math.max
+local LOUDMAX   = math.max
 local LOUDPARSE = ParseEntityCategory
-local LOUDSORT = table.sort
-local type = type
-
-local VDist2 = VDist2
-local VDist3Sq = VDist3Sq
-
+local LOUDSORT  = table.sort
+local type      = type
+local VDist2    = VDist2
+local VDist3Sq  = VDist3Sq
 local WaitTicks = coroutine.yield
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
@@ -27,15 +27,11 @@ local CanAttackTarget        = moho.platoon_methods.CanAttackTarget
 local GetPlatoonPosition     = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits        = moho.platoon_methods.GetPlatoonUnits
 
-local GetTerrainHeight = GetTerrainHeight
-local GetSurfaceHeight = GetSurfaceHeight
-
-local ALLBUTWALLS = categories.ALLUNITS - categories.WALL
-local SHIELDS = categories.SHIELD * categories.STRUCTURE
+local ALLBUTWALLS   = categories.ALLUNITS - categories.WALL
+local SHIELDS       = categories.SHIELD * categories.STRUCTURE
 
 local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
 local VectorCached = { 0, 0, 0 }
-
 
 --	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
 --	Returns:  true/false and position of closest node

@@ -269,7 +269,7 @@ BuilderManager = Class {
             self.BuilderData[BuilderType].Builders = RebuildTable( self.BuilderData[BuilderType].Builders )
         
             if PriorityDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." tasks")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." tasks on tick "..GetGameTick() )
             end
     
 			LOUDSORT( self.BuilderData[BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
@@ -278,12 +278,11 @@ BuilderManager = Class {
             
                 if not self.BuilderData[BuilderType].displayed then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." SORTED "..BuilderType.." Builders are ")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." SORTED "..BuilderType.." Builders are ")
                     
-                    for k,v in self.BuilderData[BuilderType].Builders do
-                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..repr(v.Priority).." "..v.BuilderName)
-                    end
+                    --for k,v in self.BuilderData[BuilderType].Builders do
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." "..repr(v.Priority).." "..v.BuilderName)
+                    --end
                     
                     self.BuilderData[BuilderType].displayed = true
                 end
@@ -310,7 +309,7 @@ BuilderManager = Class {
 			if Builders[TaskName].PriorityFunction and Priority > 0 then
             
                 --if PriorityDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction review for "..Priority.." "..TaskName )
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction review for "..Priority.." "..TaskName )
                 --end
 
 				newPri = false
@@ -322,7 +321,7 @@ BuilderManager = Class {
 				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
 				
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
 					end
 
 					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
@@ -366,7 +365,7 @@ BuilderManager = Class {
 				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Removing "..repr(TaskName) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." Removing "..repr(TaskName) )
 					end
 					
                     self.BuilderData[BuilderType].Builders[k] = nil
@@ -497,6 +496,8 @@ BuilderManager = Class {
 
         local AttackPlan, landpathlength, path, pathcost, reason, ThreadWaitDuration
         
+        local header = "*AI DEBUG "..brain.Nickname.." "..LocationType.." "..self.ManagerType
+        
         while self.Active do
         
             PriorityDialog = ScenarioInfo.PriorityDialog or false
@@ -512,14 +513,14 @@ BuilderManager = Class {
                 -- but for now - we'll settle for land production if any kind of land connection exists --
                 if path and not BuilderManager.LandMode then
                     
-                    --LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
+                    --LOG( header.." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
                 
                     brain.BuilderManagers[LocationType].LandMode = true
 
                 else
                     if not path and BuilderManager.LandMode then
                     
-                        --LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
+                        --LOG( header.." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
                     
                         brain.BuilderManagers[LocationType].LandMode = false
 
@@ -533,15 +534,12 @@ BuilderManager = Class {
             ThreadWaitDuration = brain.ConditionsMonitor.ThreadWaitDuration
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
-			-- Simply, the PFM at a Primary Base (or MAIN) runs at twice the speed of the Conditions Monitor
-            -- other bases run at one/half the speed
+			-- Simply, the PFM at a Primary Base (or MAIN) runs at 2x the speed of the Conditions Monitor
+            -- other bases run at 2/3 the speed but with a maximum cycle of 90 seconds
 			if LocationType == 'MAIN' or BuilderManager.PrimaryLandAttackBase or BuilderManager.PrimarySeaAttackBase then
-			
 				self.BuilderCheckInterval = ThreadWaitDuration * .5
-                
 			else
-			
-				self.BuilderCheckInterval = ThreadWaitDuration * 2
+				self.BuilderCheckInterval = math.min( ThreadWaitDuration * 1.5, 900 )
 			end
 
             -- and we set the delay between task checks accordingly
@@ -560,7 +558,7 @@ BuilderManager = Class {
             conditioncounttotal = 0
     
             if PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at tick "..GetGameTick().." Cycle will be "..string.format("%d",duration).." - BCM cycle is "..string.format("%d",brain.ConditionsMonitor.ThreadWaitDuration) )
+                LOG( header.." with "..self.NumBuilders.." tasks. Begins cycle at tick "..GetGameTick().." Cycle will be "..string.format("%d",duration).." - BCM cycle is "..string.format("%d",brain.ConditionsMonitor.ThreadWaitDuration) )
             end
 			
             -- there must be units in the Pool or there will be nothing to form
@@ -569,7 +567,7 @@ BuilderManager = Class {
                 if BuilderData['Any'].NeedSort then
 
                     if PriorityDialog then
-                        LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." sorts PFM tasks")
+                        LOG( header.." PFM sorts tasks on tick "..GetGameTick() )
                     end
 
                     LOUDSORT( BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
@@ -592,7 +590,7 @@ BuilderManager = Class {
 						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
                     
                             if PriorityDialog then
-                                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." examines "..repr(key).." "..repr(bData.Priority).." "..repr(bData.BuilderName).." on tick "..GetGameTick() )
+                                LOG( header.." examines "..repr(key).." "..repr(bData.Priority).." "..repr(bData.BuilderName).." on tick "..GetGameTick() )
                             end
 
 							numTested = numTested + 1
@@ -611,8 +609,8 @@ BuilderManager = Class {
 				end
 
                 --if PriorityDialog then
-                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." processed "..numTested.." Builders - used "..numTicks.." ticks of "..duration.." - Formed "..numPassed ) 
-                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass")
+                  --  LOG( header.." processed "..numTested.." Builders - used "..numTicks.." ticks of "..duration.." - Formed "..numPassed ) 
+                  --  LOG( header.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass")
                 --end
 			else
                 
@@ -620,15 +618,15 @@ BuilderManager = Class {
                 duration = ThreadWaitDuration
 
                 if PriorityDialog then
-                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." NO POOL UNITS or NO RUSH TIMER IN EFFECT - delaying "..duration ) 
+                    LOG( header.." NO POOL or RUSH TIMER - delaying "..duration.." on tick "..GetGameTick() ) 
                 end
             end
 
 			if numTicks < duration then
 
-                if PriorityDialog then
-                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." - delaying "..string.format("%d", duration - numTicks).." ticks" ) 
-                end
+                --if PriorityDialog then
+                  --  LOG( header.." - delaying "..string.format("%d", duration - numTicks).." ticks" ) 
+                --end
             
 				WaitTicks( duration - numTicks )
 			end

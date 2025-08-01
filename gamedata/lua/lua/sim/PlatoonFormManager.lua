@@ -192,14 +192,14 @@ PlatoonFormManager = Class(BuilderManager) {
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
 				
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon PFM "..LocationType.." fails StoreHandle for "..repr(template[1]))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Platoon fails StoreHandle for "..repr(template[1]))
 					end
 					
 					return aiBrain:DisbandPlatoon(hndl)
 				end
 
 				if PlatoonDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." forms at PFM "..LocationType )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." forms at PFM "..LocationType )
 				end
 
 				hndl.LocationType = LocationType
@@ -264,7 +264,7 @@ PlatoonFormManager = Class(BuilderManager) {
 
 			else
                 if PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." unable to form at PFM "..LocationType.." location "..repr(Location))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Platoon "..BuilderName.." unable to form at "..repr(Location))
                 end
 			end
         end

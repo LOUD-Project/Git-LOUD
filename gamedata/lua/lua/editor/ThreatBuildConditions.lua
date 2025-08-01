@@ -94,8 +94,10 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
                 
             end
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." sees less than "..threatcutoff.." "..threattype.." threat further than "..math.floor(distance).." Ratio "..aiBrain.LandRatio.." Adjust "..adjustment  )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees no "..threattype.." threat above "..threatcutoff.." within "..distance.." Ratio "..aiBrain.LandRatio.." Adjust "..adjustment  )
 
+        else
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees no threats from "..repr(position) )
         end
         
 	end

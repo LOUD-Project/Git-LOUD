@@ -1905,13 +1905,14 @@ end
 function ResetPFMTasks (PFM, aiBrain)
 
     local PriorityDialog = ScenarioInfo.PriorityDialog
+    local header = "*AI DEBUG "..aiBrain.Nickname.." "..PFM.LocationType.." "..PFM.ManagerType
 	
 	-- Review ALL the PFM Builders for PriorityFunction task changes
     local NewPriority, temporary
 	local newtasks = 0
     
     if PriorityDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." Resets Any PFM Tasks")
+        LOG( header.." Resets Any PFM Tasks on tick "..GetGameTick() )
     end
 
 	for _,BuilderTask in PFM.BuilderData['Any'].Builders do
@@ -1923,7 +1924,7 @@ function ResetPFMTasks (PFM, aiBrain)
             if NewPriority and NewPriority != BuilderTask.Priority then
 
                 if PriorityDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." resets "..BuilderTask.BuilderName.." to "..repr(NewPriority).." Temporary is "..repr(temporary))
+                    LOG( header.." resets "..BuilderTask.BuilderName.." to "..repr(NewPriority))
                 end
 
                 PFM:SetBuilderPriority(BuilderTask.BuilderName, NewPriority, temporary)
@@ -3223,7 +3224,7 @@ function DeadBaseMonitor( aiBrain )
 			platsea     = false
             
             if DeadBaseMonitorDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
             end
             
             CountedBase = v.CountedBase
@@ -3239,7 +3240,7 @@ function DeadBaseMonitor( aiBrain )
             if DeadBaseMonitorDialog then
             
                 if EM.BMDistressResponseThread then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - active base distress response")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - active base distress response")
                     continue
                 end
             end
@@ -3252,7 +3253,7 @@ function DeadBaseMonitor( aiBrain )
                 if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 then 
                 
                     if DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
                     end
                     
                     aiBrain.BuilderManagers[k].nofactorycount = BM[k].nofactorycount + 1
@@ -3262,7 +3263,7 @@ function DeadBaseMonitor( aiBrain )
 				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 6 then
 				
                     if DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base" )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - removing base" )
 					end
                     
 					-- handle the MAIN base
