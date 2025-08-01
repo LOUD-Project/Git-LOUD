@@ -880,11 +880,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         InstanceCount = 2,
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},			
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
@@ -892,9 +890,36 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
         BuilderData = {
 			ReclaimTime = 45,
 			ReclaimType = 'Mass',
-            ReclaimRange = 90,
+            ReclaimRange = 75,
         },
     },	
+    -- when energy is low
+    Builder {BuilderName = 'Reclaim Energy Active DP',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
+		
+        Priority = 700,
+		
+        InstanceCount = 2,
+		
+        BuilderType = { 'T1','T2','T3','SubCommander' },
+
+        BuilderConditions = {
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 50 }},
+			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 75 }},
+        },
+		
+        BuilderData = {
+			ReclaimTime = 45,
+			ReclaimType = 'Energy',
+            ReclaimRange = 75,
+        },
+    },
+
 	
     -- or build any locally available extractor
     Builder {BuilderName = 'Mass Extractor 200 Active DP',
@@ -941,7 +966,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         Priority = 650,
 
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1000 }},
@@ -971,7 +996,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
         },
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderData = {
             Assist = {

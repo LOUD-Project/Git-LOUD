@@ -2066,13 +2066,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         PriorityFunction = function( self, aiBrain, unit, manager)
         
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 10, true
+                return 0, false
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
-            
-                return 10, true
-             
+                return 0, false
             end
     
             return (self.OldPriority or self.Priority), true
@@ -2119,9 +2117,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
-            
                 return 10, true
-             
             end
     
             return (self.OldPriority or self.Priority), true
@@ -5320,7 +5316,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
 		
-		BuilderType = { 'T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderData = {
 			DesiresAssist = true,
