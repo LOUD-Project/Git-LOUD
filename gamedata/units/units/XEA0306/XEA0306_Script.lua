@@ -3,8 +3,8 @@ local util = import('/lua/utilities.lua')
 
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local TSAMLauncher                  = import('/lua/terranweapons.lua').TSAMLauncher
-local TDFHeavyPlasmaCannonWeapon    = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
+local SAM       = import('/lua/terranweapons.lua').TSAMLauncher
+local Cannon    = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
 
 XEA0306 = Class(TAirUnit) {
 
@@ -19,8 +19,8 @@ XEA0306 = Class(TAirUnit) {
 	
     Weapons = {
 	
-        AAMissle = Class(TSAMLauncher) {},
-        PlasmaGun = Class(TDFHeavyPlasmaCannonWeapon) {},
+        AAMissle    = Class(SAM) {},
+        PlasmaGun   = Class(Cannon) {},
 		
     },
 
@@ -49,9 +49,7 @@ XEA0306 = Class(TAirUnit) {
         
         -- create the engine thrust manipulators
         for k, v in self.EngineRotateBones do
-		
             table.insert(self.EngineManipulators, CreateThrustController(self, "thruster", v))
-			
         end
 
         -- set up the thursting arcs for the engines
@@ -68,7 +66,6 @@ XEA0306 = Class(TAirUnit) {
         self.Trash:Add(self.LandingAnimManip)
 		
         self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(1)
-		
     end,
 	
 	OnTransportAttach = function(self, attachBone, unit)
@@ -76,7 +73,6 @@ XEA0306 = Class(TAirUnit) {
 		TAirUnit.OnTransportAttach(self, attachBone, unit)
 		
         unit:SetCanTakeDamage(not self.ShieldIsOn) #-- make transported unit invulnerable if transport is too
-		
 	end,
 	
     OnTransportDetach = function(self, attachBone, unit)
@@ -84,7 +80,6 @@ XEA0306 = Class(TAirUnit) {
         unit:SetCanTakeDamage(true) #-- Units dropped by the transport should be vulnerable
 		
 		TAirUnit.OnTransportDetach(self, attachBone, unit)
-		
 	end,
 	
     OnShieldIsUp = function (self)
@@ -94,7 +89,6 @@ XEA0306 = Class(TAirUnit) {
         TAirUnit.OnShieldIsUp(self)
 		
         self:ShieldStatusChanged(true)
-		
     end,
 	
     OnShieldIsDown = function (self)
@@ -104,7 +98,6 @@ XEA0306 = Class(TAirUnit) {
 		TAirUnit.OnShieldIsDown(self)
 		
 		self:ShieldStatusChanged(false)
-		
     end,	
 
 	-- toggles the invulnerability of the units on the transport

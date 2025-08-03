@@ -92,10 +92,10 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 10,
-            ShieldMaxHealth = 4400,
+            ShieldMaxHealth = 4200,
             ShieldRechargeTime = 25,
             ShieldRegenRate = 110,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 9,
             ShieldVerticalOffset = -1,
         },
@@ -118,16 +118,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'xea0306_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                    SpecularName = 'xea0306_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Unit' },
+                { LODCutoff = 300, ShaderName = 'Unit', AlbedoName = 'xea0306_lod1_albedo.dds', SpecularName = 'xea0306_lod1_specteam.dds' },
             },
         },
 
@@ -135,8 +127,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 37950,
-        BuildCostMass = 1625,
+        BuildCostEnergy = 39950,
+        BuildCostMass = 1675,
         BuildTime = 8850,
 		
         MaintenanceConsumptionPerSecondEnergy = 120,
@@ -269,10 +261,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1.4,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'PlasmaGun01_Muzzle'},
-                    RackBone = 'PlasmaGun01',
-                },
+                { MuzzleBones = {'PlasmaGun01_Muzzle'}, RackBone = 'PlasmaGun01' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -335,10 +324,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'PlasmaGun02_Muzzle'},
-                    RackBone = 'PlasmaGun02',
-                },
+                { MuzzleBones = {'PlasmaGun02_Muzzle'}, RackBone = 'PlasmaGun02' },
             },
 
             RateOfFire = 0.8,		---- 24 DPS Ground
