@@ -535,11 +535,17 @@ BuilderManager = Class {
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
 			-- Simply, the PFM at a Primary Base (or MAIN) runs at 2x the speed of the Conditions Monitor
+            -- Production bases (factories) run at 1x the speed with a cycle of upto 75 seconds
             -- other bases run at 2/3 the speed but with a maximum cycle of 90 seconds
 			if LocationType == 'MAIN' or BuilderManager.PrimaryLandAttackBase or BuilderManager.PrimarySeaAttackBase then
 				self.BuilderCheckInterval = ThreadWaitDuration * .5
 			else
-				self.BuilderCheckInterval = math.min( ThreadWaitDuration * 1.5, 900 )
+                -- production bases run at 1x while others run at 2/3
+                if brain.BuilderManagers[LocationType].CountedBase then
+                    self.BuilderCheckInterval = math.min( ThreadWaitDuration * 1, 750 )
+                else
+                    self.BuilderCheckInterval = math.min( ThreadWaitDuration * 1.5, 900 )
+                end
 			end
 
             -- and we set the delay between task checks accordingly
@@ -547,7 +553,7 @@ BuilderManager = Class {
             
 				duration    = self.BuilderCheckInterval
 				tasks       = self.NumBuilders
-				ticksize    = LOUDFLOOR( duration / tasks )
+				ticksize    = math.max( 1, LOUDFLOOR( duration / tasks ))   -- ticksize must always be at least 1
 			end
 
             numTicks = 1
@@ -567,7 +573,7 @@ BuilderManager = Class {
                 if BuilderData['Any'].NeedSort then
 
                     if PriorityDialog then
-                        LOG( header.." PFM sorts tasks on tick "..GetGameTick() )
+                        LOG( header.." sorts tasks on tick "..GetGameTick() )
                     end
 
                     LOUDSORT( BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
@@ -601,7 +607,10 @@ BuilderManager = Class {
 							
 								numPassed = numPassed + 1
 						
-								WaitTicks(ticksize+1)
+                                if ticksize + 1 > 0 then
+                                    WaitTicks(ticksize + 1)
+                                end
+
 								numTicks = numTicks + ticksize
                             end
 						end
