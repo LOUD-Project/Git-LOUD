@@ -124,8 +124,8 @@ UnitBlueprint {
         
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 50,
-        TurnRadius = 0,
+        TurnFacingRate = 36,
+        TurnRadius = 8,
         TurnRate = 45,
     },
 	
