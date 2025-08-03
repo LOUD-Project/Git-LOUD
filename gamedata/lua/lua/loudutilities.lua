@@ -1481,6 +1481,7 @@ function SetPrimarySeaAttackBase( aiBrain )
     end
     
     local AttackPlanDialog      = ScenarioInfo.AttackPlanDialog or false
+
     local GetClosestPathNode    = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
 
     -- clear existing base reference if it's no longer active
@@ -1517,7 +1518,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                 path = false
                 pathlength = 0
 			
-				-- here is the distance calculation
+				-- here is the distance calculation based on Water movement
                 path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Water', v.Position, goal, 99999, 200)
 
                 if AttackPlanDialog then
@@ -6949,6 +6950,10 @@ end
 
 
 function DrawPath ( origin, path, destination, overridecolor )
+
+    if not path then
+        return
+    end
  
     for i = 0, 300 do
     

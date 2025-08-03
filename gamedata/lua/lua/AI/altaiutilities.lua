@@ -756,6 +756,9 @@ end
 -- and there must be a water path between the current primary and the new choice
 function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius, category, markerRadius, unitMax, tMin, tMax, tRings, tType)
 
+    local GetClosestPathNode            = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
+    local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
+ 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
     if Position and  ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
@@ -766,33 +769,32 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		local test_range = false
         local test_position = false
         
-        local Goal = LOUDCOPY(aiBrain.AttackPlan.Goal)
+        local Goal, path, reason, pathlength
+        
+        -- this gives us a Goal of the closest water node to the Attack Plan goal
+        reason, Goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
 		
-		-- this is the range that the current primary base is from the goal - new bases must be closer than this
-        -- and we'll use the current PRIMARY base as the centre of our test range
+		-- this is the path distance that the current base is from the goal - new bases must be closer than this
 		if aiBrain.PrimarySeaAttackBase then
-		
             test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
-			test_range = VDist3( test_position, Goal )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, Goal, 99999, 200 )
 		else
             test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or false
-			test_range = VDist3( test_position, Goal )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Amphibious', test_position, Goal, 99999, 185 )
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
 		local minimum_baserange = 200
 		
         local catcheck = LOUDPARSE(category)
-        
-        local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
-        --local PrimarySeaAttackBasePosition = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position 
-        
+       
         local position
 		local positions = {}
 
-        local path, reason, reject
+        local reject
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position or Position, radius, tMin, tMax, tRings, tType))
+		positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', test_position or Position, radius, tMin, tMax, tRings, tType))
     
 		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], test_position[1],test_position[3] ) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3]) end )
     
@@ -802,11 +804,11 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 
             position = v.Position
             
-			-- must be able to path from current Primary to new position
-            -- this prevents the AI from trying to locate naval DPs on another body of water
-			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, position, 99999, 250 )
+			-- must be able to path from current Primary to new position and it must be 10% closer than existing base
+            -- also prevents the AI from trying to locate naval DPs on an unconnected body of water
+			path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, position, 99999, 250 )
 
-			if not path then
+			if not path or pathlength > (test_range *.9) then
 				continue
 			end		
 
