@@ -185,7 +185,7 @@ UnitBlueprint {
 			
             FiringTolerance = 100,
 
-            Label = 'AntiTorpedo',
+            Label = 'AntiTorp',
 			
             MaxRadius = 32,
 

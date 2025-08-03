@@ -33,7 +33,7 @@ URL0307 = Class(CLandUnit) {
 		
 			self.IntelEffectsBag = {}
 			
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, 'IntelEffectsBag' )
 			
 			self.IntelFxOn = true
 		end

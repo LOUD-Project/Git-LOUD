@@ -1,47 +1,35 @@
 local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local StructureUnit = import('/lua/defaultunits.lua').StructureUnit
+local StructureUnit = import('/lua/defaultunits.lua').RadarJammerUnit
 
-local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
-
-local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
+local Flare     = import('/lua/cybranweapons.lua').CIFSmartCharge
+local AntiTorp  = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 XRS0205 = Class(CSeaUnit) {
 
     Weapons = {
-
-        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
-        
-        AntiFlare = Class(CIFSmartCharge) {},
+        AntiTorp    = Class(AntiTorp) {},
+        AntiFlare   = Class(Flare) {},
     },
 
     IntelEffects = {
 		{ Bones = {'Radar_B01'}, Offset = {0,0.3,0 },Scale = 0.5,Type = 'Jammer01'},
     },
 
-    OnStopBeingBuilt = function(self,builder,layer)
-	
-        CSeaUnit.OnStopBeingBuilt(self,builder,layer)
-		
-        self:SetMaintenanceConsumptionActive()
-    end,
-   
     OnIntelEnabled = function(self,intel)
 	
         StructureUnit.OnIntelEnabled(self,intel)
 
-        if self.IntelEffects and not self.IntelFxOn then
+        if not self.IntelFxOn then
 
 			self.IntelEffectsBag = {}
 
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, 'IntelEffectsBag' )
             
 			self.IntelFxOn = true
-
 		end
-
     end,
 
     OnIntelDisabled = function(self,intel)
@@ -53,13 +41,11 @@ XRS0205 = Class(CSeaUnit) {
             self.IntelEffectsBag = nil
 
             self.IntelFxOn = nil
-            
         end
 	
         StructureUnit.OnIntelDisabled(self,intel)
-		
     end,
-    
+
     OnKilled = function( self, instigator, type, overkillRatio )
 
         -- turn off jammer --
@@ -67,9 +53,7 @@ XRS0205 = Class(CSeaUnit) {
         self:DisableUnitIntel()
 
         CSeaUnit.OnKilled( self, instigator, type, overkillRatio )
-	
     end,
-	
     
 }
 
