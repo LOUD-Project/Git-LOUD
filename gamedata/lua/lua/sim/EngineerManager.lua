@@ -777,6 +777,7 @@ EngineerManager = Class(BuilderManager) {
 		local GetUnitsAroundPoint = GetUnitsAroundPoint
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
+        local header = "*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "
 		
         local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
@@ -831,7 +832,7 @@ EngineerManager = Class(BuilderManager) {
 		local function SetBaseMarker()
 		
 			if BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." adding Marker")
+				LOG( header.." adding Marker")
 			end
 	
 			if aiBrain.BuilderManagers[LocationType] then
@@ -858,7 +859,7 @@ EngineerManager = Class(BuilderManager) {
 			if aiBrain.IL.HiPri[1] then
                 
                 --if BaseMonitorDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check building threatTable on tick "..GetGameTick() )
+                  --  LOG( header.." threat check building threatTable on tick "..GetGameTick() )
                 --end
 	
                 local AlertLevel    = self.BaseMonitor.AlertLevel
@@ -909,7 +910,7 @@ EngineerManager = Class(BuilderManager) {
 					LOUDSORT(threatTable, function (a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
                 
                     --if BaseMonitorDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check using threatTable "..repr(threatTable) )
+                      --  LOG( header.." threat check using threatTable "..repr(threatTable) )
                     --end
 
 					local highThreat, highThreatPos, highThreatType
@@ -917,9 +918,9 @@ EngineerManager = Class(BuilderManager) {
 		
 					for _,LoopType in ThreatTypesUsed do
                 
-                        if BaseMonitorDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check reviews "..LoopType.." on tick "..GetGameTick() )
-                        end
+                        --if BaseMonitorDialog then
+                          --  LOG( header.." threat check reviews "..LoopType.." on tick "..GetGameTick() )
+                        --end
 					
 						alertraised = false
 						alertrangemod = 0
@@ -963,7 +964,7 @@ EngineerManager = Class(BuilderManager) {
 						if not self.BaseMonitor.AlertsTable[LoopType] then		-- this means we always check experimentals but bypass any already active alert types
 					
                             if BaseMonitorDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType).." with alert trigger "..highThreat.." at radius "..AlertRadius + alertrangemod.." on tick "..GetGameTick() )
+                                LOG( header.." checks "..LoopType.." with alert trigger "..highThreat.." at radius "..AlertRadius + alertrangemod.." on tick "..GetGameTick() )
                             end
 					
 							-- loop thru the threat list
@@ -977,7 +978,7 @@ EngineerManager = Class(BuilderManager) {
 								if Type == LoopType and Threat >= highThreat then
 
                                     if BaseMonitorDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR examines "..repr(Position).." - "..repr(Threat).." distance is "..repr(VDist3(Position,Location)) )
+                                        LOG( header.." examines "..repr(Position).." - "..repr(Threat).." distance is "..repr(VDist3(Position,Location)) )
                                     end
 
 									-- signal that an alert has been raised 
@@ -1020,7 +1021,7 @@ EngineerManager = Class(BuilderManager) {
 						else
 					
                             if BaseMonitorDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR has "..repr(self.BaseMonitor.AlertsTable[LoopType]).." ALERT underway on tick "..GetGameTick() )
+                                LOG( header.." has "..repr(self.BaseMonitor.AlertsTable[LoopType]).." ALERT underway on tick "..GetGameTick() )
                             end
                        
                         end
@@ -1043,7 +1044,7 @@ EngineerManager = Class(BuilderManager) {
 							aiBrain.BaseAlertSounded = true
 							
 							if BaseMonitorDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..math.floor(highThreat).." at position "..repr(highThreatPos))
+								LOG( header.." raises "..highThreatType.." alert of "..math.floor(highThreat).." at "..repr(highThreatPos))
 							end
 							
 							-- accurately check the threat, launch the response thread, and monitor the threat until its gone
@@ -1059,7 +1060,7 @@ EngineerManager = Class(BuilderManager) {
 		end
 
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR starts with radius "..self.BaseMonitor.AlertRange.." on tick "..GetGameTick() )
+			LOG( header.." starts with radius "..self.BaseMonitor.AlertRange.." on tick "..GetGameTick() )
 		end
 	
         local Interval  = self.BaseMonitor.BaseMonitorInterval
@@ -1077,7 +1078,7 @@ EngineerManager = Class(BuilderManager) {
 			if self.Active then
 
                 --if BaseMonitorDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR thread cycles on tick "..GetGameTick() )
+                  --  LOG( header.." thread cycles on tick "..GetGameTick() )
                 --end
 		
 				if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames then
