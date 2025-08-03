@@ -35,11 +35,10 @@ UES0305 = Class(TSeaUnit) {
     DestroyIdleEffects = function(self)
 	
 		if self.TimedSonarEffectsThread then
-		
 			self.TimedSonarEffectsThread:Destroy()
-			
 		end
 
+		TSeaUnit.DestroyIdleEffects(self)
     end,     
 
     TimedIdleSonarEffects = function( self )

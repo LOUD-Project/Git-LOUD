@@ -33,7 +33,7 @@ UnitBlueprint {
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
         'UEF',
-        'MOBILE',
+        'STRUCTURE',
         'INTELLIGENCE',
         'TECH3',
         'SONAR',
