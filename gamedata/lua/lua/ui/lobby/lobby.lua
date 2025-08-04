@@ -1748,6 +1748,8 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
+    local TotalUnitCap = CalcTotalUnitCap()
+    
     if not canLaunch then
         local str = 
             "Can't launch. The following settings have invalid values: "..
@@ -1760,9 +1762,8 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         AddChatText("Unit Cap is too low. Please set it between 400 and 6500.")
         return
         
-    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 6500 and not skipUnitCapCheck then
-    	
-		UIUtil.QuickDialog(GUI, "Your unit cap is Excessively high. Do you still wish to launch?",
+    elseif CalcTotalUnitCap() > 8000 and not skipUnitCapCheck then
+		UIUtil.QuickDialog(GUI, "Your TOTAL unit cap ("..math.floor(TotalUnitCap)..") is Excessively high and may lead to crashing.  We recommend not exceeding 8000. Do you still wish to launch?",
 						   "<LOC _Yes>", function() TryLaunch(false, false, false, true) end,
 						   "<LOC _No>", nil,
 						   nil, nil, 
