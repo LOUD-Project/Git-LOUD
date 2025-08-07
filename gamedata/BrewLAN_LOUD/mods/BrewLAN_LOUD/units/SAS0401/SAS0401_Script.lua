@@ -28,7 +28,7 @@ SAS0401 = Class(ASeaUnit) {
 
             CreateProjectileAtMuzzle = function(self, muzzle)
 
-                local proj = ADFDisruptorCannonWeapon.CreateProjectileAtMuzzle(self, muzzle)
+                local proj = Disruptor.CreateProjectileAtMuzzle(self, muzzle)
 
                 if not self.data then self.data = self:GetBlueprint().DamageToShields end
 
