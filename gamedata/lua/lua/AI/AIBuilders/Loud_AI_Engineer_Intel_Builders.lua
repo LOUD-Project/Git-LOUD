@@ -71,7 +71,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
 		
         BuilderConditions = {
 			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
-			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.MOBILESONAR * categories.INTELLIGENCE * categories.TECH3 }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
         },

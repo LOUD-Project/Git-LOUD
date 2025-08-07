@@ -473,6 +473,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				NearMarkerType = 'Defensive Point',
 				
 				LocationRadius = 1250,
+                
+                LoopBuild = true,
+                LoopMass = 100,
+                LoopEnergy = 2500,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
@@ -611,7 +615,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 	-- NOTE the threat restrictions on this builder - it's designed so that an AI will
 	-- not go into the water if an enemy is close or if there are no safe areas
 	-- I made use of the 'rings' variable here -- on a 20km map 2 rings is about 2.5km
-	-- I also shortened the search range to about 17km from 20km
+
     Builder {BuilderName = 'Naval Base Initial - Large Map',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -939,7 +943,55 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
             }
         }
     },
+--[[    
+	-- Like above, we want to create an Active DP, but on unused Naval Areas
+	-- Later on he can convert these 'Active DP' into real bases at his discretion
+    Builder {BuilderName = 'Naval DP Expansion - Naval Areas',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		-- unique for an engineer platoon
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 750,
+
+        PriorityFunction = AboveUnitCap80,
+        
+        BuilderConditions = {
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+            
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1200, -250, 50, 2, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T2','T3' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = false,
+				ExpansionBase = true,
+                ExpansionRadius = 115,
+				RallyPointRadius = 25,
+
+                NearMarkerType = 'Naval Area',
+				
+                LocationRadius = 1200,
+
+                ThreatMax = 75,
+                ThreatRings = 1,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'NavalDefensivePoint',
+				
+                BuildStructures = {'T1Sonar'}
+            }
+        }
+    },
+--]]	
 }
 
 --[[
