@@ -2802,8 +2802,8 @@ QuantumGateUnit = Class(StructureUnit) {
 		local srcGatePos = table.copy(self:GetPosition())
 		local dstGatePos = table.copy(self.DestinationGateway:GetPosition())
         
-		LOG("*AI DEBUG Teleport Source "..string.format("~gateway position: [%f, %f, %f]", srcGatePos[1], srcGatePos[2], srcGatePos[3]))
-		LOG("*AI DEBUG Teleport Destination "..string.format("~gateway position: [%f, %f, %f]", dstGatePos[1], dstGatePos[2], dstGatePos[3]))
+		--LOG("*AI DEBUG Teleport Source "..string.format("~gateway position: [%f, %f, %f]", srcGatePos[1], srcGatePos[2], srcGatePos[3]))
+		--LOG("*AI DEBUG Teleport Destination "..string.format("~gateway position: [%f, %f, %f]", dstGatePos[1], dstGatePos[2], dstGatePos[3]))
 
 		self:PlayTeleportSound()
 

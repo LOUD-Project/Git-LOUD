@@ -52,6 +52,12 @@ end
 
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
+    if not aiBrain.IsWaterMap then
+    
+        return 0, false
+    
+    end
+
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
 
 		return 600, true

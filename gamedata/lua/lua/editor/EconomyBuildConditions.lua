@@ -36,7 +36,7 @@ local FACTORY       = categories.FACTORY
 
 local T1FACTORIES   = categories.STRUCTURE * categories.TECH1 * FACTORY
 local T2FACTORIES   = categories.STRUCTURE * categories.TECH2 * FACTORY
-local T3FACTORIES   = categories.STRUCTURE * categories.TECH3 * FACTORY + categories.GATE
+local T3FACTORIES   = categories.STRUCTURE * categories.TECH3 * FACTORY + categories.GATE - categories.EXPERIMENTAL
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
