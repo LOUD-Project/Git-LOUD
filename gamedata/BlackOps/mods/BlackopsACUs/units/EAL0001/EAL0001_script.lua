@@ -542,6 +542,8 @@ EAL0001 = Class(AWalkingLandUnit) {
     WeaponConfigCheck = function(self)
     
         if self.Dead then return end
+        
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
 
         -- this flag is set when building anything --
         -- disables weapons --

@@ -24,9 +24,9 @@ BRB4309 = Class(CStructureUnit) {
         self.Trash:Add(self.Rotator1)
         self.Rotator1:SetAccel(10)
 
-        self:SetScriptBit('RULEUTC_ShieldToggle', true)
-
         self.AmbientEffectsBag = {}
+
+        self:SetScriptBit('RULEUTC_ShieldToggle', true)
 
         self:ForkThread(self.ResourceThread)
     end,
