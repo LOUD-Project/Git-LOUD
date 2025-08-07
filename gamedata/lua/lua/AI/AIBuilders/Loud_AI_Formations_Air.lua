@@ -1,23 +1,13 @@
 --**  File     :  /lua/ai/Loud_AI_Formation_Air_Builders.lua
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
-local BHVR = '/lua/ai/aibehaviors.lua'
-
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local BHVR  = '/lua/ai/aibehaviors.lua'
 
 local NotPrimaryBase = function( self,aiBrain,manager)
 
 	if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.OldPriority or self.Priority, true
-	end
-
-	return 720, true
-end
-
-local NotPrimarySeaBase = function( self,aiBrain,manager)
-
-	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
 		return self.OldPriority or self.Priority, true
 	end
 
@@ -33,20 +23,15 @@ local IsPrimaryBase = function(self,aiBrain,manager)
 	return 10, true
 end
 
-local MapSizeLargerThan20K = function(self,aiBrain)
-
-    if ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028 then
-        return self.Priority, false
-    else
-        return 0, false
-    end
-
-end
+local PlatoonCategoryCount                  = moho.platoon_methods.PlatoonCategoryCount
+local PlatoonCategoryCountAroundPosition    = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 
 local AIRSCOUT      = categories.AIR * categories.SCOUT
 local AIRBOMBER     = categories.HIGHALTAIR * categories.BOMBER
 local AIRFIGHTER    = categories.HIGHALTAIR * categories.ANTIAIR
 local AIRGUNSHIP    = categories.AIR * categories.GROUNDATTACK
+local AIRTORPEDO    = categories.HIGHALTAIR * categories.ANTINAVY
+local AIRT4         = categories.AIR * categories.EXPERIMENTAL
 
 -- These are the standard air scout patrols around a base
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
@@ -60,12 +45,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 810,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 810,true
+            end
+
+        end,
 
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT }},
-		},
+		BuilderConditions = {},
 		
 		BuilderData = {
 			BasePerimeterOrientation = 'ALL',        
@@ -81,14 +74,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 809,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 809,true
+            end
+
+        end,
 
         InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT }},
-		},
+		BuilderConditions = {},
 		
 		BuilderData = {
 			BasePerimeterOrientation = 'ALL',        
@@ -104,14 +105,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 808,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 808,true
+            end
+
+        end,
 
         InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT }},
-		},
+		BuilderConditions = {},
 		
 		BuilderData = {
 			BasePerimeterOrientation = 'ALL',
@@ -128,16 +137,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 806,
-        
-        PriorityFunction = IsPrimaryBase,
+
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 806,true
+            end
+
+        end,
 		
 		InstanceCount = 3,
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT - categories.TECH1 }},
-		},
+		BuilderConditions = {},
 		
 		BuilderData = {
 			BasePerimeterOrientation = 'ALL',        
@@ -159,16 +174,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		Priority = 810,
 		
 		-- this function removes the builder after 45 minutes
-		PriorityFunction = function(self, aiBrain)
-		
-			if self.Priority != 0 then
+		PriorityFunction = function(self, aiBrain, manager)
 
-				if aiBrain.CycleTime > 2700 then
-					return 0, false
-				end
+			if aiBrain.CycleTime > 2700 then
+				return 0, false
 			end
-			
-			return self.Priority,true
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
+                return 10, true
+            else
+                return 810,true
+            end
+
 		end,
 		
         InstanceCount = 10,
@@ -177,8 +194,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },        
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT }},
 		},
 		
 		BuilderData = {},
@@ -195,21 +210,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		-- this function starts it at 12
         -- and removes it at 75 minutes 
-		PriorityFunction = function(self, aiBrain)
+		PriorityFunction = function(self, aiBrain, manager)
 			
-			if self.Priority != 0 then
-			
-				if aiBrain.CycleTime > 4500 then
-					return 0, false
-				end
-                
-                if aiBrain.CycleTime > 720 then
-                    return 810, true
-                end
-
+            if aiBrain.CycleTime > 4500 then
+				return 0, false
 			end
-			
-			return self.Priority,true
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 2 then
+                return 10, true
+            end
+   
+            if aiBrain.CycleTime > 720 then
+                return 810, true
+            else
+                return 10, true
+			end
 		end,
 
         InstanceCount = 6,
@@ -218,8 +233,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRSCOUT }},
 		},
 		
 		BuilderData = {},
@@ -235,17 +248,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         Priority = 10,
 		
 		-- this function starts it at 25
-		PriorityFunction = function(self, aiBrain)
-			
-			if self.Priority != 0 then
-            
-                if aiBrain.CycleTime > 1500 then
-                    return 810, false
-                end
+		PriorityFunction = function(self, aiBrain, manager)
 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 5 then
+                return 10, true
+            end
+
+            if aiBrain.CycleTime > 1500 then
+                return 810, false
+            else
+                return 10, true
 			end
-			
-			return self.Priority,true
 		end,
 		
         InstanceCount = 6,
@@ -254,8 +267,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, AIRSCOUT }},
 		},
 		
 		BuilderData = {},
@@ -271,16 +282,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         Priority = 10,
 		
 		-- this function will turn the builder on at the 75 minute mark
-		PriorityFunction = function(self, aiBrain)
-		
-			if self.Priority != 810 then
-			
-				if aiBrain.CycleTime > 4500 then
-					return 810, false
-				end
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 9 then
+                return 10, true
+            end
+
+			if aiBrain.CycleTime > 4500 then
+				return 810, true
+			else
+                return 10, true
 			end
-			
-			return self.Priority,true
+
 		end,
 
         InstanceCount = 7,
@@ -289,8 +302,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, AIRSCOUT }},
 		},
 		
 		BuilderData = {},
@@ -317,11 +328,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 700,true
+            end
+
+        end,
+	
         InstanceCount = 3,
 		
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRBOMBER }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 120,
@@ -357,12 +377,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 700,true
+            end
+
+        end,
+	
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRBOMBER }},
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
         },
 		
         BuilderData = {
@@ -401,13 +430,24 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 710,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 12 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
         InstanceCount = 3,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, AIRBOMBER }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 165,
@@ -444,13 +484,19 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 710,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 12 then
+                return 10,true
+            else
+                return 710,true
+            end
+        end,
+
         InstanceCount = 3,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, AIRBOMBER }},
-
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
         },
 		
         BuilderData = {
@@ -488,17 +534,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 
         Priority = 710,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 24 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 		
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
-            
-            { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
-			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, AIRBOMBER }},
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
 
 			-- none of the major SUPER triggers can be true
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 2000 }},
@@ -549,12 +604,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
 
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                    return 10,true
+                else
+                    return 720,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+        
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},            
             
@@ -592,13 +661,33 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
 
         InstanceCount = 1,
 		
         BuilderConditions = {
           
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -639,13 +728,33 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
+
         InstanceCount = 1,
 		
         BuilderConditions = {
         
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -683,12 +792,32 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
+
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -726,12 +855,32 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
+
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -769,12 +918,32 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
+
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -812,12 +981,32 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 720,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRBOMBER ) < 24 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 720,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
 
         InstanceCount = 1,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 4 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},            
             
@@ -861,12 +1050,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 2 then
+                return 10,true
+            else
+                return 700,true
+            end
+
+        end,
 
         InstanceCount = 2,
 		
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange           = 200,
@@ -902,13 +1099,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 710,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 2 then
+                return 10,true
+            else
+                return 710,true
+            end
+
+        end,
+
         InstanceCount = 2,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
-            
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AIR * categories.INTELLIGENCE, 'Enemy' }},
         },
 		
@@ -946,14 +1151,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 2 then
+                return 10,true
+            else
+                return 710,true
+            end
+
+        end,
         
         InstanceCount = 2,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
-            
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.TRANSPORTFOCUS, 'Enemy' }},
         },
 		
@@ -994,13 +1206,25 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 710,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 18 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 2,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 17, AIRFIGHTER }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 220,
@@ -1037,14 +1261,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 
         Priority = 720,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 24 then
+                    return 10,true
+                else
+                    return 720,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 3,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, AIRFIGHTER }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 250,
@@ -1084,11 +1320,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Gunship',		
 
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 700,true
+            end
+
+        end,
+
         InstanceCount = 3,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRGUNSHIP }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 120,
@@ -1127,13 +1372,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 710,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 16 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 
         InstanceCount = 3,
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRGUNSHIP }},
         },
 		
         BuilderData = {
@@ -1174,13 +1432,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 710,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 6 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 
         InstanceCount = 4,
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, AIRGUNSHIP }},
         },
 		
         BuilderData = {
@@ -1219,14 +1490,26 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Gunship',		
 
         Priority = 720,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 720 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 28 then
+                    return 10,true
+                else
+                    return 720,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 3,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, AIRGUNSHIP }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 210,
@@ -1262,12 +1545,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
         
         Priority = 10,
-		
-		PriorityFunction = NotPrimaryBase,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRBOMBER }},
         },
 		
         BuilderData = {
@@ -1288,13 +1577,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
         Priority = 10,
 
-		PriorityFunction = NotPrimaryBase,
-        
-        --RTBLocation = 'LocationType',
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
@@ -1315,13 +1608,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
         Priority = 10,
 
-		PriorityFunction = NotPrimaryBase,
-        
-        --RTBLocation = 'LocationType',
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRGUNSHIP }},
         },
 		
         BuilderData = {
@@ -1344,13 +1641,16 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         
         Priority = 10,
 
-		PriorityFunction = NotPrimaryBase,
-        
-        --RTBLocation = 'LocationType',
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 2 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
 		
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRSCOUT }},            
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
             LocationType = 'LocationType',
@@ -1382,7 +1682,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER - AIRT4 }},
 			
         },
 		
@@ -1450,7 +1750,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
         BuilderConditions = {
 		
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
 			
         },
 		
@@ -1477,7 +1777,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 			StrMin = -1,		--<< notice use of negative values to induce a NOT condition
 			StrMax = -1,
 			
-			UntCategory = AIRFIGHTER - categories.EXPERIMENTAL,	-- and those that have less than 20 there already
+			UntCategory = AIRFIGHTER - AIRT4,	-- and those that have less than 20 there already
 			UntRadius = 90,
 			UntTrigger = true,
 			UntMin = 0,
@@ -1522,7 +1822,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (AIRFIGHTER) - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
 			
         },
 		
@@ -1549,7 +1849,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 6,
 			
-			UntCategory = AIRFIGHTER - categories.EXPERIMENTAL,
+			UntCategory = AIRFIGHTER - AIRT4,
 			UntRadius = 90,
 			UntTrigger = false,
 			UntMin = 0,
@@ -1595,7 +1895,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 			
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 150, 1, 'AntiAir', 1 }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
 			
         },
 		
@@ -1622,7 +1922,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 0,
 			
-			UntCategory = AIRFIGHTER - categories.EXPERIMENTAL,
+			UntCategory = AIRFIGHTER - AIRT4,
 			UntRadius = 90,
 			UntTrigger = false,
 			UntMin = 0,
@@ -1665,11 +1965,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',		
 		
         Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            else
+                return 700,true
+            end
+
+        end,
+
         InstanceCount = 3,
 		
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.ANTINAVY }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 90,
@@ -1705,13 +2014,25 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
         Priority = 710,
 		
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 16 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 3,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 150,
@@ -1747,13 +2068,25 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
         Priority = 715,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 715 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 32 then
+                    return 10,true
+                else
+                    return 715,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 		
         InstanceCount = 2,
 
-        BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 31, categories.HIGHALTAIR * categories.ANTINAVY }},
-        },
+        BuilderConditions = {},
 		
         BuilderData = {
 			DistressRange = 180,
@@ -1791,15 +2124,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         Priority = 710,
 		
 		-- this will only form at primary bases
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 710 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 16 then
+                    return 10,true
+                else
+                    return 710,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.SONAR * categories.STRUCTURE, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
@@ -1833,11 +2179,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         Priority = 10,
 		
 		-- this function turns the builder on at any base that is NOT the primary naval base
-		PriorityFunction = NotPrimarySeaBase,
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+                return 10, true
+            else
+                return 720, true
+            end
+        end,
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
@@ -1863,7 +2219,27 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         Priority = 0,
 		
 		-- this will only form at primary bases
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 715 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRTORPEDO ) < 16 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 715,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
 
         InstanceCount = 1,
 		
@@ -1872,7 +2248,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRTORPEDO } },			
         },
 		
         BuilderData = {
@@ -1904,8 +2280,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         Priority = 0,
 		
 		-- this will only form at primary bases
-		PriorityFunction = IsPrimaryBase,
-		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 715 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRTORPEDO ) < 16 then
+                
+                    return 10,true
+                    
+                else
+            
+                    return 715,true
+
+                end
+                
+            else
+            
+                return 10, true
+                
+            end
+
+        end,
+
         InstanceCount = 1,
 		
         BuilderType = 'Any',
@@ -1913,7 +2309,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRTORPEDO } },
         },
 		
         BuilderData = {
@@ -1949,12 +2345,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 720,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 18 then
+                return 10,true
+            else
+                return 720,true
+            end
+
+        end,
+		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
             
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 17, AIRFIGHTER }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + categories.DESTROYER + (categories.NAVAL * categories.CARRIER) }},            
         },
 		
@@ -2023,14 +2427,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 720,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 16 then
+                return 10,true
+            else
+                return 720,true
+            end
+
+        end,
+
 		RTBLocation = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRGUNSHIP }},
 
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + categories.DESTROYER + (categories.NAVAL * categories.CARRIER) }},
         },
@@ -2101,11 +2512,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         Priority = 720,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRTORPEDO, manager.Location, manager.Radius ) < 16 then
+                return 10,true
+            else
+                return 720,true
+            end
+
+        end,
+		
 		RTBLocation = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},        
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + categories.DESTROYER + (categories.NAVAL * categories.CARRIER)}},
         },
 		
@@ -2176,24 +2596,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function turns the builder off --
 		PriorityFunction = function(self, aiBrain, manager)
-			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 730, true
-			end
-			
-			return 10, true
-		end,
-		
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 730 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4 * categories.BOMBER, manager.Location, manager.Radius ) < 3 then
+                    return 10,true
+                else
+                    return 730,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
+
         InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.AIR * categories.EXPERIMENTAL * categories.BOMBER } },
         },
 		
         BuilderData = {
@@ -2220,15 +2644,21 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function turns the builder off --
 		PriorityFunction = function(self, aiBrain, manager)
-			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 730, true
-			end
-			
-			return 10, true
-		end,
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 730 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4 * categories.GROUNDATTACK, manager.Location, manager.Radius ) < 4 then
+                    return 10,true
+                else
+                    return 730,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 		
         InstanceCount = 2,
 		
@@ -2236,8 +2666,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.AIR * categories.EXPERIMENTAL * categories.GROUNDATTACK } },
         },
 		
         BuilderData = {
@@ -2266,22 +2694,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function turns the builder on either primary base type
 		PriorityFunction = function(self, aiBrain, manager)
-			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 730, true
-			end
-			
-			return 10, true
-		end,
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 730 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 3 then
+                    return 10,true
+                else
+                    return 730,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 
         InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.uaa0310 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
 		},
 		
         BuilderData = {
@@ -2308,23 +2742,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function turns the builder on at either primary base type
 		PriorityFunction = function(self, aiBrain, manager)
-			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-				return 730, true
-			end
-			
-			return 10, true
-		end,
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 730 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then
+                    return 10,true
+                else
+                    return 730,true
+                end
+                
+            else
+                return 10, true
+            end
+
+        end,
 
         InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 		},
 		
         BuilderData = {
@@ -2350,7 +2789,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 
 		-- this function turns the builder on for Primary Land Base
 		PriorityFunction = function(self, aiBrain, manager)
-			
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            end
+  			
 			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
 				return 730, true
 			end
@@ -2358,13 +2801,12 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 			return 10, true
 		end,
         
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 		},
 		
         BuilderData = {
@@ -2374,8 +2816,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 			DistressThreshold = 10,
 
 			BasePerimeterOrientation = 'FRONT',        
-			Radius = 95,
-			PatrolTime = 420,   -- approx 7 minute patrol --
+			Radius = 85,
+			PatrolTime = 360,   -- approx 6 minute patrol --
             
             PrioritizedCategories = { 'ANTIAIR', 'ENGINEER', 'EXPERIMENTAL -AIR', 'NAVAL MOBILE', 'LAND MOBILE', 'COMMAND' }, -- list in order
         },
@@ -2398,7 +2840,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 
 		-- this function turns the builder on for Primary Sea Base 
 		PriorityFunction = function(self, aiBrain, manager)
-			
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            end
+ 			
 			if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
 				return 730, true
 			end
@@ -2406,13 +2852,12 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 			return 10, true
 		end,
         
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 		},
 		
         BuilderData = {
@@ -2422,8 +2867,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 			DistressThreshold = 10,
 
 			BasePerimeterOrientation = 'ALL',        
-			Radius = 82,
-			PatrolTime = 420,   -- approx 7 minute patrol --
+			Radius = 85,
+			PatrolTime = 360,   -- approx 6 minute patrol --
             
             PrioritizedCategories = { 'ANTIAIR', 'ENGINEER', 'EXPERIMENTAL -AIR', 'NAVAL MOBILE', 'LAND MOBILE', 'COMMAND' }, -- list in order
         },
@@ -2439,16 +2884,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
         Priority = 10,
-		
-		PriorityFunction = NotPrimaryBase,
-	
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
+
         InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.AIR * categories.EXPERIMENTAL } },
         },
 		
         BuilderData = {

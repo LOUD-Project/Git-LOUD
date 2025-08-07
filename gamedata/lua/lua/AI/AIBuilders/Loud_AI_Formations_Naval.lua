@@ -1,9 +1,9 @@
 --  Loud_AI_Naval_Attack_Builders.lua
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
-local BHVR = '/lua/ai/aibehaviors.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local BHVR  = '/lua/ai/aibehaviors.lua'
 
 local NotPrimaryBase = function( self,aiBrain,manager)
 
@@ -34,6 +34,16 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 	
 end
 
+local PlatoonCategoryCount                  = moho.platoon_methods.PlatoonCategoryCount
+local PlatoonCategoryCountAroundPosition    = moho.platoon_methods.PlatoonCategoryCountAroundPosition
+
+local BATTLESHIP    = categories.BATTLESHIP
+local BOMBARD       = categories.BOMBARDMENT
+local CRUISER       = categories.CRUISER
+local DEFENSIVE     = categories.DEFENSIVEBOAT
+local DESTROYER     = categories.DESTROYER
+local FRIGATE       = categories.FRIGATE
+local SUBMARINE     = categories.SUBMARINE + categories.xes0102
 
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 	BuildersType = 'PlatoonFormBuilder',
@@ -50,6 +60,21 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 
         Priority = 740,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
+                    return 10,true
+                else
+                    return 740,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
         InstanceCount = 5,
 		
 		RTBLocation = 'Any',
@@ -58,14 +83,9 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
 		},
     },
-
 }
 
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
@@ -83,6 +103,21 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 
         Priority = 740,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
+                    return 10,true
+                else
+                    return 740,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
         InstanceCount = 3,
 		
 		RTBLocation = 'Any',
@@ -91,14 +126,9 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 		
 		BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
 		},
     },
-
 }
 
 
@@ -118,7 +148,20 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         Priority = 750,
 		
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
+                    return 10,true
+                else
+                    return 750,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 		
         InstanceCount = 2,
 		
@@ -126,11 +169,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {
@@ -183,9 +222,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
     },	
 
 
-    -- ALL the SEA ATTACK formations only appear when there is
-    -- enemy Naval Activity and we are not yet totally dominant
-    -- on the water (Naval Ratio < 8)
+    -- SEA ATTACK formations only appear when there is enemy Naval Activity
+    -- T1 Sea Attack only forms when Naval Ratio < 4 to conserve units for bigger formations when ratio is higher
     Builder {BuilderName = 'T1 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Small',
@@ -197,8 +235,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 
         Priority = 750,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 750 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 750,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		FactionIndex = 1,
 
@@ -210,12 +261,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -244,8 +294,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 
         Priority = 750,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 750 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 750,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		FactionIndex = 2,
 
@@ -257,14 +320,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
-
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },            
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -293,8 +353,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 
         Priority = 750,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 750 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 750,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		FactionIndex = 3,
 
@@ -306,14 +379,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
+			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },            
 
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -342,8 +412,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 
         Priority = 750,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 750 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 750,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		FactionIndex = 4,
 
@@ -355,13 +438,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
+			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
         },
 		
         BuilderData = {
@@ -390,9 +470,22 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 751,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
+                    return 10,true
+                else
+                    return 751,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 1,
 		
         InstanceCount = 2,
@@ -403,16 +496,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-            
-            { LUTL, 'PoolGreater', { 0, categories.BATTLESHIP }},
-            --{ LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -440,9 +529,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 751,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 751,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 2,
 		
         InstanceCount = 2,
@@ -454,15 +558,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
             
-            { LUTL, 'PoolGreater', { 0, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -492,9 +593,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 751,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 751,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 3,
 		
         InstanceCount = 2,
@@ -505,16 +621,13 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-            
-            { LUTL, 'PoolGreater', { 0, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DEFENSIVEBOAT }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -543,9 +656,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 751,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 751,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 4,
 		
         InstanceCount = 2,
@@ -557,14 +685,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
             
-            { LUTL, 'PoolGreater', { 0, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -594,9 +719,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 752,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 752,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 1,
 		
         InstanceCount = 3,
@@ -609,15 +749,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
-            { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -645,9 +782,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 752,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 752,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 2,
 		
         InstanceCount = 3,
@@ -660,15 +812,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
-            { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -697,9 +846,24 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 752,
-
-		PriorityFunction = IsPrimaryBase,
 		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 752,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
 		FactionIndex = 3,
 		
         InstanceCount = 3,
@@ -712,15 +876,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
-            { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, DEFENSIVE }},
         },
 		
         BuilderData = {
@@ -749,8 +910,23 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
         Priority = 752,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 752 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
+                    return 10,true
+                elseif PlatoonCategoryCount( aiBrain.ArmyPool, SUBMARINE ) < 6 then
+                    return 10,true
+                else
+                    return 752,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		FactionIndex = 4,
 		
@@ -763,15 +939,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
-            
-            { LUTL, 'PoolGreater', { 2, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.BATTLESHIP}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.DESTROYER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -801,8 +974,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
         Priority = 752,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 752 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 752,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
         InstanceCount = 1,
 		
@@ -812,10 +998,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { 0.5 } },
-            
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
-		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE}},
         },
 		
         BuilderData = {
@@ -845,6 +1028,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
         Priority = 753,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 753 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
+                    return 10,true
+                else
+                    return 753,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
 		PriorityFunction = IsPrimaryBase,
 
@@ -856,8 +1054,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { 1.5 } },
-		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE}},
         },
 		
         BuilderData = {
@@ -887,8 +1083,21 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
         Priority = 754,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 754 then
 
-		PriorityFunction = IsPrimaryBase,
+                if PlatoonCategoryCount( aiBrain.ArmyPool, BOMBARD ) < 4 then
+                    return 10,true
+                else
+                    return 754,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
 
         InstanceCount = 3,
 		
@@ -897,10 +1106,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { 5 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 4 } },
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, BOMBARD}},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, CRUISER }},
         },
 		
         BuilderData = {
@@ -916,7 +1125,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND','NAVAL','LAND' },
         },
     },
---]]
+
     -- NAVAL BASE Patrols only appear if there is a NAVAL threat
     -- within 8km of the naval base - therefore these can still 
     -- form even if intel says no enemy naval activity.
@@ -951,7 +1160,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderConditions = {
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 250, 75, 'Naval' }},
         },
     },
 --]]
@@ -967,17 +1176,22 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
         Priority = 745,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 4 then
+                return 10,true
+            else
+                return 745,true
+            end
+        end,
 
         InstanceCount = 1,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'PoolGreater', { 3, categories.SUBMARINE + categories.xes0102 }},
-
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE + categories.xes0102 }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 250, 75, 'Naval' }},
         },
 		
         BuilderData = {
@@ -1058,7 +1272,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.FRIGATE }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Naval', 300 }},            
         },
 		
         BuilderData = {
