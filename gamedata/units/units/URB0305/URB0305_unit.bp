@@ -1,0 +1,168 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {'Target_01','Target_02','Target_03','Target_04','Target_05','Target_06'},
+    },
+
+    Audio = {
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
+    },
+	
+    BuildIconSortPriority = 42,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'EXPERIMENTAL',
+        'FACTORY',
+        'TELEPORTER',
+        'RALLYPOINT',
+        'SIZE24',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYMISC',
+        'SORTINTEL',
+    },
+	
+    Defense = {
+        ArmorType = 'Structure',
+
+        EconomyThreatLevel = 300,
+
+        Health = 7200,
+        MaxHealth = 7200,
+        RegenRate = 2,
+    },
+	
+    Description = '<LOC urb0305_desc>Teleport Node',
+	
+    Display = {
+
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Insect',
+                    AlbedoName = '/units/urb0304/urb0304_Albedo.dds',
+                    MeshName = '/units/urb0304/urb0304_lod0.scm',
+                    NormalsName = '/units/urb0304/urb0304_normalsTS.dds',
+                    SpecularName = '/units/urb0304/urb0304_SpecTeam.dds',
+                    
+                },
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'Insect',
+                    AlbedoName = '/units/urb0304/urb0304_lod1_albedo.dds',
+                    MeshName = '/units/urb0304/urb0304_lod1.scm',
+                    NormalsName = '/units/urb0304/urb0304_lod1_normalsTS.dds',
+                    SpecularName = '/units/urb0304/urb0304_lod1_specteam.dds',
+                },
+            },
+        },
+
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
+                DeathLifetime = 60,
+                Length = 24,
+                Normal = 'Tarmacs/Tar12x_cybran_01_normals',
+                Orientations = {0},
+                RemoveWhenDead = true,
+                Width = 24,
+            },
+        },
+
+        UniformScale = 0.020,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 100000,
+        BuildCostMass = 12500,
+        BuildRate = 5,
+        BuildTime = 10000,
+        
+        MaintenanceConsumptionPerSecondEnergy = 200,
+		
+		MaxBuildDistance = 10,
+		
+        BuildableCategory = {'AEON UEF MOBILE'},
+    },
+	
+    Footprint = {
+        SizeX = 10,
+        SizeZ = 10,
+    },
+	
+    General = {
+		CapCost = 5,
+
+        CommandCaps = {
+            RULEUCC_Move = true,
+            RULEUCC_Patrol = false,
+            RULEUCC_Pause = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+        },
+
+        FactionName = 'Cybran',
+        Icon = 'land',
+
+		OrderOverrides = {
+			RULEUTC_WeaponToggle = { bitmapId = 'teleport', helpText = 'gateway_teleport' },
+		},
+
+        SelectionPriority = 5,
+
+		ToggleCaps = {
+			RULEUTC_WeaponToggle = true,
+		},
+    },
+	
+    Intel = {
+        VisionRadius = 12,
+    },
+	
+    Interface = { HelpText = 'Teleport Node' },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 2.85,
+    LifeBarSize = 6,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+
+        SkirtSizeX = 14,
+        SkirtSizeZ = 14,
+
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 7.2,
+    SelectionSizeZ = 7.2,
+    SelectionThickness = 0.26,
+	
+    SizeX = 2,
+    SizeY = 0.65,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_structure4_transport',
+    StrategicIconSortPriority = 175,
+	
+    Transport = {},
+}
