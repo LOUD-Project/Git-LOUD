@@ -1036,7 +1036,7 @@ BuffBlueprint { Name = 'Landing',
     BuffType = 'MOVEMENTCHEAT',
 	ParsedEntityCategory = categories.MOBILE * categories.AIR,
     Stacks = 'IGNORE',
-    Duration = 3,
+    Duration = 3.6,
     Affects = {
         -- to facilitate 'braking'
         AccelMult = {
