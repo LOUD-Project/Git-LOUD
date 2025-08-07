@@ -200,7 +200,7 @@ BuffField = Class(Entity) {
 
 		local aiBrain = Owner:GetAIBrain()
         
-        local MaintenanceConsumption = __blueprints[self.BlueprintID].MaintenanceConsumptionPerSecondEnergy
+        local MaintenanceConsumption = __blueprints[self.BlueprintID].Economy.MaintenanceConsumptionPerSecondEnergy
 		
         local on = true
 

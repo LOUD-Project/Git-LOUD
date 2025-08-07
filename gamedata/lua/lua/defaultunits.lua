@@ -491,8 +491,25 @@ StructureUnit = Class(Unit) {
 
         if self.CacheLayer != 'Land' then return end
 
-        local tarmac
+        local orient,tarmac
         local bp = __blueprints[self.BlueprintID].Display.Tarmacs
+
+
+        orient = orientation
+
+        if not orientation then
+		
+            if tarmac.Orientations[1] then
+			
+                orient = tarmac.Orientations[Random(1, LOUDGETN(tarmac.Orientations))]
+                orient = (0.01745 * orient)
+				
+				tarmac.Orientations = nil
+				
+            else
+                orient = 0
+            end
+        end
 
         if not specTarmac then
 		
@@ -505,6 +522,10 @@ StructureUnit = Class(Unit) {
             end
         else
             tarmac = specTarmac
+        end
+        
+        if not lifeTime then
+            lifeTime = 0
         end
 
 		local CreateDecal = CreateDecal
@@ -523,22 +544,6 @@ StructureUnit = Class(Unit) {
 		local x = pos[1]
 		local y = pos[2]
 		local z = pos[3]
-
-        local orient = orientation
-
-        if not orientation then
-		
-            if tarmac.Orientations[1] then
-			
-                orient = tarmac.Orientations[Random(1, LOUDGETN(tarmac.Orientations))]
-                orient = (0.01745 * orient)
-				
-				tarmac.Orientations = nil
-				
-            else
-                orient = 0
-            end
-        end
 
         local GetTarmac = import('/lua/tarmacs.lua').GetTarmacType
 
@@ -2381,23 +2386,21 @@ end
 
 FactoryUnit = FactoryFixes(FactoryUnit)
 
-QuantumGateUnit = Class(FactoryUnit) {
+QuantumGateUnit = Class(StructureUnit) {
 
 	-- Base economic costs for starting a teleport
 	BaseChargeTime = 30,
 	BaseEnergyCost = 5000,
 
 	-- Resource costs for various unit tiers
-	ResourceCosts = { Energy = { T1 = 25, T2 = 100,	T3 = 250, T4 = 1000, COMMAND = 1500	},	},
+	ResourceCosts = { Energy = { T1 = 25, T2 = 100,	T3 = 400, T4 = 3200, COMMAND = 1600	} },
 
 	-- Sound that plays when a teleport happens
 	TeleportSound = Sound { Bank = 'UAL', Cue = 'UAL0001_Gate_In', LodCutoff = 'UnitMove_LodCutoff'	},
 
 	-- Set of effects that are played when a gate involved with an in-progress teleport is destroyed
 	GateExplodeEffect = {
-		{
-			Scale = 0.6,
-			Offset = { x = 0, y = 0, z = 0 },
+		{ Scale = 0.6, Offset = { x = 0, y = 0, z = 0 },
 			Emitters = {
 				'/effects/emitters/seraphim_inaino_hit_03_emit.bp',
 				'/effects/emitters/seraphim_inaino_hit_08_emit.bp',
@@ -2405,57 +2408,108 @@ QuantumGateUnit = Class(FactoryUnit) {
 				'/effects/emitters/seraphim_inaino_explode_07_emit.bp',
 			},
 		},
-		{
-			Scale = 8,
-			Offset = { x = 0, y = 0, z = 0 },
-			Emitters = {
-				'/effects/emitters/aeon_sacrifice_02_emit.bp',
-				'/effects/emitters/aeon_sacrifice_03_emit.bp',
-			},
-		},
-		{
-			Scale = 4,
-			Offset = { x = 0, y = 0, z = 0 },
-			Emitters = {
-				'/effects/emitters/aeon_sacrifice_01_emit.bp',
-			},
-		},
+		{ Scale = 2.5, Offset = { x = 0, y = 0, z = 0 }, Emitters = {'/effects/emitters/aeon_sacrifice_01_emit.bp'}	},
+		{ Scale = 4.0, Offset = { x = 0, y = 0, z = 0 }, Emitters = {'/effects/emitters/aeon_sacrifice_02_emit.bp'} },
 	},
 
 	-- Set of effects used when a teleport happens
 	TeleportChargeEffect = {
-		{
-			Scale = 0.85,
-			Offset = { x = 0, y = 1, z = -4.5 },
-			Emitters = EffectTemplate.CSoothSayerAmbient,
-		},
-		{
-			Scale = 3,
-			Offset = { x = 0, y = 1.5, z = 0 },
-			Emitters = EffectTemplate.GenericTeleportCharge01,
-		},
-		{
-			Scale = 6,
-			Offset = { x = 0, y = 2.5, z = -6 },
-			Emitters = EffectTemplate.SeraphimSubCommanderGateway02,
-		},
+		{ Scale = 0.48, Offset = { x = 0, y = 1.0, z = -2.50 }, Emitters = EffectTemplate.CSoothSayerAmbient },
+		{ Scale = 1.75, Offset = { x = 0, y = 1.5, z = -0.00 }, Emitters = EffectTemplate.GenericTeleportCharge01 },
+		{ Scale = 2.25, Offset = { x = 0, y = 2.4, z = -2.50 }, Emitters = EffectTemplate.SeraphimSubCommanderGateway02 },
 	},
-
-
 
 	-- Fires when the gateway finishes building. Used to set flags and prepare the gate
 	-- for teleport stuff
 	OnStopBeingBuilt = function(self, builder, layer)
-		self.TeleportReady = true			-- check if the gateway is ready to participate in teleporting
-		self.TeleportingUnits = nil			-- table holds the units currently being teleported
+
+		self.TeleportReady      = true			-- check if the gateway is ready to participate in teleporting
+		self.TeleportingUnits   = nil			-- table holds the units currently being teleported
 		self.DestinationGateway = nil		-- when this gate is sending, the gate we are sending to
 		self.TeleportInProgress = false		-- true when a teleport is currently underway
+        
+        self.TeleportRadius = __blueprints[self.BlueprintID].Economy.MaxBuildDistance or 12
 
-		-- bubble event
+		self.TeleportChargeBag = {}
+
+		self:SetMaintenanceConsumptionActive()
+        
+        self.WatchPower = self:ForkThread(self.WatchPowerThread, self)
+
 		UnitOnStopBeingBuilt(self, builder, layer)
 	end,
 
+    -- this thread watches the E condition, and removes the toggle, and cancels any pending teleports
+    WatchPowerThread = function( self )
+	
+        local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+		local aiBrain = self:GetAIBrain()
+        local MaintenanceConsumption = __blueprints[self.BlueprintID].Economy.MaintenanceConsumptionPerSecondEnergy
+        local on = true
+        local stored
 
+        while not self.Dead do
+            
+            stored = GetEconomyStored(aiBrain,'ENERGY')
+
+            if on and stored < MaintenanceConsumption then
+			
+				self:RemoveToggleCap('RULEUTC_WeaponToggle')
+                
+                self:SetMaintenanceConsumptionInactive()
+
+				on = false
+                
+                self:EndGateChargeEffect()
+                
+                -- if a teleport is underway --                
+                if self.TeleportThread then
+            
+                    LOG("*AI DEBUG Teleport Event Aborted")
+	
+                    KillThread( self.TeleportThread)
+                    self.TeleportThread = nil
+                    
+                    local warpUnits = import('/lua/CommonTools.lua').GetAlliedMobileUnitsInRadius(self, self:GetPosition(), self.TeleportRadius)
+                    
+                    for k,v in warpUnits do
+
+                        if v.Dead then continue end
+
+                        v:CleanupTeleportChargeEffects()
+            
+                        v:SetImmobile(false)
+                    end
+                    
+                    RemoveEconomyEvent(self, self.TeleportDrain)
+                    self.TeleportDrain = nil
+                    
+                    self:UpdateTeleportProgress(0.0)
+
+                    self.TeleportingUnits = nil
+
+                    self.TeleportInProgress = false
+
+                    self:RemoveTeleportLink()
+
+                end
+			end
+			
+            -- don't come back on until we have 5 seconds of consumption stored
+			if not on and stored > (MaintenanceConsumption * 5) then
+            
+                self:SetMaintenanceConsumptionActive()
+				
+				self:AddToggleCap('RULEUTC_WeaponToggle')
+				on = true
+			end
+			
+            WaitTicks(21)
+
+        end	
+
+	end,
+	
 	-- Fires when the gateway is destroyed.  This handles killing the remote gateway and units in transit if
 	-- a teleportation is underway. It also fires off special effects
 	OnKilled = function(self, instigator, type, overkillRatio)
@@ -2472,19 +2526,16 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 			-- if the gate destroyed is linked to a remote (receiving) gateway then kill it
 			if self.DestinationGateway and not self.DestinationGateway:IsDead() then
-				LOG('~Killing destination gateway')
 				self.DestinationGateway:Kill(self, type, 1.0)
 			end
 
 			-- if the gate destroyed is linked to a remote (sending) gateway then kill it
 			if self.SourceGateway and not self.SourceGateway:IsDead() then
-				LOG('~Killing source gateway')
 				self.SourceGateway:Kill(self, type, 1.0)
 			end
 
 			-- it is the job of the sending gateway to kill any units being teleported
 			if self.TeleportingUnits then
-				LOG('~Killing units in transit')
 				for k, v in self.TeleportingUnits do
 					v:CleanupTeleportChargeEffects()
 					v:SetImmobile(false)
@@ -2503,12 +2554,13 @@ QuantumGateUnit = Class(FactoryUnit) {
 		UnitOnKilled(self, instigator, type, overkillRatio)
 	end,
 
-
 	-- This is the "main" function called when the teleport button is clicked
 	WarpNearbyUnits	= function(self, radius)
+    
+        self:SetMaintenanceConsumptionInactive()
 
 		if not self.TeleportReady then
-			import('/lua/CommonTools.lua').PrintError("Gateway not ready!", self.Army)
+			import('/lua/CommonTools.lua').PrintError("Teleport node not ready!", self.Army)
 			return
 		end
 
@@ -2518,10 +2570,11 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 
 		local warpLocation = self:GetRallyPoint()
-		local possibleGates = import('/lua/CommonTools.lua').GetAlliedGatesInRadius(self, warpLocation, radius)
+
+		local possibleGates = self:GetAlliedTeleportersInRadius( warpLocation, radius)
 
 		if not possibleGates[1] then
-			import('/lua/CommonTools.lua').PrintError("No destination gates found at rally point", self.Army)
+			import('/lua/CommonTools.lua').PrintError("No teleport node found at rally point", self.Army)
 			return
 		end
 
@@ -2529,30 +2582,30 @@ QuantumGateUnit = Class(FactoryUnit) {
 		local destinationGate = possibleGates[1]
 
 		if destinationGate == self then
-			import('/lua/CommonTools.lua').PrintError("Must target a remote gateway with rally point", self.Army)
+			import('/lua/CommonTools.lua').PrintError("Must target a remote teleport node", self.Army)
 			return
 		end
 
 		if destinationGate.TeleportInProgress then
-			import('/lua/CommonTools.lua').PrintError("Target gate already teleporting!", self.Army)
+			import('/lua/CommonTools.lua').PrintError("Target teleport node already busy!", self.Army)
 			return
 		end
 
 		local warpUnits = import('/lua/CommonTools.lua').GetAlliedMobileUnitsInRadius(self, self:GetPosition(), radius)
+        
+        if not warpUnits[1] then
+			import('/lua/CommonTools.lua').PrintError("No units in the teleport node area", self.Army)        
+            return
+        end
 
-		LOG('~Number of units to teleport: ' .. LOUDGETN(warpUnits))
-
-		if self.TeleportDrain then
+		if self.TeleportThread then
 			RemoveEconomyEvent(self, self.TeleportDrain)
 			self.TeleportDrain = nil
 		end
 
-		LOG('~Starting teleport thread')
-
 		-- fire off a new thread to handle the teleport
 		self.TeleportThread	= self:ForkThread(self.TeleportUnits, warpUnits, destinationGate)
 	end,
-
 
 	-- Handler for the economy event that will update the teleporter's progress
 	UpdateTeleportProgress = function(self,	progress)
@@ -2564,13 +2617,11 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 	end,
 
-
 	-- Plays the teleport-in-progress death effect
 	PlayGateExplodeEffect = function(self)
 		-- fork a thread because of the effects used we need to sleep a few seconds for timing
 		ForkThread(self.GateDeathEffectThread, self)
 	end,
-
 
 	-- Main thread function for playing gate death effects
 	GateDeathEffectThread = function(self)
@@ -2597,47 +2648,40 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 	end,
 
-
 	-- Plays the teleportation effect
 	PlayGateTeleportEffect = function(self)
 
 		-- upwards funnel
 		for k, v in EffectTemplate.SIFInainoHit02 do
-			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.7)
-			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.7)
+			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.4)
+			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.28)
 		end
 
-		self:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 2, 0, nil, nil, nil):SetCollision(false)
-		self.DestinationGateway:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 2, 0, nil, nil, nil):SetCollision(false)
+        -- these created an undesirable splat crater that I didn't like very much
+		--self:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.1, 0, nil, nil, nil):SetCollision(false)
+		--self.DestinationGateway:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.1, 0, nil, nil, nil):SetCollision(false)
 
 		WaitSeconds(2.15)
 
 		-- flash!
 		for k, v in EffectTemplate.SIFInainoHit01 do
-			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(1.15)
-			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(1)
+			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.48)
+			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.36)
 		end
 
 	end,
-
 
 	-- Initiates the "teleport charging" effect on gateways involved
 	StartGateChargeEffect = function(self)
 	
 		local army = self.Army
-
-		self.TeleportChargeBag = {}
         local count = 0
 
 		for k, v in self.TeleportChargeEffect do
         
 			for k, e in v.Emitters do
-            
-				local fx = CreateEmitterAtEntity(self, army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
-                
                 count = count + 1
-				self.TeleportChargeBag[count] = fx
-                
+				self.TeleportChargeBag[count] = CreateEmitterAtEntity(self, army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
 			end
 		end
 
@@ -2647,24 +2691,23 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 	end,
 
-
 	-- Terminates the teleport charging effects
 	EndGateChargeEffect = function(self)
 
 		if self.TeleportChargeBag then
+
 			for k, v in self.TeleportChargeBag do
 				v:Destroy()
+                self.TeleportChargeBag[k] = nil
 			end
 		end
 
-		self.TeleportChargeBag = nil
 
 		-- sending gateway tells remote gateway to stop charging
 		if self.DestinationGateway then
 			self.DestinationGateway:EndGateChargeEffect()
 		end
 	end,
-
 
 	-- Plays the teleport sound at both gateways
 	PlayTeleportSound = function(self)
@@ -2679,13 +2722,14 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 	end,
 
-
 	-- Main teleportation function thread
 	TeleportUnits = function(self, warpUnits, destinationGate)
 
 		self.TeleportInProgress = true
 		destinationGate.TeleportInProgress = true
 
+		self:RemoveToggleCap('RULEUTC_WeaponToggle')
+ 
 		self.TeleportingUnits = warpUnits
 		self:CreateTeleportLink(destinationGate)
 		self:StartGateChargeEffect()
@@ -2696,6 +2740,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		-- calculate economic costs for teleport
 		for k, v in warpUnits do
+
 			if v.GetPosition then
 
 				IssueStop( { v } )
@@ -2710,38 +2755,42 @@ QuantumGateUnit = Class(FactoryUnit) {
 				if table.find(cats, 'COMMAND') or table.find(cats, 'SUBCOMMANDER') then
 					energyCost = energyCost + self.ResourceCosts.Energy.COMMAND
 
+                    timeCost = math.max( timeCost, self.BaseChargeTime + 4 )
+
 				elseif table.find(cats, 'TECH1') then
 					energyCost = energyCost + self.ResourceCosts.Energy.T1
 
 				elseif table.find(cats, 'TECH2') then
 					energyCost = energyCost + self.ResourceCosts.Energy.T2
+                    
+                    timeCost = math.max( timeCost, self.BaseChargeTime + 2 )
 
 				elseif table.find(cats, 'TECH3') then
 					energyCost = energyCost + self.ResourceCosts.Energy.T3
+                    
+                    timeCost = math.max( timeCost, self.BaseChargeTime + 4 )
 
 				elseif table.find(cats, 'EXPERIMENTAL') then
 					energyCost = energyCost + self.ResourceCosts.Energy.T4
+                    
+                    timeCost = math.max( timeCost, self.BaseChargeTime + 10 )
+                  
 				else
 					LOG("~Found UNKNOWN unit!")
 				end
 			end
 		end
 
-		LOG("~Calculated time cost: " .. timeCost)
-		LOG("~Teleport energy cost (per second): " .. energyCost)
-
 		-- we want cost PER SECOND, so multiply by time
 		energyCost = energyCost * timeCost
 
-		LOG("~Energy cost per second (total): " .. energyCost)
+		LOG("*AI DEBUG Teleport Econ Event Time "..timeCost.." Energy per second "..math.floor(energyCost/timeCost).." begins on Tick "..GetGameTick() )
 
-		LOG('~Adding econ event')
 		self.TeleportDrain = CreateEconomyEvent(self, energyCost, massCost, timeCost, self.UpdateTeleportProgress)
 
-		LOG('~Waiting for econ event')
 		WaitFor(self.TeleportDrain)
 
-		LOG('~Starting transport sequence')
+		LOG("*AI DEBUG Teleport Econ Event complete at tick "..GetGameTick() )
 
 		if self.TeleportDrain then
 			RemoveEconomyEvent(self, self.TeleportDrain)
@@ -2753,26 +2802,25 @@ QuantumGateUnit = Class(FactoryUnit) {
 		local srcGatePos = table.copy(self:GetPosition())
 		local dstGatePos = table.copy(self.DestinationGateway:GetPosition())
         
-		LOG(string.format("~Source gateway position: [%f, %f, %f]", srcGatePos[1], srcGatePos[2], srcGatePos[3]))
-		LOG(string.format("~Destination gateway position: [%f, %f, %f]", dstGatePos[1], dstGatePos[2], dstGatePos[3]))
+		LOG("*AI DEBUG Teleport Source "..string.format("~gateway position: [%f, %f, %f]", srcGatePos[1], srcGatePos[2], srcGatePos[3]))
+		LOG("*AI DEBUG Teleport Destination "..string.format("~gateway position: [%f, %f, %f]", dstGatePos[1], dstGatePos[2], dstGatePos[3]))
 
 		self:PlayTeleportSound()
 
 		self:EndGateChargeEffect()
 		self:PlayGateTeleportEffect()
 
-		self:PlayScaledTeleportInEffects()
-		self.DestinationGateway:PlayScaledTeleportInEffects()
+		self:PlayScaledTeleportInEffects(0.60)
+		self.DestinationGateway:PlayScaledTeleportInEffects(0.60)
 
 		-- the main teleport loop. Moves all units to the destination gate
 		for	k, v in	warpUnits do
 
 			-- no rides for units killed during charge-up
-			if v:IsDead() then continue end
+			if v.Dead then continue end
 
 			-- figure out the position of the unit relative to the sending gate, and use that relative position
 			-- offset by the receiving gate's position to determine the final location to teleport a unit
-
 			local curPos = table.copy(v:GetPosition())
 
 			local xOffset = curPos[1] - srcGatePos[1]
@@ -2784,15 +2832,17 @@ QuantumGateUnit = Class(FactoryUnit) {
 			v:CleanupTeleportChargeEffects()
 			v:PlayScaledTeleportOutEffects()
 
-            LOG("~Transported unit to "..repr(newPos))
 			Warp( v, newPos )
 
 			v:PlayScaledTeleportInEffects()
 			v:CleanupTeleportChargeEffects()
             
-			v:SetImmobile(false) -- this is important
-
+			v:SetImmobile(false)
 		end
+        
+        self:SetMaintenanceConsumptionActive()
+
+		self:AddToggleCap('RULEUTC_WeaponToggle')
 
 		self:RemoveTeleportLink()
 
@@ -2802,20 +2852,14 @@ QuantumGateUnit = Class(FactoryUnit) {
 		self.TeleportDrain = nil
 
 		self.TeleportInProgress = false
-		destinationGate.TeleportInProgress = false
-
-		--LOG("~Transport sequence complete!")
 	end,
-
 
 	-- Creates a link between this gateway and a destination gateway
 	CreateTeleportLink = function(self, dstGate)
 
 		self.DestinationGateway = dstGate
 		dstGate.SourceGateway = self
-
 	end,
-
 
 	-- Removes a link between gateways
 	RemoveTeleportLink = function(self)
@@ -2828,10 +2872,9 @@ QuantumGateUnit = Class(FactoryUnit) {
 		if otherGate then
 			otherGate.DestinationGateway = nil
 			otherGate.SourceGateway = nil
+            otherGate.TeleportInProgress = false
 		end
-
 	end,
-
 
 	-- Teleport GUI button
 	OnScriptBitSet = function(self,	bit)
@@ -2839,11 +2882,39 @@ QuantumGateUnit = Class(FactoryUnit) {
 		UnitOnScriptBitSet(self, bit)
 
 		if bit == 1 then
-			ForkThread(self.WarpNearbyUnits, self, 12)
+			ForkThread(self.WarpNearbyUnits, self, self.TeleportRadius)
 		end
 
 		self:SetScriptBit('RULEUTC_WeaponToggle', false)
 	end,
+
+    GetAlliedTeleportersInRadius = function(unit, position, radius)
+
+        local x1 = position[1] - radius
+        local z1 = position[3] - radius
+        local x2 = position[1] + radius
+        local z2 = position[3] + radius
+	
+        local UnitsinRec = GetUnitsInRect( Rect(x1, z1, x2, z2) )
+	
+        -- Check for empty rectangle
+        if not UnitsinRec then return false end
+	
+        local validUnits = { }
+	
+        for k, v in UnitsinRec do		
+            if IsAlly(v:GetArmy(), unit:GetArmy()) and table.find(v:GetBlueprint().Categories, 'TELEPORTER') then
+                local pos = v:GetPosition()
+                local dist = math.sqrt( math.pow(pos[1] - position[1], 2) + math.pow(pos[3] - position[3], 2) )
+			
+                if v.TeleportReady and dist <= radius then
+                    table.insert(validUnits, v)
+                end
+            end
+        end
+
+        return validUnits
+    end,
 }
 
 AirStagingPlatformUnit = Class(StructureUnit) {
