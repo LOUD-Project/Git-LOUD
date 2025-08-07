@@ -42,6 +42,7 @@ do
 		'DistressResponseDialog',
 		'PlatoonMergeDialog',
 		'TransportDialog',
+        'DisplayTransportPaths',
 		'PathFindingDialog',
 	}
 

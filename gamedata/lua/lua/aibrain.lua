@@ -131,7 +131,7 @@
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
     
-    ScenarioInfo.DisplayTransportPaths = true
+    ScenarioInfo.DisplayTransportPaths = false
     LOG("*AI DEBUG      Display Transport Paths is "..repr(ScenarioInfo.DisplayTransportPaths))    
 
     -- PATHFINDING dialogs - report pathfinding failures to log (useful in debugging poorly marked maps and doing threat evaluation debugging)
@@ -332,6 +332,7 @@ function SetAIDebug(data)
             'DistressResponseDialog',
             'PlatoonMergeDialog',
             'TransportDialog',
+            'DisplayTransportPaths',
             'PathFindingDialog',
 
             'AirForceDialog',
