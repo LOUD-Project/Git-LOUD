@@ -25,9 +25,9 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 
                 adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
 
-                distance = distance * ( 1 / (1 + adjustment))    -- don't look as far
+                distance = math.floor(distance * ( 1 / (1 + adjustment)))    -- don't look as far
 
-                threatcutoff = threatcutoff * (1 + adjustment)   -- and require greater threat to trigger
+                threatcutoff = math.floor(threatcutoff - (threatcutoff * adjustment))   -- and require less threat to trigger
             end
 
             for _,v in threatTable do
@@ -68,22 +68,24 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
             LOUDSORT(threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3]) end)
     
             -- this code makes this function dynamic via LandRatio and AIMult --
+            -- adjusting the triggers when ratio is above 1
             if threattype == 'Land' and aiBrain.LandRatio > 1 then
 
                 adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
 
-                distance = distance * (1 + adjustment)           -- look farther out
+                distance = math.floor(distance * (1 + adjustment))           -- look farther out
 
-                threatcutoff = threatcutoff * (1 + adjustment)   -- and require more threat to fail
+                threatcutoff = math.floor(threatcutoff * (1 + adjustment))   -- and require more threat to fail
             
             end
 
             for _,v in threatTable do
 
-
                 if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
                     if v[3] > threatcutoff then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees "..math.floor(v[3]).." "..threattype.." threat CLOSER than "..distance.." threat trigger is "..threatcutoff )
 
                         return false
                     end
