@@ -1746,9 +1746,8 @@ function ClearOutBase( manager, aiBrain )
             plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )
             
         end
-	
-        -- all naval units including EXPERIMENTALS excluding MOBILESONAR
-        local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, NAVALMOBILE - categories.MOBILESONAR - categories.INSIGNIFICANTUNIT, Position, 100 )
+
+        local groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, NAVALMOBILE - categories.INSIGNIFICANTUNIT, Position, 100 )
 
         if groupseacount > 0 then
 

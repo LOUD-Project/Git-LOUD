@@ -10,6 +10,7 @@ local meshes = {}
 local beatFunctionAdded = false
 
 local function AddRallyPoint(unit)
+
     local commandQueue = unit:GetCommandQueue()
     local commandOfInterest = commandQueue[table.getn(commandQueue)]    -- last command
     
@@ -18,14 +19,17 @@ local function AddRallyPoint(unit)
     end
 
     local mesh = WorldMesh()
+
     mesh.unit = unit
     table.insert(meshes, mesh)
+
     mesh:SetMesh({
         MeshName = rallyMeshes[commandOfInterest.type][1] or commandMeshResources[commandOfInterest.type][1],
 	    TextureName = rallyMeshes[commandOfInterest.type][2] or commandMeshResources[commandOfInterest.type][2],
 	    ShaderName = 'RallyPoint',
 	    UniformScale = 0.10
     })
+
     mesh:SetLifetimeParameter(10)
     mesh:SetStance(commandOfInterest.position)
     mesh:SetHidden(false)
@@ -48,6 +52,7 @@ local function OnBeat()
 end
 
 function OnSelectionChanged(selection)
+
     if not beatFunctionAdded then
         import('/lua/ui/game/gamemain.lua').AddBeatFunction(OnBeat)
         beatFunctionAdded = true
@@ -56,9 +61,12 @@ function OnSelectionChanged(selection)
     ClearAllRallyPoints()
     
     if selection then
+
         local factories
+
         for index, unit in selection do
-            if unit:IsInCategory("FACTORY") and unit:IsInCategory("STRUCTURE") then
+
+            if (unit:IsInCategory("FACTORY") or unit:IsInCategory("TELEPORTER")) and unit:IsInCategory("STRUCTURE") then
                 if factories == nil then factories = {} end
                 table.insert(factories, unit)
             end

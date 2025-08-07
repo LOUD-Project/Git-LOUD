@@ -5498,7 +5498,7 @@ Unit = Class(UnitMethods) {
 	end,
 	
 	-- Like PlayTeleportInEffects, but scaled based on the size of the unit
-	PlayScaledTeleportInEffects = function(self)
+	PlayScaledTeleportInEffects = function(self, scaleoverride)
 	
 		local army = self.Army
 		local bp = ALLBPS[self.BlueprintID]
@@ -5508,7 +5508,7 @@ Unit = Class(UnitMethods) {
 		
 		for k, v in EffectTemplate.GenericTeleportIn01 do
 		
-			CreateEmitterAtEntity(self, army, v):OffsetEmitter(0, yOffset, 0):ScaleEmitter(scaleFactor)
+			CreateEmitterAtEntity(self, army, v):OffsetEmitter(0, yOffset, 0):ScaleEmitter(scaleoverride or scaleFactor)
 		end
 		
 	end,	

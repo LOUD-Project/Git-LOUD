@@ -379,8 +379,9 @@ function CreateIdleTab(unitData, id, expandFunc)
 			
                 sortedFactories[i] = {}
                 sortedFactories[i][1] = EntityCategoryFilterDown(categories.TECH1 * categories[cat], self.allunits)
-                sortedFactories[i][2] = EntityCategoryFilterDown(categories.TECH2 * categories[cat] + categories.GANTRY, self.allunits)
+                sortedFactories[i][2] = EntityCategoryFilterDown(categories.TECH2 * categories[cat] - categories.SIZE4, self.allunits)
                 sortedFactories[i][3] = EntityCategoryFilterDown(categories.TECH3 * categories[cat] - categories.SIZE4, self.allunits)
+                sortedFactories[i][4] = EntityCategoryFilterDown(categories.EXPERIMENTAL * categories[cat] - categories.TELEPORTER, self.allunits)
 				
             end
             
@@ -534,7 +535,7 @@ function ClickFunc(self, event)
 					if self.units[1]:IsInCategory('ENGINEER') then
 						UISelectionByCategory('ENGINEER', false, true, false, true)
 					else
-						UISelectionByCategory('FACTORY', false, true, false, true)
+						UISelectionByCategory('FACTORY -TELEPORTER', false, true, false, true)
 					end
                     
 					local tempSelection = GetSelectedUnits() or {}
@@ -1030,17 +1031,19 @@ function AvatarUpdate()
 		
     end
     
+    local factorycategories = categories.ALLUNITS - categories.SIZE4 - categories.TELEPORTER
+    
 	-- there were several reference to - categories.GATE that I removed here so that idle gates will show up as idle factories
-	-- we'll also exclude counting and showing the HEAVYWALL segments as factories
-    if factories and LOUDGETN(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories)) > 0 then
+	-- we'll also exclude counting and showing the HEAVYWALL segments as factories and TELEPORTERS
+    if factories and LOUDGETN(EntityCategoryFilterDown( factorycategories, factories)) > 0 then
 	
         if controls.idleFactories then
 		
-            controls.idleFactories:Update(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories))
+            controls.idleFactories:Update(EntityCategoryFilterDown( factorycategories, factories))
 			
         else
 		
-            controls.idleFactories = CreateIdleTab(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories), 'factory', CreateIdleFactoryList)
+            controls.idleFactories = CreateIdleTab(EntityCategoryFilterDown( factorycategories, factories), 'factory', CreateIdleFactoryList)
 			
             if expandedCheck == 'factory' then
                 controls.idleFactories.expandCheck:SetCheck(true)
