@@ -1,8 +1,48 @@
+### Release
+
+LUA 7.29
+UNITS 7.17
+Black Ops for LOUD 7.16
+BrewLAN for LOUD 0.8.8.9.119
+LOUD_MISC 7.10
+LOUD_UNITS 7.10
+
+- numerous improvements to the readability of the AI Debug messages in the log, improved colors in the display functions
+    -- AI Debug gets a new switch for 'Display Transport Paths', showing intended travel routes for transports
+    -- Display Attack Plans will also display the path logic used in finding new Primary Sea Bases
+- SetPrimarySeaAttackBase now uses Water movement, versus Amphibious, to determine best proximity to Attack Plan goal
+    -- AI will use the same method in locating new naval DP positions for better progression towards goal targets
+    -- AI can now consider Naval Areas as positions for Naval DP's 
+    -- minor increases to minimum base ranges to prevent a single AI from taking all the local points
+- Reclaimables in Area (Energy) was not adhering to the range parameter
+- Sea unit movement now ramps up/down, to provide more natural acceleration and turn rates between moving and stopped states
+- standardization of turn rates and radii on Battleship units
+- standardization of turn rates and radii on T2 MML and T2 Mobile flak units
+- minor changes to UEF Continental, to draw it into better line with other T3 transports
+- fixed an issue with T3 Mobile Sonars not being properly evaluated by Evenflow logic
+    -- all MOBILESONARS are now considered STRUCTURE units, just with mobility
+    -- no longer need to identify MOBILESONARS discretely from other SONAR structures
+- the lobby will now warn you about excessive total unit caps (8k+) when launching a game
+- revised the recently added 'landing' buff, to last an additional .6 seconds, to improve reliability
+- fixed an issue where intel effects ( teleport jamming, stealth fields) were not being properly cleaned up
+- substantial revision to the mechanics of the 'teleportation nodes'
+    -- teleport radius is now stored as part of the blueprint 'MaxBuildDistance'
+    -- teleport radius now shows as a purple range ring, similar to engineers build distance
+    -- T3/T4 units cost more E, and add slightly to the teleport time
+    -- teleporters have a 200E maintenance cost that is required to keep the 'teleport' button visible
+    -- teleporters will now gracefully abort a teleport if energy runs out
+    -- dramatically shrank the teleporter structure to provide more 'teleport' area
+    -- dramatically increased the teleporter footprint so that nothing impedes the teleport area
+    -- revised the teleportation effects to better match with the size of the teleport area
+- the teleport structures have been moved from LOUD_UNITS into the base UNITS file
+
+
 ### Release 07-20-2025
 
 LUA 7.28
 
 - fixed an issue where movement effects were not being properly cleaned up causing late-game crashes
+
 
 
 ### Release 07-19-2025
@@ -26,6 +66,7 @@ Wyvern for LOUD 7.11
     -- affects only landings at airpads - or actual 'stop' commands
 - revised 'Out Of Fuel' air unit buff to include weapon range reduction of 20%
 - revised 'Heavy Damage' and 'Severe Damage' buffs for air units to include weapon range reductions (35% and 60% respectively)
+
 
 
 ### Release 07-12-2025
