@@ -48,7 +48,7 @@
 
     
     -- AI will display the route and goal of his current attack plan
-	ScenarioInfo.DisplayAttackPlans = true
+	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG      Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
     
     -- the AttackPlanner will dialog their selection and plotting data and decisions to the LOG
