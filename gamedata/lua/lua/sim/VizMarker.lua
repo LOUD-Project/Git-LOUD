@@ -11,16 +11,22 @@ local Warp = Warp
 VizMarker = Class(Entity) {
 
     __init = function(self, spec)
+
         Entity.__init(self, spec)
+        
+        --LOG("*AI DEBUG Vizmarker __init is "..repr(spec))
+        
         self.X = spec.X
         self.Z = spec.Z
-        self.LifeTime = spec.LifeTime
-        self.Radius = spec.Radius
-        self.Army = spec.Army
-        self.Omni = spec.Omni
-        self.Radar = spec.Radar
-        self.Vision = spec.Vision
-        self.WaterVision = spec.WaterVision
+
+        self.Army       = spec.Army
+        self.LifeTime   = spec.LifeTime
+        self.Radius     = spec.Radius
+
+        self.Omni       = spec.Omni
+        self.Radar      = spec.Radar
+        self.Vision     = spec.Vision
+        self.WaterVis   = spec.WaterVision
     end,
 
     OnCreate = function(self)
@@ -29,28 +35,31 @@ VizMarker = Class(Entity) {
         
         local vec = VectorCached
         
+        --LOG("*AI DEBUG Vizmarker OnCreate is "..repr(self))
+        
         vec[1] = self.X
         vec[2] = 0
         vec[3] = self.Z
 
         Warp( self, vec )
 		
-        if self.Omni != false then
+        if self.Omni    != false then
             self:InitIntel(self.Army, 'Omni', self.Radius)
             self:EnableIntel('Omni')
         end
-        if self.Radar != false then
+        if self.Radar   != false then
             self:InitIntel(self.Army, 'Radar', self.Radius)
             self:EnableIntel('Radar')
         end        
-        if self.Vision != false then
+        if self.Vision  != false then
             self:InitIntel(self.Army, 'Vision', self.Radius)
             self:EnableIntel('Vision')
         end
-        if self.WaterVision != false then
+        if self.WaterVis != false then
             self:InitIntel(self.Army, 'WaterVision', self.Radius)
             self:EnableIntel('WaterVision')
         end
+ 
         if self.LifeTime > 0 then
             self.LifeTimeThread = ForkThread(self.VisibleLifeTimeThread, self)
         end

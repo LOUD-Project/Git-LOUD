@@ -94,7 +94,7 @@ function RemoteViewing(SuperClass)
         TargetLocationThread = function(self)
         
             if RemoteViewingDebug then
-                LOG("*AI DEBUG Target Location Thread")
+                LOG("*AI DEBUG Target Location Thread for "..repr(self.RemoteViewingData.PendingVisibleLocation))
             end
 
             self:RequestRefreshUI()
@@ -125,8 +125,8 @@ function RemoteViewing(SuperClass)
 						continue
 					end
 				
-					local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance
-					local atposition = unit:GetPosition()
+					local noTeleDistance    = unit:GetBlueprint().Defense.NoTeleDistance
+					local atposition        = unit:GetPosition()
 
 					local targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
 
@@ -134,12 +134,16 @@ function RemoteViewing(SuperClass)
 					if noTeleDistance and noTeleDistance > targetdestdistance then
 
 						FloatingEntityText(self.EntityID,'Remote Viewing Destination Scrambled')
+                        
+                        if RemoteViewingDebug then
+                            LOG("*AI DEBUG RemoteViewing Location is blocked within ("..noTeleDistance..") at "..repr(self.RemoteViewingData.VisibleLocation).." distance is "..targetdestdistance )
+                        end
 
                         self.RemoteViewingData.PendingVisibleLocation = false
 						self.RemoteViewingData.VisibleLocation = false
 
-						-- play audio warning
-						if GetFocusArmy() == self.Army then
+						-- play audio warning for humans
+						if GetFocusArmy() == self.Army and aiBrain.BrainType != 'AI' then
 
 							local Voice = Sound {Bank = 'XGG', Cue = 'XGG_Computer_CV01_04765',}
 							local Brain = self:GetAIBrain()
@@ -147,13 +151,13 @@ function RemoteViewing(SuperClass)
 							ForkThread(Brain.PlayVOSound, Brain, Voice, 'RemoteViewingFailed')
 						end						
 						
-						return true
+						return false
 					end
 				end
 
 			end	
 
-            return false
+            return true
             
         end,
         
@@ -176,24 +180,27 @@ function RemoteViewing(SuperClass)
 			-- this code taken from Black Ops
             VisibleEntityWillBeCreated = self:AntiTeleportBlock( self:GetAIBrain(), self.RemoteViewingData.VisibleLocation )
             
-            if VisibilityEntityWillBeCreated then
+            if VisibilityEntityWillBeCreated and self.RemoteViewingData.VisibleLocation then
 
                 -- Create new visible entity
                 if not self.RemoteViewingData.Satellite then
 
                     local spec = {
-                        X = self.RemoteViewingData.VisibleLocation[1],
-                        Z = self.RemoteViewingData.VisibleLocation[3],
 
-                        Radius      = self.RemoteViewingData.Intel.RemoteViewingRadius or 26,
+                        Army        = self:GetAIBrain():GetArmyIndex(),                    
                         LifeTime    = self.RemoteViewingData.Intel.RemoteViewingLifetime or -1,
+                        Radius      = self.RemoteViewingData.Intel.RemoteViewingRadius or 26,
 
-                        Omni = false,
-                        Radar = false,
+                        X           = self.RemoteViewingData.VisibleLocation[1],
+                        Z           = self.RemoteViewingData.VisibleLocation[3],
+
                         Vision = true,
-                        Army = self:GetAIBrain():GetArmyIndex(),
                     }
-                    
+
+                    if RemoteViewingDebug then        
+                        LOG("*AI DEBUG CreateVisibleEntity spec is  "..repr(spec) )
+                    end
+
                     self.RemoteViewingData.Satellite = VizMarker(spec)
                     
                     -- this functionality is for remoteviewing that attaches to a specific unit
@@ -224,10 +231,6 @@ function RemoteViewing(SuperClass)
                     end
 
                 end
-
-            end
-			
-            if VisibilityEntityWillBeCreated then
 			
                 local bp = self.RemoteViewingData.Intel
 				
