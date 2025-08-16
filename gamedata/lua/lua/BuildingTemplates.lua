@@ -111,6 +111,7 @@ BuildingTemplates = {
         { 'T4SatelliteExperimental', 'xeb2402'  },
 	-- Economic
         { 'T4EconExperimental', 'seb1401' },
+        { 'T4TeleportNode', 'ueb0305' },
     },
 
 -- Aeon Building List
@@ -217,6 +218,7 @@ BuildingTemplates = {
         {'T4EconExperimental', 'xab1401'	},
 	-- Satellite
         {'T4SatelliteExperimental', 'xab2404'	},
+        { 'T4TeleportNode', 'uab0305' },
     },
 
 -- Cybran Building List
@@ -318,6 +320,7 @@ BuildingTemplates = {
 		{ 'T4SeaExperimental2',	},
 	-- Economic
         { 'T4EconExperimental', 'srb1401'   },
+        { 'T4TeleportNode', 'urb0305' },
     },
 
 -- Seraphim Building List
@@ -419,6 +422,7 @@ BuildingTemplates = {
 		{ 'T4SeaExperimental2',	},
 	-- Economic
         {'T4EconExperimental', 'ssb1401'	},
+        { 'T4TeleportNode', 'xsb0305' },
     }
 }
 
