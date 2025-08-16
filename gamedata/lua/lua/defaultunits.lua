@@ -254,7 +254,7 @@ StructureUnit = Class(Unit) {
 
             self:PlayActiveAnimation()
 
-            self:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP)
+            self:CreateTarmac(true, true, true, false, self.TarmacBag.CurrentBP)
 
             ChangeState(self, self.IdleState)
 
@@ -492,8 +492,19 @@ StructureUnit = Class(Unit) {
         if self.CacheLayer != 'Land' then return end
 
         local orient,tarmac
+
         local bp = __blueprints[self.BlueprintID].Display.Tarmacs
 
+        if not specTarmac then
+		
+            if bp[1] then
+                tarmac = bp[Random(1, LOUDGETN(bp))]
+            else
+                return false
+            end
+        else
+            tarmac = specTarmac
+        end
 
         orient = orientation
 
@@ -505,39 +516,39 @@ StructureUnit = Class(Unit) {
                 orient = (0.01745 * orient)
 				
 				tarmac.Orientations = nil
-				
             else
                 orient = 0
             end
         end
-
-        if not specTarmac then
-		
-            if bp[1] then
-
-                tarmac = bp[Random(1, LOUDGETN(bp))]
-				
-            else
-                return false
-            end
-        else
-            tarmac = specTarmac
+        
+        if lifeTime then
+            tarmac.LifeTime = lifeTime
         end
         
-        if not lifeTime then
-            lifeTime = 0
+        if not tarmac.RemoveWhenDead then
+            tarmac.RemoveWhenDead = true
         end
+        
+        if tarmac.DeathLifetime then
+            tarmac.DeathLifetime = math.min( 45, tarmac.DeathLifetime )
+        end
+        
+        tarmac.DeathLifetime = nil
+        tarmac.RemoveWhenDead = nil
+        
+        --LOG("*AI DEBUG Creating tarmac "..repr(tarmac))
 
-		local CreateDecal = CreateDecal
-		local LOUDGETN = LOUDGETN		
-		local LOUDINSERT = LOUDINSERT
-		local Random = Random
-        local TrashAdd = TrashAdd
+		local CreateDecal   = CreateDecal
+		local LOUDGETN      = LOUDGETN		
+		local LOUDINSERT    = LOUDINSERT
+		local Random        = Random
+        local TrashAdd      = TrashAdd
 
-        local army = self.Army
-        local w = tarmac.Width
-        local l = tarmac.Length
-        local fadeout = tarmac.FadeOut or 360
+        local army      = self.Army
+        local fadeout   = tarmac.FadeOut or 160     -- LOD level
+        local lifeTime  = tarmac.Lifetime or 480    -- time to last in seconds (8 minutes)
+        local l         = tarmac.Length             -- physical length and width
+        local w         = tarmac.Width
 
 		local pos = GetPosition(self)
 		
@@ -554,77 +565,52 @@ StructureUnit = Class(Unit) {
             terrainName = terrain.Name
         end
 
-        local factionTable = {e=1, a=2, r=3, s=4}
-        
-        local faction  = factionTable[ LOUDSUB(self.BlueprintID,2,2)]
+        local factionTable  = {e=1, a=2, r=3, s=4}
+        local faction       = factionTable[ LOUDSUB(self.BlueprintID,2,2)]
+        local tarmacdec     = GetTarmac(faction, terrainName)
+        local tarmacHndl    = false
 
         if albedo and tarmac.Albedo then
 		
             local albedo2 = tarmac.Albedo2
 			
             if albedo2 then
-                albedo2 = albedo2 .. GetTarmac(faction, terrain)
+                albedo2 = albedo2..tarmacdec
             end
 
-            local tarmacHndl = CreateDecal( pos, orient, tarmac.Albedo..GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
-
-			if not self.TarmacBag then
-		
-				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
-			
-			end
-			
-            LOUDINSERT( self.TarmacBag.Decals, tarmacHndl )
-			
-            if tarmac.RemoveWhenDead then
-                TrashAdd( self.Trash, tarmacHndl )
-            end
+            tarmacHndl = CreateDecal( pos, orient, tarmac.Albedo..tarmacdec, albedo2 or '', 'Albedo', w, l, fadeout, lifeTime, army, 0)
         end
 
         if normal and tarmac.Normal then
-		
-            local tarmacHndl = CreateDecal( pos, orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 300, army, 0)
-
-			if not self.TarmacBag then
-		
-				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
-			
-			end
-
-            LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
-			
-            if tarmac.RemoveWhenDead then
-                TrashAdd( self.Trash, tarmacHndl )
-            end
-			
+            tarmacHndl = CreateDecal( pos, orient, tarmac.Normal..tarmacdec, '', 'Alpha Normals', w, l, fadeout, lifeTime, army, 0)
         end
 
         if glow and tarmac.Glow then
-		
-            local tarmacHndl = CreateDecal( pos, orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 300, army, 0)
+            tarmacHndl = CreateDecal( pos, orient, tarmac.Glow..tarmacdec, '', 'Glow', w, l, fadeout, lifeTime, army, 0)
+        end
+
+--[[       
+        if tarmacHndl then
 
 			if not self.TarmacBag then
-			
-				self.TarmacBag = { Decals = {}, Orientation = orient, CurrentBP = tarmac }
-			
+				self.TarmacBag = { Decals = {}, CurrentBP = tarmac }
 			end
 
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
-			
-            if tarmac.RemoveWhenDead then
-                TrashAdd( self.Trash, tarmacHndl )
-            end
-			
+            
+            self.Trash:Add(tarmacHndl)
+
         end
-		
+--]]
     end,
 
     DestroyTarmac = function(self)
 
         if self.TarmacBag then
 
-			for _, v in self.TarmacBag.Decals do
+			for k, v in self.TarmacBag.Decals do
 				v:Destroy()
+                self.TarmacBag.Decals[k] = nil
 			end
 
 			self.TarmacBag.Orientation = nil
@@ -935,10 +921,21 @@ StructureUnit = Class(Unit) {
 		self:DestroyAdjacentEffects()
 		
 		if self.TarmacBag then
-			-- put down replacement
-			self:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP, self.TarmacBag.CurrentBP.DeathLifetime or 300)
-			-- destroy the original
-			self:DestroyTarmac()
+
+            -- destroy existing decals
+			for k, v in self.TarmacBag.Decals do
+
+				v:Destroy()
+                self.TarmacBag.Decals[k] = nil
+			end
+
+            if self.TarmacBag.CurrentBP.DeathLifetime then
+
+                -- put down replacement
+                self:CreateTarmac(true, true, true, false, self.TarmacBag.CurrentBP, self.TarmacBag.CurrentBP.DeathLifetime)
+                
+            end
+
 		end
 
         UnitOnKilled(self, instigator, type, overkillRatio)
@@ -2550,8 +2547,7 @@ QuantumGateUnit = Class(StructureUnit) {
 
 		end
 
-		-- bubble event
-		UnitOnKilled(self, instigator, type, overkillRatio)
+		StructureUnitOnKilled(self, instigator, type, overkillRatio)
 	end,
 
 	-- This is the "main" function called when the teleport button is clicked
@@ -4870,7 +4866,7 @@ MineStructureUnit = Class(StructureUnit) {
 
     OnScriptBitSet = function(self, bit)
 
-        StructureUnit.OnScriptBitSet(self, bit)
+        UnitOnScriptBitSet(self, bit)
 
         if bit == 1 then
             self:GetWeaponByLabel('Suicide'):OnWeaponFired()
@@ -4879,7 +4875,7 @@ MineStructureUnit = Class(StructureUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         
-        StructureUnit.OnKilled(self, instigator, type, 2)
+        StructureUnitOnKilled(self, instigator, type, 2)
         
         self:Destroy()
     end,
