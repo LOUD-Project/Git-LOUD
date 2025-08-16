@@ -625,9 +625,10 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
 end
 
 
-function FactoryCapCheck(aiBrain, locationType, factoryType)
+function FactoryCapCheck(aiBrain, locationType, factoryType, overrideamount)
 
     local catCheck = false
+    local override = overrideamount or 0
 	
     if factoryType == 'LAND' then
         catCheck = landfactory
@@ -655,7 +656,7 @@ function FactoryCapCheck(aiBrain, locationType, factoryType)
 		numUnits = numUnits + GetNumCategoryBeingBuiltByEngineers( engineerManager, catCheck, allunits )
 	end
 
-    if numUnits < BM.BaseSettings.FactoryCount[factoryType] then
+    if numUnits < (BM.BaseSettings.FactoryCount[factoryType] + override) then
 		return true
 	end
 	
