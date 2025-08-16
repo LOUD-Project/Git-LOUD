@@ -69,6 +69,7 @@ UnitBlueprint {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
                 DeathLifetime = 60,
                 Length = 24,
+                Lifetime = 1800,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
                 Orientations = {0},
                 RemoveWhenDead = true,
