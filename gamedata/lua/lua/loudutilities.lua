@@ -458,6 +458,14 @@ function NoBaseAlert( aiBrain, locType )
 	return true
 end
 
+function AirProductionRatioGreaterThan( aiBrain, value )
+	return aiBrain.AirProdRatio >= value
+end
+
+function AirProductionRatioLessThan( aiBrain, value )
+	return aiBrain.AirProdRatio < value
+end
+
 function AirStrengthRatioGreaterThan( aiBrain, value )
 	return aiBrain.AirRatio >= value
 end
@@ -474,6 +482,20 @@ function LandStrengthRatioGreaterThan( aiBrain, value )
 
     -- no LAND activity
     if aiBrain.LandRatio <= .01 or aiBrain.CycleTime < 240 then
+
+        -- this better recognizes 'Ground & Pound' scenarios and prevents
+        -- early overbuild of air factories
+        if ScenarioInfo.Options.RestrictedCategories then
+
+            for k,v in ScenarioInfo.Options.RestrictedCategories do
+
+                if v == 'AIRFIGHTERS' then
+                    LOG("*AI DEBUG Restricted Cats are "..repr(ScenarioInfo.Options.RestrictedCategories) )
+                    return aiBrain.LandRatio >= value
+                end
+            end
+        end
+        
         return true
     end
 
