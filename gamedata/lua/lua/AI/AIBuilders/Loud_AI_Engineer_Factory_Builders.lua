@@ -574,6 +574,51 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
             }
         }
     },
+
+    Builder {BuilderName = 'Teleport Node',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 900,
+        
+        PriorityFunction = AboveUnitCap75,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
+
+			{ UCBC, 'ExpansionBaseCount', { 1, '>' } },
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.TELEPORTER }},
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 4,
+			
+            Construction = {
+				Radius = 49,
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 1,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'FactoryLayout',
+				
+				ThreatMax = 50,
+
+                BuildStructures = {'T4TeleportNode'},
+            }
+        }
+    },
 	
 }
 
@@ -625,5 +670,50 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
             }
         }
     },
+
+    Builder {BuilderName = 'Teleport Node - Small Base',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 900,
+        
+        PriorityFunction = AboveUnitCap75,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
+
+			{ UCBC, 'ExpansionBaseCount', { 1, '>' } },
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.TELEPORTER }},
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 4,
+			
+            Construction = {
+				Radius = 36,
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 1,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'FactoryLayout',
+				
+				ThreatMax = 50,
+
+                BuildStructures = {'T4TeleportNode'},
+            }
+        }
+    },
+
 }
