@@ -1519,6 +1519,15 @@ function SetPrimarySeaAttackBase( aiBrain )
         -- this is almost always a land position so it's not really valid for the sea attack base
         -- perhaps we should locate the closest naval path marker to this position
         local reason, goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
+        
+        if not goal then
+        
+            if AttackPlanDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase fails WATER trying AMPHIBIOUS")
+            end
+            
+            reason, goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Amphibious')
+        end
 
         if AttackPlanDialog then    
             LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase Goal is "..repr(goal))
@@ -1527,7 +1536,7 @@ function SetPrimarySeaAttackBase( aiBrain )
         local Bases = {}
 		local counter = 0
         
-        local path, reason, pathlength
+        local path, pathlength
         local Primary
        
         local currentgoaldistance = aiBrain.PrimarySeaAttackBaseDistance or 99999       -- default in case current primary doesn't exist --
