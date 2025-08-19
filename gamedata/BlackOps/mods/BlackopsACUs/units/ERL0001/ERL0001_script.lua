@@ -1755,7 +1755,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			    self.CloakEffectsBag = {}
             end
 
-		    self.CreateTerrainTypeEffects(self, self.IntelEffects.Cloak,'FXIdle',self:GetCurrentLayer(),nil,self.CloakEffectsBag )
+		    self.CreateTerrainTypeEffects(self, self.IntelEffects.Cloak,'FXIdle',self:GetCurrentLayer(),nil,'CloakEffectsBag' )
         end
 
         if self.StealthPackage and intel == 'RadarStealthField' then
@@ -1764,7 +1764,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 	            self.StealthEffectsBag = {}
             end
 
-	        self.CreateTerrainTypeEffects(self, self.IntelEffects.Field,'FXIdle',self:GetCurrentLayer(),nil,self.StealthEffectsBag )
+	        self.CreateTerrainTypeEffects(self, self.IntelEffects.Field,'FXIdle',self:GetCurrentLayer(),nil,'StealthEffectsBag' )
         end
     end,
 
