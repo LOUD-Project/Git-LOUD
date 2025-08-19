@@ -1,4 +1,4 @@
-name = "Enhanced Black Ops Commanders for LOUD"
+name = "LOUD Enhanced Black Ops Commanders"
 author = "Henry Katzmarek"
 version = 6.3
 description = "Enhances Black Ops ACUs. HP +20%. Engineer Upgrades -10%. Damage increased 10%."

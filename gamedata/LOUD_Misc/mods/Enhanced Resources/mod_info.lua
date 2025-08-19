@@ -1,4 +1,4 @@
-name = "Enhanced Resources"
+name = "LOUD Enhanced Resources"
 version = 1.08
 copyright = "Copyright © 2006, Gas Powered Games"
 description = "Increases resource production by 15%, and decreases unit cost & build time by 10%."

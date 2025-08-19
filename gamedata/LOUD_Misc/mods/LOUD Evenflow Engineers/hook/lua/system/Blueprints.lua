@@ -7,6 +7,8 @@ do
         if oldModBlueprints then
             oldModBlueprints(all_bps)
         end
+        
+        LOG("LOUD Evenflow being applied")
 
         -- log all changes
         local show_log = false

@@ -3,22 +3,20 @@ do
 
 	function ModBlueprints(all_blueprints)
 
-		OldModBlueprints(all_blueprints)
-		
 		local modConfig = {}
 
 		for _, v in __active_mods do
-			if v.uid == 'b8d941e131multiplier' then
+			if v.uid == 'ffffffff-9d4e-11dc-8314-0800200c0600' then
 				modConfig = v.config
 				break
 			end
 		end
         
         if modConfig then
-
-            LOG("MOD Enhanced Static HP Multipler set to "..repr(modConfig['Multiplier']))
         
-            local multiplier = tonumber(modConfig['Multiplier'])
+            local multiplier = tonumber(modConfig['Multiplier'] or 1.0)
+
+            LOG("MOD Enhanced Static HP Multipler set to "..multiplier)
 
             for id, bp in all_blueprints.Unit do
 
@@ -35,5 +33,8 @@ do
                 end
             end
         end
+
+		OldModBlueprints(all_blueprints)
+		
     end
 end

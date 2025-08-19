@@ -1,4 +1,4 @@
-name = "Enhanced T4 Artillery"
+name = "LOUD Enhanced T4 Artillery"
 author = "Henry Katzmarek"
 version = 1.04
 description = "Increases firepower of all Experimental artillery."

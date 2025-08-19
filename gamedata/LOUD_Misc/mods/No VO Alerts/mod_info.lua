@@ -1,4 +1,4 @@
-name = "No VO Alerts"
+name = "LOUD No Voiceover Alerts"
 uid = "7be1d5f4-c544-11ea-87d0-noalerts0001"
 version = 0
 copyright = "© 2020"

@@ -1,4 +1,4 @@
-name = "Enhanced Nukes"
+name = "LOUD Enhanced Nukes"
 version = 1.02
 copyright = "Copyright � 2013-2014, Ntalikeris666"
 author = "Ntalikeris666"

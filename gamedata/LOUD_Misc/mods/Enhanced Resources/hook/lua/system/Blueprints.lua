@@ -13,6 +13,8 @@ do
         local econScale = 1.15
 		local buildScale = .9
         
+        LOG("LOUD Enhanced Resources being applied")
+        
         --loop through the blueprints and adjust resource production.
         for id,bp in all_bps.Unit do
 		
