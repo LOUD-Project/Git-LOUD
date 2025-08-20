@@ -5256,6 +5256,14 @@ function ParseIntelThread( aiBrain )
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
+                    aiBrain.AirRatio = aiBrain.AirRatio * aiBrain.NumOpponents
+                    
+                    if aiBrain.OutnumberedRatio > 1 then
+                    
+                        aiBrain.AirRatio = aiBrain.AirRatio / aiBrain.OutnumberedRatio
+                        
+                    end
+                    
                 else
                 
                     if aiBrain.CycleTime < 600 then
@@ -5320,7 +5328,15 @@ function ParseIntelThread( aiBrain )
                 if oldthreat > 0 then
                 
                     aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+
+                    aiBrain.LandRatio = aiBrain.LandRatio * aiBrain.NumOpponents
                     
+                    if aiBrain.OutnumberedRatio > 1 then
+                    
+                        aiBrain.LandRatio = aiBrain.LandRatio / aiBrain.OutnumberedRatio
+                        
+                    end
+
                 else
                 
                     if aiBrain.CycleTime < 600 then
@@ -5384,7 +5400,15 @@ function ParseIntelThread( aiBrain )
                 if oldthreat > 0 then
                 
                     aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+
+                    aiBrain.NavalRatio = aiBrain.NavalRatio * aiBrain.NumOpponents
                     
+                    if aiBrain.OutnumberedRatio > 1 then
+                    
+                        aiBrain.NavalRatio = aiBrain.NavalRatio / aiBrain.OutnumberedRatio
+                        
+                    end
+
                 else
                 
                     if aiBrain.CycleTime < 600 then
