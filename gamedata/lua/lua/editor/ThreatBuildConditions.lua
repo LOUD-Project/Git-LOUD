@@ -1,12 +1,14 @@
 ---  /lua/editor/threatbuildconditions.lua
 
+local LOUDFLOOR = math.floor
 local LOUDLOG10 = math.log10
-local LOUDSORT = table.sort
+local LOUDSORT  = table.sort
 
-local VDist2 = VDist2
-local VDist2Sq = VDist2Sq
+local VDist2    = VDist2
+local VDist2Sq  = VDist2Sq
 
-local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+local GetNumUnitsAroundPoint    = moho.aibrain_methods.GetNumUnitsAroundPoint
+local GetThreatsAroundPosition  = moho.aibrain_methods.GetThreatsAroundPosition
 
 
 function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threattype)
@@ -25,9 +27,57 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 
                 adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
 
-                distance = math.floor(distance * ( 1 / (1 + adjustment)))    -- don't look as far
+                distance = LOUDFLOOR(distance * ( 1 / (1 + adjustment)))    -- don't look as far
 
-                threatcutoff = math.floor(threatcutoff - (threatcutoff * adjustment))   -- and require less threat to trigger
+                threatcutoff = LOUDFLOOR(threatcutoff - (threatcutoff * adjustment))   -- and require less threat to trigger
+            end
+
+            for _,v in threatTable do
+
+                if v[3] > threatcutoff then
+
+                    if VDist2( v[1], v[2], position[1], position[3] ) <= distance then
+
+                        return true
+                    end
+                    
+                end
+            end
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." fails ThreatCloserThan (TBC) "..distance.." for greater than "..threatcutoff.." "..threattype.." threat" )
+
+        end
+
+	end
+	
+    return false
+
+end
+
+-- this adds a check for strategic artillery alongside a threat check
+function ThreatCloserThanOrArtillery( aiBrain, locationType, distance, threatcutoff, threattype)
+
+    if GetNumUnitsAroundPoint( aiBrain, categories.ARTILLERY * categories.STRATEGIC, {0,0,0}, 999999, 'Enemy' ) > 0 then
+        return true
+    end
+	
+    local position = aiBrain.BuilderManagers[locationType].Position
+
+	if position[1] then
+  
+		local threatTable = GetThreatsAroundPosition( aiBrain, position, 12, true, threattype)
+        
+        local adjustment = 0
+        
+        if threatTable[1] then
+        
+            if (threattype == 'Land' or threattype == 'AntiSurface') and aiBrain.LandRatio > 1 then
+
+                adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
+
+                distance = LOUDFLOOR(distance * ( 1 / (1 + adjustment)))    -- don't look as far
+
+                threatcutoff = LOUDFLOOR(threatcutoff - (threatcutoff * adjustment))   -- and require less threat to trigger
             end
 
             for _,v in threatTable do

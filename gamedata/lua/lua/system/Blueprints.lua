@@ -520,169 +520,15 @@ local usermodUnitIcons = {}
 -- Hook for mods to manipulate the entire blueprint table
 function ModBlueprints(all_blueprints)
 
-	-- TODO: move this load to someplace more central so Tanksy and others can use it
-	-- Load Phoenix's Helper Library
-	-- This includes primarily functions that calculate DPS and Threat, but also includes
-	-- a set of functions that return clean unit information.
-	-- This method of inclusion loads a single table of info, constants, and functions
-	-- called PhxLib
-	doscript '/lua/PhxLib.lua'
-    
-	--LOG("PhxLib is "..repr(PhxLib))
-
-	-- Used for loading loose files in the Development build, as part of the GitHub Repo.
-	for bptype, array in all_blueprints do
-		if (bptype != "Unit" and bptype != "Mesh") then
-			for id, bp in array do
-				if string.find(bp.BlueprintId, "/") and string.find(bp.BlueprintId, "/gamedata/") then
-					local slash = string.find(bp.BlueprintId, "/", 2)
-					slash = string.find(bp.BlueprintId, "/", slash + 1)
-					--LOG(bp.BlueprintId)
-					bp.BlueprintId = string.sub(bp.BlueprintId, slash)
-					--LOG(bp.BlueprintId)
-				end
-			end
-		end
-	end
-   
-    local units_threatchange = 0
-
-    for id, bp in all_blueprints.Unit do
-
-		local tpc = bp.Transport and bp.Transport.TransportClass or 1
-		local sizes = {'Small', 'Medium', 'Large', [5]='Drone'}
-
-		if bp.General.CommandCaps.RULEUCC_CallTransport
-            and sizes[tpc]
-            and bp.Categories
-            and not table.find(bp.Categories, 'TECH'..tpc)
-		then
-			if not bp.Display           then bp.Display = {}           end
-			if not bp.Display.Abilities then bp.Display.Abilities = {} end
-			table.insert(bp.Display.Abilities, 'Transport hook size: '..sizes[tpc])
-		end
-		
-        if bp.Weapon then
-
-			-- Begin Threat Update: overwrite threat with updated values
-
-			-- details available in:
-			-- https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
-
-			-- TODO: Update this to handle non-weapon bearing units
-			-- TODO: Currently only supports surface threat, update to handle air,sub,surf threats
-			local unitDPS = PhxLib.calcUnitDPS(id,bp)
-			
-			if bp.Defense and bp.Defense.SurfaceThreatLevel and unitDPS.Threat.srfTotal	then
-
-				--LOG("Threat Overriden: "..id..", "..PhxLib.cleanUnitName(bp)..", ".."PrevThreat = "..bp.Defense.SurfaceThreatLevel..",".."NewThreat = "..unitDPS.Threat.srfTotal )
-
-                if bp.Defense.SurfaceThreatLevel != unitDPS.Threat.srfTotal then
-
-                    bp.Defense.SurfaceThreatLevel = unitDPS.Threat.srfTotal
-                    --bp.Defense.AirThreatLevel = unitDPS.Threat.airTotal
-                    --bp.Defense.SubThreatLevel = unitDPS.Threat.subTotal
-                    
-                    units_threatchange = units_threatchange + 1
-                end
-
-			end
-			-- End Threat Update
-
-            for ik, wep in bp.Weapon do
-				
-				if wep.RateOfFire then
-			
-					if wep.MuzzleSalvoDelay == nil then
-						wep.MuzzleSalvoDelay = 0
-					end
-                    
-                    if wep.EnergyRequired != nil then
-                    
-                        local chargetime = wep.EnergyRequired / wep.EnergyDrainPerSecond
-                        
-                        local chargerate = 1 / chargetime
-                        
-                        if chargerate < wep.RateOfFire and (not wep.RackSalvoFiresAfterCharge) then
-
-                            LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." chargerate "..chargerate.." ROF "..wep.RateOfFire )
-
-                        end
-                        
-                    end
-                end
-
-				if ((not wep.ProjectileLifetime) and (not wep.ProjectileLifetimeUsesMultiplier)) or (wep.ProjectileLifetime == 0) or wep.MuzzleVelocity == 0 then
-				
-                    if (not wep.BeamLifetime) then
-
-                        if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
-                        
-                            --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
-
-                            wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.4
-                            
-                            if wep.BallisticArc == 'RULEBA_HighArc' then
-                            
-                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
-                                
-                            end
-
-                        else
-
-                            --if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
-                                --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
-                        
-                              --  wep.ProjectileLifetime = 8
-                            --end
-                        end
-                    end
-                    
-				end
-                
-                if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'QuantumMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
-
-                    --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
-
-                    if wep.ProjectileLifetime and wep.ProjectileLifetime < 20 then
-                        wep.ProjectileLifetime = 20
-                    end
-                end
-
-				if wep.TargetCheckInterval then
-				
-					if wep.TargetCheckInterval < .1 then 
-						wep.TargetCheckInterval = .1
-					end
-					
-					if wep.TargetCheckInterval > 6 then
-						wep.TargetCheckInterval = 6
-					end
-				end
-
-				if wep.DisplayName then
-					wep.DisplayName = nil
-				end
-
-				if wep.RangeCategory == 'UWRC_AntiAir' then
-				
-					if not wep.AntiSat == true then
-						wep.TargetRestrictDisallow = wep.TargetRestrictDisallow .. ', SATELLITE'
-					end
-				end
-                
-            end
-            
-        end
-    end 
-    
-    LOG("*AI DEBUG "..units_threatchange.." units had threat revised")
-
 	local capreturnradius = 65
 	
     local econScale = 0
 	local speedScale = 0
 	local viewScale = 0
+
+    LOG("LOUD applying change -10% speed to NAVAL units")
+    LOG("LOUD applying change +7.5% cost to AIR units")
+    LOG("LOUD applying change +12.5% vision to STRUCTURE units")
 
     for id, bp in all_blueprints.Unit do
 
@@ -954,7 +800,7 @@ function ModBlueprints(all_blueprints)
 							
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
-							local T1_Adjustment = 1.12
+							local T1_Adjustment = 1.11
 							local T2_Adjustment = 1.06
 							local T3_Adjustment = 1.00
 						
@@ -1003,7 +849,7 @@ function ModBlueprints(all_blueprints)
 				
 				if cat == 'STRUCTURE' then
 			
-					viewScale = 0.15    -- see further				
+					viewScale = 0.125    -- see further				
 				
 					if bp.Intel.VisionRadius then
 					
@@ -1062,6 +908,170 @@ function ModBlueprints(all_blueprints)
 			end
 		end
     end
+
+	-- TODO: move this load to someplace more central so Tanksy and others can use it
+	-- Load Phoenix's Helper Library
+	-- This includes primarily functions that calculate DPS and Threat, but also includes
+	-- a set of functions that return clean unit information.
+	-- This method of inclusion loads a single table of info, constants, and functions
+	-- called PhxLib
+	doscript '/lua/PhxLib.lua'
+    
+	--LOG("PhxLib is "..repr(PhxLib))
+
+	-- Used for loading loose files in the Development build, as part of the GitHub Repo.
+	for bptype, array in all_blueprints do
+		if (bptype != "Unit" and bptype != "Mesh") then
+			for id, bp in array do
+				if string.find(bp.BlueprintId, "/") and string.find(bp.BlueprintId, "/gamedata/") then
+					local slash = string.find(bp.BlueprintId, "/", 2)
+					slash = string.find(bp.BlueprintId, "/", slash + 1)
+					--LOG(bp.BlueprintId)
+					bp.BlueprintId = string.sub(bp.BlueprintId, slash)
+					--LOG(bp.BlueprintId)
+				end
+			end
+		end
+	end
+    
+    LOG("LOUD Reviewing unit threats")
+    
+    local showlog = false
+   
+    local units_threatchange = 0
+
+    for id, bp in all_blueprints.Unit do
+
+		local tpc = bp.Transport and bp.Transport.TransportClass or 1
+		local sizes = {'Small', 'Medium', 'Large', [5]='Drone'}
+
+		if bp.General.CommandCaps.RULEUCC_CallTransport
+            and sizes[tpc]
+            and bp.Categories
+            and not table.find(bp.Categories, 'TECH'..tpc)
+		then
+			if not bp.Display           then bp.Display = {}           end
+			if not bp.Display.Abilities then bp.Display.Abilities = {} end
+			table.insert(bp.Display.Abilities, 'Transport hook size: '..sizes[tpc])
+		end
+		
+        if bp.Weapon then
+
+			-- Begin Threat Update: overwrite threat with updated values
+
+			-- details available in:
+			-- https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
+
+			-- TODO: Update this to handle non-weapon bearing units
+			-- TODO: Currently only supports surface threat, update to handle air,sub,surf threats
+			local unitDPS = PhxLib.calcUnitDPS(id,bp)
+			
+			if bp.Defense and bp.Defense.SurfaceThreatLevel and unitDPS.Threat.srfTotal	then
+
+                if showlog then
+                    LOG("LOUD Threat Overriden: "..id..", "..PhxLib.cleanUnitName(bp)..", ".."PrevThreat = "..bp.Defense.SurfaceThreatLevel..",".."NewThreat = "..unitDPS.Threat.srfTotal )
+                end
+
+                if bp.Defense.SurfaceThreatLevel != unitDPS.Threat.srfTotal then
+
+                    bp.Defense.SurfaceThreatLevel = unitDPS.Threat.srfTotal
+                    --bp.Defense.AirThreatLevel = unitDPS.Threat.airTotal
+                    --bp.Defense.SubThreatLevel = unitDPS.Threat.subTotal
+                    
+                    units_threatchange = units_threatchange + 1
+                end
+
+			end
+			-- End Threat Update
+
+            for ik, wep in bp.Weapon do
+				
+				if wep.RateOfFire then
+			
+					if wep.MuzzleSalvoDelay == nil then
+						wep.MuzzleSalvoDelay = 0
+					end
+                    
+                    if wep.EnergyRequired != nil then
+                    
+                        local chargetime = wep.EnergyRequired / wep.EnergyDrainPerSecond
+                        
+                        local chargerate = 1 / chargetime
+                        
+                        if chargerate < wep.RateOfFire and (not wep.RackSalvoFiresAfterCharge) then
+
+                            LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." chargerate "..chargerate.." ROF "..wep.RateOfFire )
+
+                        end
+                        
+                    end
+                end
+
+				if ((not wep.ProjectileLifetime) and (not wep.ProjectileLifetimeUsesMultiplier)) or (wep.ProjectileLifetime == 0) or wep.MuzzleVelocity == 0 then
+				
+                    if (not wep.BeamLifetime) then
+
+                        if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
+                        
+                            --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
+
+                            wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.4
+                            
+                            if wep.BallisticArc == 'RULEBA_HighArc' then
+                            
+                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
+                                
+                            end
+
+                        else
+
+                            --if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+                                --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
+                        
+                              --  wep.ProjectileLifetime = 8
+                            --end
+                        end
+                    end
+                    
+				end
+                
+                if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'QuantumMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+
+                    --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
+
+                    if wep.ProjectileLifetime and wep.ProjectileLifetime < 20 then
+                        wep.ProjectileLifetime = 20
+                    end
+                end
+
+				if wep.TargetCheckInterval then
+				
+					if wep.TargetCheckInterval < .1 then 
+						wep.TargetCheckInterval = .1
+					end
+					
+					if wep.TargetCheckInterval > 6 then
+						wep.TargetCheckInterval = 6
+					end
+				end
+
+				if wep.DisplayName then
+					wep.DisplayName = nil
+				end
+
+				if wep.RangeCategory == 'UWRC_AntiAir' then
+				
+					if not wep.AntiSat == true then
+						wep.TargetRestrictDisallow = wep.TargetRestrictDisallow .. ', SATELLITE'
+					end
+				end
+                
+            end
+            
+        end
+    end 
+    
+    LOG("LOUD revised threat on "..units_threatchange.." units")
 
     --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
     for id, bp in pairs(all_blueprints.Unit) do				

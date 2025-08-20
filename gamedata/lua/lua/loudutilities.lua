@@ -490,7 +490,6 @@ function LandStrengthRatioGreaterThan( aiBrain, value )
             for k,v in ScenarioInfo.Options.RestrictedCategories do
 
                 if v == 'AIRFIGHTERS' then
-                    LOG("*AI DEBUG Restricted Cats are "..repr(ScenarioInfo.Options.RestrictedCategories) )
                     return aiBrain.LandRatio >= value
                 end
             end
