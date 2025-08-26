@@ -181,14 +181,6 @@ UnitBlueprint {
         TransportClass = 3,
     },
 	
-    Veteran = {
-        Level1 = 6,
-        Level2 = 12,
-        Level3 = 18,
-        Level4 = 24,
-        Level5 = 30,
-    },
-	
     Weapon = {
         {
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
