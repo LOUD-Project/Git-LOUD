@@ -844,12 +844,12 @@ Weapon = Class(moho.weapon_methods) {
             if SimUnitEnhancements[id] then
  
                 if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG Weapon SetWeaponEnabled by Enhancement - unit enhancements are "..repr(SimUnitEnhancements[id]) )
+                    LOG("*AI DEBUG Weapon SetWeaponEnabled by Enhancement - unit enhancements are "..repr(SimUnitEnhancements[id]).." Weapon Is Enabled is "..repr(self.WeaponIsEnabled) )
                 end
  			
                 for k, v in SimUnitEnhancements[id] do
-				
-                    if v == self.bp.EnabledByEnhancement then
+
+                    if v == self.bp.Label then
                     
                         if not self.WeaponIsEnabled then
     
