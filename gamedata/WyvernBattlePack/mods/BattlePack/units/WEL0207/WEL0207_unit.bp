@@ -36,7 +36,7 @@ UnitBlueprint{
         SurfaceThreatLevel = 0.1,
     },
 
-    Description = "Mobile Tac-Missile Defense",
+    Description = "Mobile Tactical Missile Defense",
 
     Display = {
         Abilities = { "<LOC ability_tacmissiledef>Tactical Missile Defense" },
@@ -119,14 +119,6 @@ UnitBlueprint{
     StrategicIconSortPriority = 125,
 
     Transport = { TransportClass = 2 },
-
-    Veteran = {
-        Level1 = 6,
-        Level2 = 12,
-        Level3 = 18,
-        Level4 = 24,
-        Level5 = 30,
-    },
 
     Weapon = {
         {
