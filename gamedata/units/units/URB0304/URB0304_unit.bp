@@ -87,6 +87,7 @@ UnitBlueprint {
            	'BUILTBYTIER3FACTORY CYBRAN STRUCTURE LAND',
            	'BUILTBYTIER3FACTORY CYBRAN MOBILE LAND',
             'BUILTBYQUANTUMGATE CYBRAN',
+            'BUILTBYLANDTIER3FACTORY CYBRAN',
         },
         
         RebuildBonusIds = {'urb0304'},

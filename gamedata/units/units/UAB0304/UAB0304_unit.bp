@@ -90,6 +90,7 @@ UnitBlueprint {
            	'BUILTBYTIER3FACTORY AEON MOBILE CONSTRUCTION LAND',
            	'BUILTBYTIER3FACTORY AEON MOBILE LAND',
             'BUILTBYQUANTUMGATE AEON',
+            'BUILTBYLANDTIER3FACTORY AEON',
         },
         
         RebuildBonusIds = { 'uab0304' },

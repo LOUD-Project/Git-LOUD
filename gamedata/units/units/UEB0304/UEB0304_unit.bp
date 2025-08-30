@@ -91,6 +91,7 @@ UnitBlueprint {
             'BUILTBYTIER3FACTORY UEF STRUCTURE LAND',
             'BUILTBYTIER3FACTORY UEF MOBILE LAND',
             'BUILTBYQUANTUMGATE UEF',
+            'BUILTBYLANDTIER3FACTORY UEF',
         },
 		
         RebuildBonusIds = {'ueb0304'},
