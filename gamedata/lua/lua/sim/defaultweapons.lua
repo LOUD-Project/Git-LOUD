@@ -86,6 +86,10 @@ DefaultProjectileWeapon = Class(Weapon) {
         self.CurrentRackNumber = 1
         
         local bp = self.bp
+        
+        if bp.ManualFire == 1 then
+            self.unit:SetFireState(1)    -- set unit to Hold Fire - requires manual launch
+        end
 		
         if bp.RackRecoilDistance and bp.RackRecoilDistance != 0 then
 		
@@ -1832,10 +1836,10 @@ BareBonesWeapon = Class(DefaultProjectileWeapon) {
     OnFire = function(self)
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG BareBonesWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+            LOG("*AI DEBUG BareBonesWeapon OnFire "..repr(self.bp.Label).." Projectile "..repr(self.bp.ProjectileId).." OnFire at "..GetGameTick() )
         end
 
-        local myProjectile = CreateProjectile( self.unit, projectilebp, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        local myProjectile = CreateProjectile( self.unit, self.bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
         
         if self.Data then
             myProjectile:PassData(self.Data)

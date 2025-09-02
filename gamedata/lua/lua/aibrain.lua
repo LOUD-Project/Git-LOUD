@@ -212,8 +212,7 @@
 
 local import = import
 
-local SetBaseRallyPoints = import('/lua/loudutilities.lua').SetBaseRallyPoints
-
+local SetBaseRallyPoints        = import('/lua/loudutilities.lua').SetBaseRallyPoints
 local SetPrimaryLandAttackBase  = import('/lua/loudutilities.lua').SetPrimaryLandAttackBase
 local SetPrimarySeaAttackBase   = import('/lua/loudutilities.lua').SetPrimarySeaAttackBase
 

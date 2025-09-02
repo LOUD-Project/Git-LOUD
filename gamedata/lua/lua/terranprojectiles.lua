@@ -1,11 +1,14 @@
 ---  /lua/terranprojectiles.lua
 
-local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
-local OnWaterEntryEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').OnWaterEntryEmitterProjectile
-local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
-local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
-local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile
-local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
+local DefaultProjectiles        = import('/lua/sim/defaultprojectiles.lua')
+local EffectTemplate            = import('/lua/EffectTemplates.lua')
+
+local EmitterProjectile                 = DefaultProjectiles.EmitterProjectile
+local OnWaterEntryEmitterProjectile     = DefaultProjectiles.OnWaterEntryEmitterProjectile
+local SingleBeamProjectile              = DefaultProjectiles.SingleBeamProjectile
+local SinglePolyTrailProjectile         = DefaultProjectiles.SinglePolyTrailProjectile
+local MultiPolyTrailProjectile          = DefaultProjectiles.MultiPolyTrailProjectile
+local SingleCompositeEmitterProjectile  = DefaultProjectiles.SingleCompositeEmitterProjectile
 
 local EmitterProjectileOnCreate                 = EmitterProjectile.OnCreate
 local EmitterProjectileOnExitWater              = EmitterProjectile.OnExitWater
@@ -14,7 +17,7 @@ local OnWaterEntryEmitterProjectileOnCreate     = OnWaterEntryEmitterProjectile.
 local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.OnEnterWater
 local SingleBeamProjectileOnImpact              = SingleBeamProjectile.OnImpact
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+DefaultProjectiles = nil
 
 local Random = Random
 
@@ -22,16 +25,15 @@ local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
 
-local ForkThread = ForkThread
-local DamageArea = DamageArea
-
-local CreateDecal = CreateDecal
-local CreateLightParticle = CreateLightParticle
-local CreateSplat = CreateSplat
+local CreateDecal           = CreateDecal
 local CreateEmitterAtEntity = CreateEmitterAtEntity
-local CreateEmitterAtBone = CreateEmitterAtBone
+local CreateEmitterAtBone   = CreateEmitterAtBone
+local CreateLightParticle   = CreateLightParticle
+local CreateSplat           = CreateSplat
 
-local Random = Random
+local DamageArea    = DamageArea
+local ForkThread    = ForkThread
+local Random        = Random
 
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
 local StayUnderwater    = moho.projectile_methods.StayUnderwater

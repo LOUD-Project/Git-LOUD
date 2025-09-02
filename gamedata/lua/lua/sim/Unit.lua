@@ -9,6 +9,7 @@ local CreateScalableUnitExplosion   = import('/lua/defaultexplosions.lua').Creat
 local EffectTemplate                = import('/lua/EffectTemplates.lua')
 
 local EffectUtilities               = import('/lua/EffectUtilities.lua')
+
 local CleanupEffectBag              = EffectUtilities.CleanupEffectBag
 local CreateUnitDestructionDebris   = EffectUtilities.CreateUnitDestructionDebris
 
@@ -162,10 +163,12 @@ local ALLBPS = __blueprints
 
 local BRAINS = ArmyBrains
 
-local FACTORY = categories.FACTORY
-local PROJECTILE = categories.PROJECTILE
-local SUBCOMMANDER = categories.SUBCOMMANDER
-local WALL = categories.WALL
+local ALLUNITS      = categories.ALLUNITS
+local FACTORY       = categories.FACTORY
+local PROJECTILE    = categories.PROJECTILE
+local STRUCTURE     = categories.STRUCTURE
+local SUBCOMMANDER  = categories.SUBCOMMANDER
+local WALL          = categories.WALL
 
 Unit = Class(UnitMethods) {
 
@@ -1825,25 +1828,34 @@ Unit = Class(UnitMethods) {
 
     DoDeathWeapon = function(self)
 
-        local weapons = ALLBPS[self.BlueprintID].Weapon or {}
+        local weapons       = ALLBPS[self.BlueprintID].Weapon or {}
+        local UnitDialog    = ScenarioInfo.UnitDialog
 		
         for _, v in weapons do
 		
             if (v.Label == 'DeathWeapon') then
 
-                if ScenarioInfo.UnitDialog then
+                if UnitDialog then
                     LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DoDeathWeapon on tick "..GetGameTick())
                 end
   
                 if v.FireOnDeath == true then
+                
+                    if UnitDialog then
+                        LOG("*AI DEBUG UNIT DeathWeapon FireOnDeath")
+                    end
 				
                     local wep = self:GetWeaponByLabel('DeathWeapon')
-                    
+
                     wep:SetWeaponEnabled(true )
                     
-                    wep:Fire()
+                    wep:OnWeaponFired()
 
                 else
+                
+                    if UnitDialog then
+                        LOG("*AI DEBUG UNIT DeathWeapon Damage Thread for "..v.Damage.." radius "..v.DamageRadius)
+                    end
 
                     if v.Damage > 0 and v.DamageRadius > 0 then
                         self:ForkThread(self.DeathWeaponDamageThread, v.DamageRadius, v.Damage, v.DamageType, v.DamageFriendly)
@@ -1983,7 +1995,7 @@ Unit = Class(UnitMethods) {
 
         if bt == 'STUN' then
 
-            local allow = categories.ALLUNITS
+            local allow = ALLUNITS
 
             if buffTable.TargetAllow then
                 allow = buffTable.TargetAllow
@@ -2048,7 +2060,7 @@ Unit = Class(UnitMethods) {
 			
         elseif bt == 'FUELRATIO' then
 
-            local allow = categories.ALLUNITS
+            local allow = ALLUNITS
 
             if buffTable.TargetAllow then
                 allow = buffTable.TargetAllow
@@ -2971,7 +2983,7 @@ Unit = Class(UnitMethods) {
 		
         if not builderUpgradesTo or self.BlueprintID != builderUpgradesTo then
 
-            if EntityCategoryContains( categories.STRUCTURE, self) then
+            if EntityCategoryContains( STRUCTURE, self ) then
 			
                 builder:ForkThread( builder.CheckFractionComplete, self ) 
 				
@@ -5930,62 +5942,66 @@ Unit = Class(UnitMethods) {
 		
 			if not bp.Intel.CustomCloak then
 			
-				local bpDisplay = bp.Display
 				local flushpass = 0
-				
-				local cloakrange = (bp.Intel.CloakFieldRadius - 3) or 0
-				
-				while not self.Dead and (bp.Intel.CloakFieldRadius > 0 or bp.Intel.Cloak == true) do
+                local cloakradius = bp.Intel.CloakFieldRadius or 0
+				local cloakrange = cloakradius - 3
+               
+				while not self.Dead and (cloakrange > 0 or bp.Intel.Cloak == true) do
 					
 					self:UpdateCloakEffect(bp) 	-- update the cloak effect for the source unit
 					
 					-- only units with a cloaking field do this part
-					if bp.Intel.CloakFieldRadius > 3 then
-					
-						local CloakFieldIsActive = IsIntelEnabled( self, 'CloakField')
-					
-						if CloakFieldIsActive then
-						
-							local position = self:GetPosition()
-							
+					if cloakrange > 0 then
+
+						if IsIntelEnabled( self, 'CloakField') then
+                        
+                            --LOG("*AI DEBUG CloakField enabled - range is "..cloakrange)
+
+                            local position = self:GetPosition()
+
 							-- Range must be (radius - 3) because it seems GPG did that for the actual field for some reason.
 							-- Anything beyond (radius - 3) is not cloaked by the cloak field
+                            -- this is likely due to the way intel radii are stepped by 4 ogrids
+
 							-- flush intel 
-							
-							-- cloak field generating structures will flush ALL intel in their radius
-							-- there are no cloak field generating UNITS so this should work just fine
+							-- cloak field generating structures will flush ALL intel in their range (not radius)
 							-- on every fourth loop (32 seconds) -- this was important to the AI
-							-- giving it time to 'see' what is cloaked if it spotted it - for it's Intel routines
-							if EntityCategoryContains(categories.STRUCTURE,self) and flushpass > 3 then
-							
-								FlushIntelInRect( position[1]-cloakrange, position[3]-cloakrange, position[1]+cloakrange, position[3]+cloakrange )
-								flushpass = 0
-								
+							-- giving it time to 'see' what was cloaked if spotted - allows the intel to register
+                            if flushpass > 3 then
+                            
+                                if EntityCategoryContains( STRUCTURE, self ) then
+                                    FlushIntelInRect( position[1]-cloakrange, position[3]-cloakrange, position[1]+cloakrange, position[3]+cloakrange )
+                                end
+                                
+                                flushpass = 0
 							else
 							
 								flushpass = flushpass + 1
-								
 							end
+                            
+                            -- pick up other units within cloakrange
+                            if cloakrange > 1 then
 							
-							local UnitsInRange = GetUnitsAroundPoint( brain, categories.ALLUNITS, position, cloakrange, 'Ally' )
+                                local UnitsInRange = GetUnitsAroundPoint( brain, ALLUNITS, position, cloakrange, 'Ally' )
 						
-							-- start up the CloakFieldThread for any units found
-							-- kill any existing thread if there is one
-							-- notice that this runs every pass, so units will re-cloak after only 8 seconds when revealed
-							for num, unit in UnitsInRange do
+                                -- start up the CloakFieldThread for any units found & kill any existing thread
+                                -- notice this runs every pass, so units will re-cloak after 8 seconds when revealed
+                                for num, unit in UnitsInRange do
 
-								unit.InCloakField = true
+                                    unit.InCloakField = true
 							
-								if unit.InCloakFieldThread then
+                                    if unit.InCloakFieldThread then
 								
-									KillThread(unit.InCloakFieldThread)
+                                        KillThread(unit.InCloakFieldThread)
 									
-									unit.InCloakFieldThread = nil
+                                        unit.InCloakFieldThread = nil
 									
-								end
+                                    end
 							
-								unit.InCloakFieldThread = unit:ForkThread(unit.InCloakFieldWatchThread, ALLBPS[unit.BlueprintID])
+                                    unit.InCloakFieldThread = unit:ForkThread(unit.InCloakFieldWatchThread, ALLBPS[unit.BlueprintID])
 								
+                                end
+                                
 							end
 							
 						end

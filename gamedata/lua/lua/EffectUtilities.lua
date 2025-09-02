@@ -22,13 +22,13 @@ local CybranBuildFlash01        = EffectTemplate.CybranBuildFlash01
 local CybranBuildUnitBlink01    = EffectTemplate.CybranBuildUnitBlink01
 local SeraphimBuildBeams01      = EffectTemplate.SeraphimBuildBeams01
 
-local LOUDCOPY = table.copy
-local LOUDFLOOR = math.floor	
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
-local LOUDWARP = Warp
+local LOUDCOPY      = table.copy
+local LOUDFLOOR     = math.floor	
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
+local LOUDWARP      = Warp
 
 local EntityMethods = moho.entity_methods
 
@@ -50,17 +50,17 @@ local SetVelocity = moho.projectile_methods.SetVelocity
 local WaitTicks = coroutine.yield
 local VDist3Sq = VDist3Sq
 
-local CreateLightParticle = CreateLightParticle
+local CreateLightParticle   = CreateLightParticle
 
-local LOUDEMITONENTITY = CreateEmitterOnEntity
-local LOUDEMITATENTITY = CreateEmitterAtEntity
-local LOUDEMITATBONE = CreateEmitterAtBone
-local LOUDATTACHEMITTER = CreateAttachedEmitter
-local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
+local LOUDEMITONENTITY      = CreateEmitterOnEntity
+local LOUDEMITATENTITY      = CreateEmitterAtEntity
+local LOUDEMITATBONE        = CreateEmitterAtBone
+local LOUDATTACHEMITTER     = CreateAttachedEmitter
+local LOUDATTACHBEAMENTITY  = AttachBeamEntityToEntity
 
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+local TrashDestroy  = TrashBag.Destroy
 
 local ALLBPS = __blueprints
 

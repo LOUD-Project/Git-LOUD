@@ -4,42 +4,38 @@ local import = import
 
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
-local LOUDCOPY = table.copy
-local LOUDENTITY = EntityCategoryContains
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
+local LOUDCONCAT    = table.cat
+local LOUDCOPY      = table.copy
+local LOUDENTITY    = EntityCategoryContains
+local LOUDEQUAL     = table.equal
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDMERGED    = table.merged
+local LOUDPARSE     = ParseEntityCategory
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
 
-local LOUDCONCAT = table.cat
-local LOUDEQUAL = table.equal
-local LOUDINSERT = table.insert
-local LOUDPARSE = ParseEntityCategory
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
+local ForkTo    = ForkThread
 
-local ForkTo = ForkThread
-
-local VDist2 = VDist2
-local VDist2Sq = VDist2Sq
-local VDist3 = VDist3
+local VDist2    = VDist2
+local VDist2Sq  = VDist2Sq
+local VDist3    = VDist3
 
 local WaitTicks = coroutine.yield
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local IsUnitState = moho.unit_methods.IsUnitState
-
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-local GetPosition = moho.entity_methods.GetPosition
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-
-local IsIdleState = moho.unit_methods.IsIdleState
-
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
+local AssignUnitsToPlatoon      = moho.aibrain_methods.AssignUnitsToPlatoon
+local IsBeingBuilt              = moho.unit_methods.IsBeingBuilt
+local IsIdleState               = moho.unit_methods.IsIdleState
+local IsUnitState               = moho.unit_methods.IsUnitState
+local GetFractionComplete       = moho.entity_methods.GetFractionComplete
+local GetListOfUnits            = moho.aibrain_methods.GetListOfUnits
+local GetNumUnitsAroundPoint    = moho.aibrain_methods.GetNumUnitsAroundPoint
+local GetPosition               = moho.entity_methods.GetPosition
+local GetPlatoonPosition        = moho.platoon_methods.GetPlatoonPosition
+local GetPlatoonUnits           = moho.platoon_methods.GetPlatoonUnits
+local GetUnitsAroundPoint       = moho.aibrain_methods.GetUnitsAroundPoint
+local PlatoonExists             = moho.aibrain_methods.PlatoonExists
 
 
 local function NormalToBuildLocation(location)

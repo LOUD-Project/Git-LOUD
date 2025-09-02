@@ -4,34 +4,34 @@
 local LOUDENTITY = EntityCategoryContains
 local ParseEntityCategory = ParseEntityCategory
 
-local LOUDCOPY = table.copy
-local LOUDFLOOR = math.floor
-local LOUDINSERT = table.insert
-local LOUDPARSE = ParseEntityCategory
-local LOUDREMOVE = table.remove
+local LOUDCOPY      = table.copy
+local LOUDFLOOR     = math.floor
+local LOUDINSERT    = table.insert
+local LOUDPARSE     = ParseEntityCategory
+local LOUDREMOVE    = table.remove
 
 local LOUDCREATEPROJECTILE = moho.weapon_methods.CreateProjectile
 
-local ForkThread = ForkThread
-local ForkTo = ForkThread
+local ForkThread    = ForkThread
+local ForkTo        = ForkThread
 
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+local TrashDestroy  = TrashBag.Destroy
 
-local WaitSeconds = WaitSeconds
-local WaitTicks = coroutine.yield
+local WaitSeconds   = WaitSeconds
+local WaitTicks     = coroutine.yield
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local GetBlueprint = moho.weapon_methods.GetBlueprint
-local PlaySound = moho.weapon_methods.PlaySound
+local BeenDestroyed         = moho.entity_methods.BeenDestroyed
+local GetBlueprint          = moho.weapon_methods.GetBlueprint
+local PlaySound             = moho.weapon_methods.PlaySound
 
-local SetBoneEnabled = moho.AnimationManipulator.SetBoneEnabled
-local SetEnabled = moho.AimManipulator.SetEnabled
-local SetFiringArc = moho.AimManipulator.SetFiringArc
+local SetBoneEnabled        = moho.AnimationManipulator.SetBoneEnabled
+local SetEnabled            = moho.AimManipulator.SetEnabled
+local SetFiringArc          = moho.AimManipulator.SetFiringArc
 
 local SetFireTargetLayerCaps = moho.weapon_methods.SetFireTargetLayerCaps
-local SetResetPoseTime = moho.AimManipulator.SetResetPoseTime
+local SetResetPoseTime      = moho.AimManipulator.SetResetPoseTime
 local SetTargetingPriorities = moho.weapon_methods.SetTargetingPriorities
 
 local PassDamageData = import('/lua/sim/Projectile.lua').Projectile.PassDamageData
@@ -65,11 +65,9 @@ Weapon = Class(moho.weapon_methods) {
         local LOUDFLOOR = LOUDFLOOR
         local WaitTicks = WaitTicks
 
-		-- use the trash on the parent unit
-		--self.Trash = self.unit.Trash
         self.Trash = TrashBag()
 
-        -- store the blueprint of the weapon 
+        -- store the weapon blueprint
         self.bp = GetBlueprint(self)
 		
         local bp = self.bp

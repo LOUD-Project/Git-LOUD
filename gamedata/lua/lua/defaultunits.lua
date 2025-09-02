@@ -1015,9 +1015,9 @@ StructureUnit = Class(Unit) {
 
 				-- adjacency beams persist until either unit has been destroyed
 				-- even if one of them is a production unit that might be turned off
-				if unit == v.Unit then    --and not ((BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead)) then
+				if unit == v.Unit then
 
-                    if ScenarioInfo.UnitDialog then
+                    if UnitDialog then
                         LOG("*AI DEBUG Destroy AdjacentEffects from "..self.EntityID.." to unit "..v.Unit )
                     end
 
@@ -1705,7 +1705,7 @@ MobileUnit = Class(Unit) {
 		
         if self.CacheLayer == 'Water' then
 
-            self:StartRocking()
+            --self:StartRocking()
 
             local surfaceAnim = __blueprints[self.BlueprintID].Display.AnimationSurface
 
@@ -4713,43 +4713,33 @@ MineStructureUnit = Class(StructureUnit) {
     Weapons = {
 
         Suicide = Class(import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon) {
+        
+            FxTrailScale = 0.3,
 
             FxDeathLand     = EffectTemplate.DefaultHitExplosion01,
             FxDeathSeabed   = EffectTemplate.DefaultProjectileWaterImpact,
-            FxDeathWater    = {
-                '/effects/emitters/seraphim_rifter_artillery_hit_01w_emit.bp',
-                '/effects/emitters/seraphim_rifter_artillery_hit_02w_emit.bp',
-                '/effects/emitters/seraphim_rifter_artillery_hit_03w_emit.bp',
-                '/effects/emitters/seraphim_rifter_artillery_hit_05w_emit.bp',
-                '/effects/emitters/seraphim_rifter_artillery_hit_06w_emit.bp',
-                '/effects/emitters/seraphim_rifter_artillery_hit_08w_emit.bp',
-            },
-
+            FxDeathWater    = EffectTemplate.SRifterArtilleryWaterHit,
+            
             OnWeaponFired = function(self)
 
-                local bp = self:GetBlueprint()
-                local radius = bp.DamageRadius
-                local army = self.unit:GetArmy()
+                local army      = self.unit.Army
+                local bp        = self.bp
+                local currlayer = self.unit.CacheLayer
+                local radius    = bp.DamageRadius
 
                 -- Do explosion effects
                 local FxDeath = {
-                    Land = self.FxDeathLand,
-                    Water = self.FxDeathWater,
-                    Seabed = table.cat(self.FxDeathSeabed, self.FxDeathLand),
+                    Land    = self.FxDeathLand,
+                    Water   = self.FxDeathWater,
+                    Seabed  = table.cat(self.FxDeathSeabed, self.FxDeathLand),
                 }
-                
-                for layer, effects in FxDeath do
-                    if layer == self.unit:GetCurrentLayer() then
-                        for k, v in effects do
-                            CreateEmitterAtBone(self.unit,-2,army,v)
-                        end
-                        break
-                    end
-                end
-                    
+
                 if ScenarioInfo.ProjectileDialog then
-                    LOG("*AI DEBUG SuicideWeapon OnWeaponFired "..repr(bp.Label).." at "..GetGameTick() )
+                    LOG("*AI DEBUG SuicideWeapon OnWeaponFired "..repr(bp.Label).." layer is  "..repr(currlayer).." at "..GetGameTick() )
+                    LOG("*AI DEBUG SuidideWeapon FxDeathLand is "..repr(FxDeath.Land))
                 end
+                
+                CreateBoneEffects( self.unit, -2, army, FxDeath[currlayer] )
 
                 -- Do decal splats
                 if not self.SplatTexture then
@@ -4763,6 +4753,12 @@ MineStructureUnit = Class(StructureUnit) {
                     end
                 end
 
+                --local proj = self.unit:CreateProjectile(bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+                
+                --if proj.EffectThread then
+                    --proj:ForkThread(proj.EffectThread)
+                --end
+ 
                 self.unit.DeathWeaponEnabled = false
 
                 self.unit:CosmeticDamage(radius)
@@ -4794,6 +4790,7 @@ MineStructureUnit = Class(StructureUnit) {
 
         --enable cloaking and stealth
         self:EnableIntel('Cloak')
+        self:EnableIntel('CloakField')
         self:EnableIntel('RadarStealth')
         self:EnableIntel('SonarStealth')
 
@@ -4833,6 +4830,8 @@ MineStructureUnit = Class(StructureUnit) {
             --Removing a building with an overlapping footprint from the same layer.
             self.blocker:Destroy()
         end
+        
+        self:SetMaintenanceConsumptionActive()
 
         --Force update of the cloak effect if there is a cloak mesh.
         if __blueprints[self.BpId].Display.CloakMeshBlueprint then
@@ -4871,17 +4870,23 @@ NukeMineStructureUnit = Class(MineStructureUnit) {
 
         Suicide = Class(import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon) {
 
-            OnFire = function(self)
-                local bp = self:GetBlueprint() -- Weapon blueprint
+            OnWeaponFired = function(self)
+            
+                local bp = self.bp -- Weapon blueprint
 
                 local proj = self.unit:CreateProjectile(bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+
+                if ScenarioInfo.ProjectileDialog then
+                    LOG("*AI DEBUG SuicideWeapon (Nuke) OnWeaponFired "..repr(bp.Label).." at "..GetGameTick() )
+                end
+
+                self.unit.DeathWeaponEnabled = false
+                
                 proj:ForkThread(proj.EffectThread)
 
                 if __blueprints[bp.ProjectileId].Audio.NukeExplosion then
                     self:PlaySound(__blueprints[bp.ProjectileId].Audio.NukeExplosion)
                 end
-
-                self.unit.DeathWeaponEnabled = false
 
                 DamageArea(self.unit, self.unit.CachePosition, bp.NukeInnerRingRadius, bp.NukeInnerRingDamage, 'Nuke', true, true)
                 DamageArea(self.unit, self.unit.CachePosition, bp.NukeOuterRingRadius, bp.NukeOuterRingDamage, 'Nuke', true, true)
@@ -4890,26 +4895,14 @@ NukeMineStructureUnit = Class(MineStructureUnit) {
                 self.unit:Destroy()
             end,
         },
-
-        DeathWeapon = Class(import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon) {
-
-            OnFire = function(self) end,
-
-            Fire = function(self)
-
-                if self.unit.DeathWeaponEnabled ~= false then
-
-                    local myBlueprint = self:GetBlueprint()
-                    local myProjectile = self.unit:CreateProjectile(myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-
-                    myProjectile:PassDamageData(self.damageTable)    --GetDamageTable())
-                end
-            end,
-        },
     },
-
+    
     OnCreate = function(self,builder,layer)
+    
         MineStructureUnit.OnCreate(self,builder,layer)
-        self:SetFireState(1) --0 return fire, 1 hold fire, 2 ground fire
+        
+        self:SetFireState(1)    -- set to hold fire -- requires manual detonation
+
     end,
+
 }
