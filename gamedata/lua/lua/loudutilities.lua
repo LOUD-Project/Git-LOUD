@@ -478,6 +478,14 @@ function AirToGroundBiasGreaterThan( aiBrain, value )
     return aiBrain.AirBias >= value
 end
 
+function LandProductionRatioGreaterThan( aiBrain, value )
+	return aiBrain.LandProdRatio >= value
+end
+
+function LandProductionRatioLessThan( aiBrain, value )
+	return aiBrain.LandProdRatio < value
+end
+
 function LandStrengthRatioGreaterThan( aiBrain, value )
 
     -- no LAND activity
@@ -509,6 +517,14 @@ function LandStrengthRatioLessThan ( aiBrain, value )
     end
 
 	return aiBrain.LandRatio < value
+end
+
+function NavalProductionRatioGreaterThan( aiBrain, value )
+	return aiBrain.NavalProdRatio >= value
+end
+
+function NavalProductionRatioLessThan( aiBrain, value )
+	return aiBrain.NavalProdRatio < value
 end
 
 function NavalStrengthRatioGreaterThan( aiBrain, value )
