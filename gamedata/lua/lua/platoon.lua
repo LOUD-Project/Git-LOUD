@@ -890,6 +890,10 @@ Platoon = Class(PlatoonMethods) {
 
 		-- MaxMarkerDist controls the range we look for markers AND the range we use when making threat checks
 		local MaxMarkerDist = MaxMarkerDist or 160
+
+        -- adapt the marker distance according to map size
+        MaxMarkerDist = MaxMarkerDist + (ScenarioInfo.IMAPSize/2)
+
 		local radiuscheck = MaxMarkerDist * MaxMarkerDist
 
 		local stepcheck = stepsize * stepsize
@@ -1282,7 +1286,7 @@ Platoon = Class(PlatoonMethods) {
 		
 		local path = false
         local pathcost = 5
-		local pathlength = VDist2(start[1],start[3],startNode.position[1],startNode.position[3])
+		local pathlength = LOUDFLOOR(VDist2(start[1],start[3],startNode.position[1],startNode.position[3]))
 	
 		local BadPath = ScenarioInfo.BadPaths[platoonLayer]
 	
@@ -1360,7 +1364,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 	
 		
-        pathlength = pathlength + VDist3( path[LOUDGETN(path)], destination )
+        pathlength = LOUDFLOOR(pathlength + VDist3( path[LOUDGETN(path)], destination ))
         
         path[LOUDGETN(path)+1] = destination
 
@@ -1680,6 +1684,9 @@ Platoon = Class(PlatoonMethods) {
                 markerradius = 200
                 
             end
+            
+            -- markers might be quite a bit further away on larger maps
+            markerradius = markerradius + (ScenarioInfo.IMAPSize/4)
 
             IssueClearCommands( GetPlatoonUnits(self) )
 

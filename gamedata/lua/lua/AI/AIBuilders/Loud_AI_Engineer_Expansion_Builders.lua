@@ -356,7 +356,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -371,7 +371,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 1250,
+				LocationRadius = 1600,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
@@ -404,7 +404,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -419,7 +419,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 1250,
+				LocationRadius = 1600,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
@@ -457,7 +457,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T1' },
@@ -472,7 +472,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 1250,
+				LocationRadius = 1600,
                 
                 LoopBuild = true,
                 LoopMass = 100,

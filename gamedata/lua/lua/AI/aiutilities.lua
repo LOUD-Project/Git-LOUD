@@ -664,7 +664,7 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
 
     local VDist2Sq = VDist2Sq
     
-    local threatTable = GetThreatsAroundPosition( aiBrain, position, 4, true, 'StructuresNotMex')
+    local threatTable = GetThreatsAroundPosition( aiBrain, position, ScenarioInfo.IMAPBlocks + 2, true, 'StructuresNotMex')
     
     local closestHighThreat = 999999
     local dist

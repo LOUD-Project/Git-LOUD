@@ -262,8 +262,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
 		-- than clumping up - this also avoids overlap of the army pools 
 	
-		-- cap the minimum baserange at 165
-		local minimum_baserange = 165
+		-- cap the minimum baserange at 180
+		local minimum_baserange = 180 + (ScenarioInfo.IMAPSize/4)
 	
 		local Brains = ArmyBrains
         local removed = false
@@ -345,7 +345,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
-		local minimum_baserange = 250
+		local minimum_baserange = 250 + (ScenarioInfo.IMAPSize/4)
     
 		local Brains = ArmyBrains
         
@@ -419,7 +419,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		local Brains = ArmyBrains
 
 		-- minimum range that a DP can be from an existing base -- Land	
-		local minimum_baserange = 200
+		local minimum_baserange = 250 + (ScenarioInfo.IMAPSize/4)
 
         local removed = false
         
@@ -438,7 +438,9 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				end
 			end
 		
-			-- if it's still valid -- check my own bases and exclude anything too close to ANY existing base
+			-- if it's still valid
+            -- check my own bases and exclude anything too close to ANY existing base
+            -- and a choice cannot be further away than my current range to the goal
 			if not removed then
 
 				for basename, base in aiBrain.BuilderManagers do
@@ -489,14 +491,13 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 220
+		local minimum_baserange = 250 + (ScenarioInfo.IMAPSize/2)
         
         local removed = false
 	
 		-- so we now have a list of ALL the Naval DP positions on the map
-		-- loop thru the list and eliminate any that are already in use by enemy AI 
-		-- the DP differs from the normal base in that we want to allow sharing with allies
-		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
+		-- loop thru the list and eliminate any that are already in use
+        -- or that aren't closer to the Goal position
 		for m,marker in positions do
 	
             position = marker.Position
@@ -519,7 +520,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 				for basename, base in aiBrain.BuilderManagers do
 			
 					-- if too close to ANY of our other existing bases
-					if VDist3( base.Position, position ) < minimum_baserange then
+					if VDist3( base.Position, position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, position ) > test_range then
 
 						removed = true
 						break
@@ -560,7 +561,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		local Brains = ArmyBrains
 	
 		-- minimum range that a Naval Base can be from ANY existing base
-		local minimum_baserange = 200
+		local minimum_baserange = 250 + (ScenarioInfo.IMAPSize/4)
         
         local distance_from_base = false
         local distance_from_threat = false
@@ -608,7 +609,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
                 -- distance from origin of engineer -- valued - closer is best - lower
                 distance_from_base = LOUDFLOOR(VDist3( Position, position )) / minimum_baserange
 
-                local threatTable = aiBrain:GetThreatsAroundPosition( position, 4, true, tType)
+                local threatTable = aiBrain:GetThreatsAroundPosition( position, ScenarioInfo.IMAPBlocks + 2, true, tType)
                 
                 LOUDSORT( threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3] ) end )
                 
@@ -784,7 +785,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		end
 	
 		-- minimum range that a DP can be from an existing naval position
-		local minimum_baserange = 200
+		local minimum_baserange = 250 + (ScenarioInfo.IMAPSize/4)
 		
         local catcheck = LOUDPARSE(category)
        
