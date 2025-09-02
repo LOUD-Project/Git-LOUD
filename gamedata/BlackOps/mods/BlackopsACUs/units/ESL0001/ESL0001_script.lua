@@ -464,7 +464,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
         self:SetScriptBit( 'RULEUTC_SpecialToggle', false)
 
-        self:RemoveToggleCap('RULEUTC_ShieldToggle')
+        --self:RemoveToggleCap('RULEUTC_ShieldToggle')
 
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:RemoveToggleCap('RULEUTC_StealthToggle')
@@ -1417,6 +1417,9 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
             self:AddToggleCap('RULEUTC_SpecialToggle')
 
+            -- turn off Lambda emitters --
+            self:SetScriptBit('RULEUTC_SpecialToggle', false)
+    
             self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
 
             -- turn on Lambda emitters --

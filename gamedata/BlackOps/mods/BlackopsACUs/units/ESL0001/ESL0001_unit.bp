@@ -1228,16 +1228,16 @@ UnitBlueprint {
         Icon = 'amph',
 
         OrderOverrides = {
-            RULEUTC_CloakToggle = { bitmapId = 'stealth-personal', preferredSlot = 10, helpText = 'Toggle Personal Cloak' },
-            RULEUTC_IntelToggle = { bitmapId = 'omni', preferredSlot = 8, helpText = 'Toggle Radar,Sonar & OMNI' },
-            RULEUTC_SpecialToggle = { preferredSlot = 11, helpText = 'Toggle Lambda Fields' },
-            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', preferredSlot = 9, helpText = 'Toggle Stealth Field' },
+            RULEUTC_CloakToggle     = { bitmapId = 'stealth-personal',  preferredSlot = 10,  helpText = 'Toggle Personal Cloak' },
+            RULEUTC_IntelToggle     = { bitmapId = 'omni',              preferredSlot = 8,   helpText = 'Toggle Radar,Sonar & OMNI' },
+            RULEUTC_SpecialToggle   = { bitmapId = 'shield',            preferredSlot = 11,  helpText = 'Toggle Lambda Fields' },
+            RULEUTC_StealthToggle   = { bitmapId = 'stealth-field',     preferredSlot = 9,   helpText = 'Toggle Stealth Field' },
         },
 
         ToggleCaps = {
             RULEUTC_CloakToggle = true,
             RULEUTC_IntelToggle = true,
-            RULEUTC_ShieldToggle = true,
+            --RULEUTC_ShieldToggle = true,
             RULEUTC_SpecialToggle = true,
             RULEUTC_StealthToggle = true,
         },
