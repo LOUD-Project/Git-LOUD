@@ -133,6 +133,7 @@ UnitBlueprint {
            	'BUILTBYTIER3FACTORY SERAPHIM STRUCTURE LAND',
            	'BUILTBYTIER3FACTORY SERAPHIM MOBILE LAND',
             'BUILTBYQUANTUMGATE SERAPHIM',
+            'BUILTBYLANDTIER3FACTORY SERAPHIM',
         },
 		
         RebuildBonusIds = {'xsb0304'},
