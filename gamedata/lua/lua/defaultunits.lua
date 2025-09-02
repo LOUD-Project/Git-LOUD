@@ -589,7 +589,6 @@ StructureUnit = Class(Unit) {
             tarmacHndl = CreateDecal( pos, orient, tarmac.Glow..tarmacdec, '', 'Glow', w, l, fadeout, lifeTime, army, 0)
         end
 
---[[       
         if tarmacHndl then
 
 			if not self.TarmacBag then
@@ -601,7 +600,7 @@ StructureUnit = Class(Unit) {
             self.Trash:Add(tarmacHndl)
 
         end
---]]
+
     end,
 
     DestroyTarmac = function(self)
@@ -914,29 +913,11 @@ StructureUnit = Class(Unit) {
         unitBeingBuilt:ShowBone(0, true)
     end,
 
-    --Adding into OnKilled the ability to destroy the tarmac but put a new one down that looks exactly like it but
-    --will time out over the time spec'd or 300 seconds.
     OnKilled = function(self, instigator, type, overkillRatio)
 
 		self:DestroyAdjacentEffects()
-		
-		if self.TarmacBag then
-
-            -- destroy existing decals
-			for k, v in self.TarmacBag.Decals do
-
-				v:Destroy()
-                self.TarmacBag.Decals[k] = nil
-			end
-
-            if self.TarmacBag.CurrentBP.DeathLifetime then
-
-                -- put down replacement
-                self:CreateTarmac(true, true, true, false, self.TarmacBag.CurrentBP, self.TarmacBag.CurrentBP.DeathLifetime)
-                
-            end
-
-		end
+        
+        self:DestroyTarmac()
 
         UnitOnKilled(self, instigator, type, overkillRatio)
     end,
