@@ -4,12 +4,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 SEB2221 = Class(MineStructureUnit) {
     Weapons = {
-        Suicide = Class(MineStructureUnit.Weapons.Suicide) {
-   			FxDeathLand = EffectTemplate.TAntiMatterShellHit01,
-            SplatTexture = {
-                Albedo = 'nuke_scorch_002_albedo',
-                AlphaNormals = 'nuke_scorch_001_normals',
-            },
+        Suicide = Class(MineStructureUnit.Weapons.Suicide) { FxDeathLand = EffectTemplate.TAPDSHitUnit01,
         },
     },
 }

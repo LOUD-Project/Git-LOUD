@@ -5,7 +5,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 SAB2221 = Class(MineStructureUnit) {
 
     Weapons = {
-        Suicide = Class(MineStructureUnit.Weapons.Suicide) { FxDeathLand = EffectTemplate.AOblivionCannonHit02 },
+        Suicide = Class(MineStructureUnit.Weapons.Suicide) { FxDeathLand = EffectTemplate.ABombHit01 },
     },
 }
 TypeClass = SAB2221

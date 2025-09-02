@@ -7,11 +7,15 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 AIFQuantumWarhead = Class(NullShell) {
-    NormalEffects = {'/effects/emitters/quantum_warhead_01_emit.bp',},
-    CloudFlareEffects = EffectTemplate.CloudFlareEffects01,
+
+    NormalEffects       = {'/effects/emitters/quantum_warhead_01_emit.bp',},
+
+    CloudFlareEffects   = EffectTemplate.CloudFlareEffects01,
 
     EffectThread = function(self)
+
         local army = self:GetArmy()
+
         CreateLightParticle(self, -1, army, 200, 200, 'beam_white_01', 'ramp_quantum_warhead_flash_01')
 
         self:ForkThread(self.ShakeAndBurnMe, army)
@@ -24,35 +28,39 @@ AIFQuantumWarhead = Class(NullShell) {
     end,
 
     ShakeAndBurnMe = function(self, army)
-        self:ShakeCamera(75, 3, 0, 10)
+
+        self:ShakeCamera(75, 3, 0, 8)
+
         WaitSeconds(0.5)
-        -- CreateDecal(position, heading, textureName, type, sizeX, sizeZ, lodParam, duration, army)");
-        local orientation = RandomFloat(0,2*math.pi)
-        CreateDecal(self:GetPosition(), orientation, 'Crater01_albedo', '', 'Albedo', 50, 50, 1200, 0, army)
-        CreateDecal(self:GetPosition(), orientation, 'Crater01_normals', '', 'Normals', 50, 50, 1200, 0, army)
+
+        local orientation = RandomFloat(0,6.28)
+
+        -- CreateDecal(position, heading, textureName, albedo2, type, sizeX, sizeZ, lodParam, duration, army)
+        CreateDecal(self:GetPosition(), orientation, 'Crater01_albedo', '', 'Albedo', 48, 48, 800, 300, army)
+        CreateDecal(self:GetPosition(), orientation, 'Crater01_normals', '', 'Normals', 48, 48, 800, 300, army)
+
         self:ShakeCamera(105, 10, 0, 2)
         WaitSeconds(2)
-        self:ShakeCamera(75, 1, 0, 15)
+        self:ShakeCamera(75, 1, 0, 12)
     end,
 
     InnerCloudFlares = function(self, army)
-        local numFlares = 50
-        local angle = (2*math.pi) / numFlares
-        local angleInitial = 0.0
-        local angleVariation = (2*math.pi)
+
+        local angle = 0.1256
+        local angleVariation = 6.28
 
         local emit, x, y, z = nil
-        local DirectionMul = 0.02
-        local OffsetMul = 4
 
-        for i = 0, (numFlares - 1) do
-            x = math.sin(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))
+        local DirectionMul = 0.02
+
+        for i = 0, 49 do
+            x = math.sin((i*angle) + RandomFloat(-angleVariation, angleVariation))
             y = 0.5
-            z = math.cos(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation)) 
+            z = math.cos((i*angle) + RandomFloat(-angleVariation, angleVariation)) 
 
             for k, v in self.CloudFlareEffects do
                 emit = CreateEmitterAtEntity( self, army, v )
-                emit:OffsetEmitter( x * OffsetMul, y * OffsetMul, z * OffsetMul )
+                emit:OffsetEmitter( x * 4, y * 4, z * 4 )
                 emit:SetEmitterCurveParam('XDIR_CURVE', x * DirectionMul, 0.01)
                 emit:SetEmitterCurveParam('YDIR_CURVE', y * DirectionMul, 0.01)
                 emit:SetEmitterCurveParam('ZDIR_CURVE', z * DirectionMul, 0.01)
@@ -70,11 +78,12 @@ AIFQuantumWarhead = Class(NullShell) {
     end,
 
     DistortionField = function(self)
+
         local proj = self:CreateProjectile('/effects/QuantumWarhead/QuantumWarheadEffect01_proj.bp')
         local scale = proj:GetBlueprint().Display.UniformScale
 
         proj:SetScaleVelocity(0.123 * scale,0.123 * scale,0.123 * scale)
-        WaitSeconds(17.0)
+        WaitSeconds(16.0)
         proj:SetScaleVelocity(0.01 * scale,0.01 * scale,0.01 * scale)
     end,
 }

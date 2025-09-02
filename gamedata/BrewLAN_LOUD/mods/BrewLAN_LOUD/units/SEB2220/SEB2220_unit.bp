@@ -58,7 +58,7 @@ UnitBlueprint {
         BuildCostMass = 25,
         BuildTime = 10,
         
-        MaintenanceConsumptionPerSecondEnergy = 2,
+        MaintenanceConsumptionPerSecondEnergy = 12,
     },
 
     Footprint = {
@@ -74,8 +74,6 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
 
-        InstantDeathOnSelfDestruct = true,
-
         OrderOverrides = {
             RULEUTC_WeaponToggle = { bitmapId = 'Nuke', helpText = 'detonate' },
         },
@@ -90,6 +88,7 @@ UnitBlueprint {
     Intel = {
 
         Cloak = true,
+        CloakFieldRadius = 4,
 
         FreeIntel = true,
 
@@ -161,25 +160,16 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
-            FireOnSelfDestruct = true,
 
             Label = 'Suicide',
 
             MaxRadius = 1.5,
-			
-            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
-            ProjectileLifetime = 1,
-
-            RackBones = {
-                { MuzzleBones = { 0 }, RackBone = 0 },
-            },
 	
             RangeCategory = 'UWRC_DirectFire',
 
             TargetCheckInterval = 0.25,
             TargetPriorities = {'ALLUNITS'},
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
+            TargetRestrictDisallow = 'UNTARGETABLE,AIR',
         },
     },
 }

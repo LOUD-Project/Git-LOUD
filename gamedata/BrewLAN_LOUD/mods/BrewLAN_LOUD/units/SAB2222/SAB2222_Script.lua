@@ -1,5 +1,16 @@
-local MineStructureUnit = import('/lua/defaultunits.lua').NukeMineStructureUnit
+local MineStructureUnit = import('/lua/defaultunits.lua').MineStructureUnit
 
-SAB2222 = Class(MineStructureUnit) {}
+local EffectTemplate    = import('/lua/EffectTemplates.lua')
+
+SAB2222 = Class(MineStructureUnit) {
+
+    Weapons = {
+    
+        Suicide = Class(MineStructureUnit.Weapons.Suicide) { FxDeathLand = EffectTemplate.TAntiMatterShellHit01,},
+        
+        DeathWeapon = Class(MineStructureUnit.Weapons.Suicide) { FxDeathLand = EffectTemplate.TAPDSHitUnit01,},
+    },
+
+}
 
 TypeClass = SAB2222

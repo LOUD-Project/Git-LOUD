@@ -1,8 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
-        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB5101_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -45,28 +46,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 100,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    Scrolling = true,
-                    ShaderName = 'Seraphim',
-                    AlbedoName = '/units/xsb2303/xsb2303_albedo.dds',
-                    NormalsName = '/units/xsb2303/xsb2303_normalsts.dds',
-                    SpecularName = '/units/xsb2303/xsb2303_specteam.dds',
-                },
-                {
-                    LODCutoff = 130,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                    AlbedoName = '/units/xsb2303/xsb2303_lod1_albedo.dds',
-                    NormalsName = '/units/xsb2303/xsb2303_lod1_normalsts.dds',
-                    SpecularName = '/units/xsb2303/xsb2303_lod1_specteam.dds',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Seraphim' } } },
 
         UniformScale = 0.02,
     },
@@ -78,7 +58,7 @@ UnitBlueprint {
         BuildCostMass = 25,
         BuildTime = 10,
 
-        MaintenanceConsumptionPerSecondEnergy = 2,
+        MaintenanceConsumptionPerSecondEnergy = 12,
     },
 	
     Footprint = {
@@ -92,8 +72,6 @@ UnitBlueprint {
 
         FactionName = 'Seraphim',
         Icon = 'amph',
-
-        InstantDeathOnSelfDestruct = true,
 
         OrderOverrides = {
             RULEUTC_WeaponToggle = {bitmapId = 'Nuke',helpText = 'detonate'},
@@ -109,6 +87,7 @@ UnitBlueprint {
     Intel = {
 
         Cloak = true,
+        CloakFieldRadius = 4,
 
         FreeIntel = true,
 
@@ -180,26 +159,16 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
-
-            FireOnSelfDestruct = true,
 			
             Label = 'Suicide',
 			
             MaxRadius = 1.5,
-			
-            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
-            ProjectileLifetime = 1,
-
-            RackBones = {
-                { MuzzleBones = { 0 }, RackBone = 0 },
-            },
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            TargetCheckInterval = 0.2,
+            TargetCheckInterval = 0.25,
             TargetPriorities = {'ALLUNITS'},
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
+            TargetRestrictDisallow = 'UNTARGETABLE, AIR',
         },
     },
 }

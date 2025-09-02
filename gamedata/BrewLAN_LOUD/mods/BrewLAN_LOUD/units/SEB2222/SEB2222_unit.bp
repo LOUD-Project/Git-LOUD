@@ -1,13 +1,9 @@
 UnitBlueprint {
-    AI = {
-        --Nuke falloff range for build preview.
-        GuardScanRadius = 40,
-        StagingPlatformScanRadius = 25,
-    },
 
     Audio = {
-        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
-        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB5101_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 150,
@@ -16,8 +12,6 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
-        'OVERLAYRADAR',
-        'OVERLAYOMNI',
         'UEF',
         'STRUCTURE',
         'TECH3',
@@ -25,15 +19,17 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYOMNI',
     },
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 120,
+
         Health = 250,
         MaxHealth = 250,
         RegenRate = 0.1,
-        SurfaceThreatLevel = 120,
+
+        SurfaceThreatLevel = 90,
     },
 
     Description = '<LOC sbui2222>Demolition Mine',
@@ -76,25 +72,25 @@ UnitBlueprint {
     DoNotCollideList = {'ALLUNITS'},
 
     Economy = {
-        BuildCostEnergy = 580867,   --135000*3,
-        BuildCostMass = 1000,       --1200*1.5,
-        BuildTime = 600*2,
+        BuildCostEnergy = 130176,
+        BuildCostMass = 400,
+        BuildTime = 600,
 
-        MaintenanceConsumptionPerSecondEnergy = 150,
+        MaintenanceConsumptionPerSecondEnergy = 90,
     },
 
     Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
+        SizeX = 4,
+        SizeZ = 4,
     },
 
     General = {
-        CapCost = 3,
+        CapCost = 1,
+
+        CommandCaps = { RULEUCC_RetaliateToggle = true },
 
         FactionName = 'UEF',
         Icon = 'amph',
-
-        InstantDeathOnSelfDestruct = true,
 
         OrderOverrides = {
             RULEUTC_WeaponToggle = { bitmapId = 'Nuke', helpText = 'detonate' },
@@ -102,7 +98,7 @@ UnitBlueprint {
 
         SelectionPriority = 5,
 
-        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        ToggleCaps = { RULEUTC_CloakToggle = true, RULEUTC_WeaponToggle = true },
 
         UnitName = '<LOC seb2222_name>AM-36 Trinity',
     },
@@ -110,6 +106,7 @@ UnitBlueprint {
     Intel = {
 
         Cloak = true,
+        CloakFieldRadius = 4,
 
         FreeIntel = true,
 
@@ -122,13 +119,11 @@ UnitBlueprint {
         SonarStealthFieldRadius = 1,
 
         VisionRadius = 0,
-        OmniRadius = 5,
-        RadarRadius = 20,
-        SonarRadius = 20,
+        OmniRadius = 12,
     },
 
     Interface = {
-        HelpText = '<LOC sbui2222>Nuclear Mine',
+        HelpText = '<LOC sbui2222>Demolition Mine',
     },
 
     LifeBarHeight = 0.075,
@@ -139,20 +134,24 @@ UnitBlueprint {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
-            LAYER_Water = true,
+            LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
+
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.5,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
-        SkirtSizeX = 1,
-        SkirtSizeZ = 1,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+
         SlopeToTerrain = true,
         TurnRate = 0,
     },
@@ -172,79 +171,59 @@ UnitBlueprint {
         {
             CollideFriendly = false,
 
-            Damage = 0,
+            Damage = 9000,
             DamageFriendly = true,
+            DamageRadius = 13,
             DamageType = 'Normal',
 
             DisplayName = 'Suicide',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Sub',
-                Water = 'Land|Water|Seabed|Sub',
-                Sub = 'Land|Water|Seabed|Sub',
+                Seabed = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
-            FireOnSelfDestruct = true,
 
             Label = 'Suicide',
 
-            ManualFire = 1,
+            MaxRadius = 10,
 
-            MaxRadius = 30,
-
-            NukeInnerRingDamage = 35000,
-            NukeInnerRingRadius = 20,
-            NukeInnerRingTicks = 20,
-            NukeInnerRingTotalTime = 5,
-
-            NukeOuterRingDamage = 500,
-            NukeOuterRingRadius = 36,
-            NukeOuterRingTicks = 20,
-            NukeOuterRingTotalTime = 10,
-
-            ProjectileId = '/effects/Entities/UEFNukeEffectController01/UEFNukeEffectController01_proj.bp',
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        0,
-                    },
-                    RackBone = 0,
-                },
-            },
             RangeCategory = 'UWRC_DirectFire',
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
-            WeaponCategory = 'Kamikaze',
+
+            TargetCheckInterval = 0.4,
+            TargetPriorities = {'ALLUNITS'},
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, AIR',
         },
+
         {
             CollideFriendly = false,
-            Damage = 1000,
+
+            Damage = 3000,
             DamageFriendly = true,
-            DamageRadius = 10,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
+
             DisplayName = 'Death Nuke',
+
             FireOnDeath = true,
+
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
-            MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 0,
-            ProjectileId = '/effects/Entities/SCUDeath01/SCUDeath01_proj.bp',
+            
+            MaxRadius = 3.5,
+
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
             RackBones = {
-                {
-                    MuzzleBones = {
-                        0,
-                    },
-                    RackBone = 0,
-                },
+                { MuzzleBones = { 0 }, RackBone = 0 },
             },
-            RackRecoilDistance = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 9999999,
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
+
             WeaponCategory = 'Death',
         },
+
     },
 }

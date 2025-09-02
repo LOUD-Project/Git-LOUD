@@ -1,8 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
-        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB5101_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 130,
@@ -20,7 +21,6 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
         'OVERLAYOMNI',
     },
 	
@@ -45,25 +45,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 50,
-                    ShaderName = 'Insect',
-                    AlbedoName = '/units/urb1201/urb1201_albedo.dds',
-                    NormalsName = '/units/urb1201/urb1201_normalsTS.dds',
-                    SpecularName = '/units/urb1201/urb1201_specteam.dds',
-                },
-                {
-                    LODCutoff = 130,
-                    ShaderName = 'Insect',
-                    AlbedoName = '/units/urb1201/urb1201_lod1_albedo.dds',
-                    NormalsName = '/units/urb1201/urb1201_lod1_normalsTS.dds',
-                    SpecularName = '/units/urb1201/urb1201_lod1_specteam.dds',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Insect' } } },
 
         UniformScale = 0.15,
     },
@@ -75,23 +57,21 @@ UnitBlueprint {
         BuildCostMass = 100,
         BuildTime = 50,
 
-        MaintenanceConsumptionPerSecondEnergy = 15,
+        MaintenanceConsumptionPerSecondEnergy = 24,
     },
 	
     Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
+        SizeX = 2,
+        SizeZ = 2,
     },
 	
     General = {
-        CapCost = 0.3,
+        CapCost = 0.5,
 
         CommandCaps = { RULEUCC_RetaliateToggle = true },
 
         FactionName = 'Cybran',
         Icon = 'amph',
-
-        InstantDeathOnSelfDestruct = true,
 
         OrderOverrides = {
             RULEUTC_WeaponToggle = {bitmapId = 'Nuke',helpText = 'detonate'},
@@ -99,10 +79,7 @@ UnitBlueprint {
 
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_CloakToggle = true,
-            RULEUTC_WeaponToggle = true,
-        },
+        ToggleCaps = { RULEUTC_CloakToggle = true, RULEUTC_WeaponToggle = true },
 
         UnitName = '<LOC srb2221_name>Whisper',
     },
@@ -110,6 +87,7 @@ UnitBlueprint {
     Intel = {
 
         Cloak = true,
+        CloakFieldRadius = 4,
 
         FreeIntel = true,
 
@@ -148,8 +126,8 @@ UnitBlueprint {
 
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
-        SkirtSizeX = 1,
-        SkirtSizeZ = 1,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
 
         SlopeToTerrain = true,
         TurnRate = 0,
@@ -184,25 +162,15 @@ UnitBlueprint {
             },
             FiringTolerance = 360,
 
-            FireOnSelfDestruct = true,
-
             Label = 'Suicide',
 
             MaxRadius = 3.5,
-			
-            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
-            ProjectileLifetime = 1,
-
-            RackBones = {
-                { MuzzleBones = { 0 }, RackBone = 0 },
-            },
 	
             RangeCategory = 'UWRC_DirectFire',
 
             TargetCheckInterval = .3,
             TargetPriorities = {'ALLUNITS'},
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
+            TargetRestrictDisallow = 'UNTARGETABLE, AIR',
         },
     },
 }
