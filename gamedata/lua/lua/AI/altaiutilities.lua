@@ -232,8 +232,8 @@ end
 -- added the check for 'allied' structures based on the baseradius in the engineer task
 function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, tMin, tMax, tRings, tType, eng)
 
-    local BuilderManager = aiBrain.BuilderManagers[locationType]
-    local Position = BuilderManager.Position or false
+    local BuilderManager    = aiBrain.BuilderManagers[locationType]
+    local Position          = BuilderManager.Position or false
 	
     -- this option (unused at the moment) allows us to base the checks on the engineers position
     -- you might use that on an engineer out in the field for example
@@ -647,7 +647,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
         end
 	end
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
+    LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
 
 	return false, false
 end
@@ -1030,11 +1030,11 @@ function AISendPing( position, pingType, army, message )
 	end
 
 	local PingTypes = {
-       alert = {Lifetime = 5, Mesh = 'alert_marker', Ring = '/game/marker/ring_yellow02-blur.dds', ArrowColor = 'yellow', Sound = 'UEF_Select_Radar'},
-       move = {Lifetime = 4, Mesh = 'move', Ring = '/game/marker/ring_blue02-blur.dds', ArrowColor = 'blue', Sound = 'Cybran_Select_Radar'},
-       attack = {Lifetime = 5, Mesh = 'attack_marker', Ring = '/game/marker/ring_red02-blur.dds', ArrowColor = 'red', Sound = 'Aeon_Select_Radar'},
-       marker = {Lifetime = 2, Ring = '/game/marker/ring_yellow02-blur.dds', ArrowColor = 'yellow', Sound = 'UI_Main_IG_Click', Marker = true},
-	   warning = {Lifetime = 4, Mesh = 'alert_marker', Ring = '/game/marker/ring_blue02-blur.dds', ArrowColor = 'blue', Sound = 'UI_Main_IG_Click'},
+       alert    = {Lifetime = 5, Mesh = 'alert_marker', Ring = '/game/marker/ring_yellow02-blur.dds', ArrowColor = 'yellow', Sound = 'UEF_Select_Radar'},
+       attack   = {Lifetime = 5, Mesh = 'attack_marker', Ring = '/game/marker/ring_red02-blur.dds', ArrowColor = 'red', Sound = 'Aeon_Select_Radar'},
+       marker   = {Lifetime = 2, Ring = '/game/marker/ring_yellow02-blur.dds', ArrowColor = 'yellow', Sound = 'UI_Main_IG_Click', Marker = true},
+       move     = {Lifetime = 4, Mesh = 'move', Ring = '/game/marker/ring_blue02-blur.dds', ArrowColor = 'blue', Sound = 'Cybran_Select_Radar'},
+	   warning  = {Lifetime = 4, Mesh = 'alert_marker', Ring = '/game/marker/ring_blue02-blur.dds', ArrowColor = 'blue', Sound = 'UI_Main_IG_Click'},
 	}
 
 	if PingTypes[pingType] then
@@ -1042,11 +1042,11 @@ function AISendPing( position, pingType, army, message )
 		if not note then
 		
 			-- standard map pings --
-			import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position} , PingTypes[pingType] ) )
+			return import('/lua/simping.lua').SpawnPing( LOUDMERGED( {Owner = army - 1, Type = pingType, Location = position} , PingTypes[pingType] ) )
 			
 		else
 			-- ping the map and place a marker --
-			return import('/lua/simping.lua').SpawnPing( table.merged( {Owner = army - 1, Type = pingType, Location = position, Name = note, Color = 'ffe80a0a'} , PingTypes[pingType] ) )
+			return import('/lua/simping.lua').SpawnPing( LOUDMERGED( {Owner = army - 1, Type = pingType, Location = position, Name = note, Color = 'ffe80a0a'} , PingTypes[pingType] ) )
 			
 		end
 	end

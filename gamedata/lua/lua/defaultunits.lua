@@ -45,6 +45,7 @@ local EffectUtilities = import('/lua/EffectUtilities.lua')
 local CleanupEffectBag                  = EffectUtilities.CleanupEffectBag
 local CreateAdjacencyBeams              = EffectUtilities.CreateAdjacencyBeams
 local CreateAeonBuildBaseThread         = EffectUtilities.CreateAeonBuildBaseThread
+local CreateBoneEffects                 = EffectUtilities.CreateBoneEffects
 local CreateBuildCubeThread             = EffectUtilities.CreateBuildCubeThread
 local CreateEffects                     = EffectUtilities.CreateEffects
 local CreateSeraphimBuildBaseThread     = EffectUtilities.CreateSeraphimBuildBaseThread
@@ -925,17 +926,17 @@ StructureUnit = Class(Unit) {
     -- When we're adjacent, try all the possible bonuses.
     OnAdjacentTo = function(self, adjacentUnit, triggerUnit)
 
-        if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." OnAdjacentTo "..repr(adjacentUnit.BlueprintID).." on tick "..GetGameTick())
-        end
-
-        if IsBeingBuilt(self) or IsBeingBuilt(adjacentUnit) then
-			return
-		end
-
         local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if adjBuffs then
+
+            if IsBeingBuilt(self) or IsBeingBuilt(adjacentUnit) then
+                return
+            end
+
+            if ScenarioInfo.UnitDialog then
+                LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." OnAdjacentTo "..repr(adjacentUnit.BlueprintID).." on tick "..GetGameTick())
+            end
 
 			for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
 				ApplyBuff(adjacentUnit, v, self)
@@ -943,7 +944,9 @@ StructureUnit = Class(Unit) {
 
 			self:RequestRefreshUI()
 			adjacentUnit:RequestRefreshUI()
-		end
+		else
+            return
+        end
     end,
 
     -- When we're not adjacent, try to remove all the possible bonuses.
@@ -996,12 +999,14 @@ StructureUnit = Class(Unit) {
     end,
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
-    
-        if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DestroyAdjacentEffects to "..repr(adjacentUnit.EntityID).." bag is "..repr(self.AdjacencyBeamsBag).." on tick "..GetGameTick())
-        end
 
         if self.AdjacencyBeamsBag then
+        
+            local UnitDialog = ScenarioInfo.UnitDialog
+    
+            if UnitDialog then
+                LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DestroyAdjacentEffects to "..repr(adjacentUnit.EntityID).." bag is "..repr(self.AdjacencyBeamsBag).." on tick "..GetGameTick())
+            end
 
 			for k, v in self.AdjacencyBeamsBag do
 

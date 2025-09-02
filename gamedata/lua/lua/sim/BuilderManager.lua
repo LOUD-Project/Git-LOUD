@@ -607,11 +607,10 @@ BuilderManager = Class {
 							
 								numPassed = numPassed + 1
 						
-                                if ticksize + 1 > 0 then
+                                if ticksize + 1 >= 1 then
                                     WaitTicks(ticksize + 1)
+                                    numTicks = numTicks + ticksize
                                 end
-
-								numTicks = numTicks + ticksize
                             end
 						end
 					end

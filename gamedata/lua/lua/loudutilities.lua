@@ -2313,7 +2313,8 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
                 IssueMove( {unit}, stage )
                 
             end
-           
+
+            -- while underway to airstaging --
             while not (unit.Dead or airstage.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 20 do
                 WaitTicks(6)
             end
@@ -2696,7 +2697,7 @@ function EconomyMonitor( aiBrain )
     -- Economy Monitor is delayed according to ArmyIndex
     -- between 0 and samplerate - 1 ticks, this way - they don't all fall
     -- on the same tick
-    WaitTicks( math.mod( aiBrain.ArmyIndex, samplerate ) + 1)       -- we add one to avoid 0 --
+    WaitTicks( LOUDMOD( aiBrain.ArmyIndex, samplerate ) + 1)       -- we add one to avoid 0 --
 
     while true do
 
@@ -4712,15 +4713,25 @@ function ParseIntelThread( aiBrain )
     local BRAINS = ArmyBrains
     
     local newPos = { 0,0,0 }
+
+    local AIR       = categories.AIR
+    local LAND      = categories.LAND
+    local NAVAL     = categories.NAVAL
     
-    local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
-    local LANDUNITS = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
-    local NAVALUNITS = NAVALMOBILE + NAVALFAC + (categories.NAVAL * categories.DEFENSE)
+    local AIRUNITS  = (AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
+    local LANDUNITS = (LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
+    local NAVALUNITS = NAVALMOBILE + NAVALFAC + (NAVAL * categories.DEFENSE)
+    local TECH1     = categories.TECH1
+    local TECH2     = categories.TECH2
+    local TECH3     = categories.TECH3
 
 	WaitTicks( LOUDFLOOR(Random() * 25 + 1))	-- to avoid all the AI running at exactly the same tick
 
 	-- the location of the MAIN base for this AI
-	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
+	local HomePosition      = aiBrain.BuilderManagers.MAIN.Position
+    local MyArmyIndex       = aiBrain.ArmyIndex
+    local NumOpponents      = aiBrain.NumOpponents
+    local OutnumberedRatio  = aiBrain.OutnumberedRatio
   
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
@@ -4729,10 +4740,9 @@ function ParseIntelThread( aiBrain )
 		numchecks = 0
 		usedticks = 0
         
-        DisplayIntelPoints = ScenarioInfo.DisplayIntelPoints or false   -- we put these in the loop so we can toggle them on/off in the game
-
-        IntelDialog = ScenarioInfo.IntelDialog or false
-        ReportRatios = ScenarioInfo.ReportRatios or false
+        DisplayIntelPoints  = ScenarioInfo.DisplayIntelPoints or false   -- we put these in the loop so we can toggle them on/off in the game
+        IntelDialog         = ScenarioInfo.IntelDialog or false
+        ReportRatios        = ScenarioInfo.ReportRatios or false
 
 		-- advance the iteration count -- used to process certain intel types at a different frequency than others
         iterationcount = iterationcount + 1
@@ -5218,9 +5228,10 @@ function ParseIntelThread( aiBrain )
             
 		end
 
-		-- recalc the strength ratios 
+		-- recalc the strength ratios every 5 cycles 
+        -- strength ratio is (myvalue versus enemyvalue) * number of opponents 
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
-        if (iterationcount == 5) or (iterationcount == 10) or (iterationcount == 15) then
+        if LOUDMOD(iterationcount,5) == 0 then
         
             --- AIR UNITS ---
             -----------------
