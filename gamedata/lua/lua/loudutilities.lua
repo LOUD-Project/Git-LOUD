@@ -5245,7 +5245,7 @@ function ParseIntelThread( aiBrain )
             
                 for v, brain in BRAINS do
 
-                    if IsEnemy( aiBrain.ArmyIndex, v ) then
+                    if IsEnemy( MyArmyIndex, v ) then
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
                         
@@ -5253,8 +5253,8 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                             
-                            totalThreatAir = totalThreatAir + bp.AirThreatLevel
-                            totalThreatSurface = totalThreatSurface + bp.SurfaceThreatLevel
+                            totalThreatAir      = totalThreatAir + bp.AirThreatLevel
+                            totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
 
                             oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
 
@@ -5282,13 +5282,7 @@ function ParseIntelThread( aiBrain )
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
-                    aiBrain.AirRatio = aiBrain.AirRatio * aiBrain.NumOpponents
-                    
-                    if aiBrain.OutnumberedRatio > 1 then
-                    
-                        aiBrain.AirRatio = aiBrain.AirRatio / aiBrain.OutnumberedRatio
-                        
-                    end
+                    aiBrain.AirRatio = aiBrain.AirRatio * OutnumberedRatio
                     
                 else
                 
@@ -5326,7 +5320,7 @@ function ParseIntelThread( aiBrain )
 
                 for v, brain in BRAINS do
             
-                    if IsEnemy( aiBrain.ArmyIndex, v ) then
+                    if IsEnemy( MyArmyIndex, v ) then
                 
                         units = GetListOfUnits( brain, LANDUNITS, false, true)
                     
@@ -5355,13 +5349,7 @@ function ParseIntelThread( aiBrain )
                 
                     aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
-                    aiBrain.LandRatio = aiBrain.LandRatio * aiBrain.NumOpponents
-                    
-                    if aiBrain.OutnumberedRatio > 1 then
-                    
-                        aiBrain.LandRatio = aiBrain.LandRatio / aiBrain.OutnumberedRatio
-                        
-                    end
+                    aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedRatio
 
                 else
                 
@@ -5398,7 +5386,7 @@ function ParseIntelThread( aiBrain )
 
                 for v, brain in BRAINS do
             
-                    if IsEnemy( aiBrain.ArmyIndex, v ) then
+                    if IsEnemy( MyArmyIndex, v ) then
                 
                         units = GetListOfUnits( brain, NAVALUNITS, false, true)
                     
@@ -5427,13 +5415,7 @@ function ParseIntelThread( aiBrain )
                 
                     aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
-                    aiBrain.NavalRatio = aiBrain.NavalRatio * aiBrain.NumOpponents
-                    
-                    if aiBrain.OutnumberedRatio > 1 then
-                    
-                        aiBrain.NavalRatio = aiBrain.NavalRatio / aiBrain.OutnumberedRatio
-                        
-                    end
+                    aiBrain.NavalRatio = aiBrain.NavalRatio * OutnumberedRatio
 
                 else
                 
@@ -5471,7 +5453,7 @@ function ParseIntelThread( aiBrain )
             -- compare against my factory values to determine need for more factories and of what type
             for v, brain in BRAINS do
             
-                if IsEnemy( aiBrain.ArmyIndex, v ) and not ArmyIsCivilian( v ) then
+                if IsEnemy( MyArmyIndex, v ) and not ArmyIsCivilian( v ) then
                 
                     units = GetListOfUnits( brain, categories.FACTORY, false, true)
                     
@@ -5479,7 +5461,7 @@ function ParseIntelThread( aiBrain )
                     airidle = 0
                     airtot = 0
                     
-                    for _,u in EntityCategoryFilterDown( categories.AIR, units) do
+                    for _,u in EntityCategoryFilterDown( AIR, units) do
                     
                         aircount = aircount + 1
                     
@@ -5489,11 +5471,11 @@ function ParseIntelThread( aiBrain )
                                 airidle = airidle + 1
                                 airtot = airtot + .3
                             else
-                                if EntityCategoryContains( categories.TECH1, u) then
+                                if EntityCategoryContains( TECH1, u) then
                                     airtot = airtot + 1
-                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                elseif EntityCategoryContains( TECH2, u) then
                                     airtot = airtot + 4
-                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                elseif EntityCategoryContains( TECH3, u) then
                                     airtot = airtot + 10
                                 end
                             end
@@ -5507,7 +5489,7 @@ function ParseIntelThread( aiBrain )
                     landidle = 0
                     landtot = 0
                     
-                    for _,u in EntityCategoryFilterDown( categories.LAND, units) do
+                    for _,u in EntityCategoryFilterDown( LAND, units) do
                     
                         landcount = landcount + 1
                         
@@ -5517,11 +5499,11 @@ function ParseIntelThread( aiBrain )
                                 landidle = landidle + 1
                                 landtot = landtot + .3
                             else
-                                if EntityCategoryContains( categories.TECH1, u) then
+                                if EntityCategoryContains( TECH1, u) then
                                     landtot = landtot + 1
-                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                elseif EntityCategoryContains( TECH2, u) then
                                     landtot = landtot + 4
-                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                elseif EntityCategoryContains( TECH3, u) then
                                     landtot = landtot + 10
                                 end
                             end
@@ -5545,11 +5527,11 @@ function ParseIntelThread( aiBrain )
                                 navidle = navidle + 1
                                 navaltot = navaltot + .3
                             else
-                                if EntityCategoryContains( categories.TECH1, u) then
+                                if EntityCategoryContains( TECH1, u) then
                                     navaltot = navaltot + 1
-                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                elseif EntityCategoryContains( TECH2, u) then
                                     navaltot = navaltot + 4
-                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                elseif EntityCategoryContains( TECH3, u) then
                                     navaltot = navaltot + 10
                                 end
                             end
@@ -5568,7 +5550,7 @@ function ParseIntelThread( aiBrain )
             myairidle = 0
             myairtot = 0
 
-            for _,u in EntityCategoryFilterDown( categories.AIR, units) do
+            for _,u in EntityCategoryFilterDown( AIR, units) do
 
                 myaircount = myaircount + 1
 
@@ -5578,11 +5560,11 @@ function ParseIntelThread( aiBrain )
                         myairidle = myairidle + 1
                         myairtot = myairtot + .3
                     else
-                        if EntityCategoryContains( categories.TECH1, u) then
+                        if EntityCategoryContains( TECH1, u) then
                             myairtot = myairtot + 1
-                        elseif EntityCategoryContains( categories.TECH2, u) then
+                        elseif EntityCategoryContains( TECH2, u) then
                             myairtot = myairtot + 4
-                        elseif EntityCategoryContains( categories.TECH3, u) then
+                        elseif EntityCategoryContains( TECH3, u) then
                             myairtot = myairtot + 10
                         end
                     end
@@ -5591,15 +5573,13 @@ function ParseIntelThread( aiBrain )
             end
 
             -- my air production value divided by (enemy air production value/Number of Opponents)
-            if grandairtot > 0 then
-                aiBrain.AirProdRatio = myairtot/(grandairtot/aiBrain.NumOpponents)
-            end
+            aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
             
             mylandcount = 0
             mylandidle = 0
             mylandtot = 0
 
-            for _,u in EntityCategoryFilterDown( categories.LAND, units) do
+            for _,u in EntityCategoryFilterDown( LAND, units) do
 
                 mylandcount = mylandcount + 1
 
@@ -5609,20 +5589,18 @@ function ParseIntelThread( aiBrain )
                         mylandidle = mylandidle + 1
                         mylandtot = mylandtot + .3
                     else
-                        if EntityCategoryContains( categories.TECH1, u) then
+                        if EntityCategoryContains( TECH1, u) then
                             mylandtot = mylandtot + 1
-                        elseif EntityCategoryContains( categories.TECH2, u) then
+                        elseif EntityCategoryContains( TECH2, u) then
                             mylandtot = mylandtot + 4
-                        elseif EntityCategoryContains( categories.TECH3, u) then
+                        elseif EntityCategoryContains( TECH3, u) then
                             mylandtot = mylandtot + 10
                         end
                     end
                 end
             end
 
-            if grandlandtot > 0 then
-                aiBrain.LandProdRatio = mylandtot/(grandlandtot/aiBrain.NumOpponents)
-            end
+            aiBrain.LandProdRatio = mylandtot/(LOUDMAX(NumOpponents,grandlandtot)/NumOpponents)
 
             mynavalcount = 0
             mynavalidle = 0
@@ -5638,20 +5616,18 @@ function ParseIntelThread( aiBrain )
                         mynavalidle = mynavalidle + 1
                         mynavaltot = mynavaltot + .3
                     else
-                        if EntityCategoryContains( categories.TECH1, u) then
+                        if EntityCategoryContains( TECH1, u) then
                             mynavaltot = mynavaltot + 1
-                        elseif EntityCategoryContains( categories.TECH2, u) then
+                        elseif EntityCategoryContains( TECH2, u) then
                             mynavaltot = mynavaltot + 4
-                        elseif EntityCategoryContains( categories.TECH3, u) then
+                        elseif EntityCategoryContains( TECH3, u) then
                             mynavaltot = mynavaltot + 10
                         end
                     end
                 end
             end
 
-            if grandnavaltot > 0 then
-                aiBrain.NavalProdRatio = mynavaltot/(grandnavaltot/aiBrain.NumOpponents)
-            end
+            aiBrain.NavalProdRatio = mynavaltot/(LOUDMAX(NumOpponents,grandnavaltot)/NumOpponents)
 
             -- I have navy production but the enemy is undetected
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
@@ -5665,9 +5641,9 @@ function ParseIntelThread( aiBrain )
 
             if ReportRatios then
                 LOG("*AI DEBUG ===============================")
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..NumOpponents.." Opponents")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..aiBrain.AirBias  )
