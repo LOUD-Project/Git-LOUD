@@ -3,7 +3,6 @@ UnitBlueprint {
         GuardScanRadius = 33,
 
         TargetBones = {
-            'AttachPoint',  -- this point is intentionally missable
             'Leg_Left_B01',
             'Leg_Right_B01',
             'Leg_Left_B02',

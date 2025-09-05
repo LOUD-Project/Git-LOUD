@@ -111,7 +111,17 @@ XSL0301 = Class(SWalkingLandUnit) {
                 SIFLaanseTacticalMissileLauncher.OnCreate(self)
 
                 self:SetWeaponEnabled(false)
+                
+                self.WeaponIsEnabled = false
             end,
+
+            OnEnableWeapon = function(self)
+                
+                SIFLaanseTacticalMissileLauncher.OnEnableWeapon(self)
+                
+                ChangeState(self, self.IdleState)
+            end,
+
         },
     },
     
@@ -254,12 +264,16 @@ XSL0301 = Class(SWalkingLandUnit) {
             self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('Missile', true)
+            
+            self:SetAutoMode(true)
 
         elseif enh == 'MissileRemove' then
 
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('Missile', false)
+            
+            self:SetAutoMode(false)
 
         -- Shields
         elseif enh == 'Shield' then

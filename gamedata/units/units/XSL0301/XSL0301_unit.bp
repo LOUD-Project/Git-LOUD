@@ -3,8 +3,9 @@ UnitBlueprint {
     
         GuardScanRadius = 33,
         
+        InitialAutoMode = false,
+        
         TargetBones = {
-            'AttachPoint',      -- this point is intentionally missable
             'Left_Leg_B02',
             'Right_Leg_B02',
             'Left_Leg_B01',
@@ -235,9 +236,9 @@ UnitBlueprint {
         },
         
         Missile = {
-            BuildCostEnergy = 50000,
-            BuildCostMass = 1000,
-            BuildTime = 6000,
+            BuildCostEnergy = 4500,
+            BuildCostMass = 825,
+            BuildTime = 1650,
             Icon = 'tmu',
             Name = 'Tactical Missile Launcher',
             ShowBones = {'Back_Upgrade'},
@@ -602,6 +603,7 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 
             Audio = {
@@ -612,37 +614,43 @@ UnitBlueprint {
             CollideFriendly = false,
             CountedProjectile = true,
             
-            Damage = 4800,
+            Damage = 6000,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
             
             DisplayName = 'Laanse Tactical Missile Launcher',
             
+            EnabledByEnhancement = true,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
+
 			ForceSingleFire = true,
+
+            InitialProjectileStorage = 0,
             
             Label = 'Missile',
             
             ManualFire = true,
             
-            MaxProjectileStorage = 1,
+            MaxProjectileStorage = 2,
             
-            MaxRadius = 196,
+            MaxRadius = 240,
             MinRadius = 15,
             
             MuzzleChargeDelay = 1.5,
 
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 10,
 
             NotExclusive = true,
             
-            ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileCDR_proj.bp',
-            ProjectileLifetime = 80,
+            ProjectileId = '/projectiles/SIFLaanseTacticalMissile04/SIFLaanseTacticalMissile04_proj.bp',
+            --ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileCDR_proj.bp',
+            ProjectileLifetime = 30,
 
             RackBones = {
                 { MuzzleBones = {'back_missile' }, RackBone = 'back_missile' }
@@ -660,7 +668,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 
-            WeaponRepackTimeout = 5,
+            WeaponRepackTimeout = 1.5,
             WeaponUnpacks = true,
         },
         {

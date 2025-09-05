@@ -4,7 +4,6 @@ UnitBlueprint {
         GuardScanRadius = 33,
         
         TargetBones = {
-            'Head',         -- intentionally missable
             'Right_Arm01',
             'Left_Arm01',
             'Left_Thigh',
