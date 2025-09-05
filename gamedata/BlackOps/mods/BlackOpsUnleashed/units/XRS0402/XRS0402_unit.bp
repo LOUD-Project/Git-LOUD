@@ -909,7 +909,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE','SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Barrel_AA',
@@ -981,7 +981,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE','SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Barrel_AA',
