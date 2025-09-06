@@ -93,7 +93,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
             
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 48, categories.FRIGATE * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 32, categories.FRIGATE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
 
@@ -101,6 +101,23 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         },
     },
 
+    -- this will provide some frigate production even if the enemy is not in the water
+    Builder {BuilderName = 'T1 Frigate - High Strength',
+	
+        PlatoonTemplate = 'T1SeaFrigate',
+		
+        Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
+		
+        BuilderType = {'SeaT1','SeaT2','SeaT3'},
+		
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
+            
+            { LUTL, 'PoolLess', { 6, categories.FRIGATE }},
+        },
+    },
 
     Builder {BuilderName = 'T1 Frigate at T3 factory',
 	
@@ -108,21 +125,21 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
         
-        PriorityFunction = AboveUnitCap95,
+        PriorityFunction = AboveUnitCap85,
 
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
             
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 48, categories.FRIGATE * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 32, categories.FRIGATE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
         },
     },
-		
+	
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON',
 	
         PlatoonTemplate = 'T1SeaAntiAir',
@@ -138,7 +155,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.DEFENSIVEBOAT * categories.NAVAL } },
+			{ LUTL, 'PoolLess', { 24, categories.DEFENSIVEBOAT } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.DEFENSIVEBOAT } },
 
@@ -152,18 +169,39 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		PriorityFunction = AboveUnitCap95,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.DESTROYER * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 24, categories.DESTROYER }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.DESTROYER }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DESTROYER, categories.NAVAL - categories.TECH1 }},
+        },
+    },
+
+    Builder {BuilderName = 'Destroyer - High Strength',
+	
+        PlatoonTemplate = 'T2SeaDestroyer',
+		
+        Priority = 600,
+		
+		PriorityFunction = AboveUnitCap85,
+		
+        BuilderType = {'SeaT2','SeaT3'},
+
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
+            
+            { UCBC, 'PoolGreater', { 5, categories.FRIGATE }},
+            
+            { UCBC, 'PoolGreater', { 7, categories.SUBMARINE }},
+
+            { LUTL, 'PoolLess', { 6, categories.DESTROYER }},
         },
     },
 	
@@ -178,7 +216,9 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.CRUISER * categories.NAVAL }},
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },        
+
+            { LUTL, 'PoolLess', { 24, categories.CRUISER }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.CRUISER }},
 
@@ -186,6 +226,27 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         },
     },
 	
+    Builder {BuilderName = 'Cruiser - High Strength',
+	
+        PlatoonTemplate = 'T2SeaCruiser',
+		
+        Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
+		
+        BuilderType = {'SeaT2','SeaT3'},
+
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },        
+            
+            { UCBC, 'PoolGreater', { 5, categories.FRIGATE }},
+            
+            { UCBC, 'PoolGreater', { 7, categories.SUBMARINE }},
+
+            { LUTL, 'PoolLess', { 6, categories.CRUISER }},
+        },
+    },
+		
     Builder {BuilderName = 'T2 Sub - UEF',
 	
         PlatoonTemplate = 'T2SeaSub',
@@ -201,7 +262,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, (categories.SUBMARINE + categories.xes0102) * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 24, (categories.SUBMARINE + categories.xes0102) }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 16, (categories.SUBMARINE + categories.xes0102) }},
 
@@ -224,7 +285,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.SUBMARINE * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 16, categories.SUBMARINE }},
 
@@ -250,7 +311,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.SUBMARINE * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE }},
 
@@ -273,11 +334,28 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.SUBMARINE * categories.NAVAL }},
+            { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},
+        },
+    },
+
+    Builder {BuilderName = 'T2 Sub - High Strength',
+	
+        PlatoonTemplate = 'T2SeaSub',
+
+        Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
+
+        BuilderType = {'SeaT2','SeaT3'},
+		
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
+
+            { LUTL, 'PoolLess', { 8, categories.SUBMARINE }},
         },
     },
 
@@ -289,24 +367,18 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
 
-        PriorityFunction = IsEnemyNavalActive,
+        PriorityFunction = AboveUnitCap85,
 
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'PoolLess', { 12, categories.xes0205 }},
+            
+            { UCBC, 'PoolGreater', { 2, categories.CRUISER + categories.DESTROYER }},
 
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
-
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 20, categories.xes0205 * categories.NAVAL }},
-
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.xes0205 * categories.NAVAL }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.xes0205 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0205 * categories.NAVAL, categories.NAVAL - categories.TECH1 }},
         },
     },
 	
@@ -318,22 +390,16 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
 
-        PriorityFunction = IsEnemyNavalActive,
+        PriorityFunction = AboveUnitCap85,
 
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'PoolLess', { 9, categories.xrs0205 }},
+            
+            { UCBC, 'PoolGreater', { 2, categories.CRUISER + categories.DESTROYER }},
 
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 20, categories.xrs0205 * categories.NAVAL }},
-
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.xrs0205 * categories.NAVAL }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205 * categories.NAVAL, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.xrs0205 }},
         },
     },
 
@@ -348,11 +414,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.NAVAL * categories.TECH3 }},
-			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.BATTLESHIP }},
+
+			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},
             
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.CRUISER }},
+            { UCBC, 'PoolGreater', { 6, categories.CRUISER + categories.DESTROYER }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.BATTLESHIP, categories.NAVAL * categories.TECH3 }},
         },
@@ -367,13 +432,11 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 610,
 		
-		PriorityFunction = IsEnemyNavalActive,
+		PriorityFunction = AboveUnitCap95,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -399,6 +462,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},			
@@ -422,6 +487,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
             { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
@@ -445,6 +512,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
@@ -464,19 +533,16 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
 		
-		PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = AboveUnitCap85,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 25, categories.SUBMARINE }},
+			{ UCBC, 'PoolLess', { 24, categories.SUBMARINE }},
             
+            { UCBC, 'PoolGreater', { 6, categories.CRUISER + categories.DESTROYER }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
     },
@@ -489,18 +555,15 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 600,
 		
-		PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = AboveUnitCap85,		
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 25, categories.SUBMARINE }},
+			{ UCBC, 'PoolLess', { 24, categories.SUBMARINE }},
+            
+            { UCBC, 'PoolGreater', { 6, categories.CRUISER + categories.DESTROYER }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
@@ -886,22 +949,20 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         Priority = 600,
         
-        PriorityFunction = IsEnemyNavalActive,
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-            
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
 
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.xes0205 * categories.NAVAL }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.xes0205 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
             
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0205 * categories.NAVAL, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xes0205, categories.NAVAL - categories.TECH1 }},
         },
     },
 	
@@ -915,20 +976,18 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         BuilderType = {'SeaT2','SeaT3'},
         
-        PriorityFunction = IsEnemyNavalActive,
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.xrs0205 * categories.NAVAL }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 3, categories.xrs0205 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205 * categories.NAVAL, categories.NAVAL - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, categories.NAVAL - categories.TECH1 }},
         },
     },
 
@@ -961,13 +1020,11 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         Priority = 610,
 
-		PriorityFunction = IsEnemyNavalActive,
+		PriorityFunction = AboveUnitCap95,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -993,6 +1050,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
@@ -1016,6 +1075,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },        
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.NAVAL * categories.TECH3 * categories.CRUISER }},
@@ -1034,12 +1095,12 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         Priority = 610,
 		
-		PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = AboveUnitCap95,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
 
@@ -1060,13 +1121,11 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         Priority = 600,
 		
-		PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = AboveUnitCap85,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -1085,13 +1144,11 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 		
         Priority = 600,
 		
-		PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = AboveUnitCap85,
 		
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
