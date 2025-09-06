@@ -494,13 +494,13 @@ ADFTractorClaw          = Class(DefaultBeamWeapon) { BeamType = TractorClawColli
         end
         return target      
     end,
-
+--[[
     OnLostTarget = function(self)
         self:AimManipulatorSetEnabled(true)
         DefaultBeamWeapon.OnLostTarget(self)
         DefaultBeamWeapon.PlayFxBeamEnd(self,self.Beams[1].Beam)
     end,
-
+--]]
     TractorThread = function(self, target)
         self.unit.Trash:Add(target)
         local beam = self.Beams[1].Beam

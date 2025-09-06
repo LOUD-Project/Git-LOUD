@@ -682,33 +682,6 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     -- General State-less event handling
-    OnLostTarget = function(self)
-    
-        self.OnGotTargetEvent = false
-        
-        if self.WeaponIsEnabled then
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(self.bp.Label).." has target "..repr(WeaponHasTarget(self)).." on tick "..GetGameTick() )		
-            end
-
-            local target = WeaponHasTarget(self)
-
-            if not target then
-        
-                Weapon.OnLostTarget(self)
-
-            end
-
-        end
-
-        if self.bp.WeaponUnpacks then
-
-            LOUDSTATE(self, self.WeaponPackingState)
-
-        end
-
-    end,
 
     OnDestroy = function(self)
 
@@ -1059,6 +1032,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
         end,
         
+        OnLostTarget = function(self)
+        
+        end,
     },
 	
     RackSalvoChargeState = State {
@@ -1121,11 +1097,20 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.OnFireEvent = true
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State OnFire "..repr(bp.Label).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
             end
 			
         end,
         
+        OnLostTarget = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnLostTarget at "..GetGameTick() )		
+            end
+
+            Weapon.OnLostTarget(self)
+        
+        end,      
     },
     
     RackSalvoFireReadyState = State {
@@ -1155,7 +1140,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self.EconDrain = nil
 
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." Economy Event Ends at "..GetGameTick() )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(bp.Label).." Economy Event Ends at "..GetGameTick() )
                 end
 
             end
@@ -1178,7 +1163,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.WeaponCharged and self.OnFireEvent then
 
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." WeaponCharged fires "..GetGameTick() )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(bp.Label).." WeaponCharged fires "..GetGameTick() )
                 end
 
                 LOUDSTATE( self, self.RackSalvoFiringState)
@@ -1209,7 +1194,16 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
           
         end,
+        
+        OnLostTarget = function(self)
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnLostTarget at "..GetGameTick() )		
+            end
+
+            Weapon.OnLostTarget(self)
+        
+        end,
     },
 
     RackSalvoFiringState = State {
@@ -1490,13 +1484,22 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
           
         end,
+        
+        OnLostTarget = function(self)
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(self.bp.Label).." OnLostTarget at "..GetGameTick() )		
+            end
+
+            Weapon.OnLostTarget(self)
+        
+        end,
 
         -- Set a bool so we won't fire if the target reticle is moved
         OnHaltFire = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State OnHaltFire "..repr(self.bp.Label) )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(self.bp.Label).." OnHaltFire at "..GetGameTick() )
 			end
             
             self.HaltFireOrdered = true
@@ -1629,7 +1632,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.OnFireEvent = true
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvoReload State OnFire "..repr(bp.Label).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon RackSalvoReload State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
             end
 			
         end,
@@ -1899,19 +1902,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
 
     end,
-
-    OnLostTarget = function(self)
-    
-        if self.BeamStarted then
-        
-            self.PlayFxBeamEnd(self)
-            
-        end
-        
-        DefaultProjectileWeapon.OnLostTarget(self)
-    
-    end,
-    
+  
     CreateProjectileAtMuzzle = function(self, muzzle)
 		
         local enabled = false

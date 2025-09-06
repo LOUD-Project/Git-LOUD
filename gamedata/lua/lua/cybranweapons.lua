@@ -375,13 +375,14 @@ CAMZapperWeapon                     = Class(DefaultBeamWeapon) { BeamType = Coll
             self.SphereEffectEntity:SetMesh(self.SphereEffectActiveMesh)
         end,
     },
-
+--[[
     OnLostTarget = function(self)
     
         DefaultBeamWeapon.OnLostTarget(self)
         
         self.SphereEffectEntity:SetMesh(self.SphereEffectIdleMesh)
-    end,    
+    end,
+--]]
 }
 
 CAMZapperWeapon02                   = Class(DefaultBeamWeapon) { BeamType = CollisionBeamFile.ZapperCollisionBeam,

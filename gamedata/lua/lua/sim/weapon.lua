@@ -10,8 +10,6 @@ local LOUDINSERT    = table.insert
 local LOUDPARSE     = ParseEntityCategory
 local LOUDREMOVE    = table.remove
 
-local LOUDCREATEPROJECTILE = moho.weapon_methods.CreateProjectile
-
 local ForkThread    = ForkThread
 local ForkTo        = ForkThread
 
@@ -22,26 +20,32 @@ local TrashDestroy  = TrashBag.Destroy
 local WaitSeconds   = WaitSeconds
 local WaitTicks     = coroutine.yield
 
-local BeenDestroyed         = moho.entity_methods.BeenDestroyed
-local GetBlueprint          = moho.weapon_methods.GetBlueprint
-local PlaySound             = moho.weapon_methods.PlaySound
+local BeenDestroyed             = moho.entity_methods.BeenDestroyed
 
-local SetBoneEnabled        = moho.AnimationManipulator.SetBoneEnabled
+local WeaponMethods     = moho.weapon_methods
+
+local GetBlueprint              = WeaponMethods.GetBlueprint
+local LOUDCREATEPROJECTILE      = WeaponMethods.CreateProjectile
+local PlaySound                 = WeaponMethods.PlaySound
+local SetFireTargetLayerCaps    = WeaponMethods.SetFireTargetLayerCaps
+local SetTargetingPriorities    = WeaponMethods.SetTargetingPriorities
+local WeaponHasTarget           = WeaponMethods.WeaponHasTarget
+
 local SetEnabled            = moho.AimManipulator.SetEnabled
 local SetFiringArc          = moho.AimManipulator.SetFiringArc
-
-local SetFireTargetLayerCaps = moho.weapon_methods.SetFireTargetLayerCaps
 local SetResetPoseTime      = moho.AimManipulator.SetResetPoseTime
-local SetTargetingPriorities = moho.weapon_methods.SetTargetingPriorities
+
+local SetBoneEnabled        = moho.AnimationManipulator.SetBoneEnabled
 
 local PassDamageData = import('/lua/sim/Projectile.lua').Projectile.PassDamageData
 
 local MISSILEOPTION = tonumber(ScenarioInfo.Options.MissileOption)
 local STRUCTURE = categories.STRUCTURE
 
---LOG("*AI DEBUG Weapon Methods are "..repr(moho.weapon_methods))
+--LOG("*AI DEBUG Weapon Methods are "..repr(WeaponMethods) )
 
-Weapon = Class(moho.weapon_methods) {
+
+Weapon = Class(WeaponMethods) {
 
     __init = function(self, unit)
 
@@ -420,6 +424,34 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
+     
+        if self.WeaponIsEnabled then
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(self.bp.Label).." has target "..repr(WeaponHasTarget(self)).." fire state "..self.unit:GetFireState().." on tick "..GetGameTick() )		
+            end
+
+            --local target = WeaponHasTarget(self)
+
+            --if target then
+              --  return  --Weapon.OnLostTarget(self)
+            --end
+
+        end
+    
+        if self.BeamStarted then
+        
+            self.PlayFxBeamEnd(self)
+            
+        end
+
+        self.OnGotTargetEvent = false
+   
+        if self.bp.WeaponUnpacks then
+
+            ChangeState(self, self.WeaponPackingState)
+
+        end
    
         if self.HadTarget then
 	
