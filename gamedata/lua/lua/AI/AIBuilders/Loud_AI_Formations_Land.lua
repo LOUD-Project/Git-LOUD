@@ -2919,7 +2919,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         },
     },
 
-    --- triggered by 4 directfire units    
+    --- triggered by 3 directfire units    
 	Builder {BuilderName = 'Reinforce Primary - Support',
 	
         PlatoonTemplate = 'ReinforceLandPlatoonSupport',
@@ -2932,7 +2932,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 3 then
                 return 10,true
             end
 
