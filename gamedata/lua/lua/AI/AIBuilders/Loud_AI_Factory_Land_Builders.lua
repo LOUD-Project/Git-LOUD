@@ -136,10 +136,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
-            -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, INDIRECTFIRELAND }},
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
+
+			-- turn off as soon as we have a T2/T3 land factory
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
 		
         BuilderType = {'LandT1'},
@@ -164,7 +167,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { UCBC, 'PoolLess', { 4, ANTIAIRLAND }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
@@ -195,7 +198,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { UCBC, 'PoolLess', { 8, ANTIAIRLAND }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			-- turn off as soon as we have a T2/T3 land factory
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
@@ -223,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 15 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
@@ -249,7 +252,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 15 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
@@ -275,7 +278,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 15 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
@@ -296,7 +299,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ LUTL, 'PoolLess', { 6, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
         },
@@ -325,7 +328,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 25 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, SHIELDLAND, LAND }},
         },
@@ -351,7 +354,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 25 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, SHIELDLAND, LAND }},
         },
@@ -377,7 +380,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
         },
@@ -401,7 +404,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { EBC, 'GreaterThanEnergyTrendOverTime', { 25 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, SHIELDLAND, LAND }},
         },
@@ -420,7 +423,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ LUTL, 'PoolLess', { 6, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
             -- must have some Directfire in the Pool at this location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
         },
@@ -481,7 +484,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
             -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             -- if less than 24 T2/T3 MAA
 			{ UCBC, 'PoolLess', { 24, ANTIAIRLAND - categories.TECH1 }},
@@ -513,7 +516,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
             -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             -- if less than 12 T2/T3 MAA
 			{ UCBC, 'PoolLess', { 12, ANTIAIRLAND - categories.TECH1 }},
@@ -536,7 +539,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
         },
@@ -556,7 +559,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
         },
@@ -576,7 +579,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
@@ -610,61 +613,6 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderType =  {'LandT3','Gate'},	-- this allows Gates to make them as well
     },
 
-	-- T3 Mobile AA
-    Builder {BuilderName = 'T3 Mobile AA',
-	
-        PlatoonTemplate = 'T3LandAA',
-
-        Priority = 600, 
-        
-        PriorityFunction = AboveUnitCap85,
-
-        BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-
-			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
-
-            -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
-
-        },
-		
-        BuilderType = {'LandT3','Gate'},
-    },
-
-    Builder {BuilderName = 'T3 Mobile AA - High Need',
-	
-        PlatoonTemplate = 'T3LandAA',
-
-        Priority = 610, 
-        
-        PriorityFunction = AboveUnitCap85,
-
-        BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
- 
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
-
-            --- enemy focused upon ground attack in his air force
-            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
-
-			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
-
-            -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DIRECTFIRELAND }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
-        },
-		
-        BuilderType = {'LandT3','Gate'},
-    },
-	
     -- T3 Tank - non amphibious T3 Land Units
     Builder {BuilderName = 'Siege Assault Bot T3',
 	
@@ -699,17 +647,18 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+			--{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
-            
+
+            { UCBC, 'PoolLessAtLocation', { 'LocationType', 30, INDIRECTFIRELAND * categories.TECH3 }},            
+
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, LANDT3 }},
 
-            { UCBC, 'PoolLessAtLocation', { 'LocationType', 30, INDIRECTFIRELAND * categories.TECH3 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -744,7 +693,62 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
         BuilderType = {'LandT3'},
     },
+
+	-- T3 Mobile AA
+    Builder {BuilderName = 'T3 Mobile AA',
 	
+        PlatoonTemplate = 'T3LandAA',
+
+        Priority = 600, 
+        
+        PriorityFunction = AboveUnitCap85,
+
+        BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
+			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
+
+        },
+		
+        BuilderType = {'LandT3','Gate'},
+    },
+
+    Builder {BuilderName = 'T3 Mobile AA - High Need',
+	
+        PlatoonTemplate = 'T3LandAA',
+
+        Priority = 610, 
+        
+        PriorityFunction = AboveUnitCap85,
+
+        BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+ 
+			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+
+            --- enemy focused upon ground attack in his air force
+            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
+
+			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
+        },
+		
+        BuilderType = {'LandT3','Gate'},
+    },
+		
 }
 
 
