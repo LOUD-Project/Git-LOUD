@@ -508,19 +508,13 @@ BuilderManager = Class {
             if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
         
                 path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 + (ScenarioInfo.IMAPSize/4) )
-                
-                -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
-                -- but for now - we'll settle for land production if any kind of land connection exists --
+
                 if path and not BuilderManager.LandMode then
-                    
-                    --LOG( header.." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
                 
                     brain.BuilderManagers[LocationType].LandMode = true
 
                 else
                     if not path and BuilderManager.LandMode then
-                    
-                        --LOG( header.." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
                     
                         brain.BuilderManagers[LocationType].LandMode = false
 
@@ -549,11 +543,11 @@ BuilderManager = Class {
 			end
 
             -- and we set the delay between task checks accordingly
-			if tasks != self.NumBuilders or ( self.BuilderCheckInterval != duration ) then
+			if (self.NumBuilders > 0 and tasks != self.NumBuilders) or ( self.BuilderCheckInterval != duration ) then
             
 				duration    = self.BuilderCheckInterval
 				tasks       = self.NumBuilders
-				ticksize    = math.max( 1, LOUDFLOOR( duration / tasks ))   -- ticksize must always be at least 1
+                ticksize    = LOUDFLOOR( duration / math.max(1,tasks) )   -- ticksize must always be at least 1
 			end
 
             numTicks = 1
@@ -607,8 +601,8 @@ BuilderManager = Class {
 							
 								numPassed = numPassed + 1
 						
-                                if ticksize + 1 >= 1 then
-                                    WaitTicks(ticksize + 1)
+                                if ticksize >= 1 then
+                                    WaitTicks(ticksize)
                                     numTicks = numTicks + ticksize
                                 end
                             end
@@ -631,17 +625,11 @@ BuilderManager = Class {
             end
 
 			if numTicks < duration then
-
-                --if PriorityDialog then
-                  --  LOG( header.." - delaying "..string.format("%d", duration - numTicks).." ticks" ) 
-                --end
-            
 				WaitTicks( duration - numTicks )
 			end
 
             -- reset the tasks with Priority Functions at this PFM
             ResetPFMTasks( self, brain )
-
         end
     end,
 	
