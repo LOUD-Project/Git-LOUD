@@ -82,6 +82,12 @@ end
 
 local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
+    if aiBrain.CycleTime < 120 then
+    
+        return 10, true
+        
+    end
+    
 	-- remove by game time --
 	if aiBrain.CycleTime >  2700 then
 		
@@ -116,8 +122,7 @@ end
 -- Scout planes are always produced - controlled by map size ratio and number of factories producing
 -- Bomber and Gunships are only produced if air ratio is greater than 2
 
--- T1 is produced while there is less than 4 T2/T3 Air Factories overall
--- T2 is produced as long as there are T2 factories
+-- T1 is produced while there are less than 3 T2/T3 Air Factories overall
 -- T2 is produced while there are less than 3 T3 Air Factories
 
 -- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports and torp bombers
@@ -138,15 +143,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'UnitCapCheckLess', { .65 } },
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 20}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 26}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, AIRSCOUT } },
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, AIRSCOUT, AIR }},
         },
@@ -164,15 +167,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T2 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 78}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, AIRSCOUT } },			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },			
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRSCOUT, AIRT2UP }},
         },
@@ -190,12 +191,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 78}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, AIRSCOUT } },			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRSCOUT, AIRT3 }},
         },
@@ -215,6 +214,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
             
 			--- stop if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
@@ -225,7 +226,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 	
     --- fighters with no scout supplement made if T2 ANTIAIR is present
     --- most useful early when new air factories come online and T2 is present
-    --- previously we ceased all T1 fighter production and T1 air factories would sit idle
     Builder {BuilderName = 'Fighters T1',
 	
         PlatoonTemplate = 'T1Fighter',
@@ -236,6 +236,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
         },
 		
         BuilderType =  {'AirT1'},
@@ -272,6 +274,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, AIRT2UP }},
 
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, HIGHALTAIRAA, AIRT3 }},			
         },
 		
@@ -290,6 +294,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, HIGHALTAIRAA, AIRT3 }},			
         },
@@ -507,16 +513,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
-            -- this slightly lower need is in response to the early game where the ratio might be low
-            -- due to the enemy being undetected but we have superior production ability
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
-
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 6}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1','AirT2'},
@@ -534,8 +536,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			
@@ -543,7 +543,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 21}, categories.TRANSPORTFOCUS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -562,8 +562,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
@@ -589,8 +587,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
