@@ -101,18 +101,26 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
+        
+        LayerChangeOffsetHeight = -0.75,
+
+        MaxAcceleration = 0.95,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
-        MaxSpeedReverse = 2,
+        MaxSpeedReverse = 1.4,
+
         MaxSteerForce = 10,
+
         MeshExtentsX = 0.9,
         MeshExtentsY = 0.7,
         MeshExtentsZ = 1.6,
+
         MinSpeedPercent = 0,
+
         MotionType = "RULEUMT_Amphibious",
+
         TurnRadius = 0,
-        TurnRate = 75,
+        TurnRate = 32,
     },
 
     SelectionCenterOffsetX = 0,
@@ -140,7 +148,6 @@ UnitBlueprint{
 
     Weapon = {
         {
-            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
@@ -167,10 +174,10 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Seabed = "Land|Water|Seabed",                
+                Seabed = "Land|Water|Seabed",
             },
-            FiringRandomness = 0.95,
-            FiringTolerance = 2,
+            FiringRandomness = 0.9,
+            FiringTolerance = 1.2,
 
             Label = "MainGun",
 
@@ -210,6 +217,7 @@ UnitBlueprint{
             RateOfFire = 0.15,
 
             TargetCheckInterval = 1,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "SHIELD",
@@ -234,7 +242,7 @@ UnitBlueprint{
 
             Turreted = true,
 
-            WeaponRepackTimeout = 1,			
+            WeaponRepackTimeout = 1.3,			
             WeaponUnpackAnimation = '/units/UEL0304/uel0304_aactivate.sca',
             WeaponUnpackAnimationRate = 3,
             WeaponUnpackLocksMotion = true,
@@ -246,8 +254,8 @@ UnitBlueprint{
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.4,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = { Land = true },
+        WreckageLayers = { Land = true, Seabed = true },
     },
 }
