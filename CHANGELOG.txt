@@ -1,3 +1,48 @@
+### Release
+
+LUA 7.30
+Black Ops for LOUD 7.17
+BrewLAN for LOUD  0.8.8.9.120
+LOUD_MISC 7.11
+UNITS 7.18
+Wyvern for LOUD 7.12
+
+
+- an important fix for FFA and/or multi-team configurations that affects the combat ratios LOUD uses to steer production
+- a fix to DistressResponse that would sometimes respond with less than the expected units (primarily air)
+- a fix to BuilderManager that would cause the PlatoonManager to 'stall' very early in the game (divide by zero)
+- a fix for tarmacs building up, potentially to a crash point
+- BO ACU Cybran ACU fixed cloak/stealth effects cleanup issue, could lead to crash
+- BO ACU Sera ACU fixed lambda toggle (was displaying the incorrect on/off status)
+- BO Seadragon Mk1 was firing AA at SATELLITE units
+- BrewLAN Mines - a rework of the T3 nuke mines, are now much less expensive, and less destructive - Demolition mines
+    -- addressed issues with detonate toggles and cloaking features
+    -- will revisit the 'nuke' mine at a later date when we have more data about mine usability
+- Added building of Field Engineers to the Quantum Gates (MostLostNoob)
+- Sera SACU Tac Missile enhancement now functions properly, and is recosted as a typical T2 TML with a 2 missile capacity
+- Wyvern UEF Walrus now functions properly underwater (trying to target), adjusted physical performance, added seabed wreckage
+- LUA fixed a logic issue with RemoteViewing true/false anti-teleport block - boolean was reversed
+    -- no longer play the voiceover for AI players when blocked
+- LOUD_MISC revised Static HP mod with a wider range of choices (added below 1.0 options) and limited maximum to 2
+    -- no longer buffs shield health, mod now restricts itself to static HP as described
+    -- modded values now properly register for threat evaluation (this is a very important AI related change)
+- AI added a new engineer builder that will construct the TELEPORTER at all LAND 'production' bases (with factories)
+    -- LOUD won't actually use them (yet) but this is a required step in that process
+- AI added 2 new production ratio conditions that allow LOUD to recognize production ability and either curtail, or encourage, specific factory building
+    -- permits LOUD to break the customary 'lockstep' factory balance that required him to have near equal numbers of LAND & AIR factories
+- AI added an 'override' value that allows you to modify the Factory Cap on a builder, permits building beyond the factory cap
+    -- useful in configurations that restrict production (ie. AIR), allowing him to surpass normal factory limits
+    -- added new factory builders that utilize this feature under certain ratio conditions
+- AI added a new condition function that permits LOUD to recognize local threat OR the enemy having STRATEGIC ARTILLERY
+    -- permits LOUD to greatly defer/delay certain shield construction in his bases, until actually needed
+- AI reworked factory build templates for early air, removing additional T1 built units in T2 crossover (Air)
+- AI revised size of T1 & T2 AirScout builds, now build 4 and 3 respectively, in a single build operation (was 2)
+- AI Platoon Formations - introduction of 'High Strength' platoons, to take over from normal platoons, during those kind of conditions
+- AI Factory Builders - changes to all 3 types of production to better sequence/match, platoon formation - adapts to high strength conditions
+- AI Engineer Builders - numerous changes to triggers for engineering tasks (see Github for finer details)
+
+
+
 ### Release 08-08-2025
 
 LUA 7.29
