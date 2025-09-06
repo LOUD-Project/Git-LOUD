@@ -415,7 +415,7 @@ Platoon = Class(PlatoonMethods) {
 							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
 						end
                         
-                        ATTACKS = table.merged( GetSquadUnits( self,'Attack') or {}, GetSquadUnits( self,'Unassigned') or {} )
+                        ATTACKS = LOUDCAT( GetSquadUnits( self,'Attack') or {}, GetSquadUnits( self,'Unassigned') or {} )
 					
 						if ATTACKS[1] then
                         
@@ -590,7 +590,7 @@ Platoon = Class(PlatoonMethods) {
 
 					local direction = GetDirection( position, targetposition )
 
-                    local ATTACKS = table.merged( GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {} )
+                    local ATTACKS = LOUDCAT( GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {} )
 
                     if ATTACKS[1] then
                     
@@ -3243,7 +3243,7 @@ Platoon = Class(PlatoonMethods) {
 
                         randlist = { AssistRange, AssistRange * -1 }
 
-                        ATTACKS = table.merged(GetSquadUnits( self,'Attack' ) or {}, GetSquadUnits( self, 'Unassigned' ) or {} )
+                        ATTACKS = LOUDCAT(GetSquadUnits( self,'Attack' ) or {}, GetSquadUnits( self, 'Unassigned' ) or {} )
                         
                         if ATTACKS[1] then
 
@@ -6444,8 +6444,7 @@ Platoon = Class(PlatoonMethods) {
                                 
                                 if GetSquadUnits(self,'Unassigned')[1] then
                                 
-                                    ATTACKS = table.merged( ATTACKS, GetSquadUnits(self,'Unassigned') )
-                                
+                                    ATTACKS = LOUDCAT( ATTACKS, GetSquadUnits(self,'Unassigned') )
                                 end
                             
                                 if ATTACKS[1] then
