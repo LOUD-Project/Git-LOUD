@@ -1031,10 +1031,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
-        
-        OnLostTarget = function(self)
-        
-        end,
+
     },
 	
     RackSalvoChargeState = State {
@@ -1101,16 +1098,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
-        
-        OnLostTarget = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnLostTarget at "..GetGameTick() )		
-            end
-
-            Weapon.OnLostTarget(self)
-        
-        end,      
+ 
     },
     
     RackSalvoFireReadyState = State {
@@ -1194,16 +1182,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
           
         end,
-        
-        OnLostTarget = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnLostTarget at "..GetGameTick() )		
-            end
-
-            Weapon.OnLostTarget(self)
-        
-        end,
     },
 
     RackSalvoFiringState = State {
