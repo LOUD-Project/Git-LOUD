@@ -127,7 +127,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             

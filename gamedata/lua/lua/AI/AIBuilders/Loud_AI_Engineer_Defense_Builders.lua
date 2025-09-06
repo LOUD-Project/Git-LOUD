@@ -1338,6 +1338,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1431,6 +1433,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1488,6 +1492,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'SubCommander'},
@@ -1545,6 +1551,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1688,6 +1696,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1746,6 +1756,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1803,6 +1815,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'SubCommander'},
@@ -1860,6 +1874,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -4136,6 +4152,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -4276,6 +4294,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -4788,12 +4808,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         BuilderConditions = {
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - categories.TECH1 }},
-            
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -5568,7 +5588,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
-            
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},            
+
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
         },
 		
@@ -5597,17 +5619,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }},
+
+			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, SHIELD - categories.ANTIARTILLERY }},
         },
@@ -6079,9 +6103,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
             -- must not already have an antinuke
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SMD }},
-
-			-- must have 2 shields here
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
 
             -- enemy must have a visible nuke            
 			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO, 'Enemy' }},

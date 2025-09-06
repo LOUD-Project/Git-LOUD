@@ -77,7 +77,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		InstanceCount = 2,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
@@ -123,7 +123,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -172,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
             -- must have 4 shields up at this base
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
         },
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -259,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
@@ -394,7 +394,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -679,7 +679,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -724,7 +724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
             
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -1528,7 +1528,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 10, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
         },

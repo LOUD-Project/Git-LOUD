@@ -428,9 +428,52 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
     BuildersType = 'EngineerBuilder',
+    
+    Builder {BuilderName = 'Mass Extractor T1 - 150 - DP',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 850,
+        
+        PriorityFunction = AboveUnitCap85,
+        
+        InstanceCount = 1,
+		
+		BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 35, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = false,
+				LoopBuild = true,		-- repeat build until no target or dead
+                
+                MaxRange = 150,
+
+				ThreatMax = 35,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },
+	
 	-- builds mass if some is available
-    Builder {BuilderName = 'Mass Extractor - 200 - DP',
+    Builder {BuilderName = 'Mass Extractor T2 - 250 - DP',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -453,7 +496,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 15, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 25, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -462,9 +505,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 				BuildClose = true,
 				LoopBuild = true,		-- repeat build until no target or dead
                 
-                MaxRange = 200,
+                MaxRange = 250,
 
-				ThreatMax = 15,
+				ThreatMax = 25,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 

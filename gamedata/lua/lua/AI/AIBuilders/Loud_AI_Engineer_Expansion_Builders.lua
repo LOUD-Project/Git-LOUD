@@ -102,7 +102,7 @@ local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
         if ScenarioInfo['Naval Area'][1] then
             return 999, false
         else
-            return 0, false
+            return 10, true
         end
         
     end
