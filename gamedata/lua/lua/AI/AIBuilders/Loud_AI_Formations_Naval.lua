@@ -82,10 +82,14 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
 		},
     },
+
 }
 
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
@@ -125,7 +129,10 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
 		},
     },
@@ -134,6 +141,46 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 
 BuilderGroup {BuilderGroupName = 'Naval Formations',
     BuildersType = 'PlatoonFormBuilder',
+
+    Builder {BuilderName = 'Water Scout Formation - High Strength',
+	
+        PlatoonTemplate = 'T1WaterScoutForm',
+
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'}  },
+
+		PlatoonAddPlans = { 'DistressResponseAI', 'PlatoonCallForHelpAI' },		
+
+		PlatoonAIPlan = 'ScoutingAI',
+
+        Priority = 740,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
+                    return 10,true
+                else
+                    return 740,true
+                end
+                
+            else
+                return 10, true
+            end
+        end,
+
+        InstanceCount = 2,
+		
+		RTBLocation = 'Any',
+		
+        BuilderType = 'Any',
+		
+		BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
+		},
+    },    
 
 	-- we always hunt water MEX
     Builder {BuilderName = 'Sub Sea Attack MEX',
@@ -168,7 +215,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
         },
 		
@@ -221,8 +271,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },	
 
-
     -- SEA ATTACK formations only appear when there is enemy Naval Activity
+
     -- T1 Sea Attack only forms when Naval Ratio < 4 to conserve units for bigger formations when ratio is higher
     Builder {BuilderName = 'T1 Sea Attack - UEF',
 	
@@ -261,6 +311,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+
 			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
@@ -320,6 +371,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+
 			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },            
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
@@ -379,7 +431,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },            
+
+			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
@@ -438,6 +491,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+
 			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, DESTROYER }},
@@ -747,7 +801,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
@@ -810,7 +863,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
@@ -874,7 +926,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
@@ -938,7 +989,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
@@ -998,6 +1048,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { 0.5 } },
+
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
         },
 		
@@ -1054,6 +1105,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { 1.5 } },
+            
+            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
         },
 		
         BuilderData = {
@@ -1106,7 +1159,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { 4 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, BOMBARD}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, CRUISER }},
