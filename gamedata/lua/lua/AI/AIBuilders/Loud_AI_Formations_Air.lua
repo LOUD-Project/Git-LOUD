@@ -33,25 +33,34 @@ local AIRGUNSHIP    = categories.AIR * categories.GROUNDATTACK
 local AIRTORPEDO    = categories.HIGHALTAIR * categories.ANTINAVY
 local AIRT4         = categories.AIR * categories.EXPERIMENTAL
 
--- These are the standard air scout patrols around a base
+-- These are the standard air scout patrols around all bases
+-- and will consume the first 5/6 scouts
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
     BuildersType = 'PlatoonFormBuilder',
 	
-    -- Perimeter air scouts are maintained at all bases
     Builder {BuilderName = 'Air Scout - Peri - 200',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 810,
+        Priority = 812,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.CycleTime < 150 then
+                return 10, true
+            end
+
+            -- remove task after 45 minutes
+			if aiBrain.CycleTime > 2700 then
+				return 0, false
+			end
 
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
                 return 10,true
             else
-                return 810,true
+                return 812,true
             end
 
         end,
@@ -73,20 +82,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 809,
+        Priority = 811,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.CycleTime < 150 then
+                return 10, true
+            end
 
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
                 return 10,true
             else
-                return 809,true
+                return 811,true
             end
 
         end,
 
-        InstanceCount = 1,
-		
         BuilderType = 'Any',
 		
 		BuilderConditions = {},
@@ -104,14 +115,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 808,
+        Priority = 810,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.CycleTime < 150 then
+                return 10, true
+            end
 
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
                 return 10,true
             else
-                return 808,true
+                return 810,true
             end
 
         end,
@@ -129,26 +144,29 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		},
     },
 
-    -- this one only appears at PRIMARY bases
     Builder {BuilderName = 'Air Scout - Peri - 460',
 	
         PlatoonTemplate = 'Air Scout Formation',
         
 		PlatoonAIPlan = 'PlatoonPatrolPointAI',
 		
-        Priority = 806,
+        Priority = 810,
 
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.CycleTime < 150 then
+                return 10, true
+            end
 
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 1 then
                 return 10,true
             else
-                return 806,true
+                return 810,true
             end
 
         end,
 		
-		InstanceCount = 3,
+		InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -164,7 +182,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 
 -- Field air scouts come after that
 	
-    -- single plane formation for first 30 minutes
+    -- single plane formation
     Builder {BuilderName = 'Air Scout Standard',
     
         PlatoonTemplate = 'Air Scout Formation',
@@ -192,9 +210,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },        
-		},
+		BuilderConditions = {},
 		
 		BuilderData = {},
     },
@@ -232,8 +248,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
-		},
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+        },
 		
 		BuilderData = {},
     },
@@ -272,7 +288,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- squadron (9) formations after 75 minutes - 7 instances
+	-- squadron (9) formations after 75 minutes
     Builder {BuilderName = 'Air Scout Group',
     
         PlatoonTemplate = 'Air Scout Group Huge',
@@ -301,7 +317,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.3 } },
 		},
 		
 		BuilderData = {},
