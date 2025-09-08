@@ -1769,7 +1769,7 @@ Unit = Class(UnitMethods) {
 			
             local wep = GetWeapon(self,i) or false
 
-            if wep and not wep.Dead then
+            if wep and (not wep.Dead and not wep.bp.FireOnDeath) then
 
                 if wep.SetWeaponEnabled then
                     wep:SetWeaponEnabled(false)
@@ -1840,16 +1840,18 @@ Unit = Class(UnitMethods) {
                 end
   
                 if v.FireOnDeath == true then
+			
+                    local wep = self:GetWeaponByLabel('DeathWeapon')
                 
                     if UnitDialog then
-                        LOG("*AI DEBUG UNIT DeathWeapon FireOnDeath")
+                        LOG("*AI DEBUG UNIT DeathWeapon FireOnDeath wep is "..repr(wep.bp) )
                     end
-				
-                    local wep = self:GetWeaponByLabel('DeathWeapon')
-
-                    wep:SetWeaponEnabled(true )
+                    
+                    wep:SetWeaponEnabled(true)
                     
                     wep:OnWeaponFired()
+                    
+                    wep:Fire()
 
                 else
                 
