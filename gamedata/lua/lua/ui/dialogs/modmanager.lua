@@ -195,9 +195,9 @@ local modSchema = {
         '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
     },
     ["Official Rebalance"] = {
-        'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
-        'ffffffff-6e98-4864-9599-4133236eea7a', -- Integrated Storage
-        'ffffffff-ffff-ffff-ffff-fffffffffffe', -- Structure Enhancements
+        'ffffffff-6f00-4864-9599-4133236eea7a', -- LOUD Evenflow
+        'ffffffff-6e98-4864-9599-4133236eea7a', -- LOUD Integrated Storage
+        'ffffffff-ffff-ffff-ffff-fffffffffffe', -- LOUD Structure Enhancements
     },
     ["Unofficial Rebalance"] = {
         '25D57D85-9JA7-D842-BREW-INTEL00000002', -- BrewLAN: Bletchley Park
@@ -206,11 +206,11 @@ local modSchema = {
         '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
     },
     ["Mutators"] = {
-        'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced BO Commanders
-        'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced T4 Artillery
-        '0a970b58-533d-11dc-8314-0800200c9a66', -- Enhanced Nukes
-        '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Enhanced Resources
-        'b8d941e131multiplier',                 -- Enhanced Static HP Multiplier
+        'ffffffff-9d4e-11dc-8314-0800200c0605', -- LOUD Enhanced Black Ops Commanders
+        'ffffffff-9d4e-11dc-8314-0800200c0702', -- LOUD Enhanced T4 Artillery
+        '0a970b58-533d-11dc-8314-0800200c9a66', -- LOUD Enhanced Nukes
+        '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- LOUD Enhanced Resources
+        'ffffffff-9d4e-11dc-8314-0800200c0600', -- LOUD Enhanced Static HP
         'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
         -- BrewLAN
         'f31a09b5-2b2f-4bb4-aeac-47ab777a7cde', -- Antimass
@@ -236,7 +236,7 @@ local modSchema = {
         'zcbf6277-24e3-437a-b968-Common-v1',     -- Common Mod Tools
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '20dec73e-d4b2-11e5-ab30-625662870761', -- Pause replays at time
-        '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
+        '7be1d5f4-c544-11ea-87d0-noalerts0001', -- LOUD No Voiceover Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
     },
