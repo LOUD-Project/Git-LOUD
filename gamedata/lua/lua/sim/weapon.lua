@@ -386,6 +386,10 @@ Weapon = Class(WeaponMethods) {
 	end,
 
     OnDisableWeapon = function(self)
+    
+        if self.bp.Label == 'DeathWeapon' then
+            return
+        end
 	
         if ScenarioInfo.WeaponDialog then
             LOG("*AI DEBUG Weapon OnDisableWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
@@ -879,7 +883,7 @@ Weapon = Class(WeaponMethods) {
  			
                 for k, v in SimUnitEnhancements[id] do
 
-                    if v == self.bp.Label then
+                    if v == self.bp.Label or v == self.bp.EnabledByEnhancement then
                     
                         if not self.WeaponIsEnabled then
     
