@@ -202,16 +202,19 @@ UnitBlueprint{
 
     Physics = {
         BackUpDistance = 15,
+
         BankingSlope = 3,
         DragCoefficient = 0.2,
+
         Elevation = 1,
 
         LayerChangeOffsetHeight = -5,
 
-        MaxAcceleration = 1.25,
-        MaxBrake = 2.5,
+        MaxAcceleration = 1,
+        MaxBrake = 2,
         MaxSpeed = 2.5,
-        MaxSpeedReverse = 1.25,
+        MaxSpeedReverse = 1.5,
+
         MaxSteerForce = 1000,
         MeshExtentsX = 5,
         MeshExtentsY = 6,
@@ -222,8 +225,9 @@ UnitBlueprint{
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
-        TurnRadius = 3,
-        TurnRate = 36,
+
+        TurnRadius = 10,
+        TurnRate = 30,
     },
 
     SelectionCenterOffsetX = 0,

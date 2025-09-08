@@ -72,11 +72,11 @@ UnitList = {
     T4LandExperimental3 = {
 		Aeon = {'wal0401', 50},     -- Universal Collosus
         UEF = {'wel4404', 40},      -- Star Adder
+        Cybran = {'wrl1466', 75},   -- Storm Strider
     },
     
     T4LandExperimental4 = {
         UEF = {'wel0416', 40 },     -- Dragonite
-        Cybran = {'wrl1466', 65},   -- Storm Strider
     },
 
     -- Air Experimentals --
