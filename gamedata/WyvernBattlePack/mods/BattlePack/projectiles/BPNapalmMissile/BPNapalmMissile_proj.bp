@@ -19,11 +19,12 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
     },
 
     Display = {
-        ImpactEffects = {Type = 'Medium02'},
+        ImpactEffects = {Scale = 0.8, Type = 'Medium02'},
         MeshBlueprint = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_mesh.bp',
         StrategicIconSize = 2,
         UniformScale = 0.1,
@@ -32,11 +33,11 @@ ProjectileBlueprint {
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,
-        InitialSpeed = 35,
+        InitialSpeed = 25,
         MaxSpeed = 45,
-        MaxZigZag = 5,
+        MaxZigZag = 6,
         TrackTarget = false,
-        TurnRate = 360,
+        TurnRate = 90,
         VelocityAlign = true,
         ZigZagFrequency = 1,
     },
