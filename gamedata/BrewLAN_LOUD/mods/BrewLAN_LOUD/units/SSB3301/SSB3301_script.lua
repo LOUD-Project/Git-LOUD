@@ -20,10 +20,6 @@ SSB3301 = Class( SStructureUnit ) {
 
         local aiBrain = self:GetAIBrain()            
 
-        if self:AntiTeleportBlock( aiBrain, location) then
-            return
-        end
-
         -- find a target unit 
         local targettable = aiBrain:GetUnitsAroundPoint(categories.SELECTABLE, location, 10)
         local targetunit = targettable[1]
