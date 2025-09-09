@@ -47,6 +47,10 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 		return 0, false
 	end
     
+    if aiBrain.CycleTime < 60 then
+        return 10, true
+    end
+    
     -- 20km maps or less - reduce priority according to
     -- the amount of water on the map between 0 and 1 (where .5 = 50% is the ideal value)
     if ScenarioInfo.IMAPSize <= 64 then
@@ -750,6 +754,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+			
+			-- can't be a major enemy base within 15km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 
 			-- find a safe, unused, naval marker within 8km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 500, -250, 50, 1, 'AntiSurface' } },
@@ -796,6 +803,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+			
+			-- can't be a major enemy base within 15km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 
 			-- find a safe, unused, naval marker within 8km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
