@@ -4731,7 +4731,7 @@ function ParseIntelThread( aiBrain )
 	local HomePosition      = aiBrain.BuilderManagers.MAIN.Position
     local MyArmyIndex       = aiBrain.ArmyIndex
     local NumOpponents      = aiBrain.NumOpponents
-    local OutnumberedRatio  = aiBrain.OutnumberedRatio
+    local OutnumberedFactor = LOUDSQRT(aiBrain.OutnumberedRatio)
   
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
@@ -5229,7 +5229,7 @@ function ParseIntelThread( aiBrain )
 		end
 
 		-- recalc the strength ratios every 5 cycles 
-        -- strength ratio is (myvalue versus enemyvalue) * number of opponents 
+        -- strength ratio is (myvalue versus enemyvalue)
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
         if LOUDMOD(iterationcount,5) == 0 then
         
@@ -5247,19 +5247,24 @@ function ParseIntelThread( aiBrain )
 
                     if IsEnemy( MyArmyIndex, v ) then
 
-                        units = GetListOfUnits( brain, AIRUNITS, false, true)
-                        
-                        for _,v in units do
-                    
-                            bp = ALLBPS[v.BlueprintID].Defense
-                            
-                            totalThreatAir      = totalThreatAir + bp.AirThreatLevel
-                            totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
+                        -- don't include civilians
+                        if brain.Nickname != 'civilian' then
 
-                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+                            units = GetListOfUnits( brain, AIRUNITS, false, true)
+
+                            for _,v in units do
+
+                                bp = ALLBPS[v.BlueprintID].Defense
+
+                                totalThreatAir      = totalThreatAir + bp.AirThreatLevel
+                                totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
+
+                                oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+
+                            end
 
                         end
-                        
+
                     else
                     
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
@@ -5277,12 +5282,20 @@ function ParseIntelThread( aiBrain )
 
 
                 if oldthreat > 0 then
-
-                    aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.25, (totalThreatSurface/totalThreatAir) ) )
+                    -- the relationship of A2A and A2G in the enemy threat
+                    -- higher values signify a greater composition of bombers/gunships
+                    -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
+                    aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
-                    aiBrain.AirRatio = aiBrain.AirRatio * OutnumberedRatio
+                    aiBrain.AirRatio = aiBrain.AirRatio * OutnumberedFactor
+                    
+                    -- if enemy air strength is comprised dominantly of surface threat
+                    -- let it upvalue our air ratio to encourage more aggressive air actions
+                    if aiBrain.AirBias > 1 then
+                        aiBrain.AirRatio = aiBrain.AirRatio / aiBrain.AirBias
+                    end
                     
                 else
                 
@@ -5321,17 +5334,21 @@ function ParseIntelThread( aiBrain )
                 for v, brain in BRAINS do
             
                     if IsEnemy( MyArmyIndex, v ) then
-                
-                        units = GetListOfUnits( brain, LANDUNITS, false, true)
-                    
-                        for _,v in units do
-                    
-                            bp = ALLBPS[v.BlueprintID].Defense
-                        
-                            oldthreat = oldthreat + bp.SurfaceThreatLevel
+
+                        if brain.Nickname != 'civilian' then
+
+                            units = GetListOfUnits( brain, LANDUNITS, false, true)
+
+                            for _,v in units do
+
+                                bp = ALLBPS[v.BlueprintID].Defense
+
+                                oldthreat = oldthreat + bp.SurfaceThreatLevel
+
+                            end
 
                         end
-                        
+
                     else
                 
                         units = GetListOfUnits( brain, LANDUNITS, false, true)
@@ -5349,7 +5366,7 @@ function ParseIntelThread( aiBrain )
                 
                     aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
-                    aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedRatio
+                    aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedFactor
 
                 else
                 
@@ -5415,7 +5432,7 @@ function ParseIntelThread( aiBrain )
                 
                     aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
-                    aiBrain.NavalRatio = aiBrain.NavalRatio * OutnumberedRatio
+                    aiBrain.NavalRatio = aiBrain.NavalRatio * OutnumberedFactor
 
                 else
                 
@@ -5451,6 +5468,7 @@ function ParseIntelThread( aiBrain )
             -- ENEMY PRODUCTION FOCUS --
             -- accumulate the value of all enemy owned factories -- divide by number of opponents
             -- compare against my factory values to determine need for more factories and of what type
+            -- account for the cheat value (buildratemodifier) increasing the output of my factories
             for v, brain in BRAINS do
             
                 if IsEnemy( MyArmyIndex, v ) and not ArmyIsCivilian( v ) then
@@ -5571,6 +5589,9 @@ function ParseIntelThread( aiBrain )
                 end
 
             end
+            
+            -- my total is increased by my cheat value (I'm more productive)
+            myairtot = myairtot * aiBrain.BuildRateModifier
 
             -- my air production value divided by (enemy air production value/Number of Opponents)
             aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
@@ -5599,6 +5620,8 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             end
+            
+            mylandtot = mylandtot * aiBrain.BuildRateModifier
 
             aiBrain.LandProdRatio = mylandtot/(LOUDMAX(NumOpponents,grandlandtot)/NumOpponents)
 
@@ -5626,6 +5649,8 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             end
+            
+            mynavaltot = mynavaltot * aiBrain.BuildRateModifier
 
             aiBrain.NavalProdRatio = mynavaltot/(LOUDMAX(NumOpponents,grandnavaltot)/NumOpponents)
 
@@ -5641,9 +5666,9 @@ function ParseIntelThread( aiBrain )
 
             if ReportRatios then
                 LOG("*AI DEBUG ===============================")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..NumOpponents.." Opponents")
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..aiBrain.AirBias  )

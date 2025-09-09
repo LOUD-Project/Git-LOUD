@@ -804,8 +804,10 @@ function SetupAICheat(aiBrain)
     if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
         
         LOG("     "..aiBrain.Nickname.." Cheats modified due to OutnumberedRatio")
+        
+        aiBrain.BuildRateModifier = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
 
-        newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
+        newbuff.Affects.BuildRate.Mult = aiBrain.BuildRateModifier
         
         aiBrain.MajorCheatModifier = (aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier)
         
