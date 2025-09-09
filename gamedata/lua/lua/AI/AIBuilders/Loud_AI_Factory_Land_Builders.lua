@@ -481,6 +481,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
             -- must have some Directfire in the Pool at this Location
@@ -508,7 +510,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
   
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
             --- enemy focused upon ground attack in his air force
             { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
@@ -708,6 +710,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
             -- must have some Directfire in the Pool at this Location
@@ -733,7 +737,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
 
             --- enemy focused upon ground attack in his air force
             { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
