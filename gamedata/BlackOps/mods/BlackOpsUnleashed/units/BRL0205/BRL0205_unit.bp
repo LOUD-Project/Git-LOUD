@@ -33,6 +33,7 @@ UnitBlueprint {
         'REPAIR',
         'DIRECTFIRE',
         'VISIBLETORECON',
+        'OVERLAYRADAR',
         'RECLAIMABLE',
         'BOT',
     },
@@ -51,9 +52,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Repairs',
-			'Cloaking',
+            '<LOC ability_cloak>Cloaking',
             '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_repairs>Repairs',
         },
         AnimationDeath = {
             {
