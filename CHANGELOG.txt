@@ -24,6 +24,8 @@ Wyvern for LOUD 7.13
 - AI Naval Base builders refined to better recognize direct land connections, and avoid going into the water at close start ranges
 - AI numerous shifts in T4 building around the 'Heavy' class, less Megalith, more Star Adder and Basilisk
     -- the same should be considered for UEF T4 units, large footprint T4 units don't move well in formations
+- AI continued revision and adjustment to strength and production ratios
+- AI revised list of T4 units built as part of 'Heavy' tier
 
 
 
