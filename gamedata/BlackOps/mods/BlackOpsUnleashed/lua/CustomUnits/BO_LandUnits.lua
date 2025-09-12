@@ -56,10 +56,8 @@ UnitList = {
 	T4LandExperimental3 = {
 		UEF = {'bel0402', 50},	 			-- Goliath Mk. 2
 		Aeon = {'bal0401', 20},				-- Inquisitor (new)		
+		Cybran = {'brl0401', 75},			-- Basilisk
 		Seraphim = {'bsl0401', 100},		-- Yenzotha Hover Exp
 	},
-	
-	T4LandExperimental4 = {
-		Cybran = {'brl0401', 100},			-- Basilisk
-	},
+
 }
