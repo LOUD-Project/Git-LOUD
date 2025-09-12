@@ -75,7 +75,7 @@ UnitBlueprint {
         BuildCostMass = 3950,
         BuildTime = 4000,
 
-        MaintenanceConsumptionPerSecondEnergy = 3000,
+        MaintenanceConsumptionPerSecondEnergy = 3450,
 
         RebuildBonusIds = {'xrb3301'},
     },
@@ -101,7 +101,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        MaxVisionRadius = 200,
+        MaxVisionRadius = 176,
         MinVisionRadius = 28,
     },
 
