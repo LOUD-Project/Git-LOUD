@@ -47,7 +47,7 @@ tooltipbrewlan0019="Reclaim a unit or wreckage and learn its blueprint."
 
 --Tooltips for the Stargate
 tooltipbrewlan0020="Dial Gateway"
-tooltipbrewlan0021="Selects a target quantum gateway with which to create a one-way transportation link."
+tooltipbrewlan0021="Selects a target Chappa'ko with which to create a one-way transportation link."
 tooltipbrewlan0022="Enable or disable the shield preventing access in or out of the gateway."
 tooltipbrewlan0023="Stop Link"
 tooltipbrewlan0024="Closes an outgoing link."

@@ -174,13 +174,13 @@ UnitBlueprint {
     },
 
     Economy = {
-        DialingCostBase = 10000,
+        DialingCostBase = 25000,
 
         BuildCostEnergy = 30000*5,
         BuildCostMass = 3000*5,
         BuildTime = 3000*5,
 
-        MaintenanceConsumptionPerSecondEnergy = 500,
+        MaintenanceConsumptionPerSecondEnergy = 650,
         StorageEnergy = 5000,
 
         RebuildBonusIds = {'ssb5401'},
@@ -213,7 +213,7 @@ UnitBlueprint {
     },
 
     Interface = {
-        HelpText = '<LOC ssb5401_desc>Experimental Quantum Gateway',
+        HelpText = '<LOC ssb5401_desc>Experimental Teleport Gateway',
     },
 
     LifeBarHeight = 0.075,
