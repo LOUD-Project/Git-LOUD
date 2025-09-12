@@ -1,5 +1,34 @@
 ### Release
 
+LUA 7.31
+Black Ops for LOUD 7.18
+BrewLAN for LOUD 0.8.8.9.121
+Total Mayhem for LOUD 7.10
+UNITS 7.19
+Wyvern for LOUD 7.13
+
+- updated MODMANAGER to reflect some UID changes and name changes
+- fix QuantumGates not registered as FactoryUnit
+- fix UNIT Teleporters/BrewLAN Teleporters now registered as TeleportUnit
+- fix DeathWeapon events on units like ACU, Paragons, etc
+- fix weapons that are 'EnabledByEnhancement' - if the weapon name, and the enhancement name, don't match, it won't activate
+    -- code will now check both the weapon name, and the EnabledByEnhancement field (we need to keep an eye on this for other exceptions)
+- UNITS Cybran Optics Device (Soothsayer) slightly decrease range (200 > 176) and 15% more E conusmption (3000 > 3450)
+    -- added basic animation
+- BrewLAN Sera Optics was evaluating the anti-teleport check incorrectly, resulting in no operation
+- BrewLAN Chappa'ko now clearly states that it only interacts with other Chappa'ko devices - not Quantum Gates
+- BO Cybran T2 Scorpion gets radar range overlay and LOC tags
+- Wyvern Several T4 units have had their turn rates and acceleration trimmed (several were quite excessive)
+- Wyvern Napalm Missiles (Littleman) were not coded as TACTICAL MISSILES
+- AI Mobile AA builders now more responsive to Air Strength ratios, preventing overbuilding
+- AI Naval Base builders refined to better recognize direct land connections, and avoid going into the water at close start ranges
+- AI numerous shifts in T4 building around the 'Heavy' class, less Megalith, more Star Adder and Basilisk
+    -- the same should be considered for UEF T4 units, large footprint T4 units don't move well in formations
+
+
+
+### Release 09-06-2025
+
 LUA 7.30
 Black Ops for LOUD 7.17
 BrewLAN for LOUD  0.8.8.9.120

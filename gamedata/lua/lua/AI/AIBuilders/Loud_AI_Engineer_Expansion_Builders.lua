@@ -47,7 +47,8 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 		return 0, false
 	end
     
-    if aiBrain.CycleTime < 60 then
+    -- if no detected naval activity
+    if aiBrain.NavalRatio < .02 then
         return 10, true
     end
     
