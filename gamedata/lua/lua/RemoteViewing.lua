@@ -70,6 +70,8 @@ function RemoteViewing(SuperClass)
             self.Sync.Abilities = self.RemoteViewingData.Abilities
             self.Sync.Abilities.TargetLocation.Active = false
 
+            self:RequestRefreshUI()
+ 
         end,
         
         EnableRemoteViewingButtons = function(self)
@@ -77,6 +79,8 @@ function RemoteViewing(SuperClass)
             self.Sync.Abilities = self.RemoteViewingData.Abilities
             self.Sync.Abilities.TargetLocation.Active = true
 
+            self:RequestRefreshUI()
+ 
         end,
 
         OnTargetLocation = function(self, location)
@@ -329,6 +333,8 @@ function RemoteViewing(SuperClass)
             self.Sync.Abilities = self.RemoteViewingData.Abilities
             self.Sync.Abilities.TargetLocation.Active = false
 
+            self:RequestRefreshUI()
+ 
             if RemoteViewingDebug then
                 LOG("*AI DEBUG RechargeEmitter for "..repr(self.BlueprintID))
             end

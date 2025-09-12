@@ -1,5 +1,5 @@
-local CQuantumGateUnit = import('/lua/defaultunits.lua').QuantumGateUnit
+local TeleportUnit = import('/lua/defaultunits.lua').TeleportUnit
 
-URB0305 = Class(CQuantumGateUnit) {}
+URB0305 = Class(TeleportUnit) {}
 
 TypeClass = URB0305

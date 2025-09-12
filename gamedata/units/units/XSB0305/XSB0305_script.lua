@@ -1,8 +1,8 @@
-local SQuantumGateUnit = import('/lua/seraphimunits.lua').SQuantumGateUnit
+local TeleportUnit = import('/lua/defaultunits.lua').TeleportUnit
 
 local SSeraphimSubCommanderGateway01 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway01
 
-XSB0305 = Class(SQuantumGateUnit) {
+XSB0305 = Class(TeleportUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
@@ -10,7 +10,7 @@ XSB0305 = Class(SQuantumGateUnit) {
             CreateAttachedEmitter(self, 'XSB0304', self:GetArmy(), v):ScaleEmitter(0.25)
         end
 
-        SQuantumGateUnit.OnStopBeingBuilt(self, builder, layer)
+        TeleportUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 }
 

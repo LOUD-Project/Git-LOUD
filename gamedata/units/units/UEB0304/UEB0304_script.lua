@@ -1,4 +1,4 @@
-local TQuantumGateUnit = import('/lua/defaultunits.lua').QuantumGateUnit
+local TQuantumGateUnit = import('/lua/defaultunits.lua').FactoryUnit
 
 UEB0304 = Class(TQuantumGateUnit) {
 
@@ -18,7 +18,7 @@ UEB0304 = Class(TQuantumGateUnit) {
     
         CreateAttachedEmitter(self,'Left_Gate_FX',self:GetArmy(),'/effects/emitters/terran_gate_01_emit.bp')
         CreateAttachedEmitter(self,'Right_Gate_FX',self:GetArmy(),'/effects/emitters/terran_gate_01_emit.bp')
-                
+
         TQuantumGateUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 }

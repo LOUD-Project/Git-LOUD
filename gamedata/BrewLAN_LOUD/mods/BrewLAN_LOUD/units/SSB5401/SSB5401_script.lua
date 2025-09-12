@@ -1,12 +1,12 @@
 --------------------------------------------------------------------------------
 -- Summary  :  Stargate Script
 --------------------------------------------------------------------------------    
-local SQuantumGateUnit = import('/lua/seraphimunits.lua').SQuantumGateUnit
+local TeleportUnit = import('/lua/defaultunits.lua').TeleportUnit
+
 local StargateDialing = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/StargateDialing.lua').StargateDialing
-SQuantumGateUnit = StargateDialing(SQuantumGateUnit) 
 
-SSB5401 = Class(SQuantumGateUnit) {
+TeleportUnit = StargateDialing(TeleportUnit) 
 
-}
+SSB5401 = Class(TeleportUnit) {}
 
 TypeClass = SSB5401

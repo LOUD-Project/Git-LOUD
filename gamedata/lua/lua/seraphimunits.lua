@@ -20,7 +20,6 @@ local ShieldStructureUnit           = DefaultUnitsFile.StructureUnit
 local SonarUnit                     = DefaultUnitsFile.SonarUnit
 local StructureUnit                 = DefaultUnitsFile.StructureUnit
 local SubUnit                       = DefaultUnitsFile.SubUnit
-local QuantumGateUnit               = DefaultUnitsFile.QuantumGateUnit
 local RadarJammerUnit               = DefaultUnitsFile.RadarJammerUnit
 local TransportBeaconUnit           = DefaultUnitsFile.TransportBeaconUnit
 local WalkingLandUnit               = DefaultUnitsFile.WalkingLandUnit
@@ -562,8 +561,6 @@ SWalkingLandUnit = Class(WalkingLandUnit) {}
 SWallStructureUnit = Class(WallStructureUnit) {}
 
 SCivilianStructureUnit = Class(StructureUnit) {}
-
-SQuantumGateUnit = Class(QuantumGateUnit) {}
 
 SRadarJammerUnit = Class(RadarJammerUnit) {}
 

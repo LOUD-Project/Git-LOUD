@@ -2369,7 +2369,7 @@ end
 
 FactoryUnit = FactoryFixes(FactoryUnit)
 
-QuantumGateUnit = Class(StructureUnit) {
+TeleportUnit = Class(StructureUnit) {
 
 	-- Base economic costs for starting a teleport
 	BaseChargeTime = 30,
@@ -2493,8 +2493,6 @@ QuantumGateUnit = Class(StructureUnit) {
 
 	end,
 	
-	-- Fires when the gateway is destroyed.  This handles killing the remote gateway and units in transit if
-	-- a teleportation is underway. It also fires off special effects
 	OnKilled = function(self, instigator, type, overkillRatio)
 
 		if self.TeleportThread then
@@ -2505,7 +2503,9 @@ QuantumGateUnit = Class(StructureUnit) {
 		if self.TeleportInProgress then
 
 			self:EndGateChargeEffect()
-			self:PlayGateExplodeEffect()
+
+            -- fork a thread because of the effects used we need to sleep a few seconds for timing
+            ForkThread(self.GateDeathEffectThread, self)
 
 			-- if the gate destroyed is linked to a remote (receiving) gateway then kill it
 			if self.DestinationGateway and not self.DestinationGateway:IsDead() then
@@ -2597,12 +2597,6 @@ QuantumGateUnit = Class(StructureUnit) {
 		if self.DestinationGateway then
 			self.DestinationGateway:SetWorkProgress(progress)
 		end
-	end,
-
-	-- Plays the teleport-in-progress death effect
-	PlayGateExplodeEffect = function(self)
-		-- fork a thread because of the effects used we need to sleep a few seconds for timing
-		ForkThread(self.GateDeathEffectThread, self)
 	end,
 
 	-- Main thread function for playing gate death effects
