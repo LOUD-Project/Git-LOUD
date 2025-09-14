@@ -2055,6 +2055,41 @@ Platoon = Class(PlatoonMethods) {
                 WaitTicks(40)
             end
             
+            if not bases[bestBase.BaseName].EngineerManager.Active then
+            
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB Location "..repr(bestBase.BaseName).." no longer valid" )                
+                end
+            
+                -- find new base
+				GetMostRestrictiveLayer(returnpool)
+
+				if MovementLayer == "Land" then
+
+					-- dont use naval bases for land --
+					returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
+
+				else
+
+					if MovementLayer == "Air" or MovementLayer == "Amphibious" then
+
+						-- use any kind of base --
+						returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
+					else
+
+						-- use only naval bases --
+						returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
+					end
+				end
+
+				returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
+                
+                -- set RTB location to new location
+                RTBLocation = returnpool.RTBLocation
+            
+                cyclecount = 1
+            end
+            
             cyclecount = cyclecount + 1
         end
         

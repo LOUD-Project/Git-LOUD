@@ -3269,28 +3269,20 @@ function DeadBaseMonitor( aiBrain )
 			platland    = false
 			platair     = false
 			platsea     = false
-            
+--[[            
             if DeadBaseMonitorDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." DBM "..v.BaseName.." processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
             end
-            
+--]]            
             CountedBase = v.CountedBase
 
 			if not CountedBase then
-				structurecount = LOUDGETN( GetOwnUnitsAroundPoint( aiBrain, STRUCTURES, v.Position, 60) )
+				structurecount = LOUDGETN( GetOwnUnitsAroundPoint( aiBrain, STRUCTURES, v.Position, 72) )
 			end
             
             EM  = v.EngineerManager
             FM  = v.FactoryManager
             PFM = v.PlatoonFormManager
-            
-            if DeadBaseMonitorDialog then
-            
-                if EM.BMDistressResponseThread then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - active base distress response")
-                    continue
-                end
-            end
 
 			-- if a base has no factories
 			if (CountedBase and EntityCategoryCount( FACTORIES, FM.FactoryList ) <= 0) or
@@ -3300,17 +3292,17 @@ function DeadBaseMonitor( aiBrain )
                 if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 then 
                 
                     if DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." DBM "..v.BaseName.." - no ENG count "..repr(BM[k].nofactorycount + 1))
                     end
                     
                     aiBrain.BuilderManagers[k].nofactorycount = BM[k].nofactorycount + 1
                 end
 
-				-- if base has no engineers AND has had no factories for about 120 seconds
-				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 6 then
+				-- if base has no engineers, no factories for 120 seconds AND no other structures
+				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 6 and structurecount < 1 then
 				
                     if DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." DBM - removing base" )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." DBM "..v.BaseName.." - removing base on tick "..GetGameTick() )
 					end
                     
 					-- handle the MAIN base
