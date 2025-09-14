@@ -47,8 +47,8 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 		return 0, false
 	end
     
-    -- if no detected naval activity
-    if aiBrain.NavalRatio < .02 then
+    -- ignore for first 10 seconds of game
+    if aiBrain.CycleTime < 100 then
         return 10, true
     end
     
@@ -80,6 +80,10 @@ local First15Minutes_Naval = function( self,aiBrain )
         -- permanent removal of builder    
 		return 0, false
 	end
+    
+    if aiBrain.CycleTime < 100 then
+        return 10, true
+    end
     
     -- if no detected naval activity
     if aiBrain.NavalRatio < .02 then
