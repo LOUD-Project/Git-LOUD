@@ -5234,7 +5234,7 @@ function ParseIntelThread( aiBrain )
             oldthreat = 0
 
             if EnemyData['Air']['Total'] > 0 or airtot > 0 then
-            
+
                 for v, brain in BRAINS do
 
                     if IsEnemy( MyArmyIndex, v ) then
@@ -5257,20 +5257,24 @@ function ParseIntelThread( aiBrain )
 
                         end
 
-                    else
-                    
+                    end
+
+                    -- my strength
+                    if MyArmyIndex == v then
+
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
                         for _,v in units do
-                    
+
                             bp = ALLBPS[v.BlueprintID].Defense
 
                             totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .5)
 
-                        end                    
-                    end
-                end
+                        end
 
+                    end
+
+                end
 
 
                 if oldthreat > 0 then
@@ -5278,9 +5282,13 @@ function ParseIntelThread( aiBrain )
                     -- higher values signify a greater composition of bombers/gunships
                     -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
                     aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
+                    
+                    -- multiply my strength by size of my team
+                    totalThreat = totalThreat * aiBrain.TeamSize
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
+                    -- inflate the Air Ratio by the root of the Outnumbered Ratio
                     aiBrain.AirRatio = aiBrain.AirRatio * OutnumberedFactor
                     
                     -- if enemy air strength is comprised dominantly of surface threat
@@ -5341,7 +5349,9 @@ function ParseIntelThread( aiBrain )
 
                         end
 
-                    else
+                    end
+                    
+                    if MyArmyIndex == v then
                 
                         units = GetListOfUnits( brain, LANDUNITS, false, true)
                     
@@ -5351,13 +5361,19 @@ function ParseIntelThread( aiBrain )
                         
                             totalThreat = totalThreat + bp.SurfaceThreatLevel
                         end
+
                     end
+
                 end
             
                 if oldthreat > 0 then
                 
+                    -- multiply my strength * size of my team
+                    totalThreat = totalThreat * aiBrain.TeamSize
+                
                     aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
+                    -- inflate the Land Ratio by the root of the Outnumbered Ratio
                     aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedFactor
 
                 else
@@ -5407,7 +5423,9 @@ function ParseIntelThread( aiBrain )
 
                         end
                         
-                    else
+                    end
+                    
+                    if MyArmyIndex == v then
 
                         units = GetListOfUnits( brain, NAVALUNITS, false, true)
                     
@@ -5417,11 +5435,15 @@ function ParseIntelThread( aiBrain )
                         
                             totalThreat = totalThreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
                         end                
+
                     end
+
                 end
             
                 if oldthreat > 0 then
-                
+
+                    totalThreat = totalThreat * aiBrain.TeamSize
+                    
                     aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
                     aiBrain.NavalRatio = aiBrain.NavalRatio * OutnumberedFactor

@@ -42,7 +42,7 @@ end
 local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 	
 	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
-    
+
         -- permanent removal of builder    
 		return 0, false
 	end
