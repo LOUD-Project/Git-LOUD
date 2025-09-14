@@ -16,11 +16,7 @@ UnitList = {
         Cybran = { 'brlk001', 100 },		-- Bouncer
         Seraphim = { 'bslk004', 100 },		-- Lightning Tank
     },
-    
-    T3LandArtillery = {
-        UEF = { 'bel0308', 20 },    		-- Bangerhead
-    },
-    
+   
     T3LandArtilleryElite = {
         Seraphim = {'bsl0007', 100}, 		-- Elite T3 Artillery
     },
