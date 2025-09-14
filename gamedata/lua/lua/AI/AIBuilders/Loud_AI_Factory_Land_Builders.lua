@@ -643,6 +643,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T3LandArtillery',
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
@@ -658,6 +660,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
 
             { UCBC, 'PoolLessAtLocation', { 'LocationType', 30, INDIRECTFIRELAND * categories.TECH3 }},            
+
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, LANDT3 }},
 
@@ -680,7 +685,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+			--{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
