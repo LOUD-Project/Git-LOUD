@@ -3122,7 +3122,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         BuilderConditions = {
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
         },
@@ -3904,6 +3904,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap85,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -3969,6 +3971,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap85,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
