@@ -1,7 +1,6 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 200,
-        StagingPlatformScanRadius = 200,
+        StagingPlatformScanRadius = 176,
     },
 
     Audio = {
