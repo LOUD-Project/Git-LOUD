@@ -12,6 +12,10 @@ exclusive = false
 ui_only = false
 requires = { }
 requiresNames = { }
-conflicts = { }
+conflicts = { 
+    'b8d941e131multiplier',
+    '6aa65d2a-5926-11dc-8314-0800200c9a08',
+    '1edad220-5444-11de-8a39-0800200c9a66',
+}
 before = { }
 after = { }
