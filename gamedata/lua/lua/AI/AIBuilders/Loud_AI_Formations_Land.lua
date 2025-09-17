@@ -2864,7 +2864,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 6 then
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then
                 return 10,true
             end
 
@@ -2898,7 +2898,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 6 then
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 5 then
                 return 10,true
             end
 
