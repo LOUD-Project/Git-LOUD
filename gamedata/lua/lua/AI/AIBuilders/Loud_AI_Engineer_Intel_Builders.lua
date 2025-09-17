@@ -21,7 +21,7 @@ end
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Radar Engineer - Expansion',
+    Builder {BuilderName = 'Radar Engineer T1 - Expansion',
 	
         PlatoonTemplate = 'EngineerBuilder',
 		
@@ -31,7 +31,39 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
         
         PriorityFunction = AboveUnitCap80,
 		
-        BuilderType = { 'T2' },
+        BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
+			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+        },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+
+				MaxThreat = 30,
+                
+                BuildStructures = { 'T1Radar' },
+            }
+        }
+    },	
+
+    Builder {BuilderName = 'Radar Engineer T2 - Expansion',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+		
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 760,
+        
+        PriorityFunction = AboveUnitCap80,
+		
+        BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},

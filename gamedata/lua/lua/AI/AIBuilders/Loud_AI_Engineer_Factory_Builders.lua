@@ -427,7 +427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		
         BuilderConditions = {
             
-            { LUTL, 'AirProductionRatioLessThan', { 3 } },
+            { LUTL, 'AirProductionRatioLessThan', { 4 } },
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
