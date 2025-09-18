@@ -233,7 +233,7 @@ function BaseInPlayableArea( aiBrain, managerposition )
 end
 
 -- This routine returns the location of the closest base that has engineers or NON-NAVAL factories
-function AIFindClosestBuilderManagerPosition( aiBrain, position)
+function AIFindClosestBuilderManagerPosition( aiBrain, position, requiredcat)
 
     local distance = 9999999
 	local closest = false
@@ -244,15 +244,39 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
     for k,v in BM do
 	
 		if v.EngineerManager.Active then
+        
+            if not requiredcat then
 		
-			if v.EngineerManager.EngineerList.Count > 0 or EntityCategoryCount( NAVALFAC, v.FactoryManager.FactoryList ) > 0 then
+                if v.EngineerManager.EngineerList.Count > 0 or EntityCategoryCount( NAVALFAC, v.FactoryManager.FactoryList ) > 0 then
 			
-				if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) <= distance then
-					distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
-					closest = v.Position
-				end
-			end
+                    if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) <= distance then
+                        distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
+                        closest = v.Position
+                    end
+                end
+                
+            else
+
+                -- ignore bases with active alerts
+                if v.EngineerManager.BaseMonitor.ActiveAlerts < 1 then
+            
+                    if LOUDGETN( GetUnitsAroundPoint( aiBrain, requiredcat, v.Position, v.Radius, 'Ally' )) > 0 then
+
+                        if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) <= distance then
+                            distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
+                            closest = v.Position
+                        end
+                    end
+                end
+            end
         end
+    end
+    
+    -- if there was a category requirement and we could not locate it - just use closest
+    if requiredcat and not closest then
+    
+        return AIFindClosestBuilderManagerPosition( aiBrain, position)
+        
     end
 
     return closest
@@ -2117,8 +2141,10 @@ function AirUnitRefitThread( unit, aiBrain )
 
             unitPos = LOUDCOPY(GetPosition(unit))
             
-            closestairpad, airpad = GetClosestAirpad()
+            -- closest base with an airpad
+            closestairpad = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitPos, categories.AIRSTAGINGPLATFORM )
 
+            -- otherwise just closest base
             if not closestairpad then
                 closestairpad = FindClosestBaseName( aiBrain, unitPos, true, false)
                 closestairpad = aiBrain.BuilderManagers[closestairpad].Position

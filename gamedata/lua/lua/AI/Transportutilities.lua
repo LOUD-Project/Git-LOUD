@@ -275,7 +275,7 @@ function GetTransports( platoon, aiBrain)
     
     local TransportDialog = ScenarioInfo.TransportDialog or false
 
-	-- GATHER PHASE -- gather info on all available transports
+	--- GATHER PHASE -- gather info on all available transports
     
 	local Special = false
 	
@@ -315,7 +315,7 @@ function GetTransports( platoon, aiBrain)
     end
 
 
-    -- REQUIREMENT PHASE - determine what transports are required to move the unit platoon
+    --- REQUIREMENT PHASE - determine what transports are required to move the unit platoon
     
 	local CanUseTransports = false 	-- used to indicate if units in the platoon can actually use transports
 
@@ -363,7 +363,7 @@ function GetTransports( platoon, aiBrain)
     end
     
     
-    -- COLLECTION PHASE - collect and count available transports
+    --- COLLECTION PHASE - collect and count available transports
 
     local GetPlatoonPosition = GetPlatoonPosition
 	local LOUDCOPY = LOUDCOPY
@@ -627,7 +627,7 @@ function GetTransports( platoon, aiBrain)
 	end
     
 
-    -- ASSIGNMENT PHASE - assign transports to the task until the requirements are met
+    --- ASSIGNMENT PHASE - assign transports to the task until the requirements are met
 	
 	-- we'll accumulate the slots from transports as we assign them
 	-- this will allow us to save a bunch of effort if we simply dont have enough transport capacity
@@ -760,8 +760,9 @@ function GetTransports( platoon, aiBrain)
 	
 	Collected = nil
 	
-	-- ASSIGNMENT PHASE -- 
+	--- ASSIGNMENT PHASE -- 
 	-- at this point we have a list of all the eligible transports in range in the TRANSPORTS table
+
 	AvailableTransports = nil	-- we dont need this anymore
 	
 	local transportplatoon = false
@@ -1069,7 +1070,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
                 
                 unitposition = v:GetPosition()
 
-                baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitposition)
+                -- only return transports to active bases with AIRPADS
+                baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitposition, categories.AIRSTAGINGPLATFORM )
 
                 if baseposition then
                     x = baseposition[1]
