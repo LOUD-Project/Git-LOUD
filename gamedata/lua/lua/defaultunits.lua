@@ -2904,6 +2904,17 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
 	end,
 
+    -- this captures airpad enhancements
+    OnCmdrUpgradeFinished = function(self)
+
+        -- this detaches any stuck airunits that got 'caught' during enhancement
+        for _,v in self:GetCargo() do
+            v:DetachFrom()
+        end
+
+        StructureUnit.OnCmdrUpgradeFinished(self)
+    end,    
+
 	--- issued by the platform as units attach
     OnTransportAttach = function(self, attachBone, unit)
     

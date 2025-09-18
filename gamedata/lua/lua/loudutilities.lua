@@ -1336,7 +1336,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 			end
 		end
 
-		returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to that base
+		returnpool.RTBLocation = returnpool.BuilderLocation
 
 		-- send the new platoon off to RTB
 		returnpool:SetAIPlan('ReturnToBaseAI', aiBrain)
@@ -2088,8 +2088,8 @@ function AirUnitRefitThread( unit, aiBrain )
     
     local function GetClosestAirpad( aiBrain, unitPos )
 
-        --- now limit to airpads within 30k
-        plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536 )
+        --- now limit to airpads within 40k
+        plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 2048 )
 
         --- if a transport - filter out the T1 airpads
         if LOUDENTITY( categories.TRANSPORTFOCUS, unit) then
@@ -2165,17 +2165,7 @@ function AirUnitRefitThread( unit, aiBrain )
                     safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unitPos, closestairpad, 16, 256)
                 end
 
-                if safePath then
-
-                    if RefitDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." moving to "..repr(closestairpad).." with safe path" )
-                    end
-
-                else
-
-                    if RefitDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." moving to "..repr(closestairpad).." GOING DIRECT BAD" )
-                    end
+                if not safePath then
 
                     safePath = { closestairpad }
                     reason = 'Direct'
@@ -2184,6 +2174,10 @@ function AirUnitRefitThread( unit, aiBrain )
 
                 --- move the platoon 
                 returnpool.MoveThread = returnpool:ForkThread( returnpool.MovePlatoon, safePath, 'AttackFormation', false, 20)
+
+                if RefitDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." moving to "..repr(closestairpad).." with path "..repr(safePath).." on tick "..GetGameTick() )
+                end
 
                 -- wait for the movement orders to execute --
                 while PlatoonExists(aiBrain, returnpool) and returnpool.MoveThread do
@@ -2196,13 +2190,13 @@ function AirUnitRefitThread( unit, aiBrain )
                 
                 --- assign unit to RefuelPool
                 if PlatoonExists(aiBrain, returnpool ) then
-                
-                    AssignUnitsToPlatoon( aiBrain, aiBrain.RefuelPool, {unit}, 'Support', '')
 
                     if RefitDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." Assigned to RefuelPool on tick "..GetGameTick() )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." arrives at airpad - Assigned to RefuelPool on tick "..GetGameTick() )
                     end
-                    
+
+                    AssignUnitsToPlatoon( aiBrain, aiBrain.RefuelPool, {unit}, 'Support', '')
+
                     if platpos then
                         AirStagingThread( unit, airpad, aiBrain, RefitDialog )
                     end
@@ -2381,6 +2375,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
             waitcount = waitcount + 1.5
 
             if RefitDialog then
+                ForkThread( FloatingEntityText, unit.EntityID, 'Cyc '..waitcount )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit loading cycle "..waitcount.." at tick "..GetGameTick() )
             end
 
@@ -2443,7 +2438,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 		-- it will lift off and exit by itself BUT
 		-- sometimes we have to force it off -- when we do so we have
 		-- to manually restore it's normal conditions (ie. - can take damage)
-		while unit.Attached do
+		while unit.Attached and waitcount < 15 do
             
             WaitTicks(3)
             waitcount = waitcount + 0.3
