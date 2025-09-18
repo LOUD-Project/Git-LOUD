@@ -1821,7 +1821,6 @@ Platoon = Class(PlatoonMethods) {
             platPos = GetPlatoonPosition(self) or false
             
             if not platPos then
-
                 return self:PlatoonDisband(aiBrain)
             end
             
@@ -1943,13 +1942,17 @@ Platoon = Class(PlatoonMethods) {
 
 			end
 
-			-- if platoon stuck/idle or base is now inactive -- resubmit the platoon
-			if platPos and (StuckCount > 10 or (not bestBase )) then
+			-- if platoon stuck/idle or base is now DEAD -- redirect the platoon
+			if platPos and ( StuckCount > 10 or ( not bases[bestBase.BaseName].EngineerManager.Active ) ) then
 				
 				if self.MoveThread then
 					self:KillMoveThread()
 				end
-				
+            
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB Location "..repr(bestBase.BaseName).." stuck "..StuckCount.." or no longer valid" )                
+                end
+  				
 				platooncount = 0
                 
                 units = GetPlatoonUnits(self)				
@@ -1965,103 +1968,27 @@ Platoon = Class(PlatoonMethods) {
                 if platooncount == 0 then
                 	return
                 end                
-                
-				-- if there is only one unit -- just move it
-                -- if the distance is more than 150 ogrids - create a new platoon and resubmit to RTB
-                -- otherwise send units individually to the RTBLocation
-                if platooncount == 1 and bestBase then
-					
-                    IssueMove( units, RTBLocation)
-                    StuckCount = 0
-                    count = false
 
-				else
+               	self:Stop()
 
-                	self:Stop()
-					
-                    if distance > 150 then        -- create a new platoon --
+                returnpool = aiBrain:MakePlatoon('ReturnToBase '..tostring(Random(1,999999)), 'none' )
 
-                        returnpool = aiBrain:MakePlatoon('ReturnToBase '..tostring(Random(1,999999)), 'none' )
-					
-                        returnpool.PlanName = 'ReturnToBaseAI'
-                        returnpool.BuilderName = 'RTBStuck'
-                        returnpool.BuilderLocation = LocationType or false
-                        returnpool.RTBLocation = self.RTBLocation or false
-                        returnpool.MovementLayer = MovementLayer
-                    end
-					
-					for _,u in units do
-					
-						if not u.Dead then
-						
-							if distance > 150 then    -- use the new platoon
-						
-								AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
-								u.PlatoonHandle = {returnpool}
-								u.PlatoonHandle.PlanName = 'ReturnToBaseAI'
-							else
-                                -- go direct --
-								IssueMove( {u}, RandomLocation( RTBLocation[1],RTBLocation[3], 9 ) )
-							end
-						end
+                returnpool.PlanName         = 'ReturnToBaseAI'
+                returnpool.BuilderName      = 'RTBStuck'
+                returnpool.BuilderLocation  = LocationType or false
+                returnpool.RTBLocation      = self.RTBLocation or false
+                returnpool.MovementLayer    = MovementLayer
 
+				for _,u in units do
+
+					if not u.Dead then
+						AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
+						u.PlatoonHandle             = {returnpool}
+						u.PlatoonHandle.PlanName    = 'ReturnToBaseAI'
 					end
 
-					if distance > 150 and (not returnpool.BuilderLocation) then   -- if we used a new platoon
-					
-						GetMostRestrictiveLayer(returnpool)
-						
-						if MovementLayer == "Land" then
-						
-							-- dont use naval bases for land --
-							returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
-
-						else
-						
-							if MovementLayer == "Air" or MovementLayer == "Amphibious" then
-							
-								-- use any kind of base --
-								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
-							else
-							
-								-- use only naval bases --
-								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
-							end
-						end
-						
-						returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
-
-					end
-					
-                    count = true -- signal the end of the primary loop
-
-                    if distance > 150 then
-
-                        -- send the new platoon off to RTB
-                        returnpool:SetAIPlan('ReturnToBaseAI', aiBrain)
-
-                        WaitTicks(2)
-                        
-                    end
-                    
-					break
 				end
 
-			end
-            
-            WaitTicks(11 + LOUDFLOOR(distance/30) )
-
-            if self.MoveThread then
-                WaitTicks(40)
-            end
-            
-            if not bases[bestBase.BaseName].EngineerManager.Active then
-            
-                if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB Location "..repr(bestBase.BaseName).." no longer valid" )                
-                end
-            
-                -- find new base
 				GetMostRestrictiveLayer(returnpool)
 
 				if MovementLayer == "Land" then
@@ -2072,11 +1999,11 @@ Platoon = Class(PlatoonMethods) {
 				else
 
 					if MovementLayer == "Air" or MovementLayer == "Amphibious" then
-
+					
 						-- use any kind of base --
 						returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
 					else
-
+					
 						-- use only naval bases --
 						returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
 					end
@@ -2084,16 +2011,28 @@ Platoon = Class(PlatoonMethods) {
 
 				returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
                 
-                -- set RTB location to new location
-                RTBLocation = returnpool.RTBLocation
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." gets new RTB Location "..returnpool.BuilderLocation.." at "..repr(bases[returnpool.BuilderLocation].Position ) )
+                end
+
+                count = true -- signal the end of the primary loop
+
+                -- send the new platoon off to RTB
+                returnpool:SetAIPlan('ReturnToBaseAI', aiBrain)
+
+			end
             
-                cyclecount = 1
+            WaitTicks(11 + LOUDFLOOR(distance/30) )
+
+            if self.MoveThread then
+                WaitTicks(40)
             end
             
             cyclecount = cyclecount + 1
         end
         
-		if PlatoonExists(aiBrain, self) then
+        -- ok -- process the arrival 
+		if PlatoonExists(aiBrain, self) and bases[bestBase.BaseName].EngineerManager.Active then
 
             if RTBDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  appears to have arrived" )		
@@ -2114,7 +2053,39 @@ Platoon = Class(PlatoonMethods) {
 			end
         
 			self:PlatoonDisband(aiBrain)
-		end
+
+		else
+
+            -- the base was declared DEAD --
+            if RTBDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." arrives at DEAD base" )		
+            end
+
+			if MovementLayer == "Land" or MovementLayer == "Amphibious" then
+
+				-- use only land bases --
+                self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false )
+                
+                self:SetAIPlan( 'ReinforceLandAI', aiBrain)
+			end
+
+			if MovementLayer == "Air" then
+
+				-- use any kind of base --
+				self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
+
+                self:SetAIPlan( 'ReinforceAirAI', aiBrain)
+            end
+
+			if MovementLayer == "Water" then
+
+				-- use only naval bases --
+				self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
+            
+                self:SetAIPlan( 'ReinforceNavalAI', aiBrain)
+			end
+
+        end
 
     end,
 
