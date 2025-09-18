@@ -709,7 +709,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
         local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
-        local cheatCap = initialCap * aiBrain.CheatValue * (math.max(aiBrain.OutnumberedRatio,1))
+        local cheatCap = initialCap * aiBrain.CheatValue * (LOUDMAX(aiBrain.OutnumberedRatio,1))
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
@@ -722,7 +722,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
             local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
             -- unit cap is increased by the outnumbered ratio --
-            local cheatCap = initialCap * (math.max(aiBrain.OutnumberedRatio,1))
+            local cheatCap = initialCap * (LOUDMAX(aiBrain.OutnumberedRatio,1))
         
             SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
@@ -769,7 +769,7 @@ function SetupAICheat(aiBrain)
 	--- build rate cheat
     local newbuff = LOUDDEEPCOPY(Buffs['CheatBuildRate'])
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
-    newbuff.Affects.BuildRate.Mult = math.max( 1.0, aiBrain.CheatValue )
+    newbuff.Affects.BuildRate.Mult = LOUDMAX( 1.0, aiBrain.CheatValue )
     
     LOG("     "..aiBrain.Nickname.."  Resource mult is "..aiBrain.CheatValue)
 
@@ -794,11 +794,13 @@ function SetupAICheat(aiBrain)
 
 
     --- Veterancy mult is always 1 or higher
-    aiBrain.VeterancyMult = LOUDMAX( 1, aiBrain.CheatValue)
+    aiBrain.VeterancyMult       = LOUDMAX( 1, aiBrain.CheatValue)
     --- Minor cheat value
-    aiBrain.MinorCheatModifier = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
+    aiBrain.MinorCheatModifier  = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
     --- Major cheat value
-    aiBrain.MajorCheatModifier = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
+    aiBrain.MajorCheatModifier  = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
+    --- BuildRateModifier
+    aiBrain.BuildRateModifier   = LOUDMAX( 1, aiBrain.CheatValue)
     
     -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
     if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
