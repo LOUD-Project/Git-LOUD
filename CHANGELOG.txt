@@ -1,4 +1,30 @@
-### Release
+### Release 09-17-2025
+
+LUA 7.32
+Black Ops for LOUD 7.19
+LOUD_MISC 7.12
+LOUD_UNITS 7.11
+UNITS 7.20
+
+- added mod conflicts for Orbital Wars for FAF and Antares Unit Pack
+- fix for air units being stuck on airpads when airpad gets enhanced
+- BO UEF Bangerhead no longer produced as T3 Mobile Artillery (is not classified as 'Artillery')
+    -- this was causing some production confusion (overbuilding) as it wasn't being properly counted
+- UNITS updated Cybran Soothsayer range rings
+- AI fix for platoons arriving at a Dead base and not being re-directed to an active base
+- AI fix for bases being declared 'Dead' when structures are still present
+- AI fix for T4 AA being produced regardless of unit cap condition, harmonized T3 AA eco requirements 
+- AI fix for initial Naval base production in Outnumbered condition 
+- AI will now use ONLY it's own value, and not the entire team, when calculating it's strength values
+    -- while the team value is useful, it's not valid for the many strength based choices the AI makes
+- appended an optional category requirement to the AIFindClosestBuilderManagerPostion function
+    -- AI will now RTB Transports only to the closest base with an AIRSTAGING platforms, and not under an 'alert'
+- AI added T1 Radar Builder at Expansion bases, added T3 and Subcommanders to T2 Radar Builder
+- AI will no longer RTB to a base (with an airpad) under an alert unless no other base is available
+
+
+
+### Release 09-12-2025
 
 LUA 7.31
 Black Ops for LOUD 7.18
@@ -7,7 +33,7 @@ Total Mayhem for LOUD 7.10
 UNITS 7.19
 Wyvern for LOUD 7.13
 
-- updated MODMANAGER to reflect some UID changes and name changes
+- updated MODMANAGER to reflect some UID changes, name changes and conflicting mods
 - fix QuantumGates not registered as FactoryUnit
 - fix UNIT Teleporters/BrewLAN Teleporters now registered as TeleportUnit
 - fix DeathWeapon events on units like ACU, Paragons, etc
