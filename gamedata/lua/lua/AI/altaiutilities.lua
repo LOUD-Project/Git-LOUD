@@ -770,6 +770,10 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
         
         -- this gives us a Goal of the closest water node to the Attack Plan goal
         reason, Goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
+        
+        if not Goal then
+            return false, false
+        end
 		
 		-- this is the path distance that the current base is from the goal - new bases must be closer than this
 		if aiBrain.PrimarySeaAttackBase then
