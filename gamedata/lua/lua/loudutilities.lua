@@ -2180,7 +2180,7 @@ function AirUnitRefitThread( unit, aiBrain )
                 end
 
                 -- wait for the movement orders to execute --
-                while PlatoonExists(aiBrain, returnpool) and returnpool.MoveThread do
+                while PlatoonExists(aiBrain, returnpool) and returnpool.MoveThread and ( GetFuelRatio(unit) < fuellimit or GetHealthPercent(unit) < healthlimit ) do
                     WaitTicks(1)
                 end
 
