@@ -1,3 +1,17 @@
+### Release 09-19-2025
+
+LUA 7.33
+
+- fix for bad path when Attack Plan Goal is not close enough to water to provide a suitable position for Primary Naval position
+- fix for air units getting stuck in 'airrefit' process
+- fix for airpads getting 'stuck' to units when they perform an enhancement
+- fixed edge condition where recharging shields go off due to power shortage, would come back on and not finish recharging
+- AI Transports now RTB directly to the airpad position, rather than just the base position
+- AI trimmed the productionratio trigger for new Land factories to keep production under some control
+- AI reduces T2 land unit output once 3 T3 land factories are present at any production base
+
+
+
 ### Release 09-17-2025
 
 LUA 7.32
@@ -6,6 +20,7 @@ LOUD_MISC 7.12
 LOUD_UNITS 7.11
 UNITS 7.20
 
+- updated distribution map Armed & Dangerous
 - added mod conflicts for Orbital Wars for FAF and Antares Unit Pack
 - fix for air units being stuck on airpads when airpad gets enhanced
 - BO UEF Bangerhead no longer produced as T3 Mobile Artillery (is not classified as 'Artillery')
