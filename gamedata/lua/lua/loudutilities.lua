@@ -2335,7 +2335,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
             end
 
             -- while underway to airstaging --
-            while not (unit.Dead or airstage.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 20 do
+            while not (unit.Dead or airstage.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 20 and ( GetFuelRatio(unit) < .85 or GetHealthPercent(unit) < .85 ) do
                 WaitTicks(6)
             end
 
@@ -2403,7 +2403,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
                 WaitTicks(41)   --- let it land
             
                 --- then re-order it to load onto airpad
-                if (not airstage.Dead) and (not unit.Dead) then
+                if (not airstage.Dead) and (not unit.Dead) and (not unit.Attached) then
 
                     if airstage:TransportHasSpaceFor( unit ) then
 

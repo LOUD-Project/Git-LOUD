@@ -15,6 +15,9 @@
 local import = import
 
 local loudUtils = import('/lua/loudutilities.lua')
+    
+local GetOwnUnitsAroundPoint    = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+local RandomLocation            = import('/lua/ai/aiutilities.lua').RandomLocation
 
 local LOUDCOPY      = table.copy
 local LOUDENTITY    = EntityCategoryContains
@@ -46,6 +49,7 @@ local IsBeingBuilt      = moho.unit_methods.IsBeingBuilt
 local IsIdleState       = moho.unit_methods.IsIdleState
 local IsUnitState       = moho.unit_methods.IsUnitState
 
+local AIRPADS           = categories.AIRSTAGINGPLATFORM - categories.MOBILE
 local AIRTRANSPORTS     = categories.AIR * categories.TRANSPORTFOCUS
 local ENGINEERS         = categories.ENGINEER
 
@@ -961,13 +965,11 @@ function ResetBrainNeedsTransport( aiBrain )
     aiBrain.NeedTransports = nil
 end
 
---  This routine should get transports on the way back to an existing base 
+--  This routine should get transports on the way back to an existing base with an airpad
 --  BEFORE marking them as not 'InUse' and adding them to the Transport Pool
 function ReturnTransportsToPool( aiBrain, units, move )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false
-    
-    local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
     local VDist3 = VDist3
     
@@ -1046,6 +1048,25 @@ function ReturnTransportsToPool( aiBrain, units, move )
         
     end
 
+    local function GetClosestAirpad( aiBrain, unitPos )
+
+        --- limit to airpads within 3k
+        local plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS - categories.TECH1, unitPos, 150 )
+
+		if plats[1] then
+
+            LOUDSORT( plats, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),unitPos) < VDist3Sq(GetPosition(b),unitPos) end )
+
+            return GetPosition(plats[1]), plats[1]
+
+        else
+        
+            return false, false
+
+        end
+        
+    end
+
     -- process whats left, getting them moving, and assign back to correct pool
 	if unitcount > 0 and move then
 
@@ -1072,15 +1093,22 @@ function ReturnTransportsToPool( aiBrain, units, move )
 
                 -- only return transports to active bases with AIRPADS
                 baseposition = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitposition, categories.AIRSTAGINGPLATFORM )
+                
+                local airpad = GetClosestAirpad( aiBrain, baseposition )
 
-                if baseposition then
-                    x = baseposition[1]
-                    z = baseposition[3]
+                if airpad then
+                
+                    --LOG("*AI DEBUG Got airpad at "..repr(airpad).." for base at "..repr(baseposition))
+
+                    baseposition = table.copy(airpad)
+                
                 else
-                    return
+                
+                    --LOG("*AI DEBUG Couldn't find airpad at "..repr(baseposition) )
+                
                 end
 
-                baseposition = RandomLocation(x,z)
+                baseposition = RandomLocation(baseposition[1],baseposition[3])
 
                 IssueClearCommands( {v} )
 

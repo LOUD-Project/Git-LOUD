@@ -2915,6 +2915,9 @@ AirStagingPlatformUnit = Class(StructureUnit) {
         StructureUnit.OnCmdrUpgradeFinished(self)
     end,    
 
+    OnCmdrUpgradeStart = function(self)
+    end,
+
 	--- issued by the platform as units attach
     OnTransportAttach = function(self, attachBone, unit)
     
