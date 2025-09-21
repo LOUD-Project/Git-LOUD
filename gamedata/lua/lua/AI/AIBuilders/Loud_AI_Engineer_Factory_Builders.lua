@@ -266,7 +266,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         BuilderConditions = {
             { LUTL, 'AirProductionRatioGreaterThan', { 3 } },
 
-			{ LUTL, 'LandProductionRatioLessThan', { 15 } },
+			{ LUTL, 'LandProductionRatioLessThan', { 6 } },
 
             -- this allows it to exceed the cap check by 2
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
@@ -473,7 +473,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
             
             { LUTL, 'AirProductionRatioGreaterThan', { 3 } },
 
-			{ LUTL, 'LandProductionRatioLessThan', { 15 } },
+			{ LUTL, 'LandProductionRatioLessThan', { 6 } },
 
             -- this allows it to exceed the cap check by 2
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
