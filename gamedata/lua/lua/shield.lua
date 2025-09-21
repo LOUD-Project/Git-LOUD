@@ -280,12 +280,11 @@ Shield = Class(moho.shield_methods,Entity) {
 
     RegenStartThread = function(self)
 	
-		local AdjustHealth = AdjustHealth
-		local GetHealth = GetHealth
-		local GetMaxHealth = GetMaxHealth
-		local SetShieldRatio = SetShieldRatio
-        
-		local WaitTicks = WaitTicks
+		local AdjustHealth      = AdjustHealth
+		local GetHealth         = GetHealth
+		local GetMaxHealth      = GetMaxHealth
+		local SetShieldRatio    = SetShieldRatio
+		local WaitTicks         = WaitTicks
 		
 		if ScenarioInfo.ShieldDialog then
 			LOG("*AI DEBUG Shield Starts Regen Thread on "..repr(self.Owner.BlueprintID).." "..repr(__blueprints[self.Owner.BlueprintID].Description).." - start delay is "..repr(self.RegenStartTime) )
@@ -535,12 +534,16 @@ Shield = Class(moho.shield_methods,Entity) {
             self.Owner:OnShieldEnabled()
 			self:CreateShieldMesh()
 
-            WaitTicks(10)
+            if GetHealth(self) < GetMaxHealth(self) then
+                self.RegenThread = self:ForkThread(self.RegenStartThread)
+            end
+
+            WaitTicks(11)
             
             -- Test in here if we have run out of power
             while true do
 			
-				WaitTicks(5)
+				WaitTicks(6)
 				
 				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 				
@@ -583,7 +586,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
     		self.Owner:OnShieldDisabled()
 
-            WaitTicks(10)
+            WaitTicks(11)
 			
         end,
 		
@@ -949,13 +952,13 @@ ProjectedShield = Class(Shield){
                 end
             end
 		
-            WaitTicks(5)
+            WaitTicks(6)
 		
             for i, v in beams do
                 v:Destroy()
             end
 		
-            WaitTicks(45)
+            WaitTicks(41)
         
             ImpactMesh:Destroy()
             
