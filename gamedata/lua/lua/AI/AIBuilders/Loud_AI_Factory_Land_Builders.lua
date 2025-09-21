@@ -542,6 +542,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
         },
@@ -562,6 +564,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
         },
@@ -586,6 +590,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
 			{ LUTL, 'PoolLess', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
+
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, INDIRECTFIRELAND, LAND }},
         },
@@ -873,6 +879,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, DIRECTFIRELAND - AMPHIBIOUS, LAND }},
         },
 
@@ -894,6 +902,8 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
+
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND - AMPHIBIOUS, LAND }},
         },
