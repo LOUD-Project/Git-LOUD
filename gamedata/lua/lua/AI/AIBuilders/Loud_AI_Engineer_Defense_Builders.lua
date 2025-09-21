@@ -2037,12 +2037,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
                 return 10, true
              
             end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
     
             return (self.OldPriority or self.Priority), true
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -2133,7 +2137,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            
                 return 10, true
+             
+            end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
             end
     
             return (self.OldPriority or self.Priority), true
@@ -4859,21 +4869,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
                 return 10, true
              
+            end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
             end
     
             return (self.OldPriority or self.Priority), true
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -5548,14 +5562,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 		
         Priority = 751,
         
-        PriorityFunction = AboveUnitCap85,
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+                return 10, true
+            end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
         BuilderConditions = {
-            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6257,7 +6282,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
         },
