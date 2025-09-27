@@ -614,6 +614,57 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
     BuildersType = 'EngineerBuilder',
 
+    Builder {BuilderName = 'Mass Extractor T1 - 250 - Naval',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 850,
+        
+        PriorityFunction = AboveUnitCap85,
+        
+        InstanceCount = 2,
+		
+		BuilderType = { 'T1','T2','T3' },
+
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+
+            { EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
+
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+			
+                AggressiveMove = false, -- prevents him from using AttackMove during travel
+            
+				BuildClose = true,		-- seek points closest to the engineers position
+                
+				LoopBuild = true,		-- repeat until none in range, threat or cannot meet M & E
+                
+                LoopMass = 1,
+                LoopEnergy = 500,
+                
+                MaxRange = 250,
+
+				ThreatMax = 20,
+				ThreatRings = 0,
+                
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },
+
     Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop - Naval',
     
         PlatoonTemplate = 'EngineerBuilder',

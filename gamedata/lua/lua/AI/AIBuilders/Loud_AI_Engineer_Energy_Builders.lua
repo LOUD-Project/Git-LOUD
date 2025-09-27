@@ -207,9 +207,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .65 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
 			
@@ -257,8 +256,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},
             
@@ -399,7 +396,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
         
         Priority = 900,
         
-        PriorityFunction = First60Minutes,
+        PriorityFunction = First45Minutes,
 		
         BuilderType = { 'T2' },
 		
@@ -408,18 +405,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION - categories.TECH1) - categories.HYDROCARBON }},
             
 			{ EBC, 'LessThanEnergyTrend', { 45 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
         
         BuilderData = {
 			DesiresAssist = true,
-            NumAssistees = 5,
+            NumAssistees = 3,
 			
             Construction = {
 			
@@ -477,6 +474,45 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
             }
         }
     },
+	
+    Builder {BuilderName = 'Hydrocarbon - Naval',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 750,
+        
+        PriorityFunction = AboveUnitCap65,
+        
+        BuilderConditions = {
+        
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
+            
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
+			
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderType = { 'T1','T2' },
+		
+        BuilderData = {
+            Construction = {
+                BuildStructures = {'T1HydroCarbon'},
+                
+				LoopBuild = true,
+                
+                MaxRange = 350,
+
+				ThreatMax = 30,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',                
+            }
+        }
+    },	
+	
 }
 
 -- this only comes into play when IS is turned on - rings local MEX with power
