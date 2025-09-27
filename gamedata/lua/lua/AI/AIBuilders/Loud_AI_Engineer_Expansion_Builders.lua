@@ -272,8 +272,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Base Construction',
     }, 
 
    
-    -- Builds land expansion bases at both Start and Expansion points
-    -- when there are nearby empty start locations
+    -- Builds land expansion bases at both Start and Expansion points when there are nearby empty start locations
     -- first 15 minutes only
     Builder {BuilderName = 'Land Expansion Base - Outnumbered',
 	
@@ -291,10 +290,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Base Construction',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
-			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			-- there must be an start/expansion area
+			-- there must be an open start/expansion area within 14km
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, 115, -9999, 115, 60, 0, 'AntiSurface' } },
         },
 		
@@ -409,6 +407,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land DP Construction',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.02 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
@@ -494,7 +493,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land DP Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
-                BuildStructures = {'T1GroundDefense','T1AADefense'}
+                BuildStructures = {'T1GroundDefense','T1AADefense','T1AirStagingPlatform'}
 			}
 		}
 	},
@@ -853,7 +852,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Base Construction',
 		PriorityFunction = MapHasNavalAreas,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .6 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .25 } },
@@ -915,14 +914,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval DP Construction',
         PriorityFunction = AboveUnitCap80,
         
         BuilderConditions = {
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+
+			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
 			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE', 60, 0, -999999, 75, 1, 'AntiSurface' }},
         },
 		
-        BuilderType = { 'T2','T3', },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderData = {
             Construction = {
