@@ -7478,7 +7478,7 @@ Platoon = Class(PlatoonMethods) {
 			
 			if not startpos then
 			
-				LOG("*AI DEBUG No "..NearMarkerType.." reference found")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." - No "..NearMarkerType.." reference found")
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
@@ -7660,6 +7660,8 @@ Platoon = Class(PlatoonMethods) {
 
 				if cons.ExpansionBase then
 				
+                    -- this function waits until the engineer signals that he's ready to start building
+                    -- if will pass the new base data to the engineer, and that creates the managers for the new base
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 
 						aiBrain.BaseExpansionUnderway = true
@@ -7673,7 +7675,7 @@ Platoon = Class(PlatoonMethods) {
 						self:AddDestroyCallback(deathFunction)
 	
 						-- loop here until the engineer signals that he's ready to start building
-						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
+						while PlatoonExists(aiBrain, self) and (not eng.Dead) and (not eng.NeedsBaseData) do
 							WaitTicks(15)
 						end
 
@@ -8111,14 +8113,14 @@ Platoon = Class(PlatoonMethods) {
             local LOUDMIN = LOUDMIN
 			local LOUDMOD = LOUDMOD
             
-            local BeenDestroyed = BeenDestroyed
-			local CanBuildStructureAt = CanBuildStructureAt
-            local GetUnitsAroundPoint = GetUnitsAroundPoint
-            local GetPosition = GetPosition
-            local PlatoonExists = PlatoonExists
-			local WaitTicks = WaitTicks
-            local VDist2 = VDist2
-            local VDist3 = VDist3
+            local BeenDestroyed         = BeenDestroyed
+			local CanBuildStructureAt   = CanBuildStructureAt
+            local GetUnitsAroundPoint   = GetUnitsAroundPoint
+            local GetPosition           = GetPosition
+            local PlatoonExists         = PlatoonExists
+			local WaitTicks             = WaitTicks
+            local VDist2                = VDist2
+            local VDist3                = VDist3
 
             -- engineer is using aggressive move order
             local aggromove = self.PlatoonData.Construction.AggressiveMove or false
@@ -8138,7 +8140,7 @@ Platoon = Class(PlatoonMethods) {
             
             local basetaken, count, distance, enemythreat, EnergyReclaim, engPos, engLastPos, MassReclaim, path, prevpoint, reason, reclaims
 
-			local buildItem = eng.EngineerBuildQueue[1][1]
+			local buildItem     = eng.EngineerBuildQueue[1][1]
 			local buildLocation = eng.EngineerBuildQueue[1][2]
             local buildPosition = {buildLocation[1], 0, buildLocation[2]}
 
@@ -8652,10 +8654,9 @@ Platoon = Class(PlatoonMethods) {
 
 							basetaken = false
                             
-                            WaitTicks(2)     -- new wait to make sure NewBaseThread is established
-
-							-- signal the NewBaseThread that we need the data now
-							eng.NeedsBaseData = true
+                            WaitTicks(2)     -- wait to make sure NewBaseThread is established
+                            
+                            eng.NeedsBaseData = true
 
 							-- at this point the engineer will get the NewExpansion data back from the NewBaseThread
 							-- in the form of eng.NewExpansion[1] = basename, [2] = 3D position, [3] = the construction data
@@ -8679,7 +8680,9 @@ Platoon = Class(PlatoonMethods) {
 										-- in this way Enemy bases and full allied bases can be marked as taken
 										-- while still allowing Allied players to share other markers
 										
-										-- I no longer permit any base sharing --	
+										-- I no longer permit any base sharing between allies --
+                                        -- but I do permit claiming enemy base positions since at this point
+                                        -- we should have already passed a threat check
 										if IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex) then
 	
 											basetaken = true

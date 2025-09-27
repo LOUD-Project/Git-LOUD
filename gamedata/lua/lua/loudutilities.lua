@@ -1597,7 +1597,7 @@ function SetPrimarySeaAttackBase( aiBrain )
 
                 if path then
 
-                    if ScenarioInfo.DisplayAttackPlans then
+                    if ScenarioInfo.DisplayAttackPlans and GetFocusArmy() == aiBrain.ArmyIndex then
                         ForkThread( DrawPath, v.Position, path, goal, '0099dd' )
                     end
                 
@@ -6419,7 +6419,7 @@ function CreateAttackPlan( self, enemyPosition )
         else
 
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." BEGINS Current distance to goal is "..math.floor(VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])).." stagesize is "..stagesize)
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." BEGINS - stage distance to goal is "..math.floor(VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])).." stagesize is "..stagesize)
                 LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." needs to be less than "..math.floor((CurrentPointDistance - 100)).." from the goal and have a path length of less than "..math.floor(CurrentBestPathLength) )
             end
           

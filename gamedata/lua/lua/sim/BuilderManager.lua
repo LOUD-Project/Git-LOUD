@@ -308,9 +308,9 @@ BuilderManager = Class {
             -- if the new priority is 0 - process it normally but this task will be removed on the next cycle
 			if Builders[TaskName].PriorityFunction and Priority > 0 then
             
-                --if PriorityDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction review for "..Priority.." "..TaskName )
-                --end
+                if PriorityDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction review for "..Priority.." "..TaskName )
+                end
 
 				newPri = false
 				temporary = true
@@ -329,9 +329,9 @@ BuilderManager = Class {
 					self.BuilderData[BuilderType].NeedSort = true
                     self.BuilderData[BuilderType].displayed = false
                     
-                    if newPri != 0 then
+                    --if newPri != 0 then
                         Priority = newPri
-                    end
+                    --end
 
                 end
 			end
