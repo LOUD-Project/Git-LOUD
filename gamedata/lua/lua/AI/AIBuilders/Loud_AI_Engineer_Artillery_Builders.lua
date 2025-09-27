@@ -54,7 +54,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
@@ -150,7 +150,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
@@ -199,7 +199,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
             --- only on maps > 20k
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
@@ -248,7 +248,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
 
             { LUTL, 'UnitCapCheckLess', { .95 } },		
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
@@ -294,7 +294,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
