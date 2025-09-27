@@ -5226,63 +5226,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         }
     },
 
---[[	
-    Builder {BuilderName = 'T1 Defenses Naval',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 800,
-		
-		PriorityFunction = function(self, aiBrain)
-		
-			if self.Priority != 0 then
-
-				-- remove after 40 minutes
-				if aiBrain.CycleTime > 2400 then
-					return 0, false
-				end
-				
-			end
-			
-			return self.Priority
-			
-		end,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-            
-            -- obsolete once T2 or better available
-			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1250 }},
-
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
-        },
-		
-		BuilderType = { 'T1','T2'},
-
-        BuilderData = {
-            Construction = {
-			
-				Radius = 63,
-				AddRotations = 1,
-                NearBasePerimeterPoints = true,
-                
-				BasePerimeterOrientation = 'FRONT',
-				BasePerimeterSelection = true,
-                
-				ThreatMax = 90,
-
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'NavalPerimeterDefenseTemplate',
-				
-                BuildStructures = {'T1NavalDefense'},
-            }
-        }
-    },
---]]	
 	
 }
 
@@ -6124,11 +6067,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
             -- must not already have an antinuke
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SMD }},
@@ -6318,6 +6261,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, TMD, 0, 28 }},
         },
 		
@@ -6385,9 +6330,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -6428,6 +6374,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -6507,6 +6455,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 0, 24 }},
@@ -6546,13 +6496,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, SMD, 0, 15 }},
+
+            -- enemy must have a visible nuke            
+			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO, 'Enemy' }},
         },
 		
 		BuilderType = { 'SubCommander' },
