@@ -702,17 +702,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
             
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.3 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * (categories.DIRECTFIRE + categories.INDIRECTFIRE) * categories.TECH3, 15, 42 }},
         },
 		
         BuilderData = {
-			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC},
+			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC},
             ReclaimRange = 75,
         },
     },
