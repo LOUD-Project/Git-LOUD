@@ -31,8 +31,8 @@ BaseBuilderTemplate {
         'ACU Tasks',
         
         # ==== EXPANSIONS ==== #
-		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction STD',
+		'Engineer Land Base Construction',
+		'Engineer Land DP Construction',
         
         # ==== DEFENSES ==== #
         'Engineer Base Defense Construction - Core',
@@ -88,8 +88,8 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 		'Engineer T4 Air Construction - Water Map',
 		
-        'Engineer Naval Expansion Construction',
-		'Engineer Defensive Point Construction - Naval',
+        'Engineer Naval Base Construction',
+		'Engineer Naval DP Construction',
 		
 		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',

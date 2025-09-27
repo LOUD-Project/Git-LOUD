@@ -119,7 +119,7 @@ local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
 	return 10, true
 end
 
-BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
+BuilderGroup {BuilderGroupName = 'Engineer Land Base Construction',
 
     BuildersType = 'EngineerBuilder',
     
@@ -340,12 +340,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
+BuilderGroup {BuilderGroupName = 'Engineer Land DP Construction',
 
     BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP with a T2/T3 engineer
-	Builder {BuilderName = 'DP - Expansion',
+	Builder {BuilderName = 'DP Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilder',
         
@@ -395,7 +395,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	},
         
     -- this one starts with an SACU - difference between the previous builder - this one needs more factories as a condition
-	Builder {BuilderName = 'DP - Expansion SACU',
+	Builder {BuilderName = 'DP Expansion SACU',
 	
 		PlatoonTemplate = 'EngineerBuilder',
         
@@ -450,7 +450,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	},
 
 	-- This builder will start an active DP with a T1
-	Builder {BuilderName = 'DP - Expansion - Outnumbered',
+	Builder {BuilderName = 'DP Expansion - Outnumbered',
 	
 		PlatoonTemplate = 'EngineerBuilder',
         
@@ -502,7 +502,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	-- Like above, we want to create an Active DP, but on Start and Expansion areas
 	-- this allows the AI to setup forward positions long before he has the resources to start a full base
 	-- Later on he can convert these 'Active DP' into real bases at his discretion
-    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas',
+    Builder {BuilderName = 'DP Expansion - Start & Expansion Areas',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -559,7 +559,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     },
 
     -- this is the SACU version with higher factory requirements
-    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas - SACU',
+    Builder {BuilderName = 'DP Expansion - Start & Expansion Areas SACU',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -614,7 +614,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
+BuilderGroup {BuilderGroupName = 'Engineer Naval Base Construction',
 
     BuildersType = 'EngineerBuilder',
 
@@ -841,14 +841,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },      
-}
 
-BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
-	
-	-- start additional naval bases if naval strength too low
-	-- must already have a naval base -- must have 4+ Naval factories
-	-- only Naval Bases will do this
     Builder {BuilderName = 'Naval Base Secondary',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -905,7 +898,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval',
+BuilderGroup {BuilderGroupName = 'Engineer Naval DP Construction',
 	BuildersType = 'EngineerBuilder',
 
 	-- build a naval position that is closer to the goal than the current primary position
@@ -915,7 +908,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 		
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-		-- unique for an engineer platoon
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
         Priority = 750,
@@ -954,143 +946,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
 				
-                BuildStructures = {'T1Sonar'}
+                BuildStructures = {'T1Sonar','T1NavalDefense'}
             }
         }
     },
---[[    
-	-- Like above, we want to create an Active DP, but on unused Naval Areas
-	-- Later on he can convert these 'Active DP' into real bases at his discretion
-    Builder {BuilderName = 'Naval DP Expansion - Naval Areas',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		-- unique for an engineer platoon
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 750,
 
-        PriorityFunction = AboveUnitCap80,
-        
-        BuilderConditions = {
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-            
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1200, -250, 50, 2, 'AntiSurface' } },
-        },
-		
-        BuilderType = { 'T2','T3' },
-		
-        BuilderData = {
-            Construction = {
-				CountedBase = false,
-				ExpansionBase = true,
-                ExpansionRadius = 115,
-				RallyPointRadius = 25,
-
-                NearMarkerType = 'Naval Area',
-				
-                LocationRadius = 1200,
-
-                ThreatMax = 75,
-                ThreatRings = 1,
-                ThreatType = 'AntiSurface',
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'NavalDefensivePoint',
-				
-                BuildStructures = {'T1Sonar'}
-            }
-        }
-    },
---]]	
 }
-
---[[
-BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
-
-    BuildersType = 'EngineerBuilder',
-
-	-- This builder will start an active DP 
-	Builder {BuilderName = 'DP - Expansion Small',
-	
-		PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-		Priority = 745,
-		
-        BuilderConditions = {
-        
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-            
-			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
-
-			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
-            
-            -- allow expansions if there are ANY upgraded factories --
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-
-            -- find a suitable DP within 2000
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
-        },
-		
-		BuilderType = { 'T2','T3' },
-		
-		BuilderData = {
-			Construction = {
-				CountedBase = false,
-				
-				ExpansionBase = true,
-				ExpansionRadius = 100,
-				RallyPointRadius = 23,
-				
-				NearMarkerType = 'Defensive Point',
-				
-				LocationRadius = 1250,
-				
-                ThreatMax = 60,
-                ThreatRings = 0,
-                ThreatType = 'AntiSurface',
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-				
-                BuildStructures = {'T2GroundDefense','T2AADefense',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2MissileDefense',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2GroundDefense',
-                    'T2AADefense',
-                    'T2RadarJammer',
-                    'T2EnergyProduction',
-					'T2Radar',
-                    'T2Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2Wall',
-                    'Wall',
-                    'T2Wall',
-				}
-			}
-		}
-	},
-}
---]]

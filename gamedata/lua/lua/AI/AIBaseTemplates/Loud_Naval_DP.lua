@@ -22,9 +22,9 @@ BaseBuilderTemplate {
 		'Engineer Defenses DP Naval',		-- rebuild the DP
 		
         # ==== EXPANSION ==== #
-		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction STD',
-		'Engineer Defensive Point Construction - Naval',
+		'Engineer Land Base Construction',
+		'Engineer Land DP Construction',
+		'Engineer Naval DP Construction',
 		
         # ==== OPERATIONS ==== #		
         'Naval Formations',

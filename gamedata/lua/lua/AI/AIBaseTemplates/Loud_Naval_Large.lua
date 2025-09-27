@@ -18,15 +18,15 @@ BaseBuilderTemplate {
         
         # Engineers Build Economy
         'Engineer Mass Builders - Naval',
+        'Engineer Energy Builders - Naval',
 		'Engineer T4 Economy Construction - Naval',
         
         # ==== EXPANSIONS ==== #
-		'Engineer Land Expansion Construction',
-		'Engineer Naval Expansion Construction - Expansions', 
+		'Engineer Land Base Construction',
+		'Engineer Naval Base Construction', 
         
-		'Engineer Defensive Point Construction STD',
-		'Engineer Defensive Point Construction - Naval',        
-
+		'Engineer Land DP Construction',
+		'Engineer Naval DP Construction',        
 		
         # ==== DEFENSES ==== #
 		'Engineer Base Defense Construction - Naval',

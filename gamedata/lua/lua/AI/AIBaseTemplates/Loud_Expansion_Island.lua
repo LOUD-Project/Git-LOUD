@@ -23,8 +23,8 @@ BaseBuilderTemplate {
         'Engineer Factory Construction - Expansions',
 
         # Create New Land Bases & Active DP
-		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction STD',
+		'Engineer Land Base Construction',
+		'Engineer Land DP Construction',
         
         # Build Defenses within the base
         'Engineer Base Defense Construction - Core - Expansions',
@@ -75,8 +75,8 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-        'Engineer Naval Expansion Construction',
-		'Engineer Defensive Point Construction - Naval',
+        'Engineer Naval Base Construction',
+		'Engineer Naval DP Construction',
 		
 		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',

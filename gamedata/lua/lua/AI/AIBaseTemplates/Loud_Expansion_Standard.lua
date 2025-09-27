@@ -21,8 +21,8 @@ BaseBuilderTemplate {
 		'Engineer T4 Economy Construction - Expansions',
 
         # === EXPANSIONS ==== #
-		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction STD',
+		'Engineer Land Base Construction',
+		'Engineer Land DP Construction',
         
         # === DEFENSES === #
         'Engineer Base Defense Construction - Core - Expansions',
@@ -69,8 +69,8 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 		'Engineer T4 Air Construction - Water Map - Expansions',
         
-        'Engineer Naval Expansion Construction',
-		'Engineer Defensive Point Construction - Naval',
+        'Engineer Naval Base Construction',
+		'Engineer Naval DP Construction',
 		
 		'Factory Production - Torpedo Bombers',
 		'Factory Producion - Land - Water Map',

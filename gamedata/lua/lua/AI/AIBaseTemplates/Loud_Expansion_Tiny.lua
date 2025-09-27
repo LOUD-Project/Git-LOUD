@@ -54,8 +54,8 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-        'Engineer Naval Expansion Construction',
-		'Engineer Defensive Point Construction - Naval',
+        'Engineer Naval Base Construction',
+		'Engineer Naval DP Construction',
 		
 		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',
