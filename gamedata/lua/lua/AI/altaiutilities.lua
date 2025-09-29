@@ -239,7 +239,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 	if eng then
 		Position = eng
 	end
-	
+  
 	if Position then
     
         local VDist3 = VDist3
@@ -838,6 +838,8 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
  
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." with radius "..radius.." marker radius "..markerRadius.." Units "..unitMax.." tMin "..tMin.." tMax "..tMax.." Rings "..tRings.." type "..tType.." on tick "..GetGameTick())
+  	
     if Position and ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
         
         local AttackPlan    = aiBrain.AttackPlan
@@ -867,18 +869,18 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
         local VDist3 = VDist3
         
         local path, pathlength
-        
-        --LOG("*AI DEBUG Testing path to Goal "..repr(Goal))
-  		
+ 		
 		-- this is the path distance that the current base is from the goal - new bases must be closer than this
 		if aiBrain.PrimarySeaAttackBase then
             test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
-			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, Goal, 99999, 200 )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Water', test_position, Goal, 99999, 200 )
 		else
             test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or false
-			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Amphibious', test_position, Goal, 99999, 185 )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Amphibious', test_position, Goal, 99999, 185 )
 		end
-
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." path to Goal "..repr(Goal).." from "..repr(test_position).." reason "..reason.." range "..test_range)
+ 
         -- first, we'll try to fill positions with those in the attack plan
         for k, v in AttackPlan.StagePoints do
 
@@ -935,6 +937,8 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		
 				-- if in use by another brain --
 				if (not removed) and brain.BuilderManagers[marker.Name] then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." owned by "..brain.Nickname )
 
 					removed = true
 					break
@@ -948,6 +952,9 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
                 path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, position, 99999, 250 )
 
                 if not path or pathlength > (test_range *.9) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." for pathlength "..pathlength.." vs "..test_range*.9)
+                    
                     continue
                 end		
             end

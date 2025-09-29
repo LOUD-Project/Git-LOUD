@@ -880,7 +880,7 @@ Platoon = Class(PlatoonMethods) {
                 
 			else
 			
-                if platoon != 'AttackPlanner' or (platoon and platoon.BuilderName != nil) then
+                if (not LOUDFIND(platoon, 'AttackPlanner')) or (platoon and platoon.BuilderName != nil) then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
                 end
                 
@@ -1260,7 +1260,7 @@ Platoon = Class(PlatoonMethods) {
 
         local blockingcheck = true
         
-        if string.find( platoon.BuilderName or platoon, "AttackPlanner") then
+        if LOUDFIND( platoon.BuilderName or platoon, "AttackPlanner") then
             blockingcheck = false
         end
 
