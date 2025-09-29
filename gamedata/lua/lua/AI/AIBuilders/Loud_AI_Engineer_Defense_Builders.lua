@@ -8,6 +8,7 @@ local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local BaseInPlayableArea                            = import(MIBC).BaseInPlayableArea
 local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
 local HaveGreaterThanUnitsWithCategoryAndAlliance   = import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance
 local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
@@ -167,7 +168,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750,
 		
 		PriorityFunction = function(builder, aiBrain, unit, manager)
-		
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+
 			if builder.Priority != 0 then
 
 				-- remove after 25 minutes
@@ -209,8 +214,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, PD, 30, 50}},
@@ -246,6 +249,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 		
 			if self.Priority != 0 then
 
@@ -283,8 +290,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
         },
 		
@@ -318,6 +323,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 750,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
             
@@ -359,8 +368,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
         },
 		
@@ -394,6 +401,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
             
                 return 10, true
@@ -416,8 +427,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
         },
 		
@@ -445,6 +454,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
@@ -480,8 +493,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
 		
@@ -509,6 +520,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 751,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
@@ -540,8 +555,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -575,6 +588,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
             
                 return 10, true
@@ -597,8 +614,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -633,6 +648,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
                 return 10, true
@@ -663,8 +682,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -698,6 +715,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
@@ -733,8 +754,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
@@ -767,6 +786,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
                 return 10, true
@@ -797,8 +820,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
@@ -828,6 +849,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
          
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
@@ -859,8 +884,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
         
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
@@ -892,6 +915,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 745,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
          
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
@@ -909,8 +936,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }}, 
@@ -940,6 +965,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 745,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
          
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
@@ -965,8 +994,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }}, 
@@ -1004,6 +1031,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         Priority = 900,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 
             if GreaterThanEnergyIncome( aiBrain, 12600) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) then
                 return (self.OldPriority or self.Priority), true
@@ -1014,8 +1045,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},        
-
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
         },
 		
@@ -1047,6 +1076,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GreaterThanEnergyIncome( aiBrain, 16800) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, SMD) then
             
                 if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 1, categories.NUKE * categories.SILO,'Enemy') then
@@ -1059,8 +1092,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},        
-            
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, SMD, 5, 45 }},
@@ -1092,6 +1123,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 18600 ) then
             
                 return 10, true
@@ -1122,8 +1157,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},
@@ -1159,6 +1192,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -1189,8 +1226,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -1229,6 +1264,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
                 return 10, true
@@ -1261,8 +1300,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         InstanceCount = 1,
         
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -1294,6 +1331,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         Priority = 800,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
@@ -1333,8 +1374,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 		InstanceCount = 1,
         
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1406,6 +1445,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
@@ -1428,8 +1471,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1467,6 +1508,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
@@ -1487,8 +1532,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1526,6 +1569,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
                 return 10, true
             end
@@ -1546,8 +1593,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1586,6 +1631,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
                 return 10, true
@@ -1618,8 +1667,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -1652,6 +1699,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         Priority = 800,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
@@ -1691,8 +1742,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1729,6 +1778,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
@@ -1751,8 +1804,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1790,6 +1841,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
@@ -1810,8 +1865,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1849,6 +1902,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
                 return 10, true
             end
@@ -1869,8 +1926,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -1907,6 +1962,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 
 		-- this should turn this off if there is less than 30 minutes left in the game
 		PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 			
 			if aiBrain.VictoryTime then
 			
@@ -1937,8 +1996,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
         Priority = 745,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
@@ -2190,7 +2247,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
         Priority = 745,
 	
-		PriorityFunction = function(self, aiBrain)
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 			
 			if self.Priority != 0 then
 			
@@ -2218,8 +2279,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -2259,7 +2318,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
         Priority = 700,
 		
-		PriorityFunction = function(self, aiBrain)
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 
 			if self.Priority != 0 then
 			
@@ -2287,8 +2350,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -2327,7 +2388,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
         Priority = 10,
 
-		PriorityFunction = function(self, aiBrain)
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 		
 			-- remove after 25 minutes
 			if aiBrain.CycleTime > 1500 then
@@ -2345,8 +2410,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
-
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
@@ -2389,6 +2452,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -2413,8 +2480,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
@@ -2450,6 +2515,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -2474,8 +2543,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
@@ -2518,6 +2585,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -2542,8 +2613,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
@@ -2584,6 +2653,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 1.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -2600,8 +2673,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2639,6 +2710,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -2663,8 +2738,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
@@ -2700,6 +2773,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
@@ -2730,8 +2807,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
@@ -2773,6 +2848,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -2797,8 +2876,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2841,6 +2918,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -2871,8 +2952,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-            
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2915,6 +2994,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if GreaterThanEnergyIncome( aiBrain, 21000) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 4, SMD) then
             
                 if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 3, categories.NUKE * categories.SILO,'Enemy') then
@@ -2927,8 +3010,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-            
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.0125, 1.02 }},
@@ -2971,6 +3052,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -3001,8 +3086,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
@@ -3112,6 +3195,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.AirRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -3130,8 +3217,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         PriorityFunction = AboveUnitCap75,
         
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
@@ -3172,6 +3257,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
         Priority = 760,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 or not GreaterThanEnergyIncome( aiBrain, 550 ) then
             
@@ -3263,6 +3352,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+        
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 3000 ) then
             
                 return 10, true
@@ -3318,6 +3411,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
         Priority = 750,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
         
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
@@ -5719,6 +5816,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+        
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},

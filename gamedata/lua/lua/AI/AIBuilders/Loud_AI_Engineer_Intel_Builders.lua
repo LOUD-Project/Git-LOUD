@@ -5,6 +5,7 @@
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
@@ -172,6 +173,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			

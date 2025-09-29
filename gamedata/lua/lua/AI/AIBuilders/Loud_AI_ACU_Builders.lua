@@ -9,6 +9,7 @@ local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local BHVR  = '/lua/ai/aibehaviors.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local BaseInPlayableArea    = import(MIBC).BaseInPlayableArea
 local GetThreatAtPosition   = moho.aibrain_methods.GetThreatAtPosition
 local GetPosition           = moho.entity_methods.GetPosition
 
@@ -756,7 +757,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 754,
 		
-		PriorityFunction = function(self, aiBrain)
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
 		
 			if self.Priority != 0 then
 
@@ -776,9 +781,6 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		end,
 		
         BuilderConditions = {
-            
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-            
             { LUTL, 'LandStrengthRatioLessThan', { 4 }},
 
             { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
@@ -824,19 +826,24 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 10,      -- becomes 760 when ACU is enhanced
 
-        PriorityFunction = CDRbuildsT2,
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+		
+            return CDRbuildsT2(self, aiBrain, unit)
+            
+        end,
 		
         BuilderConditions = {
-
             { LUTL, 'UnitCapCheckLess', { .65 } },
-
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
 			
@@ -870,13 +877,19 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 10,      -- becomes 780 when ACU is T3
 
-        PriorityFunction = CDRbuildsT3,
+		PriorityFunction = function(self, aiBrain, unit, manager)
+        
+            if not BaseInPlayableArea( manager.LocationType ) then
+                return 0, false
+            end
+		
+            return CDRbuildsT3(self, aiBrain, unit)
+            
+        end,
 		
         BuilderConditions = {
 
             { LUTL, 'UnitCapCheckLess', { .80 } },
-            
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
