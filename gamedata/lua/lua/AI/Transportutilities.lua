@@ -2486,7 +2486,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon, IsEngineer)
 			end
 		
 			-- if all dead or all loaded or unit platoon no longer exists, RTB the transport
-			if unitsdead or (not loading) or reloads > 20 then
+			if unitsdead or (not loading) or reloads > 15 then
 			
 				if unitsdead then
 
