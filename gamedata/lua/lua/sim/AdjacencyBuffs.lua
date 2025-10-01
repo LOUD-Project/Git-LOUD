@@ -1869,10 +1869,12 @@ T3MassEnergyStorageAdjacencyBuffs = {
 	'T3EnergyStorageShieldHealthBonusSize12',
 	'T3EnergyStorageShieldHealthBonusSize16',
     'T2PowerEnergyWeaponBonusSize4to12',
+    'T2PowerRateOfFireBonusSize4',    
 }
 
 T3MassEnergyStorageAdjacencyBuffsIS = {
     'T2PowerEnergyWeaponBonusSize4to12',
+    'T2PowerRateOfFireBonusSize4',    
 }
 
 BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize4',
