@@ -5361,19 +5361,19 @@ Unit = Class(UnitMethods) {
 		local myposition = self:GetPosition()
         
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
-		
-		if destRange > (teleRange * 4) then
+--[[		
+		if destRange > (teleRange * 8) then
         
             --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
 		
-			FloatingEntityText(self.EntityID,'Destination Out Of Range')
+			FloatingEntityText(self.EntityID,'Destination Beyond '..repr(teleRange*8)..' range')
             
             self.teleporting = nil
 			
 			return
 			
 		end
-		
+--]]		
 		-- Teleport Interdiction Check
 		for num, brain in BRAINS do
         
@@ -5587,6 +5587,8 @@ Unit = Class(UnitMethods) {
     end,
 
     InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation, telecostpaid)
+    
+        local TeleportDialog = false
 	
         self:OnTeleportCharging(location)
 	
@@ -5596,16 +5598,18 @@ Unit = Class(UnitMethods) {
         
         self:SetImmobile(true)
         
-        self:PlayUnitSound('TeleportStart')
+        self:PlayUnitSound('GateCharge')
 
-        local teleportenergy, teleporttime
+        local rangemod = 1
+        local teleportenergy = 0
+        local teleporttime = 0
 		
         if bp.Economy then
 		
 			-- calc a resource cost value based on both mass and energy
-            local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
+            local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)		-- ie. 18000 mass becomes 2700
 
-            local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.03, bp.Economy.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
+            local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.08, bp.Economy.TeleportEnergyMod or 0.08)	-- ei. 5m Energy becomes 400,000
 
             -- remove the initial E charge already paid
             energy = LOUDMAX( 0, energy - telecostpaid)
@@ -5613,30 +5617,29 @@ Unit = Class(UnitMethods) {
             teleportenergy = mass + energy
 
             if teledistance <= teleRange then
-                teleportenergy = teleportenergy * ( math.max( .25, teledistance/teleRange ) * math.max( .25, teledistance/teleRange ) )
-                --LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
+                rangemod = ( math.max( .33, teledistance/teleRange ) * math.max( .33, teledistance/teleRange ) )
+                teleportenergy = teleportenergy * rangemod
             else
-                teleportenergy = teleportenergy * teledistance/teleRange
-                --LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr(teledistance/teleRange ) )
+                rangemod = 1.1 + (3.14 * ((teledistance - teleRange)/teleRange))
+                teleportenergy = teleportenergy * rangemod
             end
             
-            teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
-            
-            --LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. ((2 * (math.cos( (3.14*teledistance)/400) )) + 3).." E required is "..teleportenergy )
-            
             local buildrate = teleporter:GetBuildRate()
-
-            -- time is now based on how much energy this unit can channel per second
-            -- channeled flow = buildrate * 10
-            -- this tapers nicely with the investment in mass of the unit, since although
-            -- lessers builders can flow as much energy - the energy required of smaller units is much less.
-            -- powerful builders (SACU) can teleport very quickly when they have enhanced build power
-            -- minimum teleport time of 12 
+            
+            if TeleportDialog then
+                LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range is "..teleRange.." range adjust is "..rangemod.." E required is "..teleportenergy )
+            end
+            -- time is now based on how much energy this unit can channel per second -- channeled flow = buildrate * 10
+            -- this tapers nicely with the mass of the unit, since although lesser builders can flow as much energy - the energy required of smaller units is much less.
+            -- powerful builders (SACU) can teleport very quickly
+            -- minimum teleport time of 12 and the recovery time is 24 + the teleport time 
 
             teleporttime = math.max( 12, ( teleportenergy / (buildrate * 10) ))
 
-			--LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
-			
+            if TeleportDialog then
+                LOG('*AI DEBUG Teleport charge time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
+                LOG('*AI DEBUG Teleport cooldown time is '..(24 + math.floor(teleporttime)).." ticks")
+			end
         end
         
         self:SetMaintenanceConsumptionInactive()
@@ -5671,14 +5674,14 @@ Unit = Class(UnitMethods) {
 		
         EffectUtilities.PlayTeleportInEffects(self)
 
-        WaitTicks(24) 	-- Perform cooldown Teleportation FX here
+        WaitTicks( 24 + math.floor(teleporttime) ) 	-- Perform cooldown Teleportation FX here
 
 		FloatingEntityText(self.EntityID,'Cooldown complete..')        
 
         self:PlayUnitSound('TeleportEnd')
         
         self:SetImmobile(false)
-        
+
         self.UnitBeingTeleported = nil
         
         self.TeleportThread = nil
