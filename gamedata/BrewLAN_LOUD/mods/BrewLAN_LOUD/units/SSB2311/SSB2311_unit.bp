@@ -10,11 +10,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
 		VisionRadius = {
             Level1 = 2,
@@ -22,7 +22,14 @@ UnitBlueprint {
             Level3 = 3,
             Level4 = 4,
             Level5 = 5,
-		},			
+		},
+        WaterVisionRadius = {
+            Level1 = 1,
+            Level2 = 2,
+            Level3 = 2,
+            Level4 = 3,
+            Level5 = 3,
+        },
     },
 	
     BuildIconSortPriority = 115,
@@ -47,10 +54,12 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 50,
         ArmorType = 'Structure',
+
         EconomyThreatLevel = 120,
-        Health = 9500,
-        MaxHealth = 9500,
-        RegenRate = 6,
+
+        Health = 4000,
+        MaxHealth = 4000,
+        RegenRate = 3,
         SurfaceThreatLevel = 131.1,
     },
 	
@@ -76,9 +85,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 44500,
-        BuildCostMass = 3900,
-        BuildTime = 3900,
+        BuildCostEnergy = 39000,
+        BuildCostMass = 3850,
+        BuildTime = 3650,
 		
         RebuildBonusIds = { 'ssb2311' },
     },
@@ -97,13 +106,14 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         UnitName = '<LOC ssb2311_name>Sinn Unthe',
     },
 	
     Intel = {
         VisionRadius = 32,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -118,6 +128,7 @@ UnitBlueprint {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
+            LAYER_Water = true,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -182,10 +193,11 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = .3,
-            FiringTolerance = 1.5,
+            FiringTolerance = 1.2,
 			
             Label = 'RightArm',
 			
@@ -200,10 +212,7 @@ UnitBlueprint {
 			ProjectileLifetime = 4.6,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'RightHand_Muzzle'},
-                    RackBone = 'RightHand_Muzzle',
-                },
+                { MuzzleBones = {'RightHand_Muzzle'}, RackBone = 'RightHand_Muzzle' },
             },
 
             RackSalvoFiresAfterCharge = true,

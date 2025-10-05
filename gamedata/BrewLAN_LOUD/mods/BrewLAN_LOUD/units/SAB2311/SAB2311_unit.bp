@@ -43,14 +43,16 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
+
         EconomyThreatLevel = 79,
+
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 2,
         SurfaceThreatLevel = 125.4,
     },
 	
-    Description = '<LOC sab2311_desc>Oblivion Field Artillery',
+    Description = '<LOC sab2311_desc>Nihiloid Field Artillery',
 	
     Display = {
 	
@@ -80,9 +82,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 55000,
-        BuildCostMass = 3900,
-        BuildTime = 4300,
+        BuildCostEnergy = 36500,
+        BuildCostMass = 3450,
+        BuildTime = 3200,
 		
         RebuildBonusIds = { 'sab2311' },
     },
@@ -181,20 +183,20 @@ UnitBlueprint {
 			
             DisplayName = 'Oblivion Cannon',
 			
-            EnergyDrainPerSecond = 960,
-            EnergyRequired = 4800,      -- 5 second charge cycle
+            EnergyDrainPerSecond = 920,
+            EnergyRequired = 4600,      -- 5 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',				
             },
 			
-            FiringRandomness = 0.32,
-            FiringTolerance = 1.25,
+            FiringRandomness = 0.3,
+            FiringTolerance = 0.75,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 110,
+            MaxRadius = 96,
 			MinRadius = 14,
 			
             MuzzleChargeDelay = 1,
@@ -221,7 +223,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,	-- 5 seconds by charge = 360 DPS
+            RateOfFire = 0.4,	-- 5 seconds by charge = 360 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -240,11 +242,11 @@ UnitBlueprint {
 			
             TurretPitch = 15,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 24,
+            TurretPitchSpeed = 20,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 20,
 			
             Turreted = true,
         },

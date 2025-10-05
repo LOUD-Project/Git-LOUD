@@ -12,11 +12,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 11,
+            Level4 = 14,
+            Level5 = 17,
         },
 		VisionRadius = {
             Level1 = 2,
@@ -50,10 +50,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 120,
-        Health = 9500,
-        MaxHealth = 9500,
-        RegenRate = 6,
+
+        EconomyThreatLevel = 80,
+
+        Health = 4000,
+        MaxHealth = 4000,
+        RegenRate = 4,
         SurfaceThreatLevel = 126.9,
     },
 	
@@ -85,8 +87,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 37500,
-        BuildCostMass = 3900,
-        BuildTime = 3900,
+        BuildCostMass = 3850,
+        BuildTime = 3500,
 		
         RebuildBonusIds = {'srb2311'},
     },
@@ -184,20 +186,20 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
 			
-            EnergyDrainPerSecond = 234,     -- 3 second charge --
-            EnergyRequired = 702,
+            EnergyDrainPerSecond = 224,     -- 3 second charge --
+            EnergyRequired = 670,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.4,
-            FiringTolerance = 0.6,
+            FiringRandomness = 0.35,
+            FiringTolerance = 0.7,
 			
             Label = 'FrontCannon01',
 			
-            MaxRadius = 110,
+            MaxRadius = 96,
 
             MuzzleVelocity = 30,
             MuzzleVelocityRandom = 1.5,
@@ -229,7 +231,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.34,	-- by charge - 3 shells of 350 = 1050 dmg every 3 seconds = 350 DPS
+            RateOfFire = 0.4,	-- by charge - 3 shells of 350 = 1050 dmg every 3 seconds = 350 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
