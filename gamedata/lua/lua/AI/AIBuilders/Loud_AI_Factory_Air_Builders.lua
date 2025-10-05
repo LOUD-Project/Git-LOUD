@@ -344,11 +344,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = IsEnemyAirActive,
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 120, categories.HIGHALTAIR * categories.ANTIAIR }},
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, HIGHALTAIRAA, AIRT3 }},			
         },
 
         BuilderType =  {'AirT3'},
