@@ -237,27 +237,38 @@ function CreateResources()
     if ScenarioInfo.MassPointRNG then
         LOG("*AI DEBUG MassPointRNG DETECTED")
         
-        -- replace coordsTbl with data --
-        -- randomly selected
-        coordsTbl = {
-            { {-2,-2}, {-2, 2}, { 2,-2}, { 2, 2}    },
-            { {-2, 0}, { 0,-2}, { 2, 0}, { 0, 2}    },
-            { { 0, 0}, {-2, 2}, { 2, 2}     },
-            { {-2, 0}, { 0, 0}, { 2, 0}     },
-            { { 0,-2}, { 0, 0}, { 0, 2}     },  
-            { { 0,-2}, { 0, 2}  },
-            { {-2, 0}, { 2, 0}  },
-            { { 1, 1}, {-1,-1}  },
-            { {-1, 1}, { 1,-1}  },
-            { { 0, 0}   },
-            { { 2, 0}   },
-            { {-2, 0}   },
-            { { 0,-2}   },
-            { { 0, 2}   },
-            { },
-            { },
-            { },
-        } 
+        -- Check if Enhanced mode is selected
+        local distributionType = ScenarioInfo.MassDistributionType or 'Normal'
+        
+        if distributionType == 'Enhanced' then
+            LOG("*AI DEBUG MassPointRNG - Enhanced mode (9 points)")
+            -- Enhanced mode: replace each point with 9 mass points
+            coordsTbl = {
+                { {-2,-2}, {-2, 2}, { 0, 0}, { 2,-2}, { 2, 2}, {-4, 0}, { 4, 0}, { 0,-4}, { 0, 4} },
+            }
+        else
+            LOG("*AI DEBUG MassPointRNG - Normal mode (0-4 points)")
+            -- Normal mode: replace coordsTbl with data randomly selected
+            coordsTbl = {
+                { {-2,-2}, {-2, 2}, { 2,-2}, { 2, 2}    },
+                { {-2, 0}, { 0,-2}, { 2, 0}, { 0, 2}    },
+                { { 0, 0}, {-2, 2}, { 2, 2}     },
+                { {-2, 0}, { 0, 0}, { 2, 0}     },
+                { { 0,-2}, { 0, 0}, { 0, 2}     },  
+                { { 0,-2}, { 0, 2}  },
+                { {-2, 0}, { 2, 0}  },
+                { { 1, 1}, {-1,-1}  },
+                { {-1, 1}, { 1,-1}  },
+                { { 0, 0}   },
+                { { 2, 0}   },
+                { {-2, 0}   },
+                { { 0,-2}   },
+                { { 0, 2}   },
+                { },
+                { },
+                { },
+            }
+        end
     end
     
     -- create the initial mass point list
