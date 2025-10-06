@@ -60,7 +60,7 @@ end
 -- We want to see a more streamlined production of experimentals getting more Heavies and Heaviest of Experimentals onto the playing field
 -- Nukes and Artillery Priority are untouched leaving now the Land Ratio to decide solely if we build Nukes and Artillery. 
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
     BuildersType = 'EngineerBuilder',
 
 -- This should be used for a light experimental - lowest eco requirements
@@ -243,7 +243,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
     BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Land Exp 1 Expansion',
@@ -423,7 +423,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 -- This BuilderGroup is used when a land solution from this base can be found
 -- to the current enemy - otherwise the Air version is used. 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Only Map',
     BuildersType = 'EngineerBuilder',
 	
 -- Like the land experimentals - we Tier the AirExps in 2 groups 
@@ -566,7 +566,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
     },
 }	
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental 1 - Water Map',
@@ -657,7 +657,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
 }
 
 	
-BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Expansions',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental - Land Map - Expansion',
@@ -751,7 +751,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map - Expansions',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Expansions',
     BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental - Water Map - Expansion',

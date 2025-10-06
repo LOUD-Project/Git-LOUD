@@ -471,7 +471,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
+BuilderGroup {BuilderGroupName = 'Factory Production - Land - Land Only Map',
     BuildersType = 'FactoryBuilder',
 
 	-- T2 Flak Vehicle 
@@ -770,7 +770,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
+BuilderGroup {BuilderGroupName = 'Factory Production - Land - Water Map',
     BuildersType = 'FactoryBuilder',
 
 

@@ -41,13 +41,10 @@ BaseBuilderTemplate {
 		'Engineer T4 Shield Construction',
         'Engineer Misc Construction - Small',
    		'Engineer Mass Point Defense Construction',
-		'Engineer Artillery Construction',
-		'Engineer Nuke Construction',
-        
+      
         # ==== LAND UNIT BUILDERS ==== #
 		'Factory Production - Land',
-
-        'Factory Producion - Land - Land Only Map',
+        'Factory Production - Land - Land Only Map',
         
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
@@ -64,19 +61,17 @@ BaseBuilderTemplate {
 		
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction',
-		'Land Formations - Artillery',
-        
 		'Engineer Nuke Construction',
+
+		'Land Formations - Artillery',
 		'Land Formations - Nukes',
 		
         # ==== EXPERIMENTALS ==== #
-		'Engineer T4 Land Construction',
-        
-        'Engineer T4 Air Construction - Land Only Map',
-        
-		'Land Formations - Experimentals',
+		'Engineer T4 Construction Land',
+        'Engineer T4 Construction Air - Land Only Map',
 
-		'Air Formations - Experimentals',
+		'Air Formations - Experimentals',        
+		'Land Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
 		'Air Formations - Scouts',
@@ -86,7 +81,7 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-		'Engineer T4 Air Construction - Water Map',
+		'Engineer T4 Construction Air - Water Map',
 		
         'Engineer Naval Base Construction',
 		'Engineer Naval DP Construction',
@@ -94,16 +89,12 @@ BaseBuilderTemplate {
 		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',
 		
-		'Factory Producion - Land - Water Map',
+		'Factory Production - Land - Water Map',
 		'Land Formations - Water Map',
 		'Land Formations - Amphibious',
 	},
 	
 	LandOnlyBuilders = {
-		--'Factory Producion - Land - Land Only Map',
-		--'Land Formations - Land Only Map',
-		
-		--'Engineer T4 Air Construction - Land Only Map',
 	},
 	
 	StandardCommanderUpgrades = {

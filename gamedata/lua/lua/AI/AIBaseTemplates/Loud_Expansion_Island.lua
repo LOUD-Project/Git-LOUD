@@ -54,14 +54,14 @@ BaseBuilderTemplate {
 		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
-		'Engineer Artillery Construction - Expansions',
+		'Engineer Artillery Construction Expansions',
 		'Land Formations - Artillery',
         
-		'Engineer Nuke Construction - Expansions',
+		'Engineer Nuke Construction Expansions',
 		'Land Formations - Nukes',
 	
         # ==== EXPERIMENTALS ==== #
-		'Engineer T4 Land Construction - Expansions',
+		'Engineer T4 Construction Land - Expansions',
 		'Engineer T4 Economy Construction - Expansions',
 		
 		'Land Formations - Experimentals',
@@ -81,12 +81,12 @@ BaseBuilderTemplate {
 		'Factory Production - Torpedo Bombers',
 		'Air Formations - Water Map',
 		
-		'Factory Producion - Land - Water Map',
+		'Factory Production - Land - Water Map',
 		'Land Formations - Water Map',
 		
 		'Land Formations - Amphibious',
 		
-		'Engineer T4 Air Construction - Water Map - Expansions',
+		'Engineer T4 Construction Air - Water Map - Expansions',
 	},
 	
 	LandOnlyBuilders = {},

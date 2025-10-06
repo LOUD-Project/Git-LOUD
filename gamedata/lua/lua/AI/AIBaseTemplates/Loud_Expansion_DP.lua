@@ -27,13 +27,13 @@ BaseBuilderTemplate {
 		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
-		'Engineer Artillery Construction - Expansions',
+		'Engineer Artillery Construction Expansions',
 		'Land Formations - Artillery',
 
         # ==== EXPERIMENTALS ==== #
-		'Engineer T4 Land Construction - Expansions',
+		'Engineer T4 Construction Land - Expansions',
         
-        'Engineer T4 Air Construction - Expansions',
+        'Engineer T4 Construction Air - Expansions',
 		
 		'Land Formations - Experimentals',
         
@@ -52,14 +52,14 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 		'Air Formations - Water Map',
 		'Land Formations - Water Map',
-		'Engineer T4 Air Construction - Water Map - Expansions',
+		'Engineer T4 Construction Air - Water Map - Expansions',
 
 --		'Land Formations - Amphibious',
 	},
 	
 	LandOnlyBuilders = {
 		--'Land Formations - Land Only Map',
-		--'Engineer T4 Air Construction - Expansions',
+		--'Engineer T4 Construction Air - Expansions',
 	},
 	
 	LOUD_IS_Installed_Builders = {

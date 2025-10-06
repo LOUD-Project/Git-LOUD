@@ -38,7 +38,7 @@ BaseBuilderTemplate {
         'Engineer Optics Construction',        
 		'Engineer Nuke Construction',
 
-        'Engineer T4 Air Construction - Land Only Map',
+        'Engineer T4 Construction Air - Land Only Map',
         
         # ==== UNIT BUILDERS ==== #
         'Factory Production - Engineers',
@@ -46,9 +46,9 @@ BaseBuilderTemplate {
 		'Factory Production - Air',
 		'Factory Production - Transports',
         
-        'Factory Producion - Land - Land Only Map',
+        'Factory Production - Land - Land Only Map',
         
-		'Engineer T4 Land Construction',
+		'Engineer T4 Construction Land',
 
         # ==== PLATOON FORMATIONS ==== #
 		'Land Formations - Scouts',        
@@ -68,13 +68,13 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-		'Engineer T4 Air Construction - Water Map',
+		'Engineer T4 Construction Air - Water Map',
 		
         'Engineer Naval Base Construction',
 		'Engineer Naval DP Construction',
 		
 		'Factory Production - Torpedo Bombers',
-		'Factory Producion - Land - Water Map',
+		'Factory Production - Land - Water Map',
 
 		'Air Formations - Water Map',		
 		'Land Formations - Amphibious',
@@ -82,9 +82,9 @@ BaseBuilderTemplate {
 	},
 	
 	LandOnlyBuilders = {
-		--'Engineer T4 Air Construction - Land Only Map',
+		--'Engineer T4 Construction Air - Land Only Map',
         
-		--'Factory Producion - Land - Land Only Map',
+		--'Factory Production - Land - Land Only Map',
         
 		--'Land Formations - Land Only Map',
 	},
