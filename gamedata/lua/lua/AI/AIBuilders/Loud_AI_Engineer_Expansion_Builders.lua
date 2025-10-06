@@ -923,7 +923,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval DP Construction',
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE', 60, 0, -999999, 75, 1, 'AntiSurface' }},
+			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE -AIR', 60, 0, -999999, 75, 1, 'AntiSurface' }},
         },
 		
         BuilderType = { 'T1','T2','T3' },
@@ -939,10 +939,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval DP Construction',
 				
                 LocationRadius = 1200,
 				
-                MarkerUnitCategory = 'OVERLAYSONAR SONAR INTELLIGENCE',
-                MarkerRadius = 120,
+                MarkerUnitCategory = 'OVERLAYSONAR SONAR INTELLIGENCE -AIR',
+                MarkerRadius = 60,
                 MarkerUnitCount = 0,
 
+                ThreatMin = -999999,
                 ThreatMax = 75,
                 ThreatRings = 1,
                 ThreatType = 'AntiSurface',
