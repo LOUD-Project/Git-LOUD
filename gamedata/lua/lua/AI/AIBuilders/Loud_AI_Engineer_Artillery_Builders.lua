@@ -5,21 +5,7 @@ local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 
-local LessThan20MinutesRemain = function(self, aiBrain)
-
-	if aiBrain.VictoryTime then
-
-		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 20 ) ) then	-- less than 20 minutes left
-
-			return 0, false
-
-		end
-
-	end
-
-	return self.Priority, true
-
-end
+local CategoryRestricted = import('/lua/game.lua').CategoryRestricted
 
 local LessThan30MinutesRemain = function(self, aiBrain)
 
@@ -38,8 +24,7 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 end
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3',
 	
@@ -49,7 +34,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan20MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('STRATEGICARTILLERY') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -92,7 +88,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('EXPERIMENTALARTILLERY') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
 		InstanceCount = 1,
 		
@@ -132,8 +139,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3 Expansions',
 	
@@ -143,7 +149,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan20MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('STRATEGICARTILLERY') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -189,7 +206,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('EXPERIMENTALARTILLERY') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
 		InstanceCount = 1,
 		
@@ -229,9 +257,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
     },
 }
 
-
-BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction', BuildersRestriction = 'NUKE', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Nuke Silo',
 	
@@ -241,7 +267,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('NUKE') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
@@ -276,10 +313,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction Expansions', BuildersRestriction = 'NUKE', BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Nuke Silo - Expansion',
+    Builder {BuilderName = 'Nuke Silo Expansions',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -287,7 +323,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
 		
         Priority = 750,
 		
-		PriorityFunction = LessThan30MinutesRemain,
+		PriorityFunction = function(self, aiBrain)
+        
+            if CategoryRestricted('NUKE') then
+                return 0, false
+            end
+
+            if LessThan30MinutesRemain(self, aiBrain) then
+                return 0, false
+            end
+
+            return self.Priority, true            
+        end,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },		

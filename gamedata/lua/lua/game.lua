@@ -103,6 +103,21 @@ function GetConstructEconomyModel(builder, EconomyData, BuildRate)
     
 end
 
+function CategoryRestricted( category )
+
+    if ScenarioInfo.Options.RestrictedCategories then
+    
+        for k, v in ScenarioInfo.Options.RestrictedCategories do
+
+            if category == v then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 function UnitRestricted(unit, unitId)
 
     if ScenarioInfo.Options.RestrictedCategories then     -- if restrictions defined
@@ -240,7 +255,7 @@ function CacheRestrictedUnitLists()
     end
 	
     if ScenarioInfo.Options.RestrictedCategories[1] then
-        LOG("RESTRICTED UNIT END")
+        LOG("RESTRICTED UNIT END "..repr(ScenarioInfo.Options.RestrictedCategories) )
     end
 	
 	_UnitRestricted_checked = true

@@ -6,6 +6,9 @@ local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local Game = import('/lua/game.lua')
+
+
 local GetArmyUnitCap                = GetArmyUnitCap
 local GetArmyUnitCostTotal          = GetArmyUnitCostTotal
 
@@ -439,6 +442,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         Priority = 600,
 
         PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if Game.WeaponRestricted('StrategicMissile') then
+                return 0, false
+            end
             
             if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
                 return (self.OldPriority or self.Priority), true
