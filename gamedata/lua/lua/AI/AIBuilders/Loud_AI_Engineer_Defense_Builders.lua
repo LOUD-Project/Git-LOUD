@@ -537,13 +537,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.LandRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -664,7 +664,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.LandRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -732,13 +732,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.LandRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -808,7 +808,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -872,7 +872,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -982,7 +982,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -1139,13 +1139,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.LandRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -1286,7 +1286,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 50 then
 
@@ -1362,7 +1362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 50 then
+            if threat > 75 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -1655,7 +1655,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 50 then
+            if threat > 75 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -1730,7 +1730,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 50 then
+            if threat > 75 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2601,7 +2601,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 
             end
 
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -2726,7 +2726,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 
             end
 
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -2940,7 +2940,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 175 then
 
@@ -4705,7 +4705,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 
             end
 
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
             if threat > 125 then
 
