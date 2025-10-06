@@ -107,7 +107,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             -- don't build LABs for typical combat - but numbers count when you're winning
             { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 60, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 		},
 		
 		BuilderType = {'LandT1'},
@@ -122,7 +122,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 72, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 60, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
