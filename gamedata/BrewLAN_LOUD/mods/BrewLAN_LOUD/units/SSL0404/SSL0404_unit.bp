@@ -258,7 +258,7 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         StandUpright = false,
         TurnRadius = 4,
-        TurnRate = 17,
+        TurnRate = 15,
     },
     
     SelectionSizeX = 4,
@@ -307,7 +307,7 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 2340,
+            Damage = 2100,
             DamageRadius = 0,
             DamageType = 'ShieldMult0.5',
             
@@ -315,8 +315,8 @@ UnitBlueprint {
             
             DoNotCollideList = { 'MISSILE' },
             
-            EnergyRequired = 23270,         -- 13 second charge cycle
-            EnergyDrainPerSecond = 1790,
+            EnergyRequired = 24150,         -- 15 second charge cycle
+            EnergyDrainPerSecond = 1610,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -327,7 +327,7 @@ UnitBlueprint {
             
             Label = 'MainGun',
             
-            MaxRadius = 120,
+            MaxRadius = 112,
             MinRadius = 30,
             
             MuzzleChargeDelay = 2.5,
@@ -335,10 +335,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Barrel',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Barrel' },
             },
 
             RackRecoilDistance = -5,
@@ -347,10 +344,10 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.08,          -- controlled by charge (23.4k dmg every 13 seconds = 1800 DPS)
+            RateOfFire = 0.08,          -- controlled by charge (21k dmg every 15 seconds = 1400 DPS)
             
             SlavedToBody = true,
-            SlavedToBodyArcRange = 30,
+            SlavedToBodyArcRange = 26,
             
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -372,8 +369,8 @@ UnitBlueprint {
             TurretPitchSpeed = 22,
             
             TurretYaw = 0,
-            TurretYawRange = 35,
-            TurretYawSpeed = 17,
+            TurretYawRange = 30,
+            TurretYawSpeed = 12,
             
             Turreted = true,
         },
@@ -403,8 +400,8 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyRequired = 420,           -- a 12 second charge cycle
-            EnergyDrainPerSecond = 35,
+            EnergyRequired = 420,           -- a 14 second charge cycle
+            EnergyDrainPerSecond = 30,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -416,7 +413,7 @@ UnitBlueprint {
             
             Label = 'MainTracer',
             
-            MaxRadius = 120,
+            MaxRadius = 112,
             MinRadius = 30,
             
             NotExclusive = true,
@@ -424,10 +421,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
             
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Barrel',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Barrel' },
             },
 
             RackSalvoFiresAfterCharge = true,
@@ -435,7 +429,7 @@ UnitBlueprint {
             RateOfFire = 0.185,
             
             SlavedToBody = true,
-            SlavedToBodyArcRange = 30,
+            SlavedToBodyArcRange = 26,
             
             TargetCheckInterval = 999999999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
