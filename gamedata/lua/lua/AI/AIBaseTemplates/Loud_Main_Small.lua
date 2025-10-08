@@ -53,8 +53,11 @@ BaseBuilderTemplate {
         'Land Formations - Land Only Map',
 
         # ==== AIR UNIT BUILDERS ==== #
-		'Factory Production - Air',
-		'Factory Production - Transports',
+		'Factory Production Air - Scouts',
+		'Factory Production Air - Fighters',
+		'Factory Production Air - Bombers',
+		'Factory Production Air - Gunships',
+		'Factory Production Air - Transports',
 		
 		'Air Formations - Hunt',
 		'Air Formations - Point Guards',        
@@ -86,7 +89,7 @@ BaseBuilderTemplate {
         'Engineer Naval Base Construction',
 		'Engineer Naval DP Construction',
 		
-		'Factory Production - Torpedo Bombers',
+		'Factory Production Air - Torpedo Bombers',
 		'Air Formations - Water Map',
 		
 		'Factory Production - Land - Water Map',
