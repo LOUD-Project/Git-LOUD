@@ -34,7 +34,8 @@ BaseBuilderTemplate {
 		'Engineer T4 Shield Construction',
         'Engineer Misc Construction',
 		'Engineer Mass Point Defense Construction',
-		'Engineer Artillery Construction',
+		'Engineer Artillery Construction T3',
+		'Engineer Artillery Construction T4',
         'Engineer Optics Construction',        
 		'Engineer Nuke Construction',
 

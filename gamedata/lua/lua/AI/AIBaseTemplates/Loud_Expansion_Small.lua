@@ -60,7 +60,9 @@ BaseBuilderTemplate {
 		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
-		'Engineer Artillery Construction Expansions',
+		'Engineer Artillery Construction T3 Expansions',
+		'Engineer Artillery Construction T4 Expansions',
+
 		'Land Formations - Artillery',
         
 		'Engineer Nuke Construction Expansions',

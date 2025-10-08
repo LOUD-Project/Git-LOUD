@@ -24,7 +24,7 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 end
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3', BuildersRestriction = 'STRATEGICARTILLERY', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3',
 	
@@ -35,10 +35,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('STRATEGICARTILLERY') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
@@ -78,6 +74,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType
             }
         }
     },
+}
+
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4', BuildersRestriction = 'EXPERIMENTALARTILLERY', BuildersType = 'EngineerBuilder',
 	
 	-- this platoon covers Mavor, Scathis, Ylonna Oss & Salvation
     Builder {BuilderName = 'Artillery Experimental',
@@ -89,10 +88,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('EXPERIMENTALARTILLERY') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
@@ -139,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction', BuildersType
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction Expansions', BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3 Expansions', BuildersRestriction = 'STRATEGICARTILLERY', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Artillery T3 Expansions',
 	
@@ -150,10 +145,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction Expansions', B
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('STRATEGICARTILLERY') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
@@ -197,6 +188,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction Expansions', B
             }
         }
     },
+}
+
+BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4 Expansions', BuildersRestriction = 'EXPERIMENTALARTILLERY', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Artillery Experimental Expansions',
 	
@@ -207,10 +201,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction Expansions', B
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('EXPERIMENTALARTILLERY') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
@@ -268,10 +258,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction', BuildersRestricti
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('NUKE') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
@@ -324,10 +310,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction Expansions', Builde
         Priority = 750,
 		
 		PriorityFunction = function(self, aiBrain)
-        
-            if CategoryRestricted('NUKE') then
-                return 0, false
-            end
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false

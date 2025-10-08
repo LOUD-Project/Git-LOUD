@@ -63,7 +63,8 @@ BaseBuilderTemplate {
 		'Air Formations - Point Guards',        
 		
 		# ==== ARTILLERY BUILDERS ==== #
-		'Engineer Artillery Construction',
+		'Engineer Artillery Construction T3',
+        'Engineer Artillery Construction T4',
 		'Engineer Nuke Construction',
 
 		'Land Formations - Artillery',

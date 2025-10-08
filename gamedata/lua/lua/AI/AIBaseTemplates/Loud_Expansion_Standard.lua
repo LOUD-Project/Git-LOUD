@@ -30,7 +30,8 @@ BaseBuilderTemplate {
         'Engineer Radar Construction - Expansions',
 		'Engineer T4 Shield Construction - Expansions',
         'Engineer Misc Construction - Expansions',
-		'Engineer Artillery Construction Expansions',
+		'Engineer Artillery Construction T3 Expansions',
+		'Engineer Artillery Construction T4 Expansions',
 		'Engineer Nuke Construction Expansions',
         'Engineer Optics Construction',
         
