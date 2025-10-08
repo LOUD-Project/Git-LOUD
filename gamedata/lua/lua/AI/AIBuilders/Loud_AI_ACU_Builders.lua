@@ -160,7 +160,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 	
 		-- this function removes the builder (like original function BuildOnce)
 		PriorityFunction = function(self, aiBrain)
-			return 0, false
+            if GetGameTimeSeconds() > 12 then
+                return 0, false
+            end
+
+            return self.Priority, true
 		end,
 		
         BuilderConditions = {
@@ -195,7 +199,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 	
 		-- this function removes the builder (like original function BuildOnce)
 		PriorityFunction = function(self, aiBrain)
-			return 0, false
+            if GetGameTimeSeconds() > 12 then
+                return 0, false
+            end
+            
+            return self.Priority, true
 		end,
 		
         BuilderConditions = {
@@ -228,7 +236,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 	
 		-- this function removes the builder (like original function BuildOnce)
 		PriorityFunction = function(self, aiBrain)
-			return 0, false
+            if GetGameTimeSeconds() > 12 then
+                return 0, false
+            end
+            
+            return self.Priority, true
 		end,
 		
         BuilderConditions = {
@@ -944,6 +956,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
@@ -974,6 +987,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
@@ -1004,6 +1018,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
@@ -1034,6 +1049,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
    			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
