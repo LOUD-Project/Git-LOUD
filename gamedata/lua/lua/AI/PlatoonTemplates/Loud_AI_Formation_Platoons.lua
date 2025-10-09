@@ -457,7 +457,7 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 PlatoonTemplate { Name = 'T1MassGuard',
 
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 5, 'Attack', 'AttackFormation' },
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE) - categories.SCOUT - categories.EXPERIMENTAL, 2, 6, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 2, 'Artillery', 'AttackFormation' },
 		{ LANDANTIAIR, 0, 2, 'Support', 'AttackFormation' },		
 		{ LANDSHIELD, 0, 1, 'Support', 'none' },
@@ -481,7 +481,7 @@ PlatoonTemplate { Name = 'T1AmphibMassGuard',
 PlatoonTemplate { Name = 'T1PointGuardArtillery',
 
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 0, 5, 'Attack', 'AttackFormation' },    
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE) - categories.SCOUT - categories.EXPERIMENTAL, 0, 5, 'Attack', 'AttackFormation' },    
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 3, 8, 'Artillery', 'AttackFormation' },
 		{ LANDANTIAIR, 0, 5, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 1, 'Support', 'none' },
