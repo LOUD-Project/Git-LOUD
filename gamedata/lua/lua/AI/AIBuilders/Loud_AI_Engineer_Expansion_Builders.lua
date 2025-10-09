@@ -119,9 +119,7 @@ local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
 	return 10, true
 end
 
-BuilderGroup {BuilderGroupName = 'Engineer Land Base Construction',
-
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersType = 'EngineerBuilder',
     
     -- Builds land expansion bases at both Start and Expansion points
 	-- but only when THIS location has at least 4 upgraded factories
@@ -338,9 +336,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Base Construction',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Land DP Construction',
-
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP with a T2/T3 engineer
 	Builder {BuilderName = 'DP Expansion',
@@ -613,9 +609,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land DP Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Naval Base Construction',
-
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersType = 'EngineerBuilder',
 
 	-- start the primary naval base only when you have 4 or more factories at this base
 	-- only the MAIN base will do this -- Additional naval bases are only initiated by
@@ -897,8 +891,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Base Construction',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Naval DP Construction',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersType = 'EngineerBuilder',
 
 	-- build a naval position that is closer to the goal than the current primary position
     Builder {BuilderName = 'Naval DP Expansion',

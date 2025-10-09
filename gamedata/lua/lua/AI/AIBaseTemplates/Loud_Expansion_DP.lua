@@ -24,7 +24,6 @@ BaseBuilderTemplate {
 
 		# Create Platoons with Air Units
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3 Expansions',
@@ -35,7 +34,7 @@ BaseBuilderTemplate {
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Construction Land - Expansions',
         
-        'Engineer T4 Construction Air - Expansions',
+        'Engineer T4 Construction Air - Land Map - Expansions',
 		
 		'Land Formations - Experimentals',
         
@@ -61,7 +60,7 @@ BaseBuilderTemplate {
 	
 	LandOnlyBuilders = {
 		--'Land Formations - Land Only Map',
-		--'Engineer T4 Construction Air - Expansions',
+		--'Engineer T4 Construction Air - Land Map - Expansions',
 	},
 	
 	LOUD_IS_Installed_Builders = {

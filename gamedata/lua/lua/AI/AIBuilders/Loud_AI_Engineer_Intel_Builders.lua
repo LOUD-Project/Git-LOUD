@@ -19,8 +19,7 @@ local AboveUnitCap80 = function( self,aiBrain )
 	return (self.OldPriority or self.Priority), true
 end
 
-BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Radar Engineer T1 - Expansion',
 	
@@ -87,8 +86,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Sonar Engineer',
 	
@@ -121,8 +119,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 'EngineerBuilder',
     
     Builder {BuilderName = 'Optics Aeon',
 

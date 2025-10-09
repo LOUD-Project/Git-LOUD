@@ -21,8 +21,8 @@ BaseBuilderTemplate {
 		'Engineer T4 Economy Construction - Expansions',
 
         # === EXPANSIONS ==== #
-		'Engineer Land Base Construction',
-		'Engineer Land DP Construction',
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
         
         # === DEFENSES === #
         'Engineer Base Defense Construction - Core - Expansions',
@@ -37,17 +37,19 @@ BaseBuilderTemplate {
         
         # ==== UNIT BUILDERS ==== #
         'Factory Production - Engineers',        
-		'Factory Production - Land',
+
+		'Factory Production Land',
+
 		'Factory Production Air - Scouts',
 		'Factory Production Air - Fighters',
 		'Factory Production Air - Bombers',
 		'Factory Production Air - Gunships',
 		'Factory Production Air - Transports',
         
-        'Factory Production - Land - Land Only Map',
+        'Factory Production Land - Land Only Map',
         
 		'Engineer T4 Construction Land - Expansions',
-        'Engineer T4 Construction Air - Expansions',
+        'Engineer T4 Construction Air - Land Map - Expansions',
         
 		# === PLATOON FORMATIONS === #
 		'Land Formations - Point Guards',
@@ -56,7 +58,6 @@ BaseBuilderTemplate {
         'Land Formations - Land Only Map',
 
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',        
 
 		'Land Formations - Artillery',
 		'Land Formations - Nukes',
@@ -73,24 +74,18 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 		'Engineer T4 Construction Air - Water Map - Expansions',
         
-        'Engineer Naval Base Construction',
-		'Engineer Naval DP Construction',
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
 		
 		'Factory Production Air - Torpedo Bombers',
-		'Factory Production - Land - Water Map',
+		'Factory Production Land - Water Map',
         
 		'Air Formations - Water Map',
 		'Land Formations - Amphibious',		
 		'Land Formations - Water Map',
 	},
 	
-	LandOnlyBuilders = {
-		--'Engineer T4 Construction Air - Expansions',
-        
-		--'Factory Production - Land - Land Only Map',
-        
-		--'Land Formations - Land Only Map',
-	},
+	LandOnlyBuilders = {},
 
 	LOUD_IS_Installed_Builders = {
 		'Engineer Mass Fab Construction - Expansions - LOUD_IS',

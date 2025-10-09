@@ -96,8 +96,7 @@ end
 -- the balance between land and air factories -- we try to keep them in lock step with each other
 -- the eco conditions -- sufficient storage -- and an economy that's been positive for a while
 -- we have overrides for high production ratios (useful when enemy is trying to specialize and AI needs to compensate)
-BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Land Factory Rebuild',
 	
@@ -342,8 +341,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Land Factory Rebuild - Expansion',
 	
@@ -588,8 +586,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Naval Factory Builder',
 	
@@ -671,8 +668,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
 
 
 -- In the Standard base, the Gate is built to the rear of base -- see radius	
-BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Quantum Gate',
 	
@@ -769,8 +765,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
 }
 
 -- In a small base, the Gate is tucked into the interior -- note the radius value
-BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Base',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Base', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Quantum Gate - Small Base',
 	

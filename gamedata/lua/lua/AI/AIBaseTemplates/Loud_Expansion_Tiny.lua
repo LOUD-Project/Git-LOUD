@@ -20,9 +20,8 @@ BaseBuilderTemplate {
         'Engineer Misc Construction - Expansions',
         
         # ==== LAND UNIT BUILDERS ==== #
-		'Factory Production - Land',
-        
-        'Factory Production - Land - Land Only Map',
+		'Factory Production Land',
+        'Factory Production Land - Land Only Map',
         
 		# Create Platoons with Land Units
 		'Land Formations - Point Guards',
@@ -40,12 +39,11 @@ BaseBuilderTemplate {
 
 		# Create Platoons with Air Units
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',        
 	
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Construction Land - Expansions',
         
-        'Engineer T4 Construction Air - Expansions',
+        'Engineer T4 Construction Air - Land Map - Expansions',
 		
 		'Land Formations - Experimentals',
 		'Air Formations - Experimentals',
@@ -58,28 +56,22 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-        'Engineer Naval Base Construction',
-		'Engineer Naval DP Construction',
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
 		
 		'Factory Production Air - Torpedo Bombers',
-		'Air Formations - Water Map',
-		
-		'Factory Production - Land - Water Map',
-		'Land Formations - Water Map',
+		'Factory Production Land - Water Map',
 
-		'Land Formations - Amphibious',
+		'Air Formations - Water Map',
+		'Land Formations - Water Map',
+        'Land Formations - Amphibious',
 		
 		'Engineer T4 Construction Air - Water Map - Expansions',
 	},
 	
-	LandOnlyBuilders = {
-		--'Factory Production - Land - Land Only Map',
-		--'Land Formations - Land Only Map',
-		--'Engineer T4 Construction Air - Expansions',
-	},
+	LandOnlyBuilders = {},
 
-	LOUD_IS_Installed_Builders = {
-	},
+	LOUD_IS_Installed_Builders = {},
 	
 	LOUD_IS_Not_Installed_Builders = {
 		'Engineer Mass Storage Construction',

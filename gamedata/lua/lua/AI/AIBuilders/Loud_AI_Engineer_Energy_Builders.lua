@@ -63,8 +63,7 @@ local First60Minutes = function( self,aiBrain )
 end
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T1 Power Template',
 	
@@ -297,10 +296,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 	
 }
 
--- Energy Building is focused mainly at the MAIN position but 
--- additional energy will be built when unit count allows it
-BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', BuildersType = 'EngineerBuilder',
    
     Builder {BuilderName = 'Hydrocarbon - Expansion',
     
@@ -382,10 +378,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
     },
 }
 
--- As with expansions, Naval bases will build some additional power
--- provided we're well under unit cap
-BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersType = 'EngineerBuilder',
 
     -- in LOUD, T2 & T3 Pgens are capable of building on seafloor - this will do that
     Builder {BuilderName = 'T2 Power - Naval',
@@ -516,8 +509,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 }
 
 -- this only comes into play when IS is turned on - rings local MEX with power
-BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Mass Energy Adjacency',
 	
@@ -572,9 +564,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
 	
 }
 
--- only used when IS is turned off
-BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
-    BuildersType = 'EngineerBuilder',
+-- used when IS is turned off
+BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction', BuildersType = 'EngineerBuilder',
 	
 	Builder {BuilderName = 'Energy Storage - HydroCarbon',
     
@@ -610,8 +601,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
 
 --[[
 
-BuilderGroup {BuilderGroupName = 'Energy Facility',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Energy Facility', BuildersType = 'EngineerBuilder',
 	
 -- starts the production of T3 Power by building a sub-facility at the rear of the base
 -- maps with starting positions too close to the edge of the map - or on rugged ground
@@ -735,8 +725,7 @@ BuilderGroup {BuilderGroupName = 'Energy Facility',
     },
 }	
 
-BuilderGroup {BuilderGroupName = 'Energy Facility - LOUD_IS',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Energy Facility - LOUD_IS', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T3 Power Facility - LOUD_IS',
         PlatoonTemplate = 'EngineerBuilder',

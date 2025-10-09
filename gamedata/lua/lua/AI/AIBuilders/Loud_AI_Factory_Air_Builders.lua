@@ -484,7 +484,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
     },    
 }
 
-
 BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', BuildersRestriction = 'AIRTRANSPORTS', BuildersType = 'FactoryBuilder',
 
     --- Transports are built on an 'as Needed' basis - that need is created when a platoon looks for transport and cannot find enough

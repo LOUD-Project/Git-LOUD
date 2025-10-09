@@ -36,8 +36,7 @@ local AboveUnitCap70 = function( self,aiBrain )
 	return (self.OldPriority or self.Priority), true
 end
 
-BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType = 'FactoryBuilder',
     
     -- These first four builders at 900 priority insure that
     -- a bare minimum of engineers are created for all tiers

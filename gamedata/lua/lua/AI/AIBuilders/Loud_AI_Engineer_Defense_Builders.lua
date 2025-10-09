@@ -154,8 +154,7 @@ end
 --- THE MAIN BASE ---
 ---------------------
 --- CORE ---
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T1 Base Defense - PD',
 	
@@ -1252,8 +1251,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Core',
     
@@ -1619,8 +1617,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Core - IS ',
     
@@ -1952,8 +1949,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Experimental Shield',
 	
@@ -2024,8 +2020,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 }
 
 --- AIRSTAGING, etc. --
-BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Staging T1',
 	
@@ -2130,8 +2125,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 }
 
 --- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
-BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Staging T1 - Small Base',
 	
@@ -2235,8 +2229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 }
 
 --- PERIMETER -- 
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T1 Perimeter PD - Small Map',
 	
@@ -3113,8 +3106,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T3 Perimeter Shield Augmentation',
     
@@ -3180,8 +3172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter',
 }
 
 --- PICKET LINE -- the most exterior belt of defense - usually AA
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Line',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Line', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T3 Picket AA',
     
@@ -3243,8 +3234,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 }
 
 --- DEFEND LOCAL MASS POINTS
-BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T1 Extractor Defense',
 	
@@ -3467,8 +3457,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 --- LAND EXPANSIONS ---
 
 --- CORE ---
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T2 Base PD - Expansion',
 	
@@ -4139,8 +4128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Inner - Expansion',
     
@@ -4285,8 +4273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LOUD_IS',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LOUD_IS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Shields - Inner - Expansion - IS ',
     
@@ -4427,8 +4414,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
     },	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Experimental Shield - Expansion',
 	
@@ -4494,8 +4480,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 }
 
 --- PERIMETER ---
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T2 Perimeter PD - Expansion',
     
@@ -4952,9 +4937,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 }
 
--- AIRSTAGING, etc.
-BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+--- AIRSTAGING, etc.
+BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Staging - Expansion',
 	
@@ -5093,8 +5077,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 ------------------------
 --- NAVAL EXPANSIONS ---
 
-BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T2 Defenses Naval',
 	
@@ -5326,8 +5309,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Naval AirStaging',
 	
@@ -5369,8 +5351,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval',
 ------------------------
 --- DEFENSIVE POINTS ---
 
-BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T2 DP STD Power',
 	
@@ -6272,8 +6253,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Naval DP Sonar',
 	
@@ -6629,8 +6609,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
 
 --[[
-BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'DP SML Radar',
 	

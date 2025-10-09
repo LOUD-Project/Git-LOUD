@@ -27,8 +27,7 @@ local AboveUnitCap85 = function( self,aiBrain )
 end
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'EngineerBuilder',
 
 
     Builder {BuilderName = 'Mass Extractor T1 - 250',
@@ -426,8 +425,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point', BuildersType = 'EngineerBuilder',
     
     Builder {BuilderName = 'Mass Extractor T1 - 150 - DP',
 	
@@ -518,8 +516,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions', BuildersType = 'EngineerBuilder',
     
     Builder {BuilderName = 'Mass Extractor T1 - 150 - Expansion',
 	
@@ -611,8 +608,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Mass Extractor T1 - 250 - Naval',
 	
@@ -757,8 +753,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Mass Fab Expansion - Template',
     
@@ -816,8 +811,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - LOUD_IS',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - LOUD_IS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Mass Fab - Expansion - IS',
     
@@ -869,8 +863,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 
 
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Mass Storage 600',
 	
@@ -971,8 +964,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP',
-	BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Mass Storage DP',
 	
@@ -1019,8 +1011,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'T2 Engineering Support - Base Template',
 	

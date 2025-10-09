@@ -11,8 +11,7 @@ local BHVR  = '/lua/ai/aibehaviors.lua'
 
 -- These are the basic tasks that cover non-specifc things 
 -- like reclaim, assist and repair
-BuilderGroup {BuilderGroupName = 'Engineer Tasks',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuilder',
     
 	-- a limited number of high priority shield repairing jobs
     Builder {BuilderName = 'Repair Shield',
@@ -627,8 +626,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', BuildersType = 'EngineerBuilder',
 	
 	Builder {BuilderName = 'Reclaim T1 Defenses',
 	
@@ -743,8 +741,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer Transfers',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Transfers', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T2 Engineer Transfers',
 	
@@ -830,11 +827,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
     },
 }
 
-
 -- These are the basic tasks for an engineer at a Defensive Point
 -- but includes all general tasks as well as transfers & local MEX building
-BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'EngineerBuilder',
 
     -- if no alert
     -- if high unit count is triggered - start reclaiming T2 defense structures

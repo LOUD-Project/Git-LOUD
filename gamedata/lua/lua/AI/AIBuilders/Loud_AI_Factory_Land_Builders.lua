@@ -67,7 +67,7 @@ local Map10korLess = function(self,aiBrain)
 end
 
 -- This group covers those units that are universal to both land and water maps
-BuilderGroup {BuilderGroupName = 'Factory Production - Land',
+BuilderGroup {BuilderGroupName = 'Factory Production Land',
     BuildersType = 'FactoryBuilder',
 	
     -- land scouts are reduced priority on smaller maps
@@ -471,7 +471,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Production - Land - Land Only Map',
+BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
     BuildersType = 'FactoryBuilder',
 
 	-- T2 Flak Vehicle 
@@ -770,7 +770,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land - Land Only Map',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Production - Land - Water Map',
+BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
     BuildersType = 'FactoryBuilder',
 
 

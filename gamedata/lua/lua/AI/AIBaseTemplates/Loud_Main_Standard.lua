@@ -24,8 +24,8 @@ BaseBuilderTemplate {
 		'Engineer Eng Station Construction',
 
         # ==== EXPANSIONS ==== #
-		'Engineer Land Base Construction',
-		'Engineer Land DP Construction',
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
 
         # ==== DEFENSES ==== #
         'Engineer Base Defense Construction - Core',
@@ -39,11 +39,11 @@ BaseBuilderTemplate {
         'Engineer Optics Construction',        
 		'Engineer Nuke Construction',
 
-        'Engineer T4 Construction Air - Land Only Map',
+        'Engineer T4 Construction Air - Land Map',
         
         # ==== UNIT BUILDERS ==== #
         'Factory Production - Engineers',
-		'Factory Production - Land',
+		'Factory Production Land',
 
 		'Factory Production Air - Scouts',
 		'Factory Production Air - Fighters',
@@ -51,7 +51,7 @@ BaseBuilderTemplate {
 		'Factory Production Air - Gunships',
 		'Factory Production Air - Transports',
         
-        'Factory Production - Land - Land Only Map',
+        'Factory Production Land - Land Only Map',
         
 		'Engineer T4 Construction Land',
 
@@ -68,31 +68,24 @@ BaseBuilderTemplate {
         
 		'Air Formations - Scouts',        
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',
 		'Air Formations - Experimentals',
     },
 	
 	WaterMapBuilders = {
 		'Engineer T4 Construction Air - Water Map',
 		
-        'Engineer Naval Base Construction',
-		'Engineer Naval DP Construction',
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
 		
 		'Factory Production Air - Torpedo Bombers',
-		'Factory Production - Land - Water Map',
+		'Factory Production Land - Water Map',
 
 		'Air Formations - Water Map',		
 		'Land Formations - Amphibious',
 		'Land Formations - Water Map',
 	},
 	
-	LandOnlyBuilders = {
-		--'Engineer T4 Construction Air - Land Only Map',
-        
-		--'Factory Production - Land - Land Only Map',
-        
-		--'Land Formations - Land Only Map',
-	},
+	LandOnlyBuilders = {},
 	
 	StandardCommanderUpgrades = {
 		'ACU Upgrades LOUD',
@@ -104,7 +97,6 @@ BaseBuilderTemplate {
     
 	-- Integrated Storage --
 	LOUD_IS_Installed_Builders = {
-    
         'Engineer Mass Energy Construction',
 		'Engineer T4 Economy Defense Construction - LOUD IS',
 		'Engineer Shield Construction - LOUD_IS',

@@ -22,9 +22,9 @@ BaseBuilderTemplate {
 		'Engineer Defenses DP Naval',		-- rebuild the DP
 		
         # ==== EXPANSION ==== #
-		'Engineer Land Base Construction',
-		'Engineer Land DP Construction',
-		'Engineer Naval DP Construction',
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
+		'Engineer Construction - Naval DP',
 		
         # ==== OPERATIONS ==== #		
         'Naval Formations',
@@ -34,7 +34,6 @@ BaseBuilderTemplate {
 
 		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Air Formations - Point Guards',
 		
 		'Land Formations - Amphibious',
 		

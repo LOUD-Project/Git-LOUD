@@ -45,8 +45,7 @@ local DESTROYER     = categories.DESTROYER
 local FRIGATE       = categories.FRIGATE
 local SUBMARINE     = categories.SUBMARINE + categories.xes0102
 
-BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
-	BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Sea Scout Formations', BuildersType = 'PlatoonFormBuilder',
 
     Builder {BuilderName = 'Water Scout Formation',
 	
@@ -92,8 +91,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 
 }
 
-BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
-	BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small', BuildersType = 'PlatoonFormBuilder',
 
     Builder {BuilderName = 'Water Scout Formation - Small',
 	
@@ -138,9 +136,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
     },
 }
 
-
-BuilderGroup {BuilderGroupName = 'Naval Formations',
-    BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonFormBuilder',
 
     Builder {BuilderName = 'Water Scout Formation - High Strength',
 	

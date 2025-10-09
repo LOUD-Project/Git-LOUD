@@ -141,8 +141,7 @@ end
 
 
 --  COMMANDER STARTS BASE
-BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game', BuildersType = 'EngineerBuilder',
 	
 --  All of these builders will get removed almost immediately but the ACU will select one of them first	
 --  Also note: This is the only place where the CommanderThread gets launched
@@ -261,8 +260,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 }
 
 --  COMMANDER TASKS AFTER START
-BuilderGroup {BuilderGroupName = 'ACU Tasks',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
     -- his most important role for first 45 mins
     -- if low on power and has sufficient mass stored
@@ -943,8 +941,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 
 
 -- VANILLA COMMANDER UPGRADES --
-BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'UEF CDR Upgrade',
 	
@@ -1115,8 +1112,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 --		than 2 upgrades to the same slot in the same enhancement list - so for
 --		that reason you'll see I had to split some of slot upgrades into 2 platoons
 
-BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'CDR Common Upgrade BOPACU - LCH',
 	

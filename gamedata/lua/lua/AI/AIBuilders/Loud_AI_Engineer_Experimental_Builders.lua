@@ -47,21 +47,10 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 	return (self.OldPriority or self.Priority), true
 end
 
--- the key distinction here is that we don't want to be building Experimentals unless we have the army to back it up
--- this means we don't go experimental unless we have a decent army, air force or navy - so we use the ratios for that
 
--- alternatively, if we have the level of resources required - but not the force to back it up - we'll opt for nuke
--- or artillery over experimental - since they have no ratio requirement
+-- Land Experimental are built using 4 definitions - to have control over which ones get built - according to resource availability
 
--- Land Experimental are built using 4 definitions - the intention here is to have some economic control over which
--- ones get built - according to resource availability - lighter ones having lower eco needs
-
--- December 21, 2020 - The Changes here are too address the mixed bag of Experimentals, LOUD would be throwing at the player.
--- We want to see a more streamlined production of experimentals getting more Heavies and Heaviest of Experimentals onto the playing field
--- Nukes and Artillery Priority are untouched leaving now the Land Ratio to decide solely if we build Nukes and Artillery. 
-
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType = 'EngineerBuilder',
 
 -- This should be used for a light experimental - lowest eco requirements
     Builder {BuilderName = 'Land Experimental 1',
@@ -77,7 +66,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
 		InstanceCount = 3,
 		
         BuilderConditions = {
-			--{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
@@ -156,7 +144,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 750,
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
@@ -170,9 +158,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-            -- must have 4 shields up at this base
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
         },
@@ -203,7 +188,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 752,
+        Priority = 750,
 
 		PriorityFunction = LessThan30MinutesRemain,
 		
@@ -215,8 +200,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-            
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -243,8 +226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Land Exp 1 Expansion',
 	
@@ -256,10 +238,9 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 1,
+		InstanceCount = 2,
 		
         BuilderConditions = {
-			--{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
@@ -336,7 +317,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
-        Priority = 751,
+        Priority = 750,
 
 		PriorityFunction = LessThan20MinutesRemain,
 
@@ -348,8 +329,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.3 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-            
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -381,7 +360,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
-        Priority = 752,
+        Priority = 750,
 
 		PriorityFunction = LessThan30MinutesRemain,
 
@@ -393,8 +372,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-            
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -423,8 +400,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions',
 
 -- This BuilderGroup is used when a land solution from this base can be found
 -- to the current enemy - otherwise the Air version is used. 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Only Map',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map', BuildersRestriction = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
 	
 -- Like the land experimentals - we Tier the AirExps in 2 groups 
 -- We also have different priorities on land maps versus water maps - Air Exps more necessary on Water maps and trigger earlier
@@ -566,8 +542,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Only Map',
     },
 }	
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map', BuildersRestriction = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental 1 - Water Map',
 	
@@ -656,9 +631,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map',
     },
 }
 
-	
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map - Expansions', BuildersRestriction = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental - Land Map - Expansion',
 	
@@ -751,8 +724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Expansions',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Expansions', BuildersRestrictions = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental - Water Map - Expansion',
 	
@@ -839,41 +811,9 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Exp
 }
 
 
-	
-BuilderGroup {BuilderGroupName = 'Satellite Builders',
-    BuildersType = 'EngineerBuilder',
-	
-    -- Builder {BuilderName = 'Satellite Experimental',
-        -- PlatoonTemplate = 'EngineerBuilder',
-		-- PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        -- Priority = 0, 
-        -- BuilderConditions = {
-
-            -- { LUTL, 'UnitCapCheckLess', { .95 } },
-			-- { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 160 }},
-            -- { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.15 }},
-			-- { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.EXPERIMENTAL * categories.ORBITALSYSTEM}},
-			-- { UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ORBITALSYSTEM}},
-
-        -- },
-        -- BuilderType = 'Any',
-        -- BuilderData = {
-            -- Construction = {
-				-- Radius = 45,
-                -- NearBasePerimeterPoints = true,
-				-- BasePerimeterOrientation = 'FRONT',
-				-- Iterations = 1,
-                -- BuildStructures = {
-                    -- 'T4SatelliteExperimental',
-                -- },
-            -- }
-        -- }
-    -- },
-}
 
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Sea Experimental 1',
 	
@@ -963,8 +903,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Sea Experimental 1 Expansion',
 	
@@ -1057,8 +996,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental',
 	
@@ -1123,8 +1061,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental - Small Base',
 	
@@ -1191,8 +1128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base'
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental Defenses',
 	
@@ -1290,8 +1226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOUD IS',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOUD IS', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Economic Experimental Defenses - IS',
 	
@@ -1348,8 +1283,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 }
 
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Small Base',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Small Base', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental Defenses - Small Base',
 	
@@ -1447,8 +1381,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOUD IS - Small Base', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Economic Experimental Defenses - IS - Small Base',
 	
@@ -1506,8 +1439,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 
 
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental - Expansions',
 	
@@ -1554,8 +1486,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval',
-    BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Economic Experimental Naval',
 	

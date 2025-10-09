@@ -31,8 +31,8 @@ BaseBuilderTemplate {
         'ACU Tasks',
         
         # ==== EXPANSIONS ==== #
-		'Engineer Land Base Construction',
-		'Engineer Land DP Construction',
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
         
         # ==== DEFENSES ==== #
         'Engineer Base Defense Construction - Core',
@@ -43,8 +43,8 @@ BaseBuilderTemplate {
    		'Engineer Mass Point Defense Construction',
       
         # ==== LAND UNIT BUILDERS ==== #
-		'Factory Production - Land',
-        'Factory Production - Land - Land Only Map',
+		'Factory Production Land',
+        'Factory Production Land - Land Only Map',
         
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
@@ -60,7 +60,6 @@ BaseBuilderTemplate {
 		'Factory Production Air - Transports',
 		
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',        
 		
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3',
@@ -72,7 +71,7 @@ BaseBuilderTemplate {
 		
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Construction Land',
-        'Engineer T4 Construction Air - Land Only Map',
+        'Engineer T4 Construction Air - Land Map',
 
 		'Air Formations - Experimentals',        
 		'Land Formations - Experimentals',
@@ -87,19 +86,18 @@ BaseBuilderTemplate {
 	WaterMapBuilders = {
 		'Engineer T4 Construction Air - Water Map',
 		
-        'Engineer Naval Base Construction',
-		'Engineer Naval DP Construction',
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
 		
 		'Factory Production Air - Torpedo Bombers',
 		'Air Formations - Water Map',
 		
-		'Factory Production - Land - Water Map',
+		'Factory Production Land - Water Map',
 		'Land Formations - Water Map',
 		'Land Formations - Amphibious',
 	},
 	
-	LandOnlyBuilders = {
-	},
+	LandOnlyBuilders = {},
 	
 	StandardCommanderUpgrades = {
 		'ACU Upgrades LOUD',

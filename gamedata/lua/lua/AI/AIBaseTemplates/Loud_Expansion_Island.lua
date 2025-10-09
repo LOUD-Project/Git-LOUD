@@ -23,8 +23,8 @@ BaseBuilderTemplate {
         'Engineer Factory Construction - Expansions',
 
         # Create New Land Bases & Active DP
-		'Engineer Land Base Construction',
-		'Engineer Land DP Construction',
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
         
         # Build Defenses within the base
         'Engineer Base Defense Construction - Core - Expansions',
@@ -37,11 +37,7 @@ BaseBuilderTemplate {
 		# Various builds
         'Engineer Misc Construction - Expansions',
         
-        # ==== LAND UNIT BUILDERS ==== #
---		'Factory Production - Land',
-        
-		# Create Platoons with Land Units
-
+        # Create Platoons with Land Units
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
 
@@ -54,7 +50,6 @@ BaseBuilderTemplate {
 
 		# Create Platoons with Air Units
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards',        
 
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3 Expansions',
@@ -80,15 +75,14 @@ BaseBuilderTemplate {
     },
 	
 	WaterMapBuilders = {
-        'Engineer Naval Base Construction',
-		'Engineer Naval DP Construction',
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
 		
 		'Factory Production Air - Torpedo Bombers',
+		'Factory Production Land - Water Map',
+
 		'Air Formations - Water Map',
-		
-		'Factory Production - Land - Water Map',
 		'Land Formations - Water Map',
-		
 		'Land Formations - Amphibious',
 		
 		'Engineer T4 Construction Air - Water Map - Expansions',

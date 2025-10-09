@@ -35,8 +35,7 @@ local AIRT4         = categories.AIR * categories.EXPERIMENTAL
 
 -- These are the standard air scout patrols around all bases
 -- and will consume the first 5/6 scouts
-BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
-    BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction = 'AIRSCOUTS', BuildersType = 'PlatoonFormBuilder',
 	
     Builder {BuilderName = 'Air Scout - Peri - 200',
 	
@@ -179,10 +178,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		},
     },
 
-
--- Field air scouts come after that
-	
-    -- single plane formation
+    --- Field air scouts come after that
     Builder {BuilderName = 'Air Scout Standard',
     
         PlatoonTemplate = 'Air Scout Formation',
@@ -215,7 +211,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation
     Builder {BuilderName = 'Air Scout Pair',
     
         PlatoonTemplate = 'Air Scout Group',
@@ -254,7 +249,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
 
-	-- wing (5) formations at 60 minutes
     Builder {BuilderName = 'Air Scout Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
@@ -287,8 +281,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		
 		BuilderData = {},
     },
-    
-	-- squadron (9) formations after 75 minutes
+
     Builder {BuilderName = 'Air Scout Group',
     
         PlatoonTemplate = 'Air Scout Group Huge',
@@ -323,10 +316,40 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
 
+	-- this will forward Scouts to either primary land or sea attack base
+    Builder {BuilderName = 'Air Scout Reinforce Primary',
+	
+        PlatoonTemplate = 'Air Scout Group',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+        InstanceCount = 2,
+        
+        PlatoonAIPlan = 'ReinforceAirAI',
+        
+        Priority = 10,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 2 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
+		
+        BuilderConditions = {},
+		
+        BuilderData = {
+            LocationType = 'LocationType',
+        }, 
+		
+        BuilderType = 'Any',		
+    },
+	
 }
 
-BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
-    BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'PlatoonFormBuilder',
     
     ---------------
     --- BOMBERS ---
@@ -1644,329 +1667,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
 
-	-- this will forward Scouts to either primary land or sea attack base
-    Builder {BuilderName = 'Reinforce Primary - Scout Squadron',
-	
-        PlatoonTemplate = 'Air Scout Group',
-        
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-        InstanceCount = 2,
-        
-        PlatoonAIPlan = 'ReinforceAirAI',
-        
-        Priority = 10,
-
-		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRSCOUT, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            end
-
-            return NotPrimaryBase(self,aiBrain,manager), true
-		end,
-		
-        BuilderConditions = {},
-		
-        BuilderData = {
-            LocationType = 'LocationType',
-        }, 
-		
-        BuilderType = 'Any',		
-    },
-	
 }
 
-
-BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
-    BuildersType = 'PlatoonFormBuilder',
-
-    -- forms patrols around a base and distress response
---[[   
- 
-    Builder {BuilderName = 'Home Fighter Squadron',
-	
-        PlatoonTemplate = 'FighterEscort Large',
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'DistressResponseAI' },
-		
-        Priority = 0,
-        InstanceCount = 3,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER - AIRT4 }},
-			
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 200,
-			DistressTypes = 'Air',
-			DistressThreshold = 6,
-			
-            LocationType = 'LocationType',
-			
-			PointType = 'Marker',
-			PointCategory = 'BASE',
-			PointSourceSelf = true,
-			PointFaction = 'Self',
-			PointRadius = 150,
-			PointSort = 'Closest',
-			PointMin = 0,
-			PointMax = 150,
-			
-			StrCategory = nil,
-			StrRadius = 50,
-			StrTrigger = false,
-			StrMin = 0,
-			StrMax = 0,
-			
-			UntCategory = nil,
-			UntRadius = 50,
-			UntTrigger = false,
-			UntMin = 0,
-			UntMax = 0,
-			
-            PrioritizedCategories = {'AIR MOBILE -INTELLIGENCE'},
-			
-			GuardRadius = 300,
-			GuardTimer = 120,
-			
-			MissionTime = 180,
-			MergeLimit = 60,
-			
-			AggressiveMove = true,
-			
-			UseFormation = 'AttackFormation',
-			
-			SetPatrol = true,
-			PatrolRadius = 95,
-			
-        },    
-    },
-	
-	-- forms patrols around vacant DPs (within 5k) and distress response
-    Builder {BuilderName = 'Standard Fighter Squadron DP',
-	
-        PlatoonTemplate = 'FighterEscort Large',
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
-		
-        InstanceCount = 2,
-		
-        BuilderType = 'Any',
-		
-        Priority = 0,
-		
-        BuilderConditions = {
-		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
-			
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 200,
-			DistressTypes = 'Air',
-			DistressThreshold = 6,
-			
-            LocationType = 'LocationType',
-			
-			PointType = 'Marker',		-- find closest DP marker within 200-500 --
-			PointCategory = { 'Defensive Point', 'Naval Defensive Point' },
-			PointSourceSelf = true,
-			PointFaction = 'Self',
-			PointRadius = 750,
-			PointSort = 'Closest',
-			PointMin = 200,
-			PointMax = 750,
-			
-			StrCategory = categories.AIRSTAGINGPLATFORM - categories.MOBILE,	-- go only to those that DONT have an airstaging pad --
-			StrRadius = 50,
-			StrTrigger = true,
-			StrMin = -1,		--<< notice use of negative values to induce a NOT condition
-			StrMax = -1,
-			
-			UntCategory = AIRFIGHTER - AIRT4,	-- and those that have less than 20 there already
-			UntRadius = 90,
-			UntTrigger = true,
-			UntMin = 0,
-			UntMax = 20,
-			
-            PrioritizedCategories = {'AIR EXPERIMENTAL', 'TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
-			
-			GuardRadius = 300,
-			GuardTimer = 120,	-- patrol there for 2 minutes --
-			
-			MissionTime = 360,	-- 6 minutes --
-			
-			MergeLimit = 50,	-- merge upto 50 units
-			
-			AggressiveMove = true,
-			
-			UseFormation = 'AttackFormation',
-			
-			SetPatrol = true,
-			PatrolRadius = 40,
-			
-        },    
-    },
-
-
-	-- forms  patrols around Expansion Base markers
-    Builder {BuilderName = 'Standard Fighter Squadron Expansion',
-	
-        PlatoonTemplate = 'FighterEscort Large',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
-		
-        InstanceCount = 2,
-		
-        BuilderType = 'Any',
-		
-        Priority = 0,
-		
-		RTBLocation = 'Any',
-		
-        BuilderConditions = {
-		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
-			
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 200,
-			DistressTypes = 'Air',
-			DistressThreshold = 5,
-			
-            LocationType = 'LocationType',
-			
-			PointType = 'Marker',
-			PointCategory = 'Large Expansion Area',
-			PointSourceSelf = true,
-			PointFaction = 'Ally',
-			PointRadius = 9999999,
-			PointSort = 'Furthest',
-			PointMin = 250,
-			PointMax = 4000,
-			
-			StrCategory = categories.AIRSTAGINGPLATFORM - categories.MOBILE,
-			StrRadius = 50,
-			StrTrigger = true,
-			StrMin = 0,
-			StrMax = 6,
-			
-			UntCategory = AIRFIGHTER - AIRT4,
-			UntRadius = 90,
-			UntTrigger = false,
-			UntMin = 0,
-			UntMax = 50,
-			
-            PrioritizedCategories = {'AIR EXPERIMENTAL', 'TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
-			
-			GuardRadius = 300,
-			GuardTimer = 600,
-			
-			MergeLimit = 50,
-			
-			AggressiveMove = true,
-			
-			UseFormation = 'AttackFormation',
-			
-			SetPatrol = true,
-			PatrolRadius = 75,
-			
-        },    
-    },
-
-	-- forms patrols around Mass points that are open
-    Builder {BuilderName = 'Standard Fighter Squadron Mass Point',
-	
-        PlatoonTemplate = 'FighterEscort Large',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
-		
-        Priority = 0,
-		
-		RTBLocation = 'Any',
-		
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 150, 1, 'AntiAir', 1 }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - AIRT4 }},
-			
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 200,
-			DistressTypes = 'Air',
-			DistressThreshold = 10,
-			
-            LocationType = 'LocationType',
-			
-			PointType = 'Marker',
-			PointCategory = 'Mass',
-			PointSourceSelf = true,
-			PointFaction = 'Ally',
-			PointRadius = 750,
-			PointSort = 'Closest',
-			PointMin = 250,
-			PointMax = 750,
-			
-			StrCategory = categories.MASSEXTRACTION,
-			StrRadius = 10,
-			StrTrigger = true,
-			StrMin = 0,
-			StrMax = 0,
-			
-			UntCategory = AIRFIGHTER - AIRT4,
-			UntRadius = 90,
-			UntTrigger = false,
-			UntMin = 0,
-			UntMax = 20,
-			
-            PrioritizedCategories = {'AIR EXPERIMENTAL', 'TRANSPORTFOCUS', 'BOMBER', 'GROUNDATTACK', 'AIR MOBILE -OVERLAYOMNI'},
-			
-			GuardRadius = 250,
-			GuardTimer = 90,
-			
-			MergeLimit = 50,
-			
-			AggressiveMove = false,
-			
-			UseFormation = 'AttackFormation',
-			
-			SetPatrol = true,
-			PatrolRadius = 55,
-			
-        },
-	},
-
---]]
-}
-
-BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
-
-	BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'PlatoonFormBuilder',
 
 	-- torpedo bomber groups kept close to home for defensive work and distress response
 	-- a short term formation that will merge up into larger groups
@@ -2218,131 +1921,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderType = 'Any',
     }, 	
-    
---[[
-	-- ALL these torpedo bomber groups are very specifically targeted and only come into play when the selected targets are available
-	-- this first one hunts nukes and antinukes - but will go after mobile experimentals as well
-    -- this is turned off since the build conditions can't identify if it's in the water or not
-
-    Builder {BuilderName = 'Hunt Torps - Nuke Antinuke',
-	
-        PlatoonTemplate = 'TorpedoAttack',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI',		
-		
-        Priority = 0,
-		
-		-- this will only form at primary bases
-		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 715 then
-
-                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRTORPEDO ) < 16 then
-                
-                    return 10,true
-                    
-                else
-            
-                    return 715,true
-
-                end
-                
-            else
-            
-                return 10, true
-                
-            end
-
-        end,
-
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRTORPEDO } },			
-        },
-		
-        BuilderData = {
-			LocationType = 'LocationType',
-            
-            MergeLimit = false,
-            
-            MissionTime = 300,
-            
-            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
-            
-			SearchRadius = 500,
-            
-            UseFormation = 'AttackFormation',
-        },
-    },
-
-	-- self explanatory - goes after Economic experimentals - but also massfabrication
-    -- again - turned off - conditions can't identify if it's in the water or not
-
-    Builder {BuilderName = 'Hunt Torps - Economic Experimental',
-	
-        PlatoonTemplate = 'TorpedoAttack',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI',		
-		
-        Priority = 0,
-		
-		-- this will only form at primary bases
-		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 715 then
-
-                if PlatoonCategoryCount( aiBrain.ArmyPool, AIRTORPEDO ) < 16 then
-                
-                    return 10,true
-                    
-                else
-            
-                    return 715,true
-
-                end
-                
-            else
-            
-                return 10, true
-                
-            end
-
-        end,
-
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRTORPEDO } },
-        },
-		
-        BuilderData = {
-			LocationType = 'LocationType',
-            
-            MergeLimit = false,
-            
-            MissionTime = 300,
-            
-            PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL, categories.MASSFABRICATION},
-            
-			SearchRadius = 500,
-            
-            UseFormation = 'AttackFormation',
-        },
-    },
---]]    
 
     -- Naval Flotilla Air Groups -- Large Support Groups
     Builder {BuilderName = 'Naval Fighter Squadron',
@@ -2598,9 +2176,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
 }
 
-
-BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
-    BuildersType = 'PlatoonFormBuilder',
+BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestriction = 'AIREXPERIMENTALS', BuildersType = 'PlatoonFormBuilder',
 	
     Builder {BuilderName = 'Experimental Bombers',
 	

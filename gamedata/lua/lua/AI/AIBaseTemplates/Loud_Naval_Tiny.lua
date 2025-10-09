@@ -24,7 +24,7 @@ BaseBuilderTemplate {
         'Engineer Sonar Builders',
 
         # ==== UNIT BUILDING ==== #
-        'Factory Production - Naval - Small',
+        'Factory Production Naval - Small',
 		'Engineer T4 Naval Construction',
 		
         # ==== OPERATIONS ==== #		
@@ -35,7 +35,6 @@ BaseBuilderTemplate {
 
 		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Air Formations - Point Guards',
 		
 		'Land Formations - Amphibious',
 		

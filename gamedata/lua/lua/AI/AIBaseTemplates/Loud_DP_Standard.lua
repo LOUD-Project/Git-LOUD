@@ -22,7 +22,6 @@ BaseBuilderTemplate {
         'Land Formations - Land Only Map',
 		
 		'Air Formations - Hunt',
-		'Air Formations - Point Guards', 
 		
 		'Land Formations - Experimentals',
 		'Air Formations - Experimentals',

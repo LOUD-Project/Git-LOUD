@@ -22,11 +22,11 @@ BaseBuilderTemplate {
 		'Engineer T4 Economy Construction - Naval',
         
         # ==== EXPANSIONS ==== #
-		'Engineer Land Base Construction',
-		'Engineer Naval Base Construction', 
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Naval Base', 
         
-		'Engineer Land DP Construction',
-		'Engineer Naval DP Construction',        
+		'Engineer Construction - Land DP',
+		'Engineer Construction - Naval DP',        
 		
         # ==== DEFENSES ==== #
 		'Engineer Base Defense Construction - Naval',
@@ -37,7 +37,7 @@ BaseBuilderTemplate {
 
         # ==== UNIT BUILDING ==== #
         'Factory Production - Engineers',        
-        'Factory Production - Naval',
+        'Factory Production Naval',
         
 		'Engineer T4 Naval Construction',
 		
@@ -47,7 +47,6 @@ BaseBuilderTemplate {
 
 		'Air Formations - Hunt',
 		'Air Formations - Water Map',
-		'Air Formations - Point Guards',
 
 		'Air Formations - Experimentals',		
 		'Land Formations - Experimentals',

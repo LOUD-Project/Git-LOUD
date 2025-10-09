@@ -49,8 +49,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 end
 
 
-BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestriction = 'NAVAL', BuildersType = 'FactoryBuilder',
 	
 	-- you'll notice the high priority on T1 subs and frigates -- this will keep them producing frequently thru the game or 
 	-- until the priority function shuts them down (T1 subs)
@@ -721,8 +720,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 
 }
 
-BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRestriction = 'NAVAL', BuildersType = 'FactoryBuilder',
 	
 	-- you'll notice the high priority on T1 subs and frigates -- this will keep them producing frequently thru the game or 
 	-- until the priority function shuts them down (T1 subs)
@@ -1111,7 +1109,6 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.NAVAL * categories.TECH3 * categories.CRUISER, categories.NAVAL * categories.TECH3 }},
         },
     },
-	
 	
 	Builder {BuilderName = 'T3 Assault Sub - Cybran - Small',
 	
