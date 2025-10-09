@@ -38,8 +38,10 @@ BaseBuilderTemplate {
         'Engineer Misc Construction - Expansions',
         
         # Create Platoons with Land Units
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Factory Production Air - Scouts',
@@ -49,7 +51,11 @@ BaseBuilderTemplate {
 		'Factory Production Air - Transports',
 
 		# Create Platoons with Air Units
-		'Air Formations - Hunt',
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',
 
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3 Expansions',
@@ -64,13 +70,7 @@ BaseBuilderTemplate {
 		'Engineer T4 Construction Land - Expansions',
 		'Engineer T4 Economy Construction - Expansions',
 		
-		'Land Formations - Experimentals',
-		'Air Formations - Experimentals',
-
 		# ==== INTELLIGENCE ===== #
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
-      
         'Engineer Radar Construction - Expansions',
     },
 	

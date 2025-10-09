@@ -45,9 +45,11 @@ BaseBuilderTemplate {
         # ==== LAND UNIT BUILDERS ==== #
 		'Factory Production Land',
         'Factory Production Land - Land Only Map',
-        
+
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
 		'Land Formations - Reinforcement',
         
         'Land Formations - Land Only Map',
@@ -58,9 +60,13 @@ BaseBuilderTemplate {
 		'Factory Production Air - Bombers',
 		'Factory Production Air - Gunships',
 		'Factory Production Air - Transports',
-		
-		'Air Formations - Hunt',
-		
+
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',        		
+
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3',
         'Engineer Artillery Construction T4',
@@ -73,13 +79,7 @@ BaseBuilderTemplate {
 		'Engineer T4 Construction Land',
         'Engineer T4 Construction Air - Land Map',
 
-		'Air Formations - Experimentals',        
-		'Land Formations - Experimentals',
-
 		# ==== INTELLIGENCE ===== #
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
-
         'Engineer Optics Construction',
     },
 	

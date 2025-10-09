@@ -18,12 +18,19 @@ BaseBuilderTemplate {
         'Engineer Misc Construction - Expansions',
         
 		# Create Platoons with Land Units
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
+        'Land Formations - Land Only Map',
 		'Land Formations - Reinforcement',
 
 		# Create Platoons with Air Units
-		'Air Formations - Hunt',
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',
 
 		# ==== ARTILLERY BUILDERS ==== #
 		'Engineer Artillery Construction T3 Expansions',
@@ -33,19 +40,9 @@ BaseBuilderTemplate {
 
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Construction Land - Expansions',
-        
         'Engineer T4 Construction Air - Land Map - Expansions',
-		
-		'Land Formations - Experimentals',
-        
-        'Land Formations - Land Only Map',
-        
-		'Air Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
-      
         'Engineer Radar Construction - Expansions',
         'Engineer Optics Construction',
     },
@@ -54,22 +51,15 @@ BaseBuilderTemplate {
 		'Air Formations - Water Map',
 		'Land Formations - Water Map',
 		'Engineer T4 Construction Air - Water Map - Expansions',
-
---		'Land Formations - Amphibious',
 	},
 	
-	LandOnlyBuilders = {
-		--'Land Formations - Land Only Map',
-		--'Engineer T4 Construction Air - Land Map - Expansions',
-	},
+	LandOnlyBuilders = {},
 	
 	LOUD_IS_Installed_Builders = {
---		'Mass Adjacency Defenses - LOUD_IS',
 		'Engineer Mass Fab Construction - Expansions - LOUD_IS',
 	},
 	
 	LOUD_IS_Not_Installed_Builders = {
---		'Mass Adjacency Defenses',
 		'Engineer Mass Fab Construction - Expansions',
 		'Mass Storage',
 	},

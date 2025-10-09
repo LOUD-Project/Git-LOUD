@@ -34,7 +34,6 @@ BaseBuilderTemplate {
 
         'Engineer Sonar Builders',
 
-
         # ==== UNIT BUILDING ==== #
         'Factory Production - Engineers',        
         'Factory Production Naval',
@@ -43,16 +42,17 @@ BaseBuilderTemplate {
 		
         # ==== OPERATIONS ==== #		
         'Naval Formations',
-		'Land Formations - Amphibious',
+		'Sea Scout Formations',
 
-		'Air Formations - Hunt',
+		'Air Formations - Scouts',		
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',
 		'Air Formations - Water Map',
 
-		'Air Formations - Experimentals',		
+		'Land Formations - Amphibious',
 		'Land Formations - Experimentals',
-        
-		'Air Formations - Scouts',		
-		'Sea Scout Formations',
 	},
 	
 	LandOnlyBuilders = {},

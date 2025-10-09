@@ -6,7 +6,6 @@ BaseBuilderTemplate {
     BaseTemplateName = 'Loud_DP_Small',
 	
     Builders = {
-  
 		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
 		'Engineer Defenses DP Standard',	-- builds the structures at the active DP
@@ -14,20 +13,19 @@ BaseBuilderTemplate {
         'Engineer Mass Builders - Defensive Point',
 
 		-- These allow the Active DP to utilize units
-
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
 		'Land Formations - Reinforcement',
         
         'Land Formations - Land Only Map',
-		
-		'Air Formations - Hunt',
-		
-		'Land Formations - Experimentals',
+
+		'Air Formations - Scouts',		
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
 		'Air Formations - Experimentals',
-		
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
     },
 	
 	WaterMapBuilders = {
@@ -36,12 +34,9 @@ BaseBuilderTemplate {
 		'Land Formations - Amphibious',		
 	},
 	
-	LandOnlyBuilders = {
-		--'Land Formations - Land Only Map',
-	},
+	LandOnlyBuilders = {},
 	
-	LOUD_IS_Installed_Builders = {
-	},
+	LOUD_IS_Installed_Builders = {},
 	
 	LOUD_IS_Not_Installed_Builders = {
 		'Engineer Mass Storage Construction - Active DP',

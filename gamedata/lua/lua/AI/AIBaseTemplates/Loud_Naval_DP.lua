@@ -28,18 +28,18 @@ BaseBuilderTemplate {
 		
         # ==== OPERATIONS ==== #		
         'Naval Formations',
-
-		'Air Formations - Scouts',		
 		'Sea Scout Formations',
 
-		'Air Formations - Hunt',
+		'Air Formations - Scouts',		
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',
+
 		'Air Formations - Water Map',
 		
 		'Land Formations - Amphibious',
-		
 		'Land Formations - Experimentals',
-		'Air Formations - Experimentals',
-		
 	},
 	
 	LandOnlyBuilders = {},

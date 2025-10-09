@@ -24,8 +24,10 @@ BaseBuilderTemplate {
         'Factory Production Land - Land Only Map',
         
 		# Create Platoons with Land Units
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
 		'Land Formations - Reinforcement',
         
         'Land Formations - Land Only Map',
@@ -38,20 +40,18 @@ BaseBuilderTemplate {
 
 
 		# Create Platoons with Air Units
-		'Air Formations - Hunt',
-	
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',	
+
         # ==== EXPERIMENTALS ==== #
 		'Engineer T4 Construction Land - Expansions',
-        
+  
         'Engineer T4 Construction Air - Land Map - Expansions',
-		
-		'Land Formations - Experimentals',
-		'Air Formations - Experimentals',
 
 		# ==== INTELLIGENCE ===== #
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
-      
         'Engineer Radar Construction - Expansions',
     },
 	

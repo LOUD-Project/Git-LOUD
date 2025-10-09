@@ -724,7 +724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map - Expa
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Expansions', BuildersRestrictions = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
+BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Expansions', BuildersRestriction = 'AIREXPERIMENTALS', BuildersType = 'EngineerBuilder',
 	
     Builder {BuilderName = 'Air Experimental - Water Map - Expansion',
 	

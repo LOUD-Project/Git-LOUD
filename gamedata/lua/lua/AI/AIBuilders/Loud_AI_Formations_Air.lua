@@ -349,11 +349,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'PlatoonFormBuilder',
-    
-    ---------------
-    --- BOMBERS ---
-    ---------------
+BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction = 'AIRBOMBERS', BuildersType = 'PlatoonFormBuilder',
+
     -- small size short range groups that can merge quickly
     -- operates at ANY kind of base 
     Builder {BuilderName = 'Hunt Bombers Defensive Small',
@@ -1070,12 +1067,41 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'Platoo
 		
         BuilderType = 'Any',        
     },
+
+	-- this will forward ANY bombers to the primary land attack base
+    Builder {BuilderName = 'Reinforce Primary - Bomber Squadron',
 	
-    ---------------
-    --- FIGHTERS --
-    ---------------
-    -- small size short range groups that can merge quickly
-    -- operates at ANY kind of base 
+        PlatoonTemplate = 'BomberReinforce',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+        InstanceCount = 2,
+        
+        Priority = 10,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
+        },
+		
+        BuilderData = {
+            LocationType = 'LocationType',
+        },
+		
+        BuilderType = 'Any',
+    },  
+
+}
+
+BuilderGroup {BuilderGroupName = 'Air Formations - Fighters', BuildersRestriction = 'AIRFIGHTERS', BuildersType = 'PlatoonFormBuilder',
     
     -- upto 16 ASF for local air defense
     Builder {BuilderName = 'Hunt Fighters Defensive',
@@ -1230,7 +1256,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'Platoo
         BuilderType = 'Any',
     },
 
-
 	-- medium sized group for close targets and distress response
     -- operates only from a PRIMARY BASE - Land or Naval   
     Builder {BuilderName = 'Hunt Fighters Local',
@@ -1343,9 +1368,41 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'Platoo
         BuilderType = 'Any',
     },
 
-    ----------------
-    --- GUNSHIPS ---
-    ----------------
+	-- this will forward ALL Fighters to either primary land or sea attack base
+    Builder {BuilderName = 'Reinforce Primary - Fighter Squadron',
+	
+        PlatoonTemplate = 'FighterReinforce',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+        InstanceCount = 2,
+        
+        Priority = 10,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 3 then
+                return 10,true
+            end
+
+            return NotPrimaryBase(self,aiBrain,manager), true
+		end,
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
+        },
+		
+        BuilderData = {
+            LocationType = 'LocationType',
+        }, 
+		
+        BuilderType = 'Any',		
+    },
+
+}
+
+BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestriction = 'AIRGUNSHIPS', BuildersType = 'PlatoonFormBuilder',
+
     -- small size short range groups that can merge quickly
     -- operates at ANY kind of base 
     Builder {BuilderName = 'Hunt Gunships Defensive',
@@ -1570,70 +1627,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt', BuildersType = 'Platoo
         },
 		
         BuilderType = 'Any',
-    },
-
-    --- REINFORCMENTS ---
-
-	-- this will forward ANY bombers to the primary land attack base
-    Builder {BuilderName = 'Reinforce Primary - Bomber Squadron',
-	
-        PlatoonTemplate = 'BomberReinforce',
-        
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-        InstanceCount = 2,
-        
-        Priority = 10,
-
-		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRBOMBER, manager.Location, manager.Radius ) < 3 then
-                return 10,true
-            end
-
-            return NotPrimaryBase(self,aiBrain,manager), true
-		end,
-		
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-        },
-		
-        BuilderData = {
-            LocationType = 'LocationType',
-        },
-		
-        BuilderType = 'Any',
-    },  
-
-	-- this will forward ALL Fighters to either primary land or sea attack base
-    Builder {BuilderName = 'Reinforce Primary - Fighter Squadron',
-	
-        PlatoonTemplate = 'FighterReinforce',
-        
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-        InstanceCount = 2,
-        
-        Priority = 10,
-
-		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRFIGHTER, manager.Location, manager.Radius ) < 3 then
-                return 10,true
-            end
-
-            return NotPrimaryBase(self,aiBrain,manager), true
-		end,
-		
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-        },
-		
-        BuilderData = {
-            LocationType = 'LocationType',
-        }, 
-		
-        BuilderType = 'Any',		
     },
 	
 	-- this will forward ANY Gunships to either primary land or sea attack base

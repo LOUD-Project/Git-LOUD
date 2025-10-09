@@ -52,23 +52,22 @@ BaseBuilderTemplate {
         'Engineer T4 Construction Air - Land Map - Expansions',
         
 		# === PLATOON FORMATIONS === #
+		'Land Formations - Scouts',
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
-        
+		'Land Formations - Experimentals',        
+		'Land Formations - Reinforcement',
+
         'Land Formations - Land Only Map',
 
-		'Air Formations - Hunt',
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',
 
 		'Land Formations - Artillery',
 		'Land Formations - Nukes',
-
-		'Air Formations - Experimentals',		
-		'Land Formations - Experimentals',
-
-		'Air Formations - Scouts',
-		'Land Formations - Scouts',
-        
-		'Land Formations - Reinforcement',
     },
 	
 	WaterMapBuilders = {

@@ -67,7 +67,9 @@ BaseBuilderTemplate {
         'Land Formations - Land Only Map',
         
 		'Air Formations - Scouts',        
-		'Air Formations - Hunt',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
 		'Air Formations - Experimentals',
     },
 	
