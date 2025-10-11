@@ -568,11 +568,10 @@ function CollectCurrentScores()
                 continue
             end
 
-			mass_total = GetArmyStat( brain,"Economy_TotalProduced_Mass",0.0).Value
-            
-			mass_used = GetArmyStat( brain, "Economy_Output_Mass", 0.0).Value
-			mass_total_waste = GetArmyStat( brain,"Economy_AccumExcess_Mass",0.0).Value
-            
+			mass_total          = GetArmyStat( brain, "Economy_TotalProduced_Mass",0.0).Value
+			mass_total_waste    = GetArmyStat( brain, "Economy_AccumExcess_Mass",0.0).Value            
+			mass_used           = GetArmyStat( brain, "Economy_Output_Mass", 0.0).Value
+
             if mass_total > 1 and lastmasstotal[index] <= mass_total then
 
                 lastmasstotal[index] = mass_total
@@ -582,9 +581,6 @@ function CollectCurrentScores()
             else
                 
                 if not badflag[index] then
-
-                    --LOG("*AI DEBUG Fixing mass_total "..mass_total.." with "..lastmasstotal[index] )
-
                     badflag[index] = true
                 end
                 
@@ -594,10 +590,9 @@ function CollectCurrentScores()
 
             end
 			
-			energy_total = GetArmyStat( brain,"Economy_TotalProduced_Energy",0.0).Value
-
-			energy_used = GetArmyStat( brain, "Economy_Output_Energy", 0.0).Value
-			energy_total_waste = GetArmyStat( brain, "Economy_AccumExcess_Energy",0.0).Value
+			energy_total        = GetArmyStat( brain, "Economy_TotalProduced_Energy",0.0).Value
+			energy_total_waste  = GetArmyStat( brain, "Economy_AccumExcess_Energy",0.0).Value
+			energy_used         = GetArmyStat( brain, "Economy_Output_Energy", 0.0).Value
 			
             if energy_total > 1 and lastenergytotal[index] <= energy_total then
             
@@ -611,33 +606,33 @@ function CollectCurrentScores()
 
             end
             
-			massSpent = GetArmyStat( brain,"Economy_TotalConsumed_Mass",0.0).Value
-			Unit_massSpent = GetArmyStat( brain,"Units_MassValue_Built",0.0).Value
+			massSpent               = GetArmyStat( brain, "Economy_TotalConsumed_Mass",0.0).Value
+			Unit_massSpent          = GetArmyStat( brain, "Units_MassValue_Built",0.0).Value
 			
-			energySpent = GetArmyStat( brain, "Economy_TotalConsumed_Energy",0.0).Value
-			Unit_energySpent = GetArmyStat( brain,"Units_EnergyValue_Built",0.0).Value
+			energySpent             = GetArmyStat( brain, "Economy_TotalConsumed_Energy",0.0).Value
+			Unit_energySpent        = GetArmyStat( brain, "Units_EnergyValue_Built",0.0).Value
 			
-			massValueDestroyed = GetArmyStat( brain,"Enemies_MassValue_Destroyed",0.0).Value
-			massValueLost = GetArmyStat( brain,"Units_MassValue_Lost",0.0).Value
+			massValueDestroyed      = GetArmyStat( brain, "Enemies_MassValue_Destroyed",0.0).Value
+			massValueLost           = GetArmyStat( brain, "Units_MassValue_Lost",0.0).Value
 			
-			energyValueDestroyed = GetArmyStat( brain,"Enemies_EnergyValue_Destroyed",0.0).Value
-			energyValueLost = GetArmyStat( brain, "Units_EnergyValue_Lost",0.0).Value
+			energyValueDestroyed    = GetArmyStat( brain, "Enemies_EnergyValue_Destroyed",0.0).Value
+			energyValueLost         = GetArmyStat( brain, "Units_EnergyValue_Lost",0.0).Value
 
 			-- resources account for 20% of score -- discounted by resource waste
-			resourceProduction = ( mass_total + (energy_total / energyValueCoefficient) ) * 0.20
-			resource_waste = ( mass_total_waste + (energy_total_waste / energyValueCoefficient) ) * 0.20
+			resourceProduction      = ( mass_total + (energy_total / energyValueCoefficient) ) * 0.20
+			resource_waste          = ( mass_total_waste + (energy_total_waste / energyValueCoefficient) ) * 0.20
 			
 			-- units built account for 35% of score
-			unitProduction = ( Unit_massSpent + (Unit_energySpent / energyValueCoefficient) ) * 0.35
+			unitProduction          = ( Unit_massSpent + (Unit_energySpent / energyValueCoefficient) ) * 0.35
 			
 			-- combat results account for 35% of score
-			battle_kills = ( massValueDestroyed + (energyValueDestroyed / energyValueCoefficient) )
-			battle_losses = ( massValueLost + (energyValueLost / energyValueCoefficient) )
+			battle_kills            = ( massValueDestroyed + (energyValueDestroyed / energyValueCoefficient) )
+			battle_losses           = ( massValueLost + (energyValueLost / energyValueCoefficient) )
 			
-			battleResults = ( battle_kills - battle_losses ) * 0.35
+			battleResults           = ( battle_kills - battle_losses ) * 0.35
 
 			-- score calculated
-			score = resourceProduction - resource_waste + unitProduction + battleResults
+			score                   = resourceProduction - resource_waste + unitProduction + battleResults
 			
 			if score > 1 then
             

@@ -1,3 +1,37 @@
+### Release 10-04-2025
+
+LUA 7.34
+BrewLAN for LOUD 0.8.8.9.122
+
+- fixed an issue where engineers could execute tasks that should be marked as 'removed' (PriorityFunction processing)
+- added a new data structure that permits preventing the loading of builders AND buildergroups according to category restrictions
+    - this can dramatically reduced overhead when restrictions are being used, eliminating constant rechecking of restrictions by the AI
+- renamed a number of 'BuilderGroups' and builders, to better describe what they cover
+    - fixed some typos and removed a couple of duplicated buildergroups
+- adjust finding of Defensive Points (both Land & Naval) to the Attack Plan Goal and slightly reduced exclusion ranges
+- reduced the number of reload attempts for transports ( 20 >> 15 )
+- moved almost all instances of the build condition 'BaseInPlayableArea' into a PriorityFunction, allowing removal of builder
+- BrewLAN Anti-Armor PD's revised to mesh within other artillery/PD ranges (range approx 92, slightly lower cost, E consumption)
+- BrewLAN Sera T4 Sniper revised more closely towards SNIPER restrictions, reduced agility, range and damage, aligned E consumption with formula
+- AI T1 DP Builder will now build PD, AA and T1 AirStaging before moving on 
+- AI T1 Naval DP builders will now build a T1 Torpedo launcher as well as a sonar
+- AI added T1AA and T1 AirStaging to DefensivePointSmall template, this permits proper air operations
+- AI added T1 Naval Defense to the NavalDefensivePoint template
+- AI will now reclaim all T2 structures at an inactive DP including TMD
+- AI now has some threat requirements when building defensive structures at DP's
+- AI Debug revised some AttackPlanner dialogs
+- AI trimmed production of land-only units, on full water maps, and lowered unit count goals
+- AI shifted production focus of T4 Land units, based solely on eco and strength conditions now, rather than building the most expensive one
+- AI increased trigger points for production of nukes and artillery, should delay appearance 
+- AI will now produce Energy & Mass Fabrication at Naval yards (this was turned off a long time ago)
+- AI Extractor Defense builders will no longer be selected in off-map bases (Havoc Survival for example)
+- AI hard cap on T3 ASF production removed, replaced with Air Strength cap, removed factory limit restriction
+- AI will no longer build mobile SMD when Nukes are disabled
+- MAP Desert Island 40 now has an 8 v 4 player option
+
+
+
+
 ### Release 09-19-2025
 
 LUA 7.33
