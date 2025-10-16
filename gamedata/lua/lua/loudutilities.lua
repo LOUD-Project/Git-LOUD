@@ -5273,7 +5273,6 @@ function ParseIntelThread( aiBrain )
                                 totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
 
                                 oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
-
                             end
 
                         end
@@ -5289,8 +5288,8 @@ function ParseIntelThread( aiBrain )
 
                             bp = ALLBPS[v.BlueprintID].Defense
 
-                            totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .5)
-
+                            -- note how the A2G value of my air units is discounted quite a bit
+                            totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .35)
                         end
 
                     end
@@ -5300,7 +5299,7 @@ function ParseIntelThread( aiBrain )
 
                 if oldthreat > 0 then
                     -- the relationship of A2A and A2G in the enemy threat
-                    -- higher values signify a greater composition of bombers/gunships
+                    -- higher values signify a greater composition of bombers/gunships, low values mean it's mostly A2A
                     -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
                     aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
                     
