@@ -522,14 +522,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		
         Priority = 610,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
+            
+            if not aiBrain.ArmyNeedsTransports then
+                return 10, true
+            end
+            
+        end,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			
-            { UCBC, 'ArmyNeedsTransports', { true } },
+            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT2UP }},
 
@@ -548,14 +558,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		
         Priority = 600,
         
-        PriorityFunction = AboveUnitCap75,
-		
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .60 then
+                return 10, true
+            end
+            
+            if not aiBrain.ArmyNeedsTransports then
+                return 10, true
+            end
+            
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
-            { UCBC, 'ArmyNeedsTransports', { true } },
+            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
 
@@ -573,14 +593,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
         Priority = 610,
         
-        PriorityFunction = AboveUnitCap90,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
+            
+            if not aiBrain.ArmyNeedsTransports then
+                return 10, true
+            end
+            
+        end,
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
-            { UCBC, 'ArmyNeedsTransports', { true } },
+            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT3 }},
         },
