@@ -34,9 +34,9 @@ T3Bomber = {
 },
 
 T3Fighter = {
-	Cybran = {'sra0313', 20},
-    UEF = {'sea0313', 20},
-    Seraphim = {'ssa0313', 20},
+	Cybran = {'sra0313', 12},
+    UEF = {'sea0313', 12},
+    Seraphim = {'ssa0313', 12},
 },
 
 T3Gunship = {
@@ -76,7 +76,7 @@ T3LandBot = {
 },
 
 T3LandArtillery = {
-	Cybran = {'srl0311', 50},	-- Triseptitron
+	Cybran = {'srl0311', 30},	-- Triseptitron
 },
 
 T3AmphibiousArtillery = {
