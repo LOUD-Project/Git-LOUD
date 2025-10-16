@@ -383,6 +383,7 @@ Weapon = Class(WeaponMethods) {
 			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
 		end
 
+        self:DoWeaponCallbacks('OnWeaponFired', self.unit)
 	end,
 
     OnDisableWeapon = function(self)
@@ -925,5 +926,36 @@ Weapon = Class(WeaponMethods) {
 
         end
     end,    
+
+    AddWeaponCallback = function(self, fn, cbtype)
+    
+        if not self.EventCallbacks then
+            self.EventCallbacks = {}
+        end
+	
+		if not self.EventCallbacks[cbtype] then
+		
+			self.EventCallbacks[cbtype] = {}
+		end
+	
+        LOUDINSERT( self.EventCallbacks[cbtype], fn )
+    end,
+    
+    DoWeaponCallbacks = function(self, cbtype, param)
+	
+		if self.EventCallbacks[cbtype] then
+        
+            LOG("*AI DEBUG Processing Weapon Callback on "..self.bp.Label.." for "..repr(cbtype) )
+
+			for num,cb in self.EventCallbacks[cbtype] do
+		
+				if cb then
+			
+					cb( self, param )
+				end
+			end
+		end
+		
+    end,
 
 }
