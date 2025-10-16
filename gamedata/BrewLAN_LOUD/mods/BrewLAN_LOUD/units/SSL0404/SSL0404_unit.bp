@@ -330,7 +330,7 @@ UnitBlueprint {
             MaxRadius = 112,
             MinRadius = 30,
             
-            MuzzleChargeDelay = 2.5,
+            MuzzleChargeDelay = 1.5,
             
             NotExclusive = true,
             
@@ -344,7 +344,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.08,          -- controlled by charge (21k dmg every 15 seconds = 1400 DPS)
+            RateOfFire = 0.5,          -- controlled by charge (21k dmg every 15 seconds = 1400 DPS)
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 26,
@@ -400,8 +400,8 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyRequired = 420,           -- a 14 second charge cycle
-            EnergyDrainPerSecond = 30,
+            EnergyRequired = 420,           -- a 15 second charge cycle
+            EnergyDrainPerSecond = 28,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -409,7 +409,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringRandomness = 0,
-            FiringTolerance = 2,
+            FiringTolerance = 0,
             
             Label = 'MainTracer',
             
@@ -424,9 +424,9 @@ UnitBlueprint {
                 { MuzzleBones = {'Muzzle'}, RackBone = 'Barrel' },
             },
 
-            RackSalvoFiresAfterCharge = true,
+            --RackSalvoFiresAfterCharge = true,
             
-            RateOfFire = 0.185,
+            RateOfFire = 0.2,
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 26,
