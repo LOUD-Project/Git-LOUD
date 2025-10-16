@@ -265,7 +265,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
             { LUTL, 'AirProductionRatioGreaterThan', { 3 } },
 
-			{ LUTL, 'LandProductionRatioLessThan', { 6 } },
+			{ LUTL, 'LandProductionRatioLessThan', { 3 } },
 
             -- this allows it to exceed the cap check by 2
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
@@ -307,9 +307,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirProductionRatioLessThan', { 3 } },
 
-            { LUTL, 'AirProductionRatioLessThan', { 4 } },
+            { LUTL, 'LandProductionRatioGreaterThan', { 3 } },
             
             { LUTL, 'AirStrengthRatioLessThan', { 6 }},
             
@@ -322,7 +322,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.015 }},
         },
 		
-        BuilderType = { 'Commander','T2','T3','SubCommander' },
+        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
 
         BuilderData = {
 		
@@ -600,8 +600,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { LUTL, 'NavalProductionRatioLessThan', { 3 } },
 
-			{ LUTL, 'NavalStrengthRatioLessThan', { 4 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},
@@ -626,7 +627,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 				
-				ThreatMax = 50,
+				ThreatMax = 30,
 				
                 BuildStructures = {'T1SeaFactory' },
             },
