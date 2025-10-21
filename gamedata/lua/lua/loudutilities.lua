@@ -498,6 +498,8 @@ function AirStrengthRatioLessThan ( aiBrain, value )
 	return aiBrain.AirRatio < value
 end
 
+--- the air bias indicates the composition of the enemy air strength
+--- higher values reflect an emphasis towards bombers/gunships/torps
 function AirToGroundBiasGreaterThan( aiBrain, value )
     return aiBrain.AirBias >= value
 end
@@ -5301,7 +5303,7 @@ function ParseIntelThread( aiBrain )
                     -- the relationship of A2A and A2G in the enemy threat
                     -- higher values signify a greater composition of bombers/gunships, low values mean it's mostly A2A
                     -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
-                    aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
+                    aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
                     
                     -- multiply my strength by size of my team
                     totalThreat = totalThreat * aiBrain.TeamSize
@@ -5313,8 +5315,8 @@ function ParseIntelThread( aiBrain )
                     
                     -- if enemy air strength is comprised dominantly of surface threat
                     -- let it upvalue our air ratio to encourage more aggressive air actions
-                    if aiBrain.AirBias > 1 then
-                        aiBrain.AirRatio = aiBrain.AirRatio / aiBrain.AirBias
+                    if aiBrain.AirBias > 1 and aiBrain.AirRatio > 1 then
+                        aiBrain.AirRatio = aiBrain.AirRatio + (aiBrain.AirBias/2)
                     end
                     
                 else
