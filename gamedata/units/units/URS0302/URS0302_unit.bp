@@ -336,6 +336,16 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Air', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -409,6 +419,16 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Air', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
             CannotAttackGround = true,
             CollideFriendly = false,
 			

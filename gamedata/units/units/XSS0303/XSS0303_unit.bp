@@ -287,7 +287,16 @@ UnitBlueprint {
             },
             
             BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
             CollideFriendly = false,
 			
             Damage = 100,
@@ -363,6 +372,16 @@ UnitBlueprint {
             },
             
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
             CannotAttackGround = true,
             CollideFriendly = false,
 			
