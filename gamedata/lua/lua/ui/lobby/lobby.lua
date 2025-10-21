@@ -1510,7 +1510,7 @@ local function CalcTotalUnitCap()
 
             elseif gameInfo.GameOptions.CapCheat == 'cheatlevel' then
 
-                local mult = tonumber(player.Mult)
+                local mult = tonumber(player.Mult) or 1.0
                 local cheatCap = unitCap * mult * (math.max(playerDiff, 1))
                 
                 ret = ret + math.floor(cheatCap)
