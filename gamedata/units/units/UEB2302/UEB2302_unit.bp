@@ -89,7 +89,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 4,
+		CapCost = 5,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -146,11 +146,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 175,
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 35,
+        Level2 = 70,
+        Level3 = 105,
+        Level4 = 140,
+        Level5 = 175,
     },
 	
     Weapon = {
@@ -176,7 +176,7 @@ UnitBlueprint {
             Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 5,
-            DamageType = 'ShieldMult1.1',
+            DamageType = 'ShieldMult1.08',
 			
             DisplayName = 'Anti Matter Artillery',
 			
