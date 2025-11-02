@@ -936,21 +936,26 @@ Weapon = Class(WeaponMethods) {
 		if not self.EventCallbacks[cbtype] then
 		
 			self.EventCallbacks[cbtype] = {}
-		end
 	
-        LOUDINSERT( self.EventCallbacks[cbtype], fn )
+            --LOG("*AI DEBUG Adding Weapon Callback on "..self.bp.Label.." for "..repr(cbtype) )
+        
+            LOUDINSERT( self.EventCallbacks[cbtype], fn )
+            
+        end
     end,
     
     DoWeaponCallbacks = function(self, cbtype, param)
 	
 		if self.EventCallbacks[cbtype] then
         
-            LOG("*AI DEBUG Processing Weapon Callback on "..self.bp.Label.." for "..repr(cbtype) )
+            --LOG("*AI DEBUG Processing Weapon Callback on "..self.bp.Label.." for "..repr(cbtype) )
 
 			for num,cb in self.EventCallbacks[cbtype] do
 		
 				if cb then
-			
+			    
+                    --LOG("*AI DEBUG found callback for unit "..param.Sync.id.." on tick "..GetGameTick() )
+  
 					cb( self, param )
 				end
 			end
