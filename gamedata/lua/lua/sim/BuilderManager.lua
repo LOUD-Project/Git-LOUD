@@ -506,7 +506,10 @@ BuilderManager = Class {
      
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
-        
+                
+                -- record the position of the the goal --
+                self.LastGoalCheck = LOUDCOPY(AttackPlan.Goal)        
+
                 path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 + (ScenarioInfo.IMAPSize/4) )
 
                 if path and not BuilderManager.LandMode then
@@ -520,9 +523,7 @@ BuilderManager = Class {
 
                     end
                 end
-                
-                -- record the position of the the goal --
-                self.LastGoalCheck = LOUDCOPY(brain.AttackPlan.Goal)
+
             end
             
             ThreadWaitDuration = brain.ConditionsMonitor.ThreadWaitDuration

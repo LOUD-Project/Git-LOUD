@@ -289,6 +289,7 @@ function _OnBeat()
 			if tonumber(sessionInfo.Options.NoRushOption) * 60 > GetGameTimeSeconds() then
 		
 				local time = (tonumber(sessionInfo.Options.NoRushOption) * 60) - GetGameTimeSeconds()
+               
 				controls.time:SetText(LOCF('%02d:%02d:%02d', math.floor(time / 3600), math.floor(time/60), math.mod(time, 60)))
 			
 			end
@@ -296,6 +297,7 @@ function _OnBeat()
 			if not issuedNoRushWarning and tonumber(sessionInfo.Options.NoRushOption) * 60 == math.floor(GetGameTimeSeconds()) then
 		
 				import('/lua/ui/game/announcement.lua').CreateAnnouncement('<LOC score_0001>No Rush Time Elapsed', controls.time)
+
 				issuedNoRushWarning = true
 			
 			end

@@ -264,7 +264,7 @@ PlatoonFormManager = Class(BuilderManager) {
 
 			else
                 if PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Platoon "..BuilderName.." unable to form at "..repr(Location))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Platoon "..BuilderName.." unable to form at "..repr(Location).." on tick "..GetGameTick() )
                 end
 			end
         end
