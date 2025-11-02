@@ -17,7 +17,7 @@ PlatoonTemplate { Name = 'FighterAttack Small',
 }
 PlatoonTemplate { Name = 'FighterAttack',
     GlobalSquads = {
-        { AIRFIGHTER - categories.EXPERIMENTAL, 18, 32, 'Unassigned', 'AttackFormation' },
+        { AIRFIGHTER - categories.EXPERIMENTAL, 18, 36, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterAttack Large',
@@ -37,33 +37,33 @@ PlatoonTemplate { Name = 'FighterReinforce',
 
 PlatoonTemplate { Name = 'BomberAttack Small',
     GlobalSquads = {
-        { AIRBOMBER, 1, 12, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 1, 12, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack',
     GlobalSquads = {
-        { AIRBOMBER, 12, 24, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 12, 24, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack Large',
     GlobalSquads = {
-        { AIRBOMBER, 24, 40, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 24, 40, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack Super',
     GlobalSquads = {
-        { AIRBOMBER, 36, 60, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 36, 60, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'Experimental Bomber',
     GlobalSquads = {
-        { AIRBOMBER - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Attack', 'none' },
+        { AIRBOMBER - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Unassigned', 'none' },
     },
 }
 PlatoonTemplate { Name = 'BomberReinforce',
     Plan = 'ReinforceAirAI',	-- either Land or Sea bases
     GlobalSquads = {
-        { AIRBOMBER, 3, 24, 'Attack', 'none' },
+        { AIRBOMBER, 3, 24, 'Unassigned', 'none' },
 		{ AIRSCOUT, 0, 4, 'Support', 'none' },
     }
 }
