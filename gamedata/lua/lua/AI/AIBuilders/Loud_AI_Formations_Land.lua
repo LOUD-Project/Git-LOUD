@@ -957,7 +957,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {},
 		
         BuilderData = {
-			MergeLimit = 85,
+			MergeLimit = 90,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
@@ -1002,7 +1002,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
 		
         BuilderData = {
-			MergeLimit = 50,
+			MergeLimit = 60,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
@@ -1052,7 +1052,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
 		
         BuilderData = {
-			MergeLimit = 25,
+			MergeLimit = 30,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
