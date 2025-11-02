@@ -8900,7 +8900,8 @@ Platoon = Class(PlatoonMethods) {
 	-- If the threat of the platoon drops too low, it will try to Return To Base
     LandForceAILOUD = function( self, aiBrain )
     
-        local LandForceAIDialog = ScenarioInfo.LandForceDialog
+        local LandForceAIDialog = ScenarioInfo.LandForceDialog or true
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance)
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
         local GetPlatoonPosition        = GetPlatoonPosition
@@ -8955,7 +8956,7 @@ Platoon = Class(PlatoonMethods) {
 		local target = false        
 
         if LandForceAIDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins")
+            LOG(dialog.." begins on tick "..GetGameTick() )
         end
         
         local bNeedTransports, distancefactor, ecovalue, enemyindex, ethreat, experimentalunit, milvalue, mythreat, name, travelcount
@@ -9012,6 +9013,11 @@ Platoon = Class(PlatoonMethods) {
 					self:SetPlatoonFormationOverride(PlatoonFormation)
 				
 					OriginalSurfaceThreat = CalculatePlatoonThreat( self,'Surface', ALLUNITS)
+                    
+                    if LandForceAIDialog then
+                        LOG(dialog.." merges from "..oldNumberOfUnitsInPlatoon.." to "..numberOfUnitsInPlatoon.." on tick "..GetGameTick() )
+                    end
+                    
 					oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 					GetMostRestrictiveLayer(self)
 				end
@@ -9025,7 +9031,7 @@ Platoon = Class(PlatoonMethods) {
 			target = false
 			
             if LandForceAIDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." seeks local target from "..repr(platPos))
+                LOG(dialog.." seeks local target from "..repr(platPos).." on tick "..GetGameTick() )
             end
 
 			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
@@ -9045,7 +9051,7 @@ Platoon = Class(PlatoonMethods) {
 			if (not target) and (not targetLocation) then
 			
                 if LandForceAIDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." seeks HiPri target from "..repr(platPos))
+                    LOG(dialog.." seeks HiPri target from "..repr(platPos).." on tick "..GetGameTick() )
 				end
                 
 				_, newposition = GetPrimaryLandAttackBase(aiBrain)
@@ -9167,7 +9173,7 @@ Platoon = Class(PlatoonMethods) {
 			if not target then
 
                 if LandForceAIDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." seeks DP marker from "..repr(platPos))
+                    LOG(dialog.." seeks DP marker from "..repr(platPos).." on tick "..GetGameTick() )
                 end
                 
                 if aiBrain.AttackPlan then
@@ -9185,7 +9191,7 @@ Platoon = Class(PlatoonMethods) {
 			if (not targettype) or notargetcount > 6 then
                 
                 if LandForceAIDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." failed 6 target seeks - RTB")
+                    LOG(dialog.." failed 6 target seeks - RTB on tick "..GetGameTick() )
                 end
                 
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -9195,7 +9201,7 @@ Platoon = Class(PlatoonMethods) {
 			if targetLocation then
 
                 if LandForceAIDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." selects "..repr(targettype).." target at "..repr(targetLocation).." class "..repr(targetclass).." value "..repr(targetvalue).." fails "..notargetcount)
+                    LOG(dialog.." selects "..repr(targettype).." target at "..repr(targetLocation).." class "..repr(targetclass).." value "..repr(targetvalue).." fails "..notargetcount.." on tick "..GetGameTick() )
                 end
                 
                 mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )            
@@ -9216,10 +9222,10 @@ Platoon = Class(PlatoonMethods) {
 					if ((not path and reason == 'NoPath') or bNeedTransports) then
 
                         if LandForceAIDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." calls for transport 8")
+                            LOG(dialog.." calls for transport (5 tries) on tick "..GetGameTick() )
                         end
                         
-						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 8, false )
+						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 5, false )
                     end
 				end
         
@@ -9228,12 +9234,12 @@ Platoon = Class(PlatoonMethods) {
 					if not path then
 					
                         if LandForceAIDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." has no path & no transport - restart target process")
+                            LOG(dialog.." - no path & no transport - restart target process on tick "..GetGameTick() )
                         end
 
                         targetLocation = false
                         -- break out and return to target selection process --
-                        break
+                        continue
 					else
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance )
 
@@ -9270,7 +9276,7 @@ Platoon = Class(PlatoonMethods) {
                     travelcount = travelcount + 1
 
                     if LandForceAIDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." at "..VDist3( platPos, targetLocation).." to targetLocation")    
+                        LOG(dialog.." at "..VDist3( platPos, targetLocation).." to targetLocation on tick "..GetGameTick() )    
                     end
 
                     -- stuck behavior --
@@ -9281,7 +9287,7 @@ Platoon = Class(PlatoonMethods) {
                         if stuckcount > 1 then
 					
                             if LandForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." looks stuck at "..repr(platPos))
+                                LOG(dialog.." looks stuck at "..repr(platPos).." on tick "..GetGameTick() )
                             end
                         
                             if ProcessStuckPlatoon( self, targetLocation ) then
@@ -9306,13 +9312,13 @@ Platoon = Class(PlatoonMethods) {
                                 targetLocation = LOUDCOPY(newposition)
                             
                                 if LandForceAIDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." validates HiPri target at "..repr(targetLocation))
+                                    LOG(dialog.." validates HiPri target at "..repr(targetLocation))
                                 end
 
                             else
 
                                 if LandForceAIDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck - target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength.." - milvalue is "..targetmilvalue )
+                                    LOG(dialog.." HiPri recheck - target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength.." - milvalue is "..targetmilvalue.." on tick "..GetGameTick() )
                                 end
                                 
                                 targetLocation = false
@@ -9325,7 +9331,7 @@ Platoon = Class(PlatoonMethods) {
                         else
                         
                             if LandForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
+                                LOG(dialog.." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid on tick "..GetGameTick() )
                             end
                             
                             targetLocation = false
@@ -9347,13 +9353,13 @@ Platoon = Class(PlatoonMethods) {
                         if VDist3( platPos, targetLocation ) > 350 then
 
                             if LandForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." calls for transport 1")
+                                LOG(dialog.." calls for transport 1 on tick "..GetGameTick() )
                             end
 
                             usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 1, false, path )
                             
                             if not usedTransports and not self.MoveThread then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." used transport but no longer has a movement order")
+                                LOG(dialog.." used transport but no longer has a movement order")
                                 
                                 targetLocation = false
                                 
