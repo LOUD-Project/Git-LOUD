@@ -245,7 +245,26 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
             { LUTL, 'PoolLess', { 6, categories.CRUISER }},
         },
     },
+	
+    Builder {BuilderName = 'Cruiser - High Enemy A2G Strength',
+	
+        PlatoonTemplate = 'T2SeaCruiser',
 		
+        Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
+		
+        BuilderType = {'SeaT2','SeaT3'},
+
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+
+            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
+
+            { LUTL, 'PoolLess', { 6, categories.CRUISER }},
+        },
+    },
+
     Builder {BuilderName = 'T2 Sub - UEF',
 	
         PlatoonTemplate = 'T2SeaSub',
