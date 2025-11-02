@@ -2660,15 +2660,19 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
 
         -- take the highest threat position
         if result then
+         
+            lerpresult = LOUDMIN( 1, LOUDMIN( 1, ( ringrange / VDist3(startposition, result) ) ) )
         
             if ShowLoiterDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." will use "..repr(result) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." will use "..repr(result).." base lerp value "..lerpresult )
             end
-            
-            lerpresult = LOUDMIN( 1, LOUDMIN( 1, ( ringrange / VDist3(startposition, result) ) ) )
-
+   
             -- some forward deployment
-            lerpresult = lerpresult * LOUDMIN( 0.5, LOUDMIN( mythreat, mythreat*LOUDMAX(0.28, AirRatiofactor) ) / LOUDMAX(1, currentthreat) )
+            lerpresult = lerpresult * LOUDMIN( 0.66, LOUDMIN( mythreat, mythreat*LOUDMAX(0.28, AirRatiofactor) ) / LOUDMAX(1, currentthreat) )
+        
+            if ShowLoiterDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." adjusted lerp value "..lerpresult )
+            end
 
             -- build the loiterposition using the threatPos and LERP it against the startposition
             loiterposition = { 0, 0, 0 }
@@ -2693,9 +2697,10 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     return loiterposition
 end
 
+function ProsecuteTarget( unit, aiBrain, target, searchrange, recalldelay, AirForceDialog )
 
-function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
-    
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id 
+
         unit.IgnoreRefit = true
         
         local GetPosition   = GetPosition
@@ -2709,12 +2714,12 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
         IssueClearCommands( u )
 
         if AirForceDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
+            LOG( dialog.." assigned target "..repr(target.Sync.id).." on tick "..GetGameTick() )
         end
         
         local attackissued, loiterposition, selfpos, targethealth, targetposition, searchdistance
 
-        while target and (not target.Dead ) and (not unit.Dead) do
+        while unit.target and (not target.Dead ) and (not unit.Dead) do
 
             selfpos         = GetPosition(unit)
             loiterposition  = unit.PlatoonHandle.loiterposition      
@@ -2726,21 +2731,28 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
                 unit.IgnoreRefit = false
                 
                 target = false
+
+                if AirForceDialog then
+                    LOG( dialog.." assigned to target "..repr(target.Sync.id).." LOW ON FUEL on tick "..GetGameTick() )
+                end
+                
+                import('/lua/loudutilities.lua').ProcessAirUnits( unit, aiBrain )
                 
                 break
                 
             end
 
+            --- if we have a valid loiterposition
             if loiterposition and type(targetposition) == 'table' then
                 
                 searchdistance    = VDist3( loiterposition, targetposition)
                 targethealth      = target:GetHealthPercent()
 
                 --- break off if 10% beyond searchrange and still mostly healthy
-                if target and searchdistance > (searchrange*1.1) and targethealth > 0.3 then
+                if unit.target and searchdistance > (searchrange*1.1) and targethealth > 0.3 then
 
                     if AirForceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " breaks off target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                        LOG( dialog.. " breaks off target "..repr(target.Sync.id).." on tick "..GetGameTick() )
                     end
 
                     target = false
@@ -2750,10 +2762,10 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
                 end
 
                 --- pursue badly damaged units further
-                if target and searchdistance > (searchrange*1.3) then
+                if unit.target and searchdistance > (searchrange*1.3) then
 
                     if AirForceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " breaks off damaged target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                        LOG( dialog.." breaks off damaged target "..repr(target.Sync.id).." on tick "..GetGameTick() )
                     end
 
                     target = false
@@ -2762,11 +2774,11 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
 
                 end
 
-                if target and (not attackissued) then
+                if unit.target and (not attackissued) then
 
                     if not unit.Dead then
 
-                        IssueAttack( {unit}, target )
+                        IssueAttack( u, target )
                     
                         attackissued = true
                         
@@ -2776,13 +2788,17 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
 
             else
 
-                target = false
+                unit.target = false
+
+                if AirForceDialog then
+                    LOG( dialog.." assigned to target "..repr(target.Sync.id).." INVALID LOITER on tick "..GetGameTick() )
+                end
                 
                 break
 
             end
             
-            if target and not target.Dead then
+            if unit.target and not target.Dead then
             
                 WaitTicks(3)
             
@@ -2793,7 +2809,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
         if (not unit.Dead) and unit.PlatoonHandle and aiBrain:PlatoonExists( unit.PlatoonHandle ) then
 
             if AirForceDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
+                LOG( dialog.." attack complete on tick "..GetGameTick() )
             end
  
             if not unit.Dead then
@@ -2805,8 +2821,20 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
                     IssueClearCommands( u )
 
                     IssueMove( u, unit.PlatoonHandle.loiterposition )
+                    
+                    if recalldelay then
+                        WaitTicks(recalldelay)
+                    end
 
-                    AssignUnitsToPlatoon( aiBrain, unit.PlatoonHandle, {unit}, 'Unassigned','None' )
+                    if AirForceDialog then
+                        LOG( dialog.." ready for new orders on tick "..GetGameTick() )
+                    end
+                    
+                    if not unit.Dead and aiBrain:PlatoonExists( unit.PlatoonHandle ) then
+ 
+                        AssignUnitsToPlatoon( aiBrain, unit.PlatoonHandle, u, 'Unassigned','None' )
+                    
+                    end
                     
                 end
 
@@ -2815,6 +2843,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
         end
         
         unit.IgnoreRefit = nil
+        unit.target = false
   
     end
 
