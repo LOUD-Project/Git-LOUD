@@ -510,7 +510,7 @@ end
 
 function CreatePlatoonToPositionDistanceTrigger( callbackFunction, platoon, marker, distance )
 	
-	return ForkThread( PlatoonToPositionDistanceTriggerThread, callbackFunction, platoon, marker, distance)
+	return platoon:ForkThread( PlatoonToPositionDistanceTriggerThread, callbackFunction, marker, distance)
 	
 end
 
@@ -563,22 +563,21 @@ function UnitToPositionDistanceTriggerThread( cb, unit, marker, distance, name )
 	
 end
 
-function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdistance, name )
+function PlatoonToPositionDistanceTriggerThread( platoon, callbackfunction, marker, triggerdistance, name )
 
 	local aiBrain = platoon:GetBrain()
     
-	local GetPlatoonPosition = GetPlatoonPosition
-	local GetPlatoonUnits = GetPlatoonUnits
-	local GetPosition = GetPosition
-    local IsUnitState = moho.unit_methods.IsUnitState
-	local PlatoonExists = PlatoonExists
+	local GetPlatoonPosition    = GetPlatoonPosition
+	local GetPlatoonUnits       = GetPlatoonUnits
+	local GetPosition           = GetPosition
+    local IsUnitState           = moho.unit_methods.IsUnitState
+	local PlatoonExists         = PlatoonExists
 
     local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
     
-    local LOUDFLOOR = math.floor
-    local MATHMAX = math.max
-
-	local VDist3 = VDist3
+    local LOUDFLOOR     = math.floor
+    local MATHMAX       = math.max
+	local VDist3        = VDist3
 
     if type(marker) == 'string' then
 
@@ -603,24 +602,26 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
     local delay = 10
     
 	WaitTicks( delay )
-
-    --if platoon.MovingToWaypoint then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt begins watching - thread flag is "..repr(platoon.MovingToWaypoint).." for "..repr(marker) )
-    --else
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." FAILS - NO MovingToWaypoint THREAD " )
-    --end
-
+    
+    local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt"
+--[[
+    if platoon.MovingToWaypoint then
+        LOG( dialog.." begins watching for "..repr(marker).." on tick "..GetGameTick() )
+    else
+        LOG( dialog.." FAILS - NO MovingToWaypoint THREAD " )
+    end
+--]]
 	local count = 1
     
     local distance, position, unitpos
     
     while PlatoonExists( aiBrain, platoon) do
     
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..repr(count).." - thread flag is "..repr(platoon.MovingToWaypoint) )
+        --LOG( dialog.." cycle "..count.." - thread flag is "..repr(platoon.MovingToWaypoint).." on tick "..GetGameTick() )
 	
-        if not marker or not platoon.MovingToWaypoint then
+        if not platoon.MovingToWaypoint then
         
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt thread exits - flag is "..repr(platoon.MovingToWaypoint) )
+            LOG( dialog.." cycle "..count.." thread exits - flag is "..repr(platoon.MovingToWaypoint).." on tick "..GetGameTick() )
 		
             return
 			
@@ -636,18 +637,18 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 
             if distance <= triggerdistance or count > 80 then
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt at trigger "..distance )
+                if count > 80 then
+                    LOG( dialog.." cycle "..count.." reached - invoking trigger")
+                end
+            
+                --LOG( dialog.." cycle "..count.." at marker "..repr(marker).." distance "..distance.." on tick "..GetGameTick() )
 
                 if name then
-				
-                    cb( TriggerManager, name, platoon )
+                    callbackfunction( TriggerManager, name, platoon )
                     return
-					
                 else
-				
-                    cb( platoon )
+                    callbackfunction( platoon, marker )
                     return
-					
                 end
 				
             end
@@ -657,7 +658,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 
 			if count > 20 and (distance/triggerdistance) < 2.25 then
 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )            
+                --LOG( dialog.." cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks on game tick "..GetGameTick() )            
 
                 platoon:Stop()
 			
@@ -680,7 +681,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 
             end
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
+            --LOG( dialog.." cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks on tick "..GetGameTick() )
 
             if count > 24 then
                 triggerdistance = triggerdistance + 1
