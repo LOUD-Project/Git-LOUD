@@ -17,7 +17,7 @@ UnitBlueprint {
     Air = {
 	
         AutoLandTime = 3.9,
-        BankFactor = 1.9,
+        BankFactor = 1.6,
         
         BankForward = false,
         
@@ -28,21 +28,21 @@ UnitBlueprint {
         
         CanFly = true,
         
-        CombatTurnSpeed = 0.8,
+        CombatTurnSpeed = 0.9,
         
         EngageDistance = 60,
 		
         KLift = 3.6,
         KLiftDamping = 2.8,
 		
-        KMove = 1,
-        KMoveDamping = 0.9,
+        KMove = 0.9,
+        KMoveDamping = 0.8,
 		
-        KRoll = 1.9,
-        KRollDamping = 2.5,
+        KRoll = 1.35,
+        KRollDamping = 1.35,
 		
         KTurn = 0.81,
-        KTurnDamping = 1.45,
+        KTurnDamping = 1,
 		
         LiftFactor = 11,
 		
@@ -51,11 +51,11 @@ UnitBlueprint {
 		
         --PredictAheadForBombDrop = 6,
 		
-        StartTurnDistance = 20,
+        StartTurnDistance = 16,
         
         SustainedTurnThreshold = 16,
 		
-        TightTurnMultiplier = 0,
+        TightTurnMultiplier = 1.04,
 		
         TurnSpeed = 0.69,
 		
@@ -251,7 +251,7 @@ UnitBlueprint {
             
             AttackGroundTries = 2,
 			
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -301,7 +301,7 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoFiresAfterCharge = true,
+            RackSalvoFiresAfterCharge = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 
@@ -320,7 +320,7 @@ UnitBlueprint {
 				'ENGINEER',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL,AIR',
             TrackingRadius = 1,
         },
 		
