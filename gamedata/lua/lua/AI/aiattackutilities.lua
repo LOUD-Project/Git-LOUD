@@ -846,10 +846,7 @@ end
 -- any shields within a targets vicinity increase it's threat --
 -- This function can use a great deal of CPU so be careful
 -- added the threatringrange calculation
-function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius, threatavoid)
-
-    local IMAPblocks = LOUDFLOOR((threatradius or 96)/ScenarioInfo.IMAPSize)   -- translates threatradius into number of IMAPblocks
-    local threatringrange = LOUDFLOOR(IMAPblocks/2)     -- since it's a radius
+function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius, threatavoid, DebugDialog )
     
 	-- if position not supplied use platoon position or exit
     if not position then
@@ -860,11 +857,23 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			return false,false
 		end
     end
+
+    local GetUnitsAroundPoint = GetUnitsAroundPoint
 	
-	-- are there any enemy units ?
-	if GetNumUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
-		return false, false
-	end
+	-- get all the enemy units around this point (except walls)
+	local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' )
+
+    if not enemyunits[1] then
+        return false, false
+    end
+
+    --if DebugDialog then
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." found "..table.getn(enemyunits).." enemy units at range "..maxRange.." from position "..repr(position))
+    --end
+    
+    local IMAPblocks = LOUDFLOOR((threatradius or 96)/ScenarioInfo.IMAPSize)   -- translates threatradius into number of IMAPblocks
+	local minimumrange = (minRange * minRange)
+    local threatringrange = LOUDFLOOR(IMAPblocks/2)     -- since it's a radius
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
@@ -958,17 +967,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
         return 0
     end
 
-	local minimumrange = (minRange * minRange)
-	
-    local GetUnitsAroundPoint = GetUnitsAroundPoint
-	
-	-- get all the enemy units around this point (except walls)
-	local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' )
-
-    if not enemyunits[1] then
-        return false, false
-    end
-
 	local CanAttackTarget           = CanAttackTarget
     local EntityCategoryFilterDown  = EntityCategoryFilterDown
     local GetPosition               = GetPosition
@@ -982,24 +980,29 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
     
 	local retDistance, retUnit, bestthreat, targetUnits
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." seeks "..table.getn(attackcategories).." categories of units within "..maxRange )
 
 	-- loop thru each of our attack categories
 	for k,category in attackcategories do
 	
 		retUnit = false
 
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." seeking "..repr(category).." units" )
+
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
 		if targetUnits[1] then
         
+            --if DebugDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." found suitable targets from position "..repr(position))
+            --end
+        
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a), position) < VDist3Sq(GetPosition(b), position) end)
 		
 			local checkspertick, enemyshields, enemythreat, unitchecks, unitdistance, unitposition
-            
-            local lastget   = 0     -- debug value to monitor threat checks --
-            local gets      = 0     -- how many times the threatcheck was the same
 			
 			unitchecks      = 0
 			checkspertick   = 6     -- this is the performance critical value -- 
@@ -1023,13 +1026,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         if threatself then
 					
                             enemythreat = AIGetThreatLevelsAroundPoint(unitposition)
-
-                            -- monitor the number of times the getthreat call was the same
-                            if lastget != 0 and enemythreat == lastget then
-                                gets = gets + 1
-                            end
-                        
-                            lastget = enemythreat
                         
                             -- if threat is less than threatself
                             if enemythreat <= threatself then						
@@ -1037,7 +1033,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                                 -- check and adjust threat for shields
                                 if shieldcount > 0 and enemythreat > 0 then
 					
-                                    enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
+                                    enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 72, 'Enemy')
 								
                                     LOUDSORT(enemyshields, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a),unitposition ) < VDist3Sq( GetPosition(b),unitposition ) end)
 
@@ -1063,13 +1059,17 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                                     unitchecks  = 0
                                     break
                                 end
+                            else
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." enemythreat "..enemythreat.." "..threattype.." greater than mine "..threatself)
                             end
                         
                         else    -- otherwise select the first target
                         
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no threat check category "..repr(k).." target within "..maxRange)
+                            retUnit     = u
+                            retDistance = unitdistance
+                            unitchecks  = 0
                         
-                            return u, unitposition, unitdistance
+                            break
 
                         end
                         
@@ -1080,24 +1080,25 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         WaitTicks(1)
                         unitchecks = 0
                     end                    
-				end
+                end
 			end
 
 			if retUnit and not retUnit.Dead then
 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." gets "..repr(retUnit:GetBlueprint().Description).." at "..repr(retUnit:GetPosition()).." enemy "..threattype.." threat at "..threatringrange.." IMAP blocks is "..bestthreat.." mine is "..threatself.." avoid is "..threatavoid)
-                
-                --LOG("*AI DEBUG "..threattype.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threattype )) )
-                --LOG("*AI DEBUG "..threatavoid.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threatavoid )) )
+                if DebugDialog then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." gets "..repr(retUnit:GetBlueprint().Description).." at "..repr(retUnit:GetPosition()).." enemy "..threattype.." threat at "..threatringrange.." IMAP blocks is "..repr(bestthreat).." mine is "..repr(threatself).." avoid is "..threatavoid)
+                    --LOG("*AI DEBUG "..threattype.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threattype )) )
+                    --LOG("*AI DEBUG "..threatavoid.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threatavoid )) )
+                end
 
 				return retUnit, retUnit:GetPosition(), retDistance
 			else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no target unit")
-
 				retUnit = false
 			end
 		else
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no filtered units to target within "..maxRange )
+            if DebugDialog then
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." finds no units to target within "..maxRange )
+            end
         end
 
 	end
