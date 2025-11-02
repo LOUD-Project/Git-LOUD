@@ -22,6 +22,7 @@ local SMD       = categories.STRUCTURE * categories.ANTIMISSILE * categories.SIL
 local TMD       = categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO
 local ENERGY    = categories.STRUCTURE * categories.ENERGYPRODUCTION
 local FACTORY   = categories.STRUCTURE * categories.FACTORY
+local HVYARTY   = categories.STRUCTURE * categories.ARTILLERY + (categories.STRATEGIC + categories.EXPERIMENTAL)
 local SHIELD    = categories.STRUCTURE * categories.SHIELD
 
 local LOUDFLOOR = math.floor
@@ -1278,7 +1279,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
              
             end
 
-            if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900 then
+            if (aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900) or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, HVYARTY,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1352,7 +1353,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
              
             end
 
-            if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900 then
+            if (aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900) or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, HVYARTY,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1644,7 +1645,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
              
             end
 
-            if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900 then
+            if (aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900) or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, HVYARTY,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1719,7 +1720,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
              
             end
 
-            if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900 then
+            if (aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 900) or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, HVYARTY,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
