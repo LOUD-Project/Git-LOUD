@@ -179,9 +179,9 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	-- store the settings for this base
     aiBrain.BuilderManagers[locationType].BaseSettings = BaseBuilderTemplates[baseBuilderName].BaseSettings
     
-    --if ScenarioInfo.BaseMonitorDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." loaded "..buildercount.." builders for base "..repr(locationType))
-    --end
+    if ScenarioInfo.BaseMonitorDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." loaded "..buildercount.." builders for base "..repr(locationType).." on tick "..GetGameTick() )
+    end
 	
 	-- get rid of the data sets that we build this from - they get reloaded if needed
 	BaseBuilderTemplates = nil

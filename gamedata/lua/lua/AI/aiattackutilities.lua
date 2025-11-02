@@ -45,14 +45,15 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 		LOUDSORT( nodes, function(a,b) local VDist3 = VDist3 return VDist3( a.position, location ) < VDist3( b.position, location ) end )
         
         local position = nodes[1].position
+        local distance = VDist3( position, location )
 
 		-- if the first result is within radius then respond
-		if VDist3( position, location ) <= LayerLimits[layer] then
-			return true, position
+		if distance <= LayerLimits[layer] then
+			return true, position, distance
         end
 	end
 
-	return false, nil
+	return false, nil, LayerLimits[layer]
 end
 
 -- determines the max range of a naval platoon and returns the weapon arc and turret pitch range
