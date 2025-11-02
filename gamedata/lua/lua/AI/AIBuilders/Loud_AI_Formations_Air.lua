@@ -380,7 +380,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         BuilderConditions = {},
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 100,
             DistressReactionTime = 6,
 			DistressTypes = 'Land',
 			DistressThreshold = 3,
@@ -389,11 +389,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			
             MergeLimit = 12,
 			
-            MissionTime = 80,
+            MissionTime = 90,
 			
-            PrioritizedCategories = {categories.ENGINEER, categories.ECONOMY, categories.MOBILE - categories.SHIELD - categories.AIR - categories.SCOUT},
+            PrioritizedCategories = {categories.ENGINEER, categories.ECONOMIC, categories.MOBILE - categories.SHIELD - categories.AIR},
 			
-			SearchRadius = 50,	
+			SearchRadius = 60,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -427,18 +427,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
         },
 		
         BuilderData = {
-			DistressRange = 125,
+			DistressRange = 100,
             DistressReactionTime = 6,
 			DistressTypes = 'Land',
-			DistressThreshold = 6,
+			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = false,     -- no merging for this platoon
+            MergeLimit = 12,
 			
             MissionTime = 90,
 			
@@ -486,16 +486,16 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         BuilderConditions = {},
 		
         BuilderData = {
-			DistressRange = 165,
+			DistressRange = 120,
             DistressReactionTime = 6,            
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 25,
+            MergeLimit = 24,
 			
-            MissionTime = 90,
+            MissionTime = 120,
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.ECONOMIC },
 			
@@ -532,20 +532,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 3,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
         },
 		
         BuilderData = {
-			DistressRange = 180,
+			DistressRange = 120,
             DistressReactionTime = 6,            
 			DistressTypes = 'Land',
-			DistressThreshold = 8,
+			DistressThreshold = 4,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 25,
+            MergeLimit = 24,
 			
-            MissionTime = 125,
+            MissionTime = 120,
 			
             PrioritizedCategories = { categories.ECONOMIC, categories.ENGINEER, categories.MASSPRODUCTION },
 			
@@ -589,7 +589,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
 			-- none of the major SUPER triggers can be true
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 2000 }},
@@ -602,14 +602,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 175,
             DistressReactionTime = 10,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             
 			LocationType = 'LocationType',
             
-            MergeLimit = 64,
+            MergeLimit = 40,
             
             MissionTime = 150,
             
@@ -659,7 +659,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},            
             
@@ -723,7 +723,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 		
         BuilderConditions = {
           
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
             
@@ -740,7 +740,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 
 			LocationType = 'LocationType',
             
-            MergeLimit = false,
+            MergeLimit = 50,
             
             MissionTime = 360,
 
@@ -806,7 +806,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			DistressThreshold = 50,
 
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 400,
             PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2},
 			SearchRadius = 700,
@@ -869,7 +869,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			DistressThreshold = 50,
         
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 400,
             PrioritizedCategories = {categories.MOBILE + categories.SNIPER - categories.TECH2},
 			SearchRadius = 700,
@@ -995,7 +995,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			DistressThreshold = 50,
         
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 480,
             PrioritizedCategories = { (categories.FACTORY) * categories.STRUCTURE},
 			SearchRadius = 1000,
@@ -1058,7 +1058,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			DistressThreshold = 50,
         
 			LocationType = 'LocationType',
-            MergeLimit = false,
+            MergeLimit = 50,
             MissionTime = 480,
             PrioritizedCategories = {categories.ECONOMIC * categories.EXPERIMENTAL},
 			SearchRadius = 1000,
@@ -1126,7 +1126,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Fighters', BuildersRestrictio
 
         end,
 
-        InstanceCount = 2,
+        InstanceCount = 4,
 		
         BuilderConditions = {},
 		
@@ -1286,7 +1286,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Fighters', BuildersRestrictio
 
         end,
 
-        InstanceCount = 2,
+        InstanceCount = 4,
 
         BuilderConditions = {},
 		
@@ -1342,7 +1342,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Fighters', BuildersRestrictio
 
         end,
 
-        InstanceCount = 3,
+        InstanceCount = 4,
 
         BuilderConditions = {},
 		
@@ -1863,7 +1863,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderData = {
 			LocationType = 'LocationType',
             
-            MergeLimit = false,
+            MergeLimit = 32,
             
             MissionTime = 150,
             
@@ -2300,7 +2300,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 		},
 		
         BuilderData = {
