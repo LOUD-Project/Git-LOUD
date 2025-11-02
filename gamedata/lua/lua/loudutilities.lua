@@ -1559,15 +1559,15 @@ function SetPrimarySeaAttackBase( aiBrain )
 
         -- this is almost always a land position so it's not really valid for the sea attack base
         -- perhaps we should locate the closest naval path marker to this position
-        local reason, goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
+        local reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
         
         if not goal then
         
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase fails WATER trying AMPHIBIOUS")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase fails WATER at "..distance.." trying AMPHIBIOUS")
             end
             
-            reason, goal = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Amphibious')
+            reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Amphibious')
         end
 
         if AttackPlanDialog then    
@@ -2079,8 +2079,8 @@ function AirUnitRefitThread( unit, aiBrain )
 	local healthlimit   = .80
 	local rtbissued     = false
 
-	local fuel, health, platpos, plats, unitPos
-	local airpad, closestairpad, reason, safepath
+	local plats, unitPos
+	local airpad, closestairpad, reason, safePath
     
     while (not unit.Dead) and unit.IgnoreRefit do
         WaitTicks(9)
@@ -2144,7 +2144,7 @@ function AirUnitRefitThread( unit, aiBrain )
             unitPos = LOUDCOPY(GetPosition(unit))
             
             -- closest base with an airpad
-            closestairpad = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitPos, categories.AIRSTAGINGPLATFORM )
+            closestairpad, airpad = import('/lua/loudutilities.lua').AIFindClosestBuilderManagerPosition( aiBrain, unitPos, categories.AIRSTAGINGPLATFORM )
 
             -- otherwise just closest base
             if not closestairpad then
@@ -2175,7 +2175,7 @@ function AirUnitRefitThread( unit, aiBrain )
                 end
 
                 --- move the platoon 
-                returnpool.MoveThread = returnpool:ForkThread( returnpool.MovePlatoon, safePath, 'AttackFormation', false, 20)
+                returnpool.MoveThread = returnpool:ForkThread( returnpool.MovePlatoon, safePath, 'AttackFormation', false, 31)
 
                 if RefitDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." moving to "..repr(closestairpad).." with path "..repr(safePath).." on tick "..GetGameTick() )
@@ -2199,7 +2199,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
                     AssignUnitsToPlatoon( aiBrain, aiBrain.RefuelPool, {unit}, 'Support', '')
 
-                    if platpos then
+                    if airpad then
                         AirStagingThread( unit, airpad, aiBrain, RefitDialog )
                     end
 
@@ -2267,9 +2267,11 @@ function AirUnitRefitThread( unit, aiBrain )
 			ForkThread( ReturnTransportsToPool, aiBrain, {unit}, true )
             
 		end
-
-	end
     
+        unit:OnGotFuel()
+ 
+	end
+
     unit.InRefit = nil
     unit.RefitThread = nil
 
