@@ -335,17 +335,18 @@ Platoon = Class(PlatoonMethods) {
     -- it handles processing the path provided to it by the platoon
     -- moving it one segment at a time
 	MovePlatoon = function( self, path, PlatoonFormation, AggroMove, waypointslackdistance)
-    
-        local MovePlatoonDialog = false
         
         local aiBrain = self:GetBrain()
+    
+        local MovePlatoonDialog = false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." MTWayPt "
 
 		local prevpoint = GetPlatoonPosition(self) or false
 
 		if prevpoint and path[1] then
         
             if MovePlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon "..repr(waypointslackdistance).." with path "..repr(path))
+                LOG( dialog.." starts MovePlatoon "..repr(waypointslackdistance).." with path "..repr(path))
             end
             
             local GetDirection          = GetDirection            
@@ -355,8 +356,6 @@ Platoon = Class(PlatoonMethods) {
             local LOUDCOPY      = LOUDCOPY
             local LOUDREMOVE    = LOUDREMOVE
             local WaitTicks     = WaitTicks
-
-            SetupPlatoonAtWaypointCallbacks = self.SetupPlatoonAtWaypointCallbacks
             
             if PlatoonFormation != 'None' then
                 self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -374,8 +373,6 @@ Platoon = Class(PlatoonMethods) {
             -- problem is - you don't want the value too large or platoons will change
             -- to their next waypoint too early - also - speed of the platoon is important 
             -- faster platoons need a little more warning 
-
-			local pathslack = waypointslackdistance or 21
             
             local Direction, SCOUTS, ATTACKS, ARTILLERY, GUARDS, SUPPORTS
 
@@ -386,13 +383,17 @@ Platoon = Class(PlatoonMethods) {
                     if type(waypointPath) != 'table' then
 
                         if MovePlatoonDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." using path "..repr(path))
+                            LOG( dialog.." using path "..repr(path))
                         end
 
                         continue
                     end
+	
+                    self.MovingToWaypoint = true
 
-					self.WaypointCallback = SetupPlatoonAtWaypointCallbacks( self, waypointPath, pathslack )
+                    --LOG( dialog.." MTWayPt sets trigger for "..repr(waypointPath).." slack value "..repr(waypointslackdistance) )
+
+                    self.WaypointCallback = self:ForkThread( import('/lua/scenariotriggers.lua').PlatoonToPositionDistanceTriggerThread, self.PlatoonAtWaypoint, waypointPath, waypointslackdistance or 21)
                     
 					Direction = GetDirection( prevpoint, waypointPath )
                     
@@ -401,7 +402,7 @@ Platoon = Class(PlatoonMethods) {
 					if AggroMove then
                     
                         if MovePlatoonDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing orders using aggro to "..repr(waypointPath) )
+                            LOG( dialog.." issuing orders using aggro to "..repr(waypointPath) )
                         end
 
                         SCOUTS = GetSquadUnits( self, 'Scout' ) or false
@@ -409,7 +410,7 @@ Platoon = Class(PlatoonMethods) {
 						if SCOUTS[1] then
                         
                             if MovePlatoonDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(SCOUTS).." orders to SCOUTS" )
+                                LOG( dialog.." issuing "..LOUDGETN(SCOUTS).." orders to SCOUTS" )
                             end
                         
 							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
@@ -420,7 +421,7 @@ Platoon = Class(PlatoonMethods) {
 						if ATTACKS[1] then
                         
                             if MovePlatoonDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(ATTACKS).." orders to ATTACKS" )
+                                LOG( dialog.." issuing "..LOUDGETN(ATTACKS).." orders to ATTACKS" )
                             end
                             
 							IssueFormAggressiveMove( ATTACKS, waypointPath, 'AttackFormation', Direction)
@@ -431,7 +432,7 @@ Platoon = Class(PlatoonMethods) {
 						if ARTILLERY[1] then
                         
                             if MovePlatoonDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(ARTILLERY).." orders to ARTILLERY" )                        
+                                LOG( dialog.." issuing "..LOUDGETN(ARTILLERY).." orders to ARTILLERY" )                        
                             end
                             
 							IssueFormAggressiveMove( ARTILLERY, waypointPath, PlatoonFormation, Direction)
@@ -444,7 +445,7 @@ Platoon = Class(PlatoonMethods) {
 						if GUARDS[1] then
                         
                             if MovePlatoonDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(GUARDS).." orders to GUARDS" )                        
+                                LOG( dialog.." issuing "..LOUDGETN(GUARDS).." orders to GUARDS" )                        
                             end
                             
                             if not ARTILLERY[1] and not ATTACKS[1] then
@@ -469,7 +470,7 @@ Platoon = Class(PlatoonMethods) {
 						if SUPPORTS[1] then
 
                             if MovePlatoonDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(SUPPORTS).." orders to SUPPORTS" )                        
+                                LOG( dialog.." issuing "..LOUDGETN(SUPPORTS).." orders to SUPPORTS" )                        
                             end
                             
                             if not ATTACKS[1] and not ARTILLERY[1] and not GUARDS[1] then
@@ -494,7 +495,7 @@ Platoon = Class(PlatoonMethods) {
 					else
 
                         if MovePlatoonDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing order MoveToLocation to "..repr(waypointPath) )			
+                            LOG( dialog.." issuing order MoveToLocation to "..repr(waypointPath) )			
                         end
                         
 						IssueFormMove( GetPlatoonUnits(self), waypointPath, 'BlockFormation', Direction)
@@ -503,7 +504,7 @@ Platoon = Class(PlatoonMethods) {
                     
                     local loopcount = 0
 
-					while self.MovingToWaypoint do
+					while self.MovingToWaypoint and self.WaypointCallback do
 
                         WaitTicks(2)
 
@@ -513,7 +514,7 @@ Platoon = Class(PlatoonMethods) {
 			
 				if self.WaypointCallback then
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." killing WayPointCallback")
+                    --LOG( dialog.." killing WayPointCallback")
                     
 					KillThread(self.WaypointCallback)
 					self.WaypointCallback = nil
@@ -530,7 +531,7 @@ Platoon = Class(PlatoonMethods) {
 		else
 
             if prevpoint then
-                WARN("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." has no path ! Position is "..repr(prevpoint))
+                WARN( dialog.." has no path ! Position is "..repr(prevpoint))
             end
 
 		end
@@ -8136,7 +8137,6 @@ Platoon = Class(PlatoonMethods) {
             local LocationType = eng.LocationType
  
             local ProcessBuildCommand               = self.ProcessBuildCommand
-            local SetupPlatoonAtWaypointCallbacks   = self.SetupPlatoonAtWaypointCallbacks
             
             local basetaken, count, distance, enemythreat, EnergyReclaim, engPos, engLastPos, MassReclaim, path, prevpoint, reason, reclaims
 
@@ -8381,8 +8381,9 @@ Platoon = Class(PlatoonMethods) {
                 if EngineerDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." sets Waypoint to "..repr(prevpoint) )
                 end
-			
-				self.WaypointCallback = SetupPlatoonAtWaypointCallbacks( self, prevpoint, viewrange )
+                
+                self:SetupPlatoonAtWaypointCallback( aiBrain, prevpoint, viewrange )
+
 			end
 
 			local function EngineerMoveWithSafePath()
@@ -10269,18 +10270,20 @@ Platoon = Class(PlatoonMethods) {
 		return false
     end,
 
-	SetupPlatoonAtWaypointCallbacks = function( platoon, waypoint, distance )
+	SetupPlatoonAtWaypointCallback = function( platoon, aiBrain, waypoint, distance )
 	
 		platoon.MovingToWaypoint = true
 
-        --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." sets MTWayPt trigger for "..repr(waypoint).." slack value "..repr(distance) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt sets trigger for "..repr(waypoint).." slack value "..repr(distance) )
 
-		return CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonAtWaypoint, platoon, waypoint, distance)
+        platoon.WaypointCallback = platoon:ForkThread( import('/lua/scenariotriggers.lua').PlatoonToPositionDistanceTriggerThread, platoon.PlatoonAtWaypoint, waypoint, distance)
+
+		return 
 	end,
-	
-	PlatoonAtWaypoint = function( platoon, params )
+
+	PlatoonAtWaypoint = function( platoon, waypoint )
     
-        --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." now at Waypoint "..repr(params))
+        --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt at Waypoint "..repr(waypoint).." on tick "..GetGameTick() )
 
 		local CmdQ = false
 		
@@ -10300,7 +10303,7 @@ Platoon = Class(PlatoonMethods) {
 			
 		else
 
-            --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." stops "..repr(params))
+            --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." stops "..repr(waypoint))
 
 			platoon:Stop()
 		end
@@ -10311,8 +10314,10 @@ Platoon = Class(PlatoonMethods) {
 		
 		if platoon.WaypointCallback then
         
-            --LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." killing MoveThread")
-
+            --if not CmdQ[2] then
+              --  LOG("*AI DEBUG "..platoon:GetBrain().Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." kills MoveThread on tick "..GetGameTick() )
+            --end
+            
 			KillThread(platoon.WaypointCallback)
 			platoon.WaypointCallback = false
 		end
@@ -10325,6 +10330,8 @@ Platoon = Class(PlatoonMethods) {
 	PlatoonOnFinalStep = function( self, params )
     
         local aiBrain = GetBrain(self)
+        
+        --self.MovingToWaypoint = false
 
 	end,
 
