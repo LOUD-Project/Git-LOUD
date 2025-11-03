@@ -422,8 +422,12 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
                     local basename = aiBrain.AttackPlan.StagePoints[k].Name
                     local position = aiBrain.AttackPlan.StagePoints[k].Position
+                    
+                    if string.find(basename, 'Fake') then
+                        continue
+                    end
                 
-                    -- check the nobody else already owns it
+                    -- check that nobody else already owns it
                     for index,brain in Brains do
                         if brain.BuilderManagers[basename] then
                             basename = false
@@ -846,10 +850,10 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
         local AttackGoal    = table.copy(AttackPlan.Goal)
         
         -- this gives us a Goal of the closest water node to the Attack Plan goal
-        local reason, Goal = GetClosestPathNode( AttackGoal,'Water' )
+        local reason, Goal, distance = GetClosestPathNode( AttackGoal,'Water' )
         
         if not Goal then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." fails to find Path Node near Attack Plan Goal for Naval DP")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." fails to find Path Node near Attack Plan Goal for Naval DP at distance "..distance)
             return false, false
         end
         
