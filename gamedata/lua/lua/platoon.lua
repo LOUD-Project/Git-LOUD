@@ -8900,7 +8900,7 @@ Platoon = Class(PlatoonMethods) {
 	-- If the threat of the platoon drops too low, it will try to Return To Base
     LandForceAILOUD = function( self, aiBrain )
     
-        local LandForceAIDialog = ScenarioInfo.LandForceDialog or true
+        local LandForceAIDialog = ScenarioInfo.LandForceDialog or false
         local dialog = "*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance)
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
@@ -8998,6 +8998,8 @@ Platoon = Class(PlatoonMethods) {
 				if MergeWithNearbyPlatoons( self, aiBrain, 'LandForceAILOUD', 85, false, MergeLimit) then
 
 					numberOfUnitsInPlatoon = 0
+                    
+                    dataList = GetPlatoonUnits(self)
 					
 					for _,v in dataList do
 
@@ -9481,6 +9483,8 @@ Platoon = Class(PlatoonMethods) {
 				if MergeWithNearbyPlatoons( self, aiBrain, 'AmphibForceAILOUD', 75, false, MergeLimit) then
 					
                     numberOfUnitsInPlatoon = 0
+                    
+                    platoonUnits = GetPlatoonUnits(self)
 
                     for _,v in platoonUnits do
 					
@@ -9901,7 +9905,7 @@ Platoon = Class(PlatoonMethods) {
         end
 
         local PlatoonExists         = PlatoonExists
-        local PlatoonMergeDialog    = ScenarioInfo.PlatoonMergeDialog
+        local PlatoonMergeDialog    = ScenarioInfo.PlatoonMergeDialog or false
 
 		if not PlatoonExists(aiBrain,self) then
 			return false
@@ -9951,8 +9955,8 @@ Platoon = Class(PlatoonMethods) {
 		--- loop thru all the platoons
         for _,aPlat in AlliedPlatoons do
 	
-			-- ignore yourself
-            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool then
+			-- ignore yourself, the Army, Transport & Refuel pools, and any platoon marked as 'busy'
+            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool or aPlat.UsingTransport then
                 continue
             end
 		
@@ -9981,16 +9985,6 @@ Platoon = Class(PlatoonMethods) {
 				continue
 			end
 		
-			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
-            if aPlat.UsingTransport then
-
-                if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
-                end
-
-                continue
-            end
-            
 			-- check distance of allied platoon -- as soon as we hit one farther away then we're done
 			if VDist3Sq( platPos, GetPlatoonPosition(aPlat) ) > radiusSq then
 				break

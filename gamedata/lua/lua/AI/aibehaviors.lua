@@ -2156,7 +2156,7 @@ function RetreatAI( self, aiBrain )
         return
     end
     
-    local DistressResponseDialog = ScenarioInfo.DistressResponseDialog
+    local DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
     
     -- note that this platoon is using RetreatAI
     self.RetreatAI = true
@@ -2216,7 +2216,7 @@ function RetreatAI( self, aiBrain )
             OriginalSize        = LOUDMAX( OriginalSize, mysize )
 
             --- check platoon strength
-            if (OriginalStrength * .33) >= mythreat or (OriginalSize * .33) >= mysize then
+            if (OriginalStrength * .3) >= mythreat or (OriginalSize * .3) >= mysize then
 
                 if PlatoonExists( aiBrain, self) then
                     
