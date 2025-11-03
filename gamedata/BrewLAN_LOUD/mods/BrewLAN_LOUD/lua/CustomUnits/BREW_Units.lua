@@ -1,5 +1,12 @@
 UnitList = {
 
+T1TorpedoBomber = {
+	Aeon = {'saa0106', 100},
+	UEF = {'sea0106', 100},
+	Cybran = {'sra0106', 100},
+	Seraphim = {'ssa0106', 100},
+},
+
 T2AirScout = {
 	UEF = {'sea0201', 100},
 	Cybran = {'sra0201',100},
@@ -27,16 +34,16 @@ T2SeaSub = {
 },
 
 T3Bomber = {
-	Aeon = {'saa0314', 25},
-	Cybran = {'sra0314', 20},
-	UEF = {'sea0314', 20},
-	Seraphim = {'ssa0314', 20},
+	Aeon = {'saa0314', 18},
+	Cybran = {'sra0314', 15},
+	UEF = {'sea0314', 15},
+	Seraphim = {'ssa0314', 15},
 },
 
 T3Fighter = {
-	Cybran = {'sra0313', 12},
-    UEF = {'sea0313', 12},
-    Seraphim = {'ssa0313', 12},
+	Cybran = {'sra0313', 10},
+    UEF = {'sea0313', 10},
+    Seraphim = {'ssa0313', 10},
 },
 
 T3Gunship = {
@@ -76,7 +83,7 @@ T3LandBot = {
 },
 
 T3LandArtillery = {
-	Cybran = {'srl0311', 30},	-- Triseptitron
+	Cybran = {'srl0311', 20},	-- Triseptitron
 },
 
 T3AmphibiousArtillery = {
@@ -84,7 +91,7 @@ T3AmphibiousArtillery = {
 },
 
 T3MobileShields = {
-	Cybran = {'srl0316', 40},	-- Amphib CounterIntel
+	Cybran = {'srl0316', 30},	-- Amphib CounterIntel
 },
 
 T3LandMobileTMD = {
