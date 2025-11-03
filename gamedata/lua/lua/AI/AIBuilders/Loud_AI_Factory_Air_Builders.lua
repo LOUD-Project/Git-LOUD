@@ -387,6 +387,26 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
     --- AND importantly, it should only become an issue if the AI is actually playing on the water
     --- When I see an AI with no Naval position building Torpedo Bombers I get disturbed especially if his partners are in the water and he isn't
     --- there are legitimate reasons to do this, but we need to control them carefully
+    Builder {BuilderName = 'Torpedo Bomber T1',
+	
+        PlatoonTemplate = 'T1TorpedoBomber',
+		
+        Priority = 10,
+		
+		PriorityFunction = IsEnemyNavalActive,
+		
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
+
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+
+            -- one of the few places where I use a % ratio to control the number of units
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},
+        },
+
+        BuilderType =  {'AirT1'},
+    },
+
     Builder {BuilderName = 'Torpedo Bomber T2',
 	
         PlatoonTemplate = 'T2TorpedoBomber',

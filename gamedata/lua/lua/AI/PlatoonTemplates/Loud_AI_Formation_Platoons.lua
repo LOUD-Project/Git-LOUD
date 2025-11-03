@@ -125,24 +125,24 @@ PlatoonTemplate { Name = 'Air Scout Group Huge',
 
 PlatoonTemplate { Name = 'TorpedoReinforce',
 	GlobalSquads = {
-		{ TORPBOMBER, 3, 48, 'Attack', 'AttackFormation' },
+		{ TORPBOMBER, 3, 48, 'Unassigned', 'AttackFormation' },
   		{ AIRSCOUT, 0, 4, 'Support', 'none' },
 	}
 }
 
 PlatoonTemplate { Name = 'TorpedoAttack Small',
     GlobalSquads = {
-        { TORPBOMBER, 1, 15, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 1, 15, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'TorpedoAttack',
     GlobalSquads = {
-        { TORPBOMBER, 16, 31, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 16, 31, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'TorpedoAttack Large',
     GlobalSquads = {
-        { TORPBOMBER, 32, 48, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 32, 48, 'Unassigned', 'AttackFormation' },
     }
 }
 

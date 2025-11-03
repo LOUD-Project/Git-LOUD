@@ -356,6 +356,15 @@ PlatoonTemplate { Name = 'T3Gunship',
     }
 }
 
+PlatoonTemplate { Name = 'T1TorpedoBomber',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 PlatoonTemplate { Name = 'T2TorpedoBomber',
     FactionSquads = {
         UEF = {
