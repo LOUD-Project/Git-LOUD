@@ -14,19 +14,7 @@ SEA0314 = Class(TAirUnit, MissileFlare) {
 
     Weapons = {
 
-        Bomb = Class(TIFSmallYieldNuclearBombWeapon) {
-
-            -- hooking the bomb firing in the hope of someday diverting
-            -- the bomber immediately upon firing rather than breaking off
-            -- only after having overflown the target
-            OnWeaponFired = function(self)
-            
-                TIFSmallYieldNuclearBombWeapon.OnWeaponFired(self)
-
-            end,
-        
-        },
-        
+        Bomb    = Class(TIFSmallYieldNuclearBombWeapon) {},
         Missile = Class(TIFCruiseMissileLauncher) {},
         Torpedo = Class(TANTorpedoAngler) { FxMuzzleFlash = false },
     },

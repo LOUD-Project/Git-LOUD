@@ -13,7 +13,7 @@ CybranWeapons = nil
 SRA0314 = Class(CAirUnit, MissileFlare) {
 
     Weapons = {
-        Bomb = Class(CIFBombNeutronWeapon) {},
+        Bomb    = Class(CIFBombNeutronWeapon) {},
         Missile = Class(CDFRocketIridiumWeapon) {},
         Torpedo = Class(CIFNaniteTorpedoWeapon) {},
     },

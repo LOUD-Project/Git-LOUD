@@ -15,7 +15,7 @@ SSA0314 = Class(SAirUnit, MissileFlare) {
     Weapons = {
         Bomb            = Class(SIFBombZhanaseeWeapon) {},
         CruiseMissile   = Class(SLaanseMissileWeapon) {},
-        ClusterTorpedo  = Class(SANHeavyCavitationTorpedo) {},
+        Torpedo  = Class(SANHeavyCavitationTorpedo) {},
     },
 
     OnStopBeingBuilt = function(self,builder,layer)

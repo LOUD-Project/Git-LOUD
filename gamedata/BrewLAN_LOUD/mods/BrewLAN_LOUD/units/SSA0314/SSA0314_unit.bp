@@ -445,7 +445,7 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'ClusterTorpedo',
+            Label = 'Torpedo',
 			
             NotExclusive = true,
 			
