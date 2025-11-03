@@ -50,9 +50,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
 
-        Health = 16500,
-        MaxHealth = 16500,
-        RegenRate = 15,
+        Health = 15000,
+        MaxHealth = 15000,
+        RegenRate = 12,
 
         SurfaceThreatLevel = 314.8,
     },
@@ -199,8 +199,8 @@ UnitBlueprint {
 
             DisplayName = 'Maelstrom Cannon',
 
-            EnergyDrainPerSecond = 1500,        -- 8 second charge
-            EnergyRequired = 12000,
+            EnergyDrainPerSecond = 1650,        -- 8 second charge
+            EnergyRequired = 13200,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -212,7 +212,7 @@ UnitBlueprint {
 
             LeadTarget = true,
 
-            MaxRadius = 128,
+            MaxRadius = 116,
             MinRadius = 12,
 
             MuzzleVelocity = 90,
@@ -259,7 +259,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 8,
+            TurretYawSpeed = 7,
 
             Turreted = true,
         },
