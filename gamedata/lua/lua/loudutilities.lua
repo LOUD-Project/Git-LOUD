@@ -2222,9 +2222,9 @@ function AirUnitRefitThread( unit, aiBrain )
 
         if closestairpad then
             AirStagingThread( unit, airpad, aiBrain, RefitDialog )
+        else
+            WaitTicks(11)
         end
-
-        WaitTicks(11)
 
     end
 
