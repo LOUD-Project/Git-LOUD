@@ -1238,8 +1238,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                     self:ForkThread(self.RenderClockThread, rof)                
                 end
             end
-
-            self:OnWeaponFired(bp)
             
             --- actually firing will clear the semaphores
             self.OnFireEvent = false
@@ -1419,6 +1417,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 
             end
+
+            self:OnWeaponFired(bp)
 
 			if Buffs then
 				self:DoOnFireBuffs(Buffs)
