@@ -1984,8 +1984,6 @@ Platoon = Class(PlatoonMethods) {
 
 					if not u.Dead then
 						AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
-						u.PlatoonHandle             = {returnpool}
-						u.PlatoonHandle.PlanName    = 'ReturnToBaseAI'
 					end
 
 				end

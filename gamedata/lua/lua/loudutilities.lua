@@ -1319,9 +1319,6 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 
 			if not u.Dead then
 				AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
-				
-				u.PlatoonHandle = {returnpool}
-				u.PlatoonHandle.PlanName = 'ReturnToBaseAI'
 			end
 		end
 		
@@ -2134,8 +2131,6 @@ function AirUnitRefitThread( unit, aiBrain )
 
             AssignUnitsToPlatoon( aiBrain, returnpool, {unit}, 'Support', '')
 
-            unit.PlatoonHandle = returnpool
-            
             unit:MarkWeaponsOnTransport(unit, true)     --- prevent targetlock, dr and merge
         end
 
@@ -2251,9 +2246,7 @@ function AirUnitRefitThread( unit, aiBrain )
             if RefitDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." returns to Army Pool at tick "..GetGameTick() )
             end
-            
-            unit.PlatoonHandle = aiBrain.ArmyPool
-	
+
 			AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )

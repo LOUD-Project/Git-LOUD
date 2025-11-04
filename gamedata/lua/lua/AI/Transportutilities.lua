@@ -127,8 +127,6 @@ function AssignTransportToPool( unit, aiBrain )
 
             unit.Assigning = false        
 
-			unit.PlatoonHandle = aiBrain.TransportPool
-            
             if not IsBeingBuilt(unit) then
                 ForkTo( ReturnTransportsToPool, aiBrain, {unit}, true )
                 return
@@ -1087,8 +1085,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." Transport "..v.EntityID.." assigned" )
                 end
 
-                v.PlatoonHandle = returnpool
-                
                 unitposition = v:GetPosition()
 
                 -- only return transports to active bases with AIRPADS
@@ -1097,15 +1093,9 @@ function ReturnTransportsToPool( aiBrain, units, move )
                 local airpad = GetClosestAirpad( aiBrain, baseposition )
 
                 if airpad then
-                
-                    --LOG("*AI DEBUG Got airpad at "..repr(airpad).." for base at "..repr(baseposition))
 
                     baseposition = table.copy(airpad)
-                
-                else
-                
-                    --LOG("*AI DEBUG Couldn't find airpad at "..repr(baseposition) )
-                
+
                 end
 
                 baseposition = RandomLocation(baseposition[1],baseposition[3])
@@ -1153,7 +1143,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 
                             AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {v}, 'Support', '' )
 
-                            v.PlatoonHandle = aiBrain.TransportPool
                             v.InUse = false
                             v.Assigning = false                            
                         end
@@ -1169,7 +1158,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 
 						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {v}, 'Unassigned', '' )
 
-						v.PlatoonHandle = aiBrain.ArmyPool
        					v.InUse = false
                         v.Assigning = false
 					end
