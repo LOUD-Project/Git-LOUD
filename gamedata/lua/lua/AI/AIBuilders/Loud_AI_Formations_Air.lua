@@ -1700,9 +1700,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 12,
+            MergeLimit = 20,
 			
-            MissionTime = 60,
+            MissionTime = 90,
 			
             PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE},
 			
@@ -1747,14 +1747,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderConditions = {},
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 120,
             DistressReactionTime = 10,            
 			DistressTypes = 'NaVal',
-			DistressThreshold = 6,
+			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 32,
+            MergeLimit = 40,
 			
             MissionTime = 120,
 			
@@ -1801,20 +1801,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderConditions = {},
 		
         BuilderData = {
-			DistressRange = 180,
+			DistressRange = 150,
             DistressReactionTime = 12,            
 			DistressTypes = 'NaVal',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 64,
+            MergeLimit = 80,
 			
-            MissionTime = 260,
+            MissionTime = 200,
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
-			SearchRadius = 100,
+			SearchRadius = 90,
 			
             UseFormation = 'AttackFormation',
         },
