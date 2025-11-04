@@ -1,8 +1,48 @@
+### Release  11-04-2025
+
+LUA 7.35
+BrewLAN for LOUD 0.8.8.9.123
+UNITS 7.21
+
+- revised selection of new bases using Attack Plan data, to avoid use of 'FAKE' positions (crash cause)
+- this also addresses the Platoon Formation manager collapsing at certain bases (crash cause)
+- 'Railguns' now require 10% additional E costs over and above artillery calculations
+    -- minor reduction in HP, regen & range for UEF T4 Excalibur
+- implemented T1 Torpedo bombers for the AI (from BrewLAN), added necessary builders
+- BrewLAN reduced appearance % of Pen Fighters from 20 > 10%
+- BrewLAN reduced appearance % of Pen Bombers from 20 > 15%
+- BrewLAN SSL0404 further work, syncing the tracer weapon with the main weapon
+- AI optimized the 'OnAddedToPlatoon' event
+- AI AirRefitThread was being delayed by 1 second after a sucessful airpad refit
+- AI revised eco trend triggers up, for adding new factories, this should reduce eco strain and trim overbuilding
+- AI base shield building is now prioritized if STRATEGIC or EXPERIMENTAL ARTILLERY enters the game
+- AI AIRFORCE_AI to revise how tethering, and targeting ranges, impact effectiveness
+    - this is a transformational change to both bomber & torpedobomber behavior
+- AI unit cap % limits on transport builds & revised build conditions
+- AI air strength discounts the value of his own A2G
+- AI air ratio is upvalued when enemy is predominantly A2G units, resulting in more agressive tethering 
+- AI Cruiser production prioritized when enemy air bias leans towards A2G (bombers, gunships, torps)
+- AI Shield construction priority increased when Strategic artillery is present
+- AI revised eco triggers for T4 units to insure that Paragon construction is on the same fence
+- AI revised merge limits for some land formations, reduced transport call limits
+- AI revised some distress ranges, and triggers, for air formations
+- AI realigned eco triggers for T4 builds (Nukes and Paragons as well), recent changes to mobile T4 builds had negatively impacted this
+- AI 'retreat' events are now triggered at 30%, down from 33%
+- UNITS introduction of FUELRATIO buffs to naval AA (just stock units at this time - same as existing flak weapons)
+- UNITS T3 Strategic Artillery - Shield damage multiplier reduced from 1.1 to 1.08
+- UNITS Ahwassa - revised flight character closer to T3 bombers, reduced braking (like other air units), bomb no longer targets AIR units
+- MAP Painted Desert 40k remarked
+- MAP Shards 40k 'Balanced' remarked
+- MAP Fields of Isis 40k 7v7 remarked
+
+
+
 ### Release 10-04-2025
 
 LUA 7.34
 BrewLAN for LOUD 0.8.8.9.122
 
+- UPDATE: The personal teleporters are now unlimited range - but with very heavy E costs scaling beyond the nomimal 7km range
 - fixed an issue where engineers could execute tasks that should be marked as 'removed' (PriorityFunction processing)
 - added a new data structure that permits preventing the loading of builders AND buildergroups according to category restrictions
     - this can dramatically reduced overhead when restrictions are being used, eliminating constant rechecking of restrictions by the AI

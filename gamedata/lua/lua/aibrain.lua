@@ -112,7 +112,7 @@
 	LOG("*AI DEBUG      Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
 	
     -- ALL AI units will be named with the platoon (BuilderName) they are in (can be very crowded onscreen)
-	ScenarioInfo.DisplayPlatoonMembership = true
+	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG      Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
     
     -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
