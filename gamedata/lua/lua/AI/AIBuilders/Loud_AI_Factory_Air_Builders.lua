@@ -551,18 +551,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if not aiBrain.ArmyNeedsTransports then
+            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
             
+            return self.Priority, false
         end,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-			
-            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT2UP }},
 
@@ -587,18 +584,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if not aiBrain.ArmyNeedsTransports then
+            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
-            
+
+            return self.Priority, false
         end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-
-            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
 
@@ -622,18 +616,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if not aiBrain.ArmyNeedsTransports then
+            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
-            
+
+            return self.Priority, false            
         end,
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-
-            --{ UCBC, 'ArmyNeedsTransports', { true } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT3 }},
         },
