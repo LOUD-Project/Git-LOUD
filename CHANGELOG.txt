@@ -1,3 +1,13 @@
+### Release 11-05-2025
+
+LUA 7.35.1
+
+- a hotfix for an AI Debug flag that was left in the 'on' state
+- a fix for the AI not building T2/T3 transports
+- a revision to 'outnumbered' on pre-built units, should result in equal starting mass incomes
+
+
+
 ### Release  11-04-2025
 
 LUA 7.35
