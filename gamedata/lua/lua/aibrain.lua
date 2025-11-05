@@ -1044,7 +1044,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local engy = 0
         
         if self.OutnumberedRatio > 1 then
-            mult = 4 + math.floor(self.OutnumberedRatio)
+            mult = math.floor(2 * self.OutnumberedRatio) + 1
             engy = math.ceil(self.OutnumberedRatio) - 1
         end
 
