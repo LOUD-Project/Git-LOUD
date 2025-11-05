@@ -551,7 +551,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
+            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
             
@@ -584,7 +584,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
+            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
 
@@ -616,7 +616,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.ArmyNeedsTransports) or aiBrain.LandRatio <= 0.7 then
+            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
 
