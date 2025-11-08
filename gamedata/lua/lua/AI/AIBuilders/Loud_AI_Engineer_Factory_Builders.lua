@@ -218,7 +218,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'AirProductionRatioLessThan', { 3 } },
+            { LUTL, 'AirProductionRatioLessThan', { 6 } },
 
             { LUTL, 'AirStrengthRatioLessThan', { 6 } },
 
@@ -307,7 +307,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'AirProductionRatioLessThan', { 3 } },
+            { LUTL, 'AirProductionRatioLessThan', { 6 } },
 
             { LUTL, 'LandProductionRatioGreaterThan', { 3 } },
             
@@ -425,7 +425,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         BuilderConditions = {
             
-            { LUTL, 'AirProductionRatioLessThan', { 4 } },
+            { LUTL, 'AirProductionRatioLessThan', { 6 } },
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
