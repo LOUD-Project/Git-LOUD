@@ -3167,7 +3167,7 @@ function AirForceAILOUD( self, aiBrain )
                 IssueGuard( attackers, loiterposition)
  
                 --- while travelling to the loiter
-                while PlatoonExists(aiBrain, self) and platPos and not self.UnderAttack and VDist3( loiterposition, platPos ) > searchrange do
+                while PlatoonExists(aiBrain, self) and platPos and (not self.UnderAttack) and VDist3( loiterposition, platPos ) > searchrange do
                   
                     if count > 1 then
                         --- this permits distressresponse and merging to take place
@@ -3896,7 +3896,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 end
   
                 --- while travelling to the loiter
-                while PlatoonExists(aiBrain, self) and platPos and not self.UnderAttack and VDist3( loiterposition, platPos ) > searchrange do
+                while PlatoonExists(aiBrain, self) and platPos and (not self.UnderAttack) and VDist3( loiterposition, platPos ) > searchrange do
                   
                     if count > 1 then
                         --- this permits distressresponse and merging to take place
@@ -4695,7 +4695,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                 end
   
                 --- while travelling to the loiter
-                while PlatoonExists(aiBrain, self) and platPos and not self.UnderAttack and VDist3( loiterposition, platPos ) > searchrange do
+                while PlatoonExists(aiBrain, self) and platPos and (not self.UnderAttack) and VDist3( loiterposition, platPos ) > searchrange do
                   
                     if count > 1 then
                         --- this permits distressresponse and merging to take place

@@ -1511,6 +1511,10 @@ function SetPrimaryLandAttackBase( aiBrain )
 
         end
     end
+    
+    if AttackPlanDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Set Primary Land Attack Base "..repr(aiBrain.PrimaryLandAttackBase).." complete on tick "..GetGameTick() )
+    end
 	
 end
 

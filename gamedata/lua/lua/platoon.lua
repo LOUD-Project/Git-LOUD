@@ -7433,7 +7433,7 @@ Platoon = Class(PlatoonMethods) {
 			-- didn't find a location to build at
 			if not startpos then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." No location found for new base!")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." No location found for new base on tick "..GetGameTick() )
 				
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
             end
