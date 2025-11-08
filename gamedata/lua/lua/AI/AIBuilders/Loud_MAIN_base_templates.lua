@@ -73,6 +73,10 @@ FactoryLayout = {
         },
 		{{'T3QuantumGate','T4TeleportNode'},
 			{ 0, 0 },
+            { 0,-1 },
+            { 0,-2 },
+            { 0, 1 },
+            { 0, 2 },
 		},
 	},
 -- Aeon Factory Layout
