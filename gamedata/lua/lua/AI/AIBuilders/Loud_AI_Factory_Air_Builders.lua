@@ -17,6 +17,8 @@ local AIRT2UP           = AIR - categories.TECH1
 local AIRT3             = AIR * categories.TECH3
 local AIRTORP           = AIR * categories.ANTINAVY
 local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
+local TRANSPORTS        = categories.TRANSPORTFOCUS
+local TRANSPORTST2UP    = TRANSPORTS - categories.TECH1 - categories.GROUNDATTACK
 
 
 local AboveUnitCap75 = function( self,aiBrain )
@@ -531,7 +533,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 6}, categories.TRANSPORTFOCUS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 6}, TRANSPORTS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1','AirT2'},
@@ -561,9 +563,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT2UP }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, TRANSPORTS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -626,7 +628,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT3 }},
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, TRANSPORTS * categories.TECH3}},
         },
 
         BuilderType =  {'AirT3'},

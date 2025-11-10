@@ -1,8 +1,8 @@
 ---  /lua/aeonweapons.lua
 ---  Default definitions of Aeon weapons
 
-local WeaponFile = import('/lua/sim/DefaultWeapons.lua')
-local CollisionBeamFile = import('defaultcollisionbeams.lua')
+local WeaponFile            = import('/lua/sim/DefaultWeapons.lua')
+local CollisionBeamFile     = import('defaultcollisionbeams.lua')
 
 local QuantumBeamGeneratorCollisionBeam     = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
 local PhasonLaserCollisionBeam              = CollisionBeamFile.PhasonLaserCollisionBeam
