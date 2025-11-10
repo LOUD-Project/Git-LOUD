@@ -142,38 +142,7 @@ SDFSniperShotNormalMode                 = Class(DefaultProjectileWeapon) { FxMuz
 
 SDFSniperShotSniperMode                 = Class(DefaultProjectileWeapon) { FxMuzzleFlash = EffectTemplate.SDFSniperShotMuzzleFlash}
 
-SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
-
-    OnWeaponFired = function(self)
-
-        DefaultProjectileWeapon.OnWeaponFired(self)
-        
-        self.unit:ForkThread( function() local unit = self.unit
-        
-                                        unit:SetSpeedMult(1.2)
-                                        unit:SetTurnMult(0.01)
-                                        unit:SetAccMult(0.5)
-        
-                                        while not self.projectile:BeenDestroyed() do
-                                           WaitTicks(31)
-                                        end
-                                        
-                                        self.projectile = nil
-                                        
-                                        unit:SetSpeedMult(1)
-                                        unit:SetAccMult(1)
-                                        unit:SetTurnMult(1)
-        end )
-  
-    end,
-
-    CreateProjectileAtMuzzle = function(self, bone)
-    
-        self.projectile = DefaultProjectileWeapon.CreateProjectileAtMuzzle( self,bone )
-
-    end,    
-
-}
+SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {}
 
 
 ----- Beam Weapons -----
