@@ -447,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
                 return 0, false
             end
             
-            if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
+            if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO,'Enemy') then
                 return (self.OldPriority or self.Priority), true
             end
 
