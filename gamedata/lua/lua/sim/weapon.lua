@@ -20,7 +20,7 @@ local TrashDestroy  = TrashBag.Destroy
 local WaitSeconds   = WaitSeconds
 local WaitTicks     = coroutine.yield
 
-local BeenDestroyed             = moho.entity_methods.BeenDestroyed
+local BeenDestroyed     = moho.entity_methods.BeenDestroyed
 
 local WeaponMethods     = moho.weapon_methods
 
@@ -954,9 +954,9 @@ Weapon = Class(WeaponMethods) {
 		
 				if cb then
 			    
-                    --LOG("*AI DEBUG found callback for unit "..param.Sync.id.." on tick "..GetGameTick() )
+                    LOG("*AI DEBUG found callback for unit "..param.Sync.id.." on tick "..GetGameTick() )
   
-					cb( self, param )
+					self:ForkThread( cb, param )
 				end
 			end
 		end

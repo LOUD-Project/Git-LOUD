@@ -2847,6 +2847,21 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, recalldelay, AirFo
   
     end
 
+function WeaponFired( weapon, unit )
+
+    if (not unit.Dead) and unit.PlatoonHandle.loiterposition then
+
+        unit.target = false
+
+        IssueClearCommands( {unit} )
+
+        IssueGuard( {unit}, unit.PlatoonHandle.loiterposition )
+
+    end
+
+end
+ 
+
 
 -- Basic Air attack logic
 function AirForceAILOUD( self, aiBrain )
@@ -3601,21 +3616,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
-    local WeaponFired = function( weapon, unit )
-    
-        --LOG( "WeaponFired on unit "..unit.Sync.id.." on tick "..GetGameTick() )
-      
-        unit.target = false
-
-        if unit.PlatoonHandle.loiterposition then
-
-            IssueClearCommands( {unit} )
-
-            IssueGuard( {unit}, unit.PlatoonHandle.loiterposition )
-
-        end
-    end
- 
 	for _,v in platoonUnits do 
 	
 		if not v.Dead then
@@ -4401,21 +4401,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
-    local WeaponFired = function( weapon, unit )
-    
-        --LOG( "WeaponFired on unit "..unit.Sync.id.." on tick "..GetGameTick() )
-      
-        unit.target = false
-
-        if unit.PlatoonHandle.loiterposition then
-
-            IssueClearCommands( {unit} )
-
-            IssueGuard( {unit}, unit.PlatoonHandle.loiterposition )
-
-        end
-    end
- 
 	for _,v in platoonUnits do 
 	
 		if not v.Dead then

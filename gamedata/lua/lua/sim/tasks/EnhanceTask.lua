@@ -55,7 +55,7 @@ EnhanceTask = Class(ScriptTask) {
              
                 if result == false then
                 
-                    LOG("*AI DEBUG OnWorkBegin result is "..repr(result) )
+                    --LOG("*AI DEBUG OnWorkBegin result is "..repr(result) )
                     
                     self:OnDestroy()
 
