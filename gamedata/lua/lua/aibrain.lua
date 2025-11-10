@@ -146,7 +146,7 @@
 
     -- follows the decision process of the AIRFORCEAILOUD behavior
     ScenarioInfo.AirForceDialog = false
-    LOG("*AI DEBUG      AmphibForce Behavior Dialog is "..repr(ScenarioInfo.AmphibForceDialog))
+    LOG("*AI DEBUG      AirForce Behavior Dialog is "..repr(ScenarioInfo.AirForceDialog))
 
     -- follows the decision process of the AMPHIBFORCEAILOUD behavior (for LAND & AMPHIB only at this time)
     ScenarioInfo.AmphibForceDialog = false

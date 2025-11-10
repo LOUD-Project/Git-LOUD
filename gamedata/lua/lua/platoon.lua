@@ -2031,58 +2031,61 @@ Platoon = Class(PlatoonMethods) {
         end
         
         -- ok -- process the arrival 
-		if PlatoonExists(aiBrain, self) and bases[bestBase.BaseName].EngineerManager.Active then
+		if PlatoonExists(aiBrain, self) then
 
-            if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  appears to have arrived" )		
-            end
+            if bases[bestBase.BaseName].EngineerManager.Active then
 
-			if self.MoveThread then
-				self:KillMoveThread()
-			end
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  appears to have arrived" )		
+                end
+
+                if self.MoveThread then
+                    self:KillMoveThread()
+                end
             
-            self:Stop()
+                self:Stop()
 			
-			-- all units are spread out to the rally points except engineers (we want them back to work ASAP)
-			if not engineer then
-				DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, bestBase.RallyPoints or false, GetPlatoonPosition(self), 4 )
-			else
-				-- without this, engineers will continue right to the heart of the base
-				self:Stop()
-			end
+                -- all units are spread out to the rally points except engineers (we want them back to work ASAP)
+                if not engineer then
+                    DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, bestBase.RallyPoints or false, GetPlatoonPosition(self), 4 )
+                else
+                    -- without this, engineers will continue right to the heart of the base
+                    self:Stop()
+                end
         
-			self:PlatoonDisband(aiBrain)
+                self:PlatoonDisband(aiBrain)
 
-		else
+            else
 
-            -- the base was declared DEAD --
-            if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." arrives at DEAD base" )		
-            end
+                -- the base was declared DEAD --
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." arrives at DEAD base" )		
+                end
 
-			if MovementLayer == "Land" or MovementLayer == "Amphibious" then
+                if MovementLayer == "Land" or MovementLayer == "Amphibious" then
 
-				-- use only land bases --
-                self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false )
+                    -- use only land bases --
+                    self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false )
                 
-                self:SetAIPlan( 'ReinforceLandAI', aiBrain)
-			end
+                    self:SetAIPlan( 'ReinforceLandAI', aiBrain)
+                end
 
-			if MovementLayer == "Air" then
+                if MovementLayer == "Air" then
 
-				-- use any kind of base --
-				self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
+                    -- use any kind of base --
+                    self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
 
-                self:SetAIPlan( 'ReinforceAirAI', aiBrain)
-            end
+                    self:SetAIPlan( 'ReinforceAirAI', aiBrain)
+                end
 
-			if MovementLayer == "Water" then
+                if MovementLayer == "Water" then
 
-				-- use only naval bases --
-				self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
+                    -- use only naval bases --
+                    self.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
             
-                self:SetAIPlan( 'ReinforceNavalAI', aiBrain)
-			end
+                    self:SetAIPlan( 'ReinforceNavalAI', aiBrain)
+                end
+            end
 
         end
 
