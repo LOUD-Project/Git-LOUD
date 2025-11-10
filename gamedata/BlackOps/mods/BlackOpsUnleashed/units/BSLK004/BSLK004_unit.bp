@@ -187,6 +187,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Unstable Phason Laser',
+            
+            EnergyRequired = 100,
+            EnergyDrainPerSecond = 50,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -198,7 +201,7 @@ UnitBlueprint {
             Label = 'PhasonBeam',
 			LeadTarget = false,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 			
             RackBones = {
                 {
@@ -235,7 +238,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 52,
 			
             Turreted = true,
 			
@@ -268,6 +271,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Unstable Phason Laser 2',
+            
+            EnergyRequired = 100,
+            EnergyDrainPerSecond = 50,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land',
