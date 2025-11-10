@@ -54,13 +54,12 @@ UnitBlueprint {
     
         ArmorType = 'Structure',
 
-        Health = 11600,
-        MaxHealth = 11600,
+        Health = 10440,
+        MaxHealth = 10440,
 
-        RegenRate = 6,
+        RegenRate = 4,
 
         SubThreatLevel = 40,
-        SurfaceThreatLevel = 40,
     },
 	
     Description = '<LOC ueb2205_desc>Advanced Torpedo Launcher',
@@ -115,9 +114,9 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 27500,
-        BuildCostMass = 3500,
+        BuildCostMass = 3675,
 
-        BuildTime = 3000,
+        BuildTime = 3750,
 		
         RebuildBonusIds = {'seb2308'},
     },
@@ -130,7 +129,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 2,
+		CapCost = 3,
 
         CommandCaps = {
             RULEUCC_Attack = true,

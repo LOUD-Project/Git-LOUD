@@ -55,7 +55,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 8500,
         MaxHealth = 8500,
-        RegenRate = 6,
+        RegenRate = 5,
         SubThreatLevel = 26,
     },
 	
@@ -130,7 +130,7 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 2,
+        CapCost = 3,
         
         CommandCaps = {
             RULEUCC_Attack = true,

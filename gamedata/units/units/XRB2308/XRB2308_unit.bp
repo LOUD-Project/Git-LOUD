@@ -53,11 +53,10 @@ UnitBlueprint {
     
         ArmorType = 'Structure',
 
-        Health = 10800,
-        MaxHealth = 10800,
-        RegenRate = 7,
+        Health = 9750,
+        MaxHealth = 9750,
+        RegenRate = 6,
 
-        SurfaceThreatLevel = 42,
 		SubThreatLevel = 42,
     },
 	
@@ -81,9 +80,9 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 29500,
-        BuildCostMass = 3300,
+        BuildCostMass = 3475,
 
-        BuildTime = 3300,
+        BuildTime = 3500,
     },
 	
     Footprint = {
@@ -93,7 +92,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 2,
+		CapCost = 3,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
