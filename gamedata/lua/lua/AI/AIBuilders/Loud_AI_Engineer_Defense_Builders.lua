@@ -23,7 +23,10 @@ local TMD       = categories.STRUCTURE * categories.ANTIMISSILE - categories.SIL
 local ENERGY    = categories.STRUCTURE * categories.ENERGYPRODUCTION
 local FACTORY   = categories.STRUCTURE * categories.FACTORY
 local HVYARTY   = categories.STRUCTURE * categories.ARTILLERY + (categories.STRATEGIC + categories.EXPERIMENTAL)
+local NUKESILO  = categories.NUKE * categories.SILO
 local SHIELD    = categories.STRUCTURE * categories.SHIELD
+local T4AIR     = categories.EXPERIMENTAL * categories.MOBILE * categories.AIR
+local T4LAND    = categories.EXPERIMENTAL * categories.MOBILE * categories.DIRECTFIRE
 
 local LOUDFLOOR = math.floor
 
@@ -537,7 +540,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 
             end
 
-            if aiBrain.LandRatio <= 1.2  then
+            if aiBrain.LandRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 2, T4LAND,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1082,7 +1085,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         
             if GreaterThanEnergyIncome( aiBrain, 16800) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, SMD) then
             
-                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 1, categories.NUKE * categories.SILO,'Enemy') then
+                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 1, NUKESILO,'Enemy') then
                     return (self.OldPriority or self.Priority), true
                 end
             else
@@ -1139,7 +1142,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 
             end
 
-            if aiBrain.LandRatio <= 1.2  then
+            if aiBrain.LandRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 2, T4LAND,'Enemy') then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1208,7 +1211,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 
             end
 
-            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
+            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, T4AIR,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -2994,7 +2997,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         
             if GreaterThanEnergyIncome( aiBrain, 21000) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 4, SMD) then
             
-                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 3, categories.NUKE * categories.SILO,'Enemy') then
+                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 3, NUKESILO,'Enemy') then
                     return (self.OldPriority or self.Priority), true
                 end
             else
@@ -3957,7 +3960,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
         PriorityFunction = function( self, aiBrain, unit, manager)
             
-            if GreaterThanEnergyIncome( aiBrain, 18900) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) and HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO,'Enemy') then
+            if GreaterThanEnergyIncome( aiBrain, 18900) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) and HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, NUKESILO,'Enemy') then
  
                 return (self.OldPriority or self.Priority), true
             else
@@ -4085,7 +4088,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
+            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, T4AIR,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -6158,7 +6161,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SMD }},
 
             -- enemy must have a visible nuke            
-			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO, 'Enemy' }},
+			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, NUKESILO, 'Enemy' }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -6585,7 +6588,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, SMD, 0, 15 }},
 
             -- enemy must have a visible nuke            
-			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO, 'Enemy' }},
+			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, NUKESILO, 'Enemy' }},
         },
 		
 		BuilderType = { 'SubCommander' },
