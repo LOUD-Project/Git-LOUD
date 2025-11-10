@@ -34,13 +34,20 @@ UnitBlueprint {
         Health = 1125,
         MaxHealth = 1125,
         RegenRate = 1,
+        SubThreatLevel = 2,
         SurfaceThreatLevel = 8.5,
     },
 	
     Description = '<LOC uel0203_desc>Hovertank',
 	
     Display = {
-        Mesh = {
+	
+        Abilities = {
+            'Hovercraft',
+            '<LOC ability_depthcharge>Depth Charge',            
+        },
+
+	        Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 { LODCutoff = 100, ShaderName = 'Unit' },
@@ -209,6 +216,70 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		--- Depth Charge ---
+        {
+            
+            Audio = {
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+            
+            CollideFriendly = false,
+			
+            Damage = 120,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+            
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 5,
+            FiringTolerance = 20,
+			
+            Label = 'DepthCharge',
+			
+            MaxRadius = 6,
+
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 1,
+
+            MuzzleVelocity = 2,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 4.8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'UEL0203'},
+                    RackBone = 'UEL0203',
+                },
+            },
+
+            RackSalvoReloadTime = 5.5,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 1,   -- controlled by MuzzleSalvoDelay and RackReload = 6 seconds = 20 DPS
+			
+            TargetCheckInterval = 2,
+            
+            TargetPriorities = {
+                'SUBMARINE',
+                'SUBMERSIBLE',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,HOVER',
+        },		
+
     },
 	
     Wreckage = {
