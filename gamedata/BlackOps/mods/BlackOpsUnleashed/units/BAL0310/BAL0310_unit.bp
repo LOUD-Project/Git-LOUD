@@ -45,6 +45,7 @@ UnitBlueprint {
         Health = 5000,
         MaxHealth = 5000,
         RegenRate = 2,
+        SubThreatLevel = 2,
         SurfaceThreatLevel = 70.8,
     },
 	
@@ -56,6 +57,7 @@ UnitBlueprint {
             'Hovercraft',
 			'Powerful but slow firing main gun',
 			'Two secondary weapons',
+            '<LOC ability_depthcharge>Depth Charge',            
         },
 		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
@@ -327,6 +329,70 @@ UnitBlueprint {
             WeaponUnpackAnimationRate = 2,
             WeaponUnpacks = true,
         },
+		--- Depth Charge ---
+        {
+            
+            Audio = {
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+            
+            CollideFriendly = false,
+			
+            Damage = 120,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+            
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 5,
+            FiringTolerance = 20,
+			
+            Label = 'DepthCharge',
+			
+            MaxRadius = 6,
+
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 1,
+
+            MuzzleVelocity = 2,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 4.8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'BAL0310'},
+                    RackBone = 'BAL0310',
+                },
+            },
+
+            RackSalvoReloadTime = 5.5,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 1,   -- controlled by MuzzleSalvoDelay and RackReload = 6 seconds = 20 DPS
+			
+            TargetCheckInterval = 2,
+            
+            TargetPriorities = {
+                'SUBMARINE',
+                'SUBMERSIBLE',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,HOVER',
+        },		
+        
     },
 
     Wreckage = {
