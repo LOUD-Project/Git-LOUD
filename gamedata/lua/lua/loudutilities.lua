@@ -2181,7 +2181,7 @@ function AirUnitRefitThread( unit, aiBrain )
                 end
 
                 -- wait for the movement orders to execute --
-                while PlatoonExists(aiBrain, returnpool) and returnpool.MoveThread and ( GetFuelRatio(unit) < fuellimit or GetHealthPercent(unit) < healthlimit ) do
+                while PlatoonExists(aiBrain, returnpool) and returnpool.MoveThread and ( ( GetFuelRatio(unit) < .fuellimit and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < healthlimit ) do
                     WaitTicks(1)
                 end
 
@@ -2217,7 +2217,7 @@ function AirUnitRefitThread( unit, aiBrain )
     
     --- this will trap units that didn't get to an airpad (ie. - transports, or no airpad)
     --- and if an airpad appears during that, it will send them to it
-    while (not unit.Dead) and ( GetFuelRatio(unit) < fuellimit or GetHealthPercent(unit) < healthlimit ) do
+    while (not unit.Dead) and ( ( GetFuelRatio(unit) < .fuellimit and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < healthlimit ) do
         
         airpad          = false
         closestairpad   = false
@@ -2336,7 +2336,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
             end
 
             -- while underway to airstaging --
-            while not (unit.Dead or airstage.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 20 and ( GetFuelRatio(unit) < .85 or GetHealthPercent(unit) < .85 ) do
+            while not (unit.Dead or airstage.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 20 and (( GetFuelRatio(unit) < .85 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .85 ) do
                 WaitTicks(6)
             end
 
