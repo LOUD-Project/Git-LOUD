@@ -9,6 +9,15 @@ XSB4302 = Class(SStructureUnit) {
         MissileRack = Class(SIFHuAntiNukeWeapon) {},
 		MissileRack2 = Class(SIFHuAntiNukeWeapon) {},
     },
+	
+	OnStopBeingBuilt = function(self,builder,layer)
+		
+		SStructureUnit.OnStopBeingBuilt(self,builder,layer)
+
+        if import('/lua/game.lua').NukesRestricted() then
+            self:StopSiloBuild()
+        end
+	end,    
 }
 
 TypeClass = XSB4302

@@ -7,6 +7,15 @@ UEB4302 = Class(TStructureUnit) {
         AntiNuke = Class(TAMInterceptorWeapon) {},
 		AntiNuke2 = Class(TAMInterceptorWeapon) {},
     },
+	
+	OnStopBeingBuilt = function(self,builder,layer)
+		
+		TStructureUnit.OnStopBeingBuilt(self,builder,layer)
+
+        if import('/lua/game.lua').NukesRestricted() then
+            self:StopSiloBuild()
+        end
+	end,
 }
 
 TypeClass = UEB4302

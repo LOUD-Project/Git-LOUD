@@ -14,6 +14,15 @@ URB4302 = Class(CStructureUnit) {
             FxMuzzleFlash = CAntiNukeLaunch01,
         },
     },
+	
+	OnStopBeingBuilt = function(self,builder,layer)
+		
+		CStructureUnit.OnStopBeingBuilt(self,builder,layer)
+
+        if import('/lua/game.lua').NukesRestricted() then
+            self:StopSiloBuild()
+        end
+	end,
 }
 
 TypeClass = URB4302

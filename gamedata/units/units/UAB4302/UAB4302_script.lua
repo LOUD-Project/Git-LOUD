@@ -10,6 +10,15 @@ UAB4302 = Class(AStructureUnit) {
         MissileRack = Class(AAMSaintWeapon) {},
 		MissileRack2 = Class(AAMSaintWeapon) {},
     },
+	
+	OnStopBeingBuilt = function(self,builder,layer)
+		
+		AStructureUnit.OnStopBeingBuilt(self,builder,layer)
+
+        if import('/lua/game.lua').NukesRestricted() then
+            self:StopSiloBuild()
+        end
+	end,	    
 }
 
 TypeClass = UAB4302
