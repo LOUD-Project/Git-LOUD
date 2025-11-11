@@ -916,6 +916,10 @@ StructureUnit = Class(Unit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
+        if ScenarioInfo.UnitDialog then    
+            LOG("*AI DEBUG UNIT "..self.EntityID.." STRUCTURE OnKilled for "..self.BlueprintID)
+        end
+  
 		self:DestroyAdjacentEffects()
         
         self:DestroyTarmac()
@@ -1037,10 +1041,22 @@ StructureUnit = Class(Unit) {
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG STRUCTURE "..self.Sync.id.." ATTACH unit "..unit.Sync.id.." "..repr(unit.PlatoonHandle.BuilderName).." on tick "..GetGameTick() )
+        end
+
 		UnitOnTransportAttach(self, attachBone, unit)
     end,
 
     OnTransportDetach = function(self, attachBone, unit)
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG STRUCTURE "..self.Sync.id.." DETACH unit "..unit.Sync.id.." "..repr(unit.PlatoonHandle.BuilderName).." on tick "..GetGameTick() )
+        end
+        
+        IssueTransportUnloadSpecific( self, self:GetPosition(), unit )
+
 		UnitOnTransportDetach(self, attachBone, unit)
     end,
     
@@ -1078,6 +1094,10 @@ MobileUnit = Class(Unit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
+        if ScenarioInfo.UnitDialog then    
+            LOG("*AI DEBUG UNIT "..self.EntityID.." MOBILE OnKilled for "..self.BlueprintID)
+        end
+  
         local bp = __blueprints[self.BlueprintID].Defense
         
         if bp.AirThreatLevel > 0 or bp.SurfaceThreatLevel > 0 or bp.SubThreatLevel > 0 then
@@ -2922,7 +2942,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     OnTransportAttach = function(self, attachBone, unit)
     
         if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.Sync.id.." Airpad OnTransportAttach to unit "..unit.Sync.id.." on tick "..GetGameTick() )
+            LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." AIRPAD "..self.Sync.id.." attaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
         end
         
 		if not self.UnitStored then
@@ -2941,7 +2961,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     OnTransportDetach = function(self, attachBone, unit)
 
         if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.Sync.id.." Airpad OnTransportDetach unit "..unit.Sync.id.." on tick "..GetGameTick() )
+            LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." AIRPAD "..self.Sync.id.." detaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
         end
   
         unit.Attached = nil
@@ -2949,7 +2969,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
         if self.UnitStored[unit.EntityID] then
             self.UnitStored[unit.EntityID] = nil
         end
-      	
+ 	
 		StructureUnitOnTransportDetach(self, attachBone, unit)
 		
     end,
@@ -4163,7 +4183,7 @@ AirUnit = Class(MobileUnit) {
             RemoveBuff(self,'OutOfFuel')
         end
         
-        --LOG("*AI DEBUG AirUnit OnGotFuel")
+        --LOG("*AI DEBUG AirUnit "..self.Sync.id.." OnGotFuel")
 
 		self.HasFuel = true
     end,
@@ -4337,7 +4357,7 @@ AirUnit = Class(MobileUnit) {
     CreateUnitAirDestructionEffects = function( self, scale )
 
         if ScenarioInfo.UnitDialog then    
-            LOG("*AI DEBUG UNIT "..self.EntityID.."AIR Create DestructionEffects for "..self.BlueprintID)
+            LOG("*AI DEBUG UNIT "..self.EntityID.." AIR Create DestructionEffects for "..self.BlueprintID)
         end
 
         CreateDefaultHitExplosion( self, GetAverageBoundingXZRadius(self))

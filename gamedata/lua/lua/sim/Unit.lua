@@ -5237,8 +5237,8 @@ Unit = Class(UnitMethods) {
     
 	-- issued by the Transport as a unit loads on
     OnTransportAttach = function(self, attachBone, unit)
-    
-        --LOG("*AI DEBUG Transport "..self.Sync.id.." attaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
+
+        --LOG("*AI DEBUG UNIT "..self.Sync.id.." attaches unit "..unit.Sync.id.." "..repr(unit.PlatoonHandle.BuilderName).." on tick "..GetGameTick() )
 
         self:MarkWeaponsOnTransport(unit, true)
 		
@@ -5264,7 +5264,7 @@ Unit = Class(UnitMethods) {
 	-- issued by the Transport as units are detached
     OnTransportDetach = function(self, attachBone, unit)
 
-        --LOG("*AI DEBUG Transport "..self.Sync.id.." detaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
+        --LOG("*AI DEBUG UNIT "..self.Sync.id.." detaches unit "..unit.Sync.id.." "..repr(unit.PlatoonHandle.BuilderName).." on tick "..GetGameTick() )
 		
         unit:TransportAnimation(-1)
 		

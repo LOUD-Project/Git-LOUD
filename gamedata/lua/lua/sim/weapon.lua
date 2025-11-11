@@ -956,7 +956,8 @@ Weapon = Class(WeaponMethods) {
 			    
                     LOG("*AI DEBUG found callback for unit "..param.Sync.id.." on tick "..GetGameTick() )
   
-					self:ForkThread( cb, param )
+					--self:ForkThread( cb, param )
+                    cb( self, param )
 				end
 			end
 		end

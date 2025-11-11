@@ -2236,9 +2236,9 @@ function AirUnitRefitThread( unit, aiBrain )
 	if not unit.Dead then
 
         if RefitDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." exits Refit at tick "..GetGameTick() )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." leaves RefitThread on tick "..GetGameTick() )
         end
-        
+
         unit.InRefit = nil
         
         --- weapons turned back on
@@ -2345,7 +2345,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
 
                 if RefitDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.PlatoonHandle.BuilderName.." ordered to attach to "..airstage.Sync.id.." on tick "..GetGameTick() )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." ordered to attach to airpad "..airstage.Sync.id.." on tick "..GetGameTick() )
                 end
 
                 safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
