@@ -1015,11 +1015,11 @@ function ModBlueprints(all_blueprints)
                         
                             --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
 
-                            wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.4
+                            wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.45
                             
                             if wep.BallisticArc == 'RULEBA_HighArc' then
                             
-                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
+                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 3.3
                                 
                             end
 
