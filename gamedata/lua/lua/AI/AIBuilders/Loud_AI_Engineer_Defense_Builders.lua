@@ -530,13 +530,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, PD * categories.TECH3, 15, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -1136,7 +1136,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, PD * categories.EXPERIMENTAL, 10, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * categories.EXPERIMENTAL, 10, 42 ) then
             
                 return 10, true
                 
@@ -1144,7 +1144,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
             if aiBrain.LandRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 2, T4LAND,'Enemy') then
 	
-                return (builder.OldPriority or builder.Priority) + 100, true	
+                return (builder.OldPriority or builder.Priority) + 101, true	
 
             end
     
@@ -1152,7 +1152,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
             if threat > 175 then
 
-                return (builder.OldPriority or builder.Priority) + 100, true
+                return (builder.OldPriority or builder.Priority) + 101, true
         
             end
     
@@ -1211,17 +1211,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 
             end
 
-            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, T4AIR,'Enemy')  then
+            if aiBrain.AirRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, T4AIR,'Enemy')  then
 	
-                return (builder.OldPriority or builder.Priority) + 100, true	
+                return (builder.OldPriority or builder.Priority) + 101, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'Air' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'Air' )
 
             if threat > 200 then
 
-                return (builder.OldPriority or builder.Priority) + 100, true
+                return (builder.OldPriority or builder.Priority) + 101, true
         
             end
     

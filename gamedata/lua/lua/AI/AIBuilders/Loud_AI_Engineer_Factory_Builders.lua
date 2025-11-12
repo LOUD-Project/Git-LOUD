@@ -11,6 +11,8 @@ local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
 
+local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
+
 local AboveUnitCap65 = function( self,aiBrain )
 	
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
@@ -678,9 +680,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 900,
+        Priority = 850,
         
         PriorityFunction = AboveUnitCap75,
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            
+                return 11, true
+               
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -688,10 +707,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
-
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
@@ -723,7 +738,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 900,
+        Priority = 850,
         
         PriorityFunction = AboveUnitCap75,
 		
@@ -775,7 +790,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 900,
+        Priority = 850,
         
         PriorityFunction = AboveUnitCap75,
 		

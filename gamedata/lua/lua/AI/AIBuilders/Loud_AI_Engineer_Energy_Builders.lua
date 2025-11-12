@@ -161,7 +161,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 900,
+        Priority = 851,
         
         PriorityFunction = AboveUnitCap98,
 

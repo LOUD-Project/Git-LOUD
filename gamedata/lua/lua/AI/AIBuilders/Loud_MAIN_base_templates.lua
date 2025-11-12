@@ -1909,6 +1909,8 @@ BaseDefenseLayout = {
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
+            {-23, 38 },     -- front corners
+            { 23, 38 },
 		},
 	},
 -- AEON Base Defense Layout
@@ -2072,6 +2074,8 @@ BaseDefenseLayout = {
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
+            {-23, 38 },     -- front corners
+            { 23, 38 },
 		},
 	},
 -- CYBRAN Base Defense Layout
@@ -2235,6 +2239,8 @@ BaseDefenseLayout = {
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
+            {-23, 38 },     -- front corners
+            { 23, 38 },
 		},
 	},
 -- SERA Base Defense Layout
@@ -2398,6 +2404,8 @@ BaseDefenseLayout = {
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
+            {-23, 38 },     -- front corners
+            { 23, 38 },
 		},		
 	},
 }	
