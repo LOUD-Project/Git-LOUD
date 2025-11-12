@@ -4189,20 +4189,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                 end
                                 
                                 if attackissued then
---[[                                
-                                    --- add weapon callback for bomb
-                                    for i = 1, u:GetWeaponCount() do
-                                
-                                        local weapon = u:GetWeapon(i)
-                                    
-                                        if weapon.bp.Label == 'Bomb' or weapon.bp.NeedToComputeBombDrop then
-                                
-                                            weapon:AddWeaponCallback( WeaponFired, 'OnWeaponFired')
-                                        
-                                        end
-                                    
-                                    end
---]]                                    
+                                 
                                     u:ForkThread( ProsecuteTarget, aiBrain, u.target, searchrange, 41, AirForceDialog )
 
                                     WaitTicks(1)
@@ -4973,20 +4960,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                                 end
                                 
                                 if attackissued then
---[[                                
-                                    --- add weapon callback for bomb
-                                    for i = 1, u:GetWeaponCount() do
-                                
-                                        local weapon = u:GetWeapon(i)
-                                    
-                                        if weapon.bp.Label == 'Bomb' or weapon.bp.NeedToComputeBombDrop then
-                                
-                                            weapon:AddWeaponCallback( WeaponFired, 'OnWeaponFired')
-                                        
-                                        end
-                                    
-                                    end
---]]                                    
+                                  
                                     u:ForkThread( ProsecuteTarget, aiBrain, u.target, searchrange, 41, AirForceDialog )
 
                                     WaitTicks(1)
