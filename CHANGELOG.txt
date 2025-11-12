@@ -1,3 +1,28 @@
+### Release 11-10-2025
+
+LUA 7.36
+Black Ops for LOUD 7.20
+BrewLAN for LOUD 0.8.8.9.124
+UNITS 7.22
+
+- adjusted the projectile lifetime of all 'high' arc weapons, up by about 20%
+- UNITS T3 Torp Launchers Cap Cost 2 >> 3, +5% mass cost, -10% HP, corrected threat values to 'Sub' threat, not both 'Sub' and 'Surface'
+- UNITS UEF T2 Hover gains depth charge
+- UNITS T4 Air unit marked with CANNOTUSEAIRSTAGING
+- UNITS When NUKES are restricted, Strategic Missile Defenses will no longer auto-build, this will save the AI a lot of resources
+- BrewLAN T3 Torp Launchers (see above)
+- BO Aeon T3 Hover Wraith gains depth charge
+- BO Sera T3 Lightning tank now has energy cost to fire
+- BO T4 Air units marked with CANNOTUSEAIRSTAGING
+- located a 'revealed' bug caused by T4 Air units trying to use airpads that was causing a 'stall' condition (thanks for all the replays)
+    -- this addresses a long standing issue that was likely causing the AI to use a T4 Air unit once, and then not ever again
+- AI triggers for adding another AIR factory have been tweaked, to allow slightly more air factories, even in a supremacy state
+- AI Defense Builders will be prioritized when the enemy is fielding multiple mobile T4 units, specificially for AIR or LAND
+    -- added 2 additional T4 PD positions to the base layout (total of six)
+- AI AirUnitRefitThread() gets some much needed cleanup and optimization to eliminate 'stuck' units on airpads
+
+
+
 ### Release 11-05-2025
 
 LUA 7.35.1
