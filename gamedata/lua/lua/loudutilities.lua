@@ -828,6 +828,11 @@ function SpawnWaveThread( aiBrain )
 		end
 		
 		wave = wave + 1
+        
+        -- we provided so clear the need flag
+        if aiBrain.NeedTransports then
+            aiBrain.NeedTransports = nil
+        end
 
         -- cap out at 10 waves --
 		if wave > 10 then
