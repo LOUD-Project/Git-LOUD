@@ -769,7 +769,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 		PriorityFunction = function(self, aiBrain, unit, manager)
         
-            if not BaseInPlayableArea( manager.LocationType ) then
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
 		
@@ -838,7 +838,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 		PriorityFunction = function(self, aiBrain, unit, manager)
         
-            if not BaseInPlayableArea( manager.LocationType ) then
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
 		
@@ -889,7 +889,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 		PriorityFunction = function(self, aiBrain, unit, manager)
         
-            if not BaseInPlayableArea( manager.LocationType ) then
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
 		
