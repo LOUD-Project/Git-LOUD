@@ -1653,11 +1653,18 @@ function SetPrimarySeaAttackBase( aiBrain )
         end
         
         if counter == 0 then
+
+            aiBrain.PrimarySeaAttackBase = false
+            aiBrain.PrimarySeaAttackBaseDistance = 99999        
+
+            LOG( dialog.." has NO CHOICES for Primary Sea Attack Base")
+
             return
         end
     
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews Primary Sea Attack Base for goal at "..repr(goal))
+
+            LOG( dialog.." reviews Primary Sea Attack Base for goal at "..repr(goal))
 
             if aiBrain.PrimarySeaAttackBase then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
@@ -6112,9 +6119,9 @@ function AIPickEnemyLogic( self, brainbool )
         end
     end
 
-    if AttackPlanDialog then
-        LOG("*AI DEBUG "..self.Nickname.." AttackPlan armyStrengthTable is "..repr(armyStrengthTable) )
-    end
+    --if AttackPlanDialog then
+      --  LOG("*AI DEBUG "..self.Nickname.." AttackPlan armyStrengthTable is "..repr(armyStrengthTable) )
+    --end
 	
     -- if targetoveride is true then allow target switching
     -- the only place I see that happening is with the Sorian
