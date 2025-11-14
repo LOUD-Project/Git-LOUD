@@ -242,7 +242,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	
         PlatoonTemplate = 'LandAttackHugeNW',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },		
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -292,7 +292,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land - Large',
 	
         PlatoonTemplate = 'T3MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -930,7 +930,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T3LandAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1487,7 +1487,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'AmphibAttackHuge',
 
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -1536,7 +1536,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'T3AmphibAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
         Priority = 802,
 		
