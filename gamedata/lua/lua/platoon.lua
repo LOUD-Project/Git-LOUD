@@ -807,7 +807,8 @@ Platoon = Class(PlatoonMethods) {
     -- May 2020 - added the pathcost to the return value for Land and Amphib paths
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
-        local PathFindingDialog         = ScenarioInfo.PathFindingDialog
+        local PathFindingDialog         = ScenarioInfo.PathFindingDialog or false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer
 
         local GetPlatoonUnits           = GetPlatoonUnits
 		local GetUnitsAroundPoint       = GetUnitsAroundPoint
@@ -944,7 +945,7 @@ Platoon = Class(PlatoonMethods) {
 				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
             
                     if PathFindingDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." finds destination within "..stepsize.." range of ".. repr({start[1] - (xstep * i), start[3] - (ystep * i)}) )
+                        LOG( dialog.." finds destination within "..stepsize.." range of ".. repr({start[1] - (xstep * i), start[3] - (ystep * i)}) )
                     end
 
 					return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
@@ -1011,7 +1012,7 @@ Platoon = Class(PlatoonMethods) {
                     if badstepcount > 1 then
 
                         if PathFindingDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos) )
+                            LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos) )
                         end
 
                         return true
@@ -1180,7 +1181,7 @@ Platoon = Class(PlatoonMethods) {
                         --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if PathFindingDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker was found - using "..maxthreat.." threat - near "..repr(location).." available positions were "..repr(positions) )
+                            LOG( dialog.." No safe marker was found - using "..maxthreat.." threat - near "..repr(location).." available positions were "..repr(positions) )
                         end
                     end
                     
@@ -1224,7 +1225,7 @@ Platoon = Class(PlatoonMethods) {
 		end
         
         if PathFindingDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." wants to find a path from "..repr(start).." to "..repr(destination).." Distance is "..VDist3(start,destination) )
+            LOG( dialog.." wants to find a path from "..repr(start).." to "..repr(destination).." Distance is "..VDist3(start,destination) )
         end
 	
 		-- Get the node at platoon position which is closest to the destination
@@ -1233,7 +1234,7 @@ Platoon = Class(PlatoonMethods) {
 		if not startNode and platoonLayer == 'Amphibious' then
 		
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe "..platoonLayer.." startnode using "..threatallowed.." threat within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+                LOG( dialog.." no safe startnode using "..threatallowed.." threat within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
             end
             
 			platoonLayer = 'Land'
@@ -1251,7 +1252,7 @@ Platoon = Class(PlatoonMethods) {
 		if DestinationBetweenPoints( destination, start, startNode.position ) then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNodeName) )
+                LOG( dialog.." goes DIRECT from "..repr(startNodeName) )
             end            
 
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
@@ -1278,7 +1279,7 @@ Platoon = Class(PlatoonMethods) {
 		if startNodeName == endNodeName then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNodeName) )
+                LOG( dialog.." goes DIRECT from "..repr(startNodeName) )
             end            
 
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
@@ -1296,7 +1297,7 @@ Platoon = Class(PlatoonMethods) {
 		if not BadPath[startNodeName][endNodeName] then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." requests "..platoonLayer.." path from "..repr(startNodeName).." "..repr(startNode.position).." to "..repr(endNodeName).." "..repr(endNode.position) )
+                LOG( dialog.." requests path from "..repr(startNodeName).." "..repr(startNode.position).." to "..repr(endNodeName).." "..repr(endNode.position).." on tick "..GetGameTick() )
             end            
 
 			-- add the platoons request for a path to the respective path generator for that layer
@@ -1314,6 +1315,10 @@ Platoon = Class(PlatoonMethods) {
 			} )
 
 			aiBrain.PathRequests['Replies'][platoon] = false
+
+            if PathFindingDialog then
+                LOG( dialog.." path request submitted")
+            end
             
             local Replies = aiBrain.PathRequests['Replies']
 			
@@ -1327,6 +1332,11 @@ Platoon = Class(PlatoonMethods) {
 				waitcount = waitcount + 1
 				
 				if Replies[platoon].path then
+                
+                    if PathFindingDialog then
+                        LOG( dialog.." reply posted on tick "..GetGameTick())
+                    end
+                    
 					break
 				end
 			end
@@ -1346,7 +1356,7 @@ Platoon = Class(PlatoonMethods) {
 			Replies[platoon] = nil  --false
 		else
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." got a BAD "..platoonLayer.." PATH from startnode "..repr(startNodeName).." to endnode "..repr(endNodeName) )
+                LOG( dialog.." got BAD PATH from startnode "..repr(startNodeName).." to endnode "..repr(endNodeName) )
             end            
         end
 
@@ -1358,7 +1368,7 @@ Platoon = Class(PlatoonMethods) {
 			end
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets NO PATH response " )
+                LOG( dialog.." gets NO PATH response " )
             end            
 	
 			return false, 'NoPath', 0, 0
@@ -1370,7 +1380,7 @@ Platoon = Class(PlatoonMethods) {
         path[LOUDGETN(path)+1] = destination
 
         if PathFindingDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets path response "..repr(path) )
+            LOG( dialog.." gets path response "..repr(path) )
         end            
 	
 		return path, 'Pathing', pathlength, pathcost
@@ -2198,7 +2208,8 @@ Platoon = Class(PlatoonMethods) {
             DistressCategories[count] = LOUDPARSE(v)
         end
 
-        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
+        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "
 
         local threatThreshold = 125     -- this determines which distress calls we'll look at
         local distressRange = 1000      -- controls how far afield we'll look
@@ -2268,7 +2279,7 @@ Platoon = Class(PlatoonMethods) {
 							if VDist3( platoonPos, brain.CDRDistress ) < distressRange then
 
                                 if DistressResponseDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." "..repr(self.MovementLayer).." selects ACU ALERT "..repr(brain.CDRDistress))
+                                    LOG( dialog..self.BuilderName.." "..repr(self.MovementLayer).." selects ACU ALERT "..repr(brain.CDRDistress).." on tick "..GetGameTick())
                                 end
 
 								return brain.CDRDistress, distresstype, 'Commander'
@@ -2315,7 +2326,7 @@ Platoon = Class(PlatoonMethods) {
 												alertrange = rangetoalert
                                                 
                                                 if DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." "..repr(self.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alerts.Threat)
+                                                    LOG( dialog..self.BuilderName.." "..repr(self.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alerts.Threat.." on tick "..GetGameTick())
                                                 end
 											end
 										end
@@ -2357,7 +2368,7 @@ Platoon = Class(PlatoonMethods) {
                                                     alertrange = rangetoalert
                                                 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." with threat threshold "..threatThreshold.." threat - selects Platoon ALERT "..repr(alertposition).." reported enemy threat is "..threat.." - time "..repr(GetGameTimeSeconds()) )
+                                                        LOG( dialog..self.BuilderName.." with threshold "..threatThreshold.." threat - selects Platoon ALERT "..repr(alertposition).." reported threat is "..threat.." on tick "..GetGameTick() )
                                                     end
                                                 end
 											end
@@ -2400,7 +2411,7 @@ Platoon = Class(PlatoonMethods) {
                 target = false
 			
 				if DistressResponseDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." at "..repr(platoonPos).." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
+					LOG( dialog..self.BuilderName.." at "..repr(platoonPos).." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
 				end
 
                 -- Assign targeting priority
@@ -2419,7 +2430,7 @@ Platoon = Class(PlatoonMethods) {
                     if target then
                     
                         if DistressResponseDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." Artillery AI found a target "..repr(target:GetBlueprint().Description).." near "..repr(distressLocation))
+                            LOG( dialog.." found a target "..repr(target:GetBlueprint().Description).." near "..repr(distressLocation).." on tick "..GetGameTick())
                         end
                         
                         firecount = 0
@@ -2435,7 +2446,7 @@ Platoon = Class(PlatoonMethods) {
                         end
 
                         if DistressResponseDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI finishes fire mission - target is dead "..repr(target.Dead))
+                            LOG( dialog.."finishes fire mission - target is dead "..repr(target.Dead).." on tick "..GetGameTick())
                         end
 
                     end
@@ -2459,7 +2470,7 @@ Platoon = Class(PlatoonMethods) {
             if firecount > 6 then
 			
 				if DistressResponseDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI - standard priorities "..self.BuilderName.." at "..repr(platoonPos) )
+					LOG( dialog.." standard priorities "..self.BuilderName.." at "..repr(platoonPos).." on tick "..GetGameTick() )
 				end
             
                 AssignArtilleryPriorities( SurfacePriorities )
@@ -5683,6 +5694,7 @@ Platoon = Class(PlatoonMethods) {
 		self.CallForHelpAI = true
         
         local DistressResponseDialog    = ScenarioInfo.DistressResponseDialog or false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance)
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
         local GetEnemyUnitsInRect       = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
@@ -5734,7 +5746,7 @@ Platoon = Class(PlatoonMethods) {
             local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
             
             if DistressResponseDialog and counter > 0 then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance).." finds "..counter.." enemy units around Point "..repr(unitposition) )
+                LOG( dialog.." finds "..counter.." enemy units around Point "..repr(unitposition).." on tick "..GetGameTick() )
             end
 
             if units then
@@ -5848,7 +5860,7 @@ Platoon = Class(PlatoonMethods) {
 					if threat >= threatcheckthreshold then
 
                         if DistressResponseDialog then
-                            LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..string.format("%2.1f",threat).." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
+                            LOG( dialog.." Under Attack at "..repr(pos).." threat is "..string.format("%2.1f",threat).." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
                         end
 
 						distresscalltype = false
@@ -5929,7 +5941,7 @@ Platoon = Class(PlatoonMethods) {
 							if PlatoonExists(aiBrain, self) then
             
                                 if DistressResponseDialog then
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." calls for "..distresscalltype.." help at -- threat is "..string.format("%2.1f",threat).." mythreat is "..string.format("%2.1f",mythreat) )
+                                    LOG( dialog.." calls for "..distresscalltype.." help -- threat is "..string.format("%2.1f",threat).." mythreat is "..string.format("%2.1f",mythreat) )
                                 end
 								
 								LOUDINSERT(aiBrain.PlatoonDistress.Platoons, { Platoon = self, DistressType = distresscalltype, Position = LOUDCOPY(pos), Threat = threat, CreationTime = LOUDTIME() } )
@@ -5948,9 +5960,9 @@ Platoon = Class(PlatoonMethods) {
                             if DistressResponseDialog then
                             
                                 if not self.DistressCall then
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat "..threat.." mythreat "..mythreat.." on tick "..GetGameTick() )
+                                    LOG( dialog.." is not threatened threat "..threat.." mythreat "..mythreat.." on tick "..GetGameTick() )
                                 else
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is no longer threatened on tick "..GetGameTick() )
+                                    LOG( dialog.." is no longer threatened on tick "..GetGameTick() )
                                 end
                             end
                             
@@ -5975,7 +5987,7 @@ Platoon = Class(PlatoonMethods) {
 			else
             
                 if self.UnderAttack and DistressResponseDialog then
-                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is still Under Attack (in Distress "..repr(self.DistressCall)..") on tick "..GetGameTick() )
+                    LOG( dialog.." still Under Attack (in Distress "..repr(self.DistressCall)..") on tick "..GetGameTick() )
                 end
                 
                 if not self.UnderAttack then
@@ -5983,7 +5995,7 @@ Platoon = Class(PlatoonMethods) {
                     if self.DistressCall then
 
                         if DistressResponseDialog then
-                            LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is no longer threatened on tick "..GetGameTick() )
+                            LOG( dialog.." no longer threatened on tick "..GetGameTick() )
                         end
 
                         self.DistressCall = nil
@@ -6027,6 +6039,7 @@ Platoon = Class(PlatoonMethods) {
     DistressResponseAI = function( self, aiBrain )
         
         local DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "
 
 		local oldPlan = self.PlanName -- we do this here to maintain the original plan, some platoons change the plan name
 
@@ -6175,7 +6188,7 @@ Platoon = Class(PlatoonMethods) {
 							if rangetoalert > 20 and rangetoalert < ( distressrange * 2) then
 
                                 if DistressResponseDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects ACU ALERT "..repr(position) )
+                                    LOG( dialog..repr(platoon.MovementLayer).." selects ACU ALERT "..repr(position).." on tick "..GetGameTick() )
                                 end
 
 								return position, distresstype, 'Commander'
@@ -6303,14 +6316,14 @@ Platoon = Class(PlatoonMethods) {
                                                     if threat >= (selfthreat * 2) then
 
                                                         if DistressResponseDialog then
-                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." not responding - threat "..threat.." self is "..selfthreat )
+                                                            LOG( dialog..repr(platoon.MovementLayer).." not responding - threat "..threat.." self is "..selfthreat )
                                                         end
                                                 
                                                         continue
                                                     end
 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." records alert at "..repr(position).." distance "..rangetoalert.." threat "..threat )
+                                                        LOG( dialog..repr(platoon.MovementLayer).." records alert at "..repr(position).." distance "..rangetoalert.." threat "..threat )
                                                     end
 
                                                     alertposition = LOUDCOPY( position )
@@ -6319,7 +6332,7 @@ Platoon = Class(PlatoonMethods) {
 
                                                 else
                                                     --if DistressResponseDialog then
-                                                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." not responding - threat "..threat.." below threshold "..threatthreshold )
+                                                      --  LOG( dialog..repr(platoon.MovementLayer).." not responding - threat "..threat.." below threshold "..threatthreshold )
                                                     --end
                                                 end
 
@@ -6327,7 +6340,7 @@ Platoon = Class(PlatoonMethods) {
 
                                         else
                                             --if DistressResponseDialog then
-                                              --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." distress at "..rangetoalert.." response range is "..distressrange )
+                                              --  LOG( dialog.." distress at "..rangetoalert.." response range is "..distressrange )
                                             --end
                                         end
 
@@ -6335,7 +6348,7 @@ Platoon = Class(PlatoonMethods) {
                                     
 								else
                                     --if DistressResponseDialog then
-                                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." ignores "..v.DistressType.." alert" )
+                                      --  LOG( dialog..repr(platoon.MovementLayer).." ignores "..v.DistressType.." alert" )
                                     --end
                                 end
 
@@ -6347,7 +6360,7 @@ Platoon = Class(PlatoonMethods) {
 	
 			if alertposition then
                 if DistressResponseDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." - time "..repr(GetGameTimeSeconds()))
+                    LOG( dialog.." selects "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." on tick "..GetGameTick())
                 end
 
 				return alertposition, distresstype, alertplatoon
@@ -6378,7 +6391,7 @@ Platoon = Class(PlatoonMethods) {
                     end
 			
                     if DistressResponseDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." on tick "..GetGameTick() )
+                        LOG( dialog.."responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." on tick "..GetGameTick() )
                     end
  
                     --- store this distressLocation so that we can ignore it
@@ -6418,7 +6431,7 @@ Platoon = Class(PlatoonMethods) {
                         local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
 			
                         if DistressResponseDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
+                            LOG( dialog.."responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
                         end
                         
                         IssueClearCommands( GetPlatoonUnits(self) )
@@ -9907,6 +9920,7 @@ Platoon = Class(PlatoonMethods) {
 
         local PlatoonExists         = PlatoonExists
         local PlatoonMergeDialog    = ScenarioInfo.PlatoonMergeDialog or false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." MERGE WITH "..self.BuilderName.." "..repr(self.BuilderInstance)
 
 		if not PlatoonExists(aiBrain,self) then
 			return false
@@ -9970,7 +9984,7 @@ Platoon = Class(PlatoonMethods) {
             if aPlat.PlanName != planName then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." different plan" )
+                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." different plan" )
                 end
 
                 continue
@@ -9980,7 +9994,7 @@ Platoon = Class(PlatoonMethods) {
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
+                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
                 end
 
 				continue
@@ -9997,7 +10011,7 @@ Platoon = Class(PlatoonMethods) {
 			aPlat.UsingTransport = true
 
             if PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
+                LOG( dialog.." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
             end
             
             -- the allied platoons size
@@ -10039,7 +10053,7 @@ Platoon = Class(PlatoonMethods) {
 
                 -- otherwise we do the merge
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." MERGE_WITH takes "..counter.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+counter)
+                    LOG( dialog.." takes "..counter.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+counter)
                 end
 
                 IssueClearCommands( validUnits )
@@ -10059,6 +10073,10 @@ Platoon = Class(PlatoonMethods) {
 			-- unmark the allied platoon
 			aPlat.UsingTransport = false
 
+        end
+        
+        if PlatoonMergeDialog then
+            LOG( dialog.." exits on tick "..GetGameTick())
         end
     
         self.UsingTransport = false
@@ -10083,6 +10101,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 
         local PlatoonMergeDialog = ScenarioInfo.PlatoonMergeDialog
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." MERGE WITH "..self.BuilderName.." "..repr(self.BuilderInstance)
 
         local GetPlatoonPosition    = GetPlatoonPosition
         local GetPlatoonUnits       = GetPlatoonUnits
@@ -10139,7 +10158,7 @@ Platoon = Class(PlatoonMethods) {
             if aPlat.UsingTransport then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
+                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
                 end
 
                 continue
@@ -10148,7 +10167,7 @@ Platoon = Class(PlatoonMethods) {
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
+                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
                 end
 
 				continue
@@ -10157,7 +10176,7 @@ Platoon = Class(PlatoonMethods) {
             if aPlat.PlanName != planName then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." incompatible plan" )
+                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." incompatible plan" )
                 end
 
                 continue
@@ -10185,7 +10204,7 @@ Platoon = Class(PlatoonMethods) {
             if (mergelimit and alliedcount > mergelimit) or (ourunitcount > alliedcount) then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." ignored  "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount )
+                    LOG( dialog.." with "..ourunitcount.." ignored  "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount )
                 end
 
                 continue
@@ -10228,7 +10247,7 @@ Platoon = Class(PlatoonMethods) {
                     if unitlist[1] then
 
                         if PlatoonMergeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." assigns "..LOUDGETN(unitlist).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance) )
+                            LOG( dialog.." assigns "..LOUDGETN(unitlist).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." on tick "..GetGameTick() )
                         end
 
                         IssueClearCommands( unitlist )
@@ -10254,7 +10273,7 @@ Platoon = Class(PlatoonMethods) {
                 end
 			
 				if PlatoonMergeDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." units MERGED_INTO "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount )
+					LOG( dialog.." with "..ourunitcount.." units MERGED_INTO "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount.." on tick "..GetGameTick() )
 				end		
 
 				return true
@@ -10262,11 +10281,12 @@ Platoon = Class(PlatoonMethods) {
 
             if PlatoonMergeDialog then
                 if count > 0 then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." MERGE_INTO reviewed "..count.." platoons without merge")
+                    LOG( dialog.." reviewed "..count.." platoons without merge on tick "..GetGameTick())
                 end
             end
 
         end
+        
 
 		return false
     end,

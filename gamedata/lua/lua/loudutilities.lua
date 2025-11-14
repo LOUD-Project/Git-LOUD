@@ -1544,13 +1544,30 @@ end
 -- This function determines which base is closest to the primary
 -- attack planner goal and sets the flag on that base
 function SetPrimarySeaAttackBase( aiBrain )
+    
+    if aiBrain.NumBasesNaval < 1 then
+
+        aiBrain.PrimarySeaAttackBase = false
+        
+        return
+    end
+ 
+    local AttackPlanDialog      = ScenarioInfo.AttackPlanDialog or false
+    local dialog = "*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase"
 
     while aiBrain.AttackPlan.Pending do
+    
+        if AttackPlanDialog then
+            LOG( dialog.." waiting for 21 ticks on tick "..GetGameTick())
+        end
+
         WaitTicks(21)
     end
     
-    local AttackPlanDialog      = ScenarioInfo.AttackPlanDialog or false
-
+    if AttackPlanDialog then
+        LOG( dialog.." begins on tick "..GetGameTick())
+    end
+   
     local GetClosestPathNode    = import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer
 
     -- clear existing base reference if it's no longer active
@@ -1570,14 +1587,14 @@ function SetPrimarySeaAttackBase( aiBrain )
         if not goal then
         
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase fails WATER at "..distance.." trying AMPHIBIOUS")
+                LOG( dialog.." fails to find WATER node at "..distance.." trying AMPHIBIOUS")
             end
             
             reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Amphibious')
         end
 
         if AttackPlanDialog then    
-            LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase Goal is "..repr(goal))
+            LOG( dialog.." Goal is "..repr(goal).." on tick "..GetGameTick())
         end
         
         local Bases = {}
@@ -1590,17 +1607,25 @@ function SetPrimarySeaAttackBase( aiBrain )
 
 		-- make a table of all sea bases
         for k,v in aiBrain.BuilderManagers do
+
+            if AttackPlanDialog and v.BaseType == "Sea" then
+                LOG( dialog.." assessing "..repr(v.BaseName).." on tick "..GetGameTick())
+            end
 		
 			if v.EngineerManager.Active and v.BaseType == "Sea" then
             
                 path = false
                 pathlength = 0
+                
+                if AttackPlanDialog then
+                    LOG( dialog.." checking path from "..repr(v.Position).." to "..repr(goal).." on tick "..GetGameTick())
+                end
 			
 				-- here is the distance calculation based on Water movement
-                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Water', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimarySeaAttackPlanner'..v.BaseName, 'Water', v.Position, goal, 99999, 200)
 
                 if AttackPlanDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." SetPrimarySeaAttackBase using path "..repr(path))
+                    LOG( dialog.." using path "..repr(path).." on tick "..GetGameTick())
                 end
 
                 if path then
@@ -1646,8 +1671,8 @@ function SetPrimarySeaAttackBase( aiBrain )
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
         
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Current goal distance is "..repr(currentgoaldistance).." to "..repr(goal) )
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Sea Bases are "..repr(Bases) )
+            LOG( dialog.." Current goal distance is "..repr(currentgoaldistance).." to "..repr(goal) )
+            LOG( dialog.." Sea Bases are "..repr(Bases) )
         end
 		
         -- a new base must be 10% closer then the existing one -- or don't change --
@@ -4208,6 +4233,8 @@ end
 -- this pathgenerator also takes into account casualties along the route
 function PathGeneratorWater(aiBrain)
 
+    local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
+
     local GetThreatBetweenPositions = GetThreatBetweenPositions
     local PlatoonExists             = PlatoonExists
     
@@ -4374,13 +4401,18 @@ function PathGeneratorWater(aiBrain)
 
     local PathRequests = aiBrain.PathRequests.Water
 	local PathReplies = aiBrain.PathRequests['Replies']
-    local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
+    
+    local dialog = "*AI DEBUG "..aiBrain.Nickname.." PathGen WATER "
 
 	while true do
 		
 		if PathRequests[1] then
 		
 			data = LOUDREMOVE(PathRequests, 1)
+            
+            if PathFindingDialog then
+                LOG( dialog..repr(platoon.BuilderName or platoon).." processing request "..repr(data).." on tick "..GetGameTick())
+            end
             
 			closed = {}
             
@@ -4397,7 +4429,7 @@ function PathGeneratorWater(aiBrain)
             ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind WATER starts find from "..repr(StartNode[1]).." to "..repr(EndPosition) )
+                LOG( dialog.."starts find from "..repr(StartNode[1]).." to "..repr(EndPosition).." on tick "..GetGameTick() )
             end
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
@@ -4414,6 +4446,10 @@ function PathGeneratorWater(aiBrain)
             platoon = data.Platoon
 
 			while queue[1] do
+            
+                if PathFindingDialog then
+                    LOG( dialog..repr(platoon.BuilderName or platoon).." processing queue on tick "..GetGameTick())
+                end
 
 				-- adjust these multipliers to make pathfinding more or less sensitive to threat
 				maxthreat = ThreatWeight * 0.9
@@ -4432,7 +4468,7 @@ function PathGeneratorWater(aiBrain)
 			if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then            
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination))
+                    LOG( dialog..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination).." on tick "..GetGameTick())
                 end
                 
 				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
@@ -4756,6 +4792,8 @@ function ParseIntelThread( aiBrain )
         
         DisplayIntelPoints  = ScenarioInfo.DisplayIntelPoints or false   -- we put these in the loop so we can toggle them on/off in the game
         IntelDialog         = ScenarioInfo.IntelDialog or false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL"
+
         ReportRatios        = ScenarioInfo.ReportRatios or false
 
 		-- advance the iteration count -- used to process certain intel types at a different frequency than others
@@ -4800,7 +4838,7 @@ function ParseIntelThread( aiBrain )
         end
 
 		if IntelDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL begins iteration "..repr(iterationcount).." at GameSecond "..LOUDFLOOR(GetGameTimeSeconds()) )
+            LOG( dialog.." begins iteration "..repr(iterationcount).." at GameSecond "..GetGameTick() )
         end
 	
 		-- loop thru each of the threattypes
@@ -4838,7 +4876,7 @@ function ParseIntelThread( aiBrain )
 				if IntelDialog then
 
                     if threats[1] then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." gets "..LOUDGETN(threats).." results on iteration "..repr(iterationcount).." at GameSecond "..gametime)
+                        LOG( dialog.." "..ThreatTypeName.." gets "..LOUDGETN(threats).." results on iteration "..repr(iterationcount).." on tick "..GetGameTick())
                     end
 				end
 	
@@ -4862,7 +4900,7 @@ function ParseIntelThread( aiBrain )
                     if threatreport > threatamounttrigger then
 					
 						if IntelDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." processing threat of "..repr(threatreport).." at "..repr( {threat[1],0,threat[2]} ))
+							LOG( dialog.." "..ThreatTypeName.." processing threat of "..repr(threatreport).." at "..repr( {threat[1],0,threat[2]} ).." on tick "..GetGameTick())
 						end
 	
                         -- count the number of checks we've done and insert a wait to keep this routine from hogging the CPU 
@@ -4871,7 +4909,7 @@ function ParseIntelThread( aiBrain )
                         if numchecks > checkspertick then
 
                             if IntelDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." delays for 2 ticks " )
+                                LOG( dialog.." "..ThreatTypeName.." delays for 2 ticks on tick "..GetGameTick() )
                             end
                         
                             WaitTicks(2)
@@ -4896,7 +4934,7 @@ function ParseIntelThread( aiBrain )
                         x3 = 0
    
                         if IntelDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." processing "..counter.." units " )
+                            LOG( dialog.." "..ThreatTypeName.." processing "..counter.." units on tick "..GetGameTick())
                         end
 						
                         if units then
@@ -4942,7 +4980,7 @@ function ParseIntelThread( aiBrain )
                             else
 
                                 if IntelDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." we found NO units " )
+                                    LOG( dialog.." "..ThreatTypeName.." found NO units on tick "..GetGameTick() )
                                 end
                             
                             end
@@ -4958,7 +4996,7 @@ function ParseIntelThread( aiBrain )
                             if IntelDialog then
 
                                 if newthreat != oldthreat then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." reports IMAP threat of "..newthreat.." modifier "..repr(ThresholdMult).." using "..Rings.." rings old is "..repr(oldthreat).." there are "..counter.." units involved")
+                                    LOG( dialog.." "..ThreatTypeName.." reports IMAP threat of "..newthreat.." modifier "..repr(ThresholdMult).." using "..Rings.." rings old is "..repr(oldthreat).." there are "..counter.." units involved")
                                 end
                             end
                             
@@ -4969,7 +5007,7 @@ function ParseIntelThread( aiBrain )
 							if newthreat < (threatreport/2) and GetGameTick() > 5400 then
                             
 								if IntelDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." reports "..newthreat.." versus "..threatreport.." from IMAP - reducing by 50%")
+									LOG( dialog.." "..ThreatTypeName.." reports "..newthreat.." versus "..threatreport.." from IMAP - reducing by 50%")
 								end
 
                                 -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds
@@ -4987,7 +5025,7 @@ function ParseIntelThread( aiBrain )
                             if not units[1] and GetGameTick() > 5400 then
                             
                                 if IntelDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." shows "..threatreport.." but I SEE no units - reducing by 20%")
+                                    LOG( dialog.." "..ThreatTypeName.." shows "..threatreport.." but I SEE no units - reducing by 20%")
                                 end
 
                                 -- reduce the existing threat by 20% with a 5% decay - IMAP refreshes every 3 seconds
@@ -5021,7 +5059,7 @@ function ParseIntelThread( aiBrain )
 										if dupe then
 										
 											if IntelDialog then
-												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." Killing Duplicate at "..repr(Position) )
+												LOG( dialog.." "..ThreatTypeName.." Killing Duplicate at "..repr(Position) )
 											end
 										
 											aiBrain.IL.HiPri[k] = nil
@@ -5036,7 +5074,7 @@ function ParseIntelThread( aiBrain )
 										if newthreat > threatamounttrigger then
 										
 											if IntelDialog then
-												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." Updating Existing threat of "..repr(Threat).." to "..repr(newthreat).." from "..repr(Position).." to "..repr(newPos) )
+												LOG( dialog.." "..ThreatTypeName.." Updating Existing threat of "..repr(Threat).." to "..repr(newthreat).." from "..repr(Position).." to "..repr(newPos) )
 											end
 										
 											-- so update the existing entry
@@ -5056,8 +5094,8 @@ function ParseIntelThread( aiBrain )
                                     if Threat <= threatamounttrigger and not Permanent then
                                         
 										if IntelDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL data is "..repr(loc))
-											LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." Removing Existing "..repr(Threat).." too low at "..repr(Position))
+                                            LOG( dialog.." PARSEINTEL data is "..repr(loc))
+											LOG( dialog.." "..ThreatTypeName.." Removing Existing "..repr(Threat).." too low at "..repr(Position))
 										end
 
 										-- newthreat is too low 
@@ -5073,7 +5111,7 @@ function ParseIntelThread( aiBrain )
                             if (not dupe) and newthreat > threatamounttrigger then
 							
 								if IntelDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." Inserting new threat of "..newthreat.." at "..repr(newPos))
+									LOG( dialog.." "..ThreatTypeName.." Inserting new threat of "..newthreat.." at "..repr(newPos))
 								end
 
                                 LOUDINSERT(aiBrain.IL.HiPri, { Position = { newPos[1],newPos[2],newPos[3] }, Type = ThreatTypeName, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
@@ -5097,7 +5135,7 @@ function ParseIntelThread( aiBrain )
                                     if LOUDV2( threat[1],threat[2], Position[1],Position[3] ) <= IMAPRadius then
                                     
                                         if IntelDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL altering "..Type.." HiPri entry at "..repr(Position).." for no units found" )	
+                                            LOG( dialog.." altering "..Type.." HiPri entry at "..repr(Position).." for no units found" )	
                                         end
                                     
                                         if not Permanent then
@@ -5156,11 +5194,11 @@ function ParseIntelThread( aiBrain )
                             
                                 if LastUpdate + intelChecks[Type][2] < gametime then
                                     if not Permanent then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL Removing Existing HiPri "..Type.." at "..repr(t.Position).." due to timeout")
+                                        LOG( dialog.." Removing Existing HiPri "..Type.." at "..repr(t.Position).." due to timeout")
                                     end
                                 else
                                     if not Permanent then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL Removing Existing HiPri "..Type.." at "..repr(t.Position).." threat too low at "..repr(t.Threat))
+                                        LOG( dialog.." Removing Existing HiPri "..Type.." at "..repr(t.Position).." threat too low at "..repr(t.Threat))
                                     end
                                 end
                                 
@@ -5215,7 +5253,7 @@ function ParseIntelThread( aiBrain )
 		if parseinterval - usedticks >= 10 then
 		
 			if IntelDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL On Wait for ".. parseinterval - usedticks .. " ticks")	
+				LOG( dialog.." On Wait for ".. parseinterval - usedticks .. " ticks on tick "..GetGameTick() )	
 			end
 			
 			WaitTicks((parseinterval+1) - usedticks)
@@ -5246,6 +5284,10 @@ function ParseIntelThread( aiBrain )
         -- strength ratio is (myvalue versus enemyvalue)
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
         if LOUDMOD(iterationcount,5) == 0 then
+        
+            if IntelDialog then
+                LOG( dialog.." Recalc AIR Strength Ratios on tick "..GetGameTick())
+            end
         
             --- AIR UNITS ---
             -----------------
@@ -5349,6 +5391,10 @@ function ParseIntelThread( aiBrain )
             ------------------
             totalThreat = 0
             oldthreat = 0
+        
+            if IntelDialog then
+                LOG( dialog.." Recalc LAND Strength Ratios on tick "..GetGameTick())
+            end
 
             if EnemyData['Land']['Total'] > 0 then
 
@@ -5427,6 +5473,10 @@ function ParseIntelThread( aiBrain )
             -------------------
             totalThreat = 0
             oldthreat = 0
+        
+            if IntelDialog then
+                LOG( dialog.." Recalc NAVAL Strength Ratios on tick "..GetGameTick())
+            end
 
             if EnemyData['Naval']['Total'] > 0 then
 
@@ -5499,7 +5549,11 @@ function ParseIntelThread( aiBrain )
             grandairtot = 0
             grandlandtot = 0
             grandnavaltot = 0
-            
+
+            if IntelDialog then
+                LOG( dialog.." Collect Enemy PRODUCTION values on tick "..GetGameTick())
+            end
+
             -- ENEMY PRODUCTION FOCUS --
             -- accumulate the value of all enemy owned factories -- divide by number of opponents
             -- compare against my factory values to determine need for more factories and of what type
@@ -5603,6 +5657,10 @@ function ParseIntelThread( aiBrain )
             myairidle = 0
             myairtot = 0
 
+            if IntelDialog then
+                LOG( dialog.." Calculate AIR PRODUCTION values on tick "..GetGameTick())
+            end
+
             for _,u in EntityCategoryFilterDown( AIR, units) do
 
                 myaircount = myaircount + 1
@@ -5635,6 +5693,10 @@ function ParseIntelThread( aiBrain )
             mylandidle = 0
             mylandtot = 0
 
+            if IntelDialog then
+                LOG( dialog.." Calculate LAND PRODUCTION values on tick "..GetGameTick())
+            end
+
             for _,u in EntityCategoryFilterDown( LAND, units) do
 
                 mylandcount = mylandcount + 1
@@ -5663,6 +5725,10 @@ function ParseIntelThread( aiBrain )
             mynavalcount = 0
             mynavalidle = 0
             mynavaltot = 0
+
+            if IntelDialog then
+                LOG( dialog.." Calculate NAVAL PRODUCTION values on tick "..GetGameTick())
+            end
 
             for _,u in EntityCategoryFilterDown( NAVALFAC, units) do
 
@@ -6208,6 +6274,7 @@ function CreateAttackPlan( self, enemyPosition )
     local WaitTicks = WaitTicks
     
     local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+    local dialog = "*AI DEBUG "..self.Nickname.." CreateAttackPlan"
     
     local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
     
@@ -6232,7 +6299,7 @@ function CreateAttackPlan( self, enemyPosition )
     local StartPosition = self.BuilderManagers.MAIN.Position
     
     if AttackPlanDialog then
-        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Create FROM "..repr(StartPosition).." TO "..repr(enemyPosition).." at tick "..GetGameTick() )
+        LOG( dialog.." FROM "..repr(StartPosition).." TO "..repr(enemyPosition).." at tick "..GetGameTick() )
     end
 
 	-- checks if destination is somewhere between two points
@@ -6326,7 +6393,7 @@ function CreateAttackPlan( self, enemyPosition )
 	if counter < 1 then
     
         if AttackPlanDialog then
-            WARN("*AI DEBUG "..self.Nickname.." AttackPlan - No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
+            WARN( dialog.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
         end
         
 		GoalReached = true
@@ -6334,7 +6401,7 @@ function CreateAttackPlan( self, enemyPosition )
     else
 
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." AttackPlan collected "..throttle.." markers at tick "..GetGameTick() )
+            LOG( dialog.." collected "..throttle.." markers at tick "..GetGameTick() )
         end
     end
 
@@ -6373,7 +6440,7 @@ function CreateAttackPlan( self, enemyPosition )
     if not path then
         
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds no LAND path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
+            LOG( dialog.." finds no LAND path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
         end
 
         pathtype = 'Amphibious'
@@ -6385,7 +6452,7 @@ function CreateAttackPlan( self, enemyPosition )
         pathtype = 'Unknown'
         
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds no viable LAND or AMPHIB path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
+            LOG( dialog.." finds no viable LAND or AMPHIB path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
         end
         
         GoalReached = true
@@ -6393,13 +6460,13 @@ function CreateAttackPlan( self, enemyPosition )
     else
     
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds "..pathtype.." path from Start to goal - pathlength is "..math.floor(pathlength) )
+            LOG( dialog.." finds "..pathtype.." path from Start to goal - pathlength is "..math.floor(pathlength) )
         end
         
         CurrentBestPathLength = pathlength
 
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Method set to "..repr(pathtype) )
+            LOG( dialog.." Method set to "..repr(pathtype) )
         end
 
         -- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
@@ -6419,8 +6486,8 @@ function CreateAttackPlan( self, enemyPosition )
         else
 
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." BEGINS - stage distance to goal is "..math.floor(VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])).." stagesize is "..stagesize)
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." needs to be less than "..math.floor((CurrentPointDistance - 100)).." from the goal and have a path length of less than "..math.floor(CurrentBestPathLength) )
+                LOG( dialog.." Stagecount ".. StageCount+1 .." BEGINS - stage distance to goal is "..math.floor(VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])).." stagesize is "..stagesize)
+                LOG( dialog.." Stagecount ".. StageCount+1 .." needs to be less than "..math.floor((CurrentPointDistance - 100)).." from the goal and have a path length of less than "..math.floor(CurrentBestPathLength) )
             end
           
             -- sort the markerlist for closest to the current point --
@@ -6452,12 +6519,12 @@ function CreateAttackPlan( self, enemyPosition )
                 end
 
                 if AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." reviewing "..repr(v.Name).." distance is "..math.floor(LOUDSQRT(testdistance)).." to goal" )
+                    LOG( dialog.." Stagecount ".. StageCount+1 .." reviewing "..repr(v.Name).." distance is "..math.floor(LOUDSQRT(testdistance)).." to goal" )
                 end
                 
                 if testdistance < minstagesize then
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." point too close to current point "..testdistance.." < "..minstagesize )
+                        LOG( dialog.." point too close to current point "..testdistance.." < "..minstagesize )
                     end
 
                     continue
@@ -6468,7 +6535,7 @@ function CreateAttackPlan( self, enemyPosition )
                 
                 if goaldistance >= (CurrentPointDistance - 125) then
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." point is not 125 closer to goal "..goaldistance.." >= "..(CurrentPointDistance -125) )
+                        LOG( dialog.." point is not 125 closer to goal "..goaldistance.." >= "..(CurrentPointDistance -125) )
                     end
 
                     continue
@@ -6476,7 +6543,7 @@ function CreateAttackPlan( self, enemyPosition )
                 
                 if goaldistance < LOUDSQRT(minstagesize) then
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." point too close to goal "..goaldistance.." < "..LOUDSQRT(minstagesize) )
+                        LOG( dialog.." point too close to goal "..goaldistance.." < "..LOUDSQRT(minstagesize) )
                     end
 
                     continue
@@ -6524,7 +6591,7 @@ function CreateAttackPlan( self, enemyPosition )
                     if path then
 
                         if AttackPlanDialog then
-                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." adding "..repr(v.Name).." at "..repr(position).." - "..pathtype.." path length "..repr(holdpathlength) )
+                            LOG( dialog.." Stagecount ".. StageCount+1 .." adding "..repr(v.Name).." at "..repr(position).." - "..pathtype.." path length "..repr(holdpathlength) )
                         end
 
                         counter = counter + 1
@@ -6538,7 +6605,7 @@ function CreateAttackPlan( self, enemyPosition )
                     if AttackPlanDialog then
                     
                         if path and pathlength >= CurrentBestPathLength then
-                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
+                            LOG( dialog.." Stagecount ".. StageCount+1 .." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
                         end
 
                     end
@@ -6550,7 +6617,7 @@ function CreateAttackPlan( self, enemyPosition )
             LOUDSORT(positions, function(a,b) return a.Pathvalue + a.PathvalueCurrent < b.Pathvalue + b.PathvalueCurrent end )
             
             --if AttackPlanDialog then
-              --  LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." Sorted "..repr(LOUDGETN(positions)).." possible positions are "..repr(positions))
+              --  LOG( dialog.." Stagecount ".. StageCount+1 .." Sorted "..repr(LOUDGETN(positions)).." possible positions are "..repr(positions))
             --end
             
 			-- if there are no positions we'll have to create one out of a movement node
@@ -6561,7 +6628,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if not positions[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." finds no positions from "..repr(CurrentPoint))
+                        LOG( dialog.." Stagecount ".. StageCount+1 .." finds no positions from "..repr(CurrentPoint))
 					end
                     
                     a = Goal[1] + CurrentPoint[1]
@@ -6570,7 +6637,7 @@ function CreateAttackPlan( self, enemyPosition )
                 else
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." could only find a marker at " .. math.floor(VDist3(positions[1].Position, CurrentPoint)) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
+                        LOG( dialog.." Stagecount ".. StageCount+1 .." could only find a marker at " .. math.floor(VDist3(positions[1].Position, CurrentPoint)) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
                     end
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
@@ -6588,7 +6655,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if not landposition[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." Could not find a Land Node within 200 of resultposition "..repr(result).." using Water at 300")
+                        LOG( dialog.." Stagecount ".. StageCount+1 .." Could not find a Land Node within 200 of resultposition "..repr(result).." using Water at 300")
                     end
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 300)
@@ -6612,7 +6679,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if fakeposition[1].Position then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint).." Fake Position is "..repr(fakeposition) )
+                        LOG( dialog.." Stagecount ".. StageCount+1 .." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint).." Fake Position is "..repr(fakeposition) )
                     end
                     
                     pathtype = "Land"
@@ -6783,6 +6850,7 @@ function AttackPlanMonitor(self)
     while self.AttackPlan.Goal do
     
         local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+        local dialog = "*AI DEBUG "..self.Nickname.." AttackPlanMonitor"
 
 		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
@@ -6795,8 +6863,8 @@ function AttackPlanMonitor(self)
 		if self.AttackPlan.Goal and (not self.AttackPlan.Pending) then
         
 		    if AttackPlanDialog then   
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan assessing goal " ..repr(self.AttackPlan).." at Tick "..GetGameTick() )
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Start Point is "..repr(self.AttackPlan.StagePoints[0]))
+                LOG( dialog.." assessing goal " ..repr(self.AttackPlan.Goal).." on tick "..GetGameTick() )
+                LOG( dialog.." Start Point is "..repr(self.AttackPlan.StagePoints[0]))
             end
 
             -- what I want to do is loop thru the stages - and evaluate if its complete (we own that stage)
@@ -6826,7 +6894,7 @@ function AttackPlanMonitor(self)
                     if self.EnemyPickerThread then
 
                         if AttackPlanDialog then
-                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan ABORTED at "..GetGameTick() )
+                            LOG( dialog.." ABORTED at "..GetGameTick() )
                         end
 
                         KillThread(self.EnemyPickerThread)
@@ -6843,7 +6911,7 @@ function AttackPlanMonitor(self)
                 end
 
                 if AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagepoint "..repr(k).." "..markername.." at "..repr(self.AttackPlan.StagePoints[k].Position ) )
+                    LOG( dialog.." Stagepoint "..repr(k).." "..markername.." at "..repr(self.AttackPlan.StagePoints[k].Position ) )
                 end
 
                 -- if any stage is Amphibious - the overall Method will be set to Amphibious
@@ -6871,7 +6939,7 @@ function AttackPlanMonitor(self)
             WaitTicks( (self.AttackPlan.GoCheckInterval or 60) * 10)
 		else
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..self.Nickname.." AttackPlan pending")
+                LOG( dialog.." AttackPlan pending")
             end
             
             WaitTicks(21)

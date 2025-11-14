@@ -3578,7 +3578,7 @@ end
 function AirForceAI_Bomber_LOUD( self, aiBrain )
 
     local AirForceDialog = ScenarioInfo.AirForceDialog or false
-    local dialog = "*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance
+    local dialog = "*AI DEBUG "..aiBrain.Nickname.." AFAI Bomber "..self.BuilderName.." "..repr(self.BuilderInstance)
 
     if AirForceDialog then
         LOG( dialog.." starts on tick "..GetGameTick())
@@ -4350,7 +4350,7 @@ end
 function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
     local AirForceDialog = ScenarioInfo.AirForceDialog or false
-    local dialog = "*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance
+    local dialog = "*AI DEBUG "..aiBrain.Nickname.." AFAI Torpedo "..self.BuilderName.." "..repr(self.BuilderInstance)
 
     if AirForceDialog then
         LOG( dialog.." starts on tick "..GetGameTick())
