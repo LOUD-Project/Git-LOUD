@@ -745,7 +745,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -842,7 +842,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 

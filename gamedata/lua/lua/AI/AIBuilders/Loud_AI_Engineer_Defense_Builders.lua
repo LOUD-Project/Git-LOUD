@@ -3646,7 +3646,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -3769,7 +3769,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 12600 ) then
+            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
