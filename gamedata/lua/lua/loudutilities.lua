@@ -921,7 +921,7 @@ function RatioAdaptiveCheatThread()
 	-- Wait 5 minutes first, else earliest land ratios skew results
 	WaitTicks(10 * 60 * 5)
     
-	LOG("*AI DEBUG Starting ACT FEEDBACK now")
+	LOG("*AI DEBUG Starting ACT FEEDBACK on tick "..GetGameTick())
 
 	while true do
     
@@ -943,7 +943,7 @@ function RatioAdaptiveCheatThread()
                 
 				if aiBrain.Result == "defeat" then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT FEEDBACK unsubbed: defeated")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT FEEDBACK unsubbed: defeated on tick "..GetGameTick())
                     
 					LOUDREMOVE(ratioACTBrains, i)
                     
@@ -977,7 +977,7 @@ function RatioAdaptiveCheatThread()
                 
 					SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
                     
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." ACT FEEDBACK (Ratio = "..aiBrain.LandRatio..") from "..oldcheat.." to "..aiBrain:TotalCheat())
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." ACT FEEDBACK (Ratio = "..aiBrain.LandRatio..") from "..oldcheat.." to "..aiBrain:TotalCheat().." on tick "..GetGameTick())
 				end
 
 			end
@@ -991,7 +991,7 @@ function RatioAdaptiveCheatThread()
         
 	end
     
-	LOG("*AI DEBUG No more ACT FEEDBACK subscribers. Killing thread")
+	LOG("*AI DEBUG No more ACT FEEDBACK subscribers. Killing thread on tick "..GetGameTick())
 end
 
 function TimeAdaptiveCheatThread()
@@ -1015,14 +1015,14 @@ function TimeAdaptiveCheatThread()
         
 		if cheatInc < 0 and cheatLimit > aiBrain.CheatValue then
         
-			LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED: base is below limit. Unsubscribing...")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED: base is below limit. Unsubscribing on tick "..GetGameTick())
             
 			LOUDREMOVE(timeACTBrains, i)
 		end
         
 	end
 	
-	LOG("*AI DEBUG Starting ACT TIMED after "..startDelay.." ticks. Change: "..cheatInc.." per "..interval.." ticks. Limit: "..repr(cheatLimit))
+	LOG("*AI DEBUG Starting ACT TIMED after "..startDelay.." ticks. Change: "..cheatInc.." per "..interval.." ticks. Limit: "..repr(cheatLimit).." on tick "..GetGameTick())
     
 	WaitTicks(startDelay)
 	
@@ -1050,7 +1050,7 @@ function TimeAdaptiveCheatThread()
 				-- or met/surpassed upper/lower limit. Deal with these cases
 				if aiBrain.Result == "defeat" then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: defeated")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: defeated on tick "..GetGameTick())
                     
 					LOUDREMOVE(timeACTBrains, i)
                     
@@ -1059,7 +1059,7 @@ function TimeAdaptiveCheatThread()
                     
 				elseif cheatInc < 0 and aiBrain:TotalCheat() <= cheatLimit then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: lower limit met")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: lower limit met on tick "..GetGameTick())
                     
 					SetArmyPoolBuff(aiBrain, LOUDMAX(cheatLimit, aiBrain:TotalCheat()))
                     
@@ -1070,7 +1070,7 @@ function TimeAdaptiveCheatThread()
                     
 				elseif cheatInc > 0 and aiBrain:TotalCheat() >= cheatLimit then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: upper limit met")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: upper limit met on tick "..GetGameTick())
                     
 					SetArmyPoolBuff(aiBrain, math.min(cheatLimit, aiBrain:TotalCheat()))
                     
@@ -1095,13 +1095,11 @@ function TimeAdaptiveCheatThread()
                     local b = a + (c * cheatInc )
                     
                     SetArmyUnitCap(aiBrain.ArmyIndex, b)
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED Unit Cap is now "..repr(b))
 				end
                 
 				SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED cheat goes from "..oldcheat.." to "..aiBrain:TotalCheat())
+				LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED cheat goes from "..oldcheat.." to "..aiBrain:TotalCheat().." on tick "..GetGameTick())
 			end
 		end
 
@@ -1113,7 +1111,7 @@ function TimeAdaptiveCheatThread()
         
 	end
     
-	LOG("*AI DEBUG No more ACT TIMED subscribers. Killing thread")
+	LOG("*AI DEBUG No more ACT TIMED subscribers. Killing thread on tick "..GetGameTick())
 end
 
 function SimulateFactoryBuilt (finishedUnit)
