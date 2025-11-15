@@ -13,13 +13,13 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 
 		if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 30 ) ) then	-- less than 30 minutes left
 
-			return 0, false
+			return false
 
 		end
 
 	end
 
-	return self.Priority, true
+	return true
 
 end
 
