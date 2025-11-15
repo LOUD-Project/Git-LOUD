@@ -941,7 +941,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }}, 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -2869,9 +2869,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
     
             return (builder.OldPriority or builder.Priority), true
         end,
-		
-        PriorityFunction = IsEnemyCrushingAir,
-		
+
         BuilderConditions = {
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
@@ -5009,6 +5007,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }}, 
 
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGY * categories.TECH3 }},
+
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.COUNTERINTELLIGENCE * categories.STRUCTURE }},
         },
 		
@@ -5045,15 +5045,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			-- trigger this build if enemy has an Aeon scry device
-			--{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AEON * categories.OPTICS * categories.STRUCTURE, 'Enemy' }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }}, 
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
-
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -5419,6 +5415,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
+
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
         },
@@ -5880,6 +5878,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
+
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.COUNTERINTELLIGENCE * categories.STRUCTURE }},
         },

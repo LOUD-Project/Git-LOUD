@@ -46,11 +46,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3', BuildersR
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -104,13 +104,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4', BuildersR
             --- only on maps > 20k
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
         },
@@ -164,7 +164,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3 Expansions'
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -223,7 +223,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4 Expansions'
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
         },
@@ -275,7 +275,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction', BuildersRestricti
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.NUKE * categories.STRUCTURE }},			
         },
@@ -323,11 +323,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction Expansions', Builde
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.NUKE * categories.STRUCTURE }},			
         },

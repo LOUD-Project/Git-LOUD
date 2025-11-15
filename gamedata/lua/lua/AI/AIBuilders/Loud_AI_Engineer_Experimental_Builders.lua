@@ -63,7 +63,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
 		
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 3,
+		InstanceCount = 2,
 		
         BuilderConditions = {
             
