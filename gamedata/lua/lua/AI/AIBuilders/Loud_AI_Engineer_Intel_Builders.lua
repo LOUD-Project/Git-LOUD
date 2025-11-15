@@ -135,9 +135,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, categories.OPTICS }},
         },
 		
@@ -169,11 +172,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.OPTICS }},
         },
