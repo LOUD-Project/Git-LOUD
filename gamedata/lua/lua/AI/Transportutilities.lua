@@ -15,7 +15,8 @@
 local import = import
 
 local loudUtils = import('/lua/loudutilities.lua')
-    
+
+local CategoryRestricted        = import('/lua/game.lua').CategoryRestricted    
 local GetOwnUnitsAroundPoint    = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation            = import('/lua/ai/aiutilities.lua').RandomLocation
 
@@ -161,6 +162,10 @@ function CheckTransportPool( aiBrain )
         CreateTransportPool( aiBrain)
     end
     
+    if CategoryRestricted('AIRTRANSPORTS') then
+        return
+    end
+    
     local TransportDialog = ScenarioInfo.TransportDialog or false
     
 	local IsIdleState   = IsIdleState
@@ -265,7 +270,7 @@ end
 -- Will now also limit transport selection to those within 16 km
 function GetTransports( platoon, aiBrain)
 
-    if platoon.UsingTransport then
+    if platoon.UsingTransport or CategoryRestricted('AIRTRANSPORTS') then
         return false, false, 0
     end
     
@@ -1214,7 +1219,11 @@ end
     -- bSkipLastMove - make drop at closest safe marker rather than at destination
     -- platoonpath - source platoon can optionally feed it's current travel path in order to provide additional alternate drop points if the destination is not good
 function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath, AtGoalDistance )
-
+    
+    if CategoryRestricted('AIRTRANSPORTS') then
+        return false
+    end
+ 
     -- destination must be in playable areas --
     if not import('/lua/loudutilities.lua').BaseInPlayableArea(aiBrain, destination) or aiBrain:GetNoRushTicks() > 100 then
         return false
@@ -1651,7 +1660,11 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
     if TransportDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." begins UseTransports on tick "..GetGameTick() )
     end    
-
+    
+    if CategoryRestricted('AIRTRANSPORTS') then
+        return false
+    end
+ 
 	local LOUDCOPY      = LOUDCOPY
 	local LOUDENTITY    = LOUDENTITY
 	local LOUDGETN      = LOUDGETN
