@@ -248,9 +248,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         if self.WeaponCharged then return end
 		
-        local bp = self.bp
-		
         if not self.EconDrain then
+		
+            local bp = self.bp
         
             if bp.EnergyRequired and bp.EnergyDrainPerSecond then
 		
@@ -807,6 +807,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 			end
    	     
             if self.EconDrain then
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon Idle State "..repr(unit.BlueprintID).." "..repr(bp.Label).." Waiting on Economy Event at "..GetGameTick() )
+                end
 
                 WaitFor(self.EconDrain)
                 
@@ -817,7 +821,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self.EconDrain = nil                
 
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon Idle State "..repr(self.bp.Label).." Economy Event Ends at "..GetGameTick() )
+                    LOG("*AI DEBUG DefaultWeapon Idle State "..repr(bp.Label).." Economy Event Ends at "..GetGameTick() )
                 end
 
             end
@@ -1968,6 +1972,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon BEAM Idle State "..repr(self.bp.Label).." at "..GetGameTick() )
 			end
+            
+            if self.EconDrain then
+                WaitFor(self.EconDrain)
+                self.EconDrain = nil
+            end
        
             DefaultProjectileWeapon.IdleState.Main(self)
             
