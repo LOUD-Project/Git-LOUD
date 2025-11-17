@@ -5333,94 +5333,28 @@ Unit = Class(UnitMethods) {
 	
 	-- issued when a unit tries to start a teleport
     OnTeleportUnit = function(self, teleporter, location, orientation)
-    
+
         self.teleported = false
 	
         if not self.teleporting then
-        
-            --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
-            
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
             self.teleporting = true
-
         else 
-        
-            --LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
-        
+            LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
             return
         end
-		
+	
         local mybrain = GetAIBrain(self)
 
 		local bp = ALLBPS[self.BlueprintID]
         
 		-- Range Check to location
-        -- in this respect maxrange is the optimal range - you can go twice that distance
+        -- in this respect maxrange is the optimal range - you can go any distance
         -- but as you will see, the costs explode if you do.
 		local teleRange = bp.Defense.MaxTeleRange or 375
         
 		local myposition = self:GetPosition()
-        
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
---[[		
-		if destRange > (teleRange * 8) then
-        
-            --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
-		
-			FloatingEntityText(self.EntityID,'Destination Beyond '..repr(teleRange*8)..' range')
-            
-            self.teleporting = nil
-			
-			return
-			
-		end
---]]		
-		-- Teleport Interdiction Check
-		for num, brain in BRAINS do
-        
-            if IsEnemy( mybrain.ArmyIndex, brain.ArmyIndex ) then
-		
-                local unitlist = brain:GetListOfUnits(categories.ANTITELEPORT, false)
-			
-                for i, unit in unitlist do
-				
-                    -- the range at which this unit blocks teleportation
-                    local noTeleDistance = ALLBPS[unit.BlueprintID].Defense.NoTeleDistance or 75
-				
-                    -- the position of the teleblocker
-                    local atposition = unit:GetPosition()
-				
-                    -- the range of the destination to the teleblocker
-                    local targetdest = VDist2(location[1], location[3], atposition[1], atposition[3])
-				
-                    -- the range of the teleblocker to me
-                    local sourcecheck = VDist2(myposition[1], myposition[3], atposition[1], atposition[3])
-				
-                    -- if the teleblocker is within range of the destination
-                    if noTeleDistance > targetdest then
-				
-                        FloatingEntityText(self.EntityID,'Teleport Destination Scrambled')
-                    
-                        --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
-                    
-                        self.teleporting = nil
-                    
-                        return
-					
-                    -- if the teleblocker is within range of the unit trying to teleport
-                    elseif noTeleDistance and noTeleDistance >= sourcecheck then
-				
-                        FloatingEntityText(self.EntityID,'Teleport Source Scrambled')
-                    
-                        --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
-                    
-                        self.teleporting = nil
-                    
-                        return
-					
-                    end
-                end
-			end
-		end
 		
         -- Economy Check and Initial Charge
 		local telecost = bp.Economy.TeleportBurstEnergyCost or 4000
@@ -5669,8 +5603,21 @@ Unit = Class(UnitMethods) {
         WaitTicks(1)
 
         self:SetWorkProgress(0.0)
-        
-        Warp(self, location, orientation)
+    
+        local TeleportLocationBlocked   = import('/lua/loudutilities.lua').TeleportLocationBlocked
+    
+        if TeleportLocationBlocked( self, location ) then
+
+            FloatingEntityText(self.EntityID,'Teleport Destination Scrambled')
+
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - blocked ")
+
+		else
+	        
+            Warp(self, location, orientation)
+
+            self:OnTeleported(location)        
+        end
 		
         EffectUtilities.PlayTeleportInEffects(self)
 
@@ -5692,7 +5639,6 @@ Unit = Class(UnitMethods) {
         
         self.TeleportCostPaid = nil
 
-        self:OnTeleported(location)
     end,
 	
     OnTeleportCharging = function(self, location)

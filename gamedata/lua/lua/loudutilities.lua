@@ -2499,45 +2499,59 @@ end
 
 -- this will return true or false depending upon if an enemy ANTITELEPORT
 -- unit is in range of the location
-function TeleportLocationBlocked( self, location )
+-- will now check for blockage on a line to the destination
+function TeleportLocationBlocked( self, targetPos )
 
 	local aiBrain = GetAIBrain(self)
     
     local BRAINS = ArmyBrains
+    local unitList = {}
     local VDist2 = VDist2
+
+	local function CheckBlockingAntiTeleport( position, targetPos )  
+
+        local lastpos, steps, xstep, ystep
+        local noTeleDistance, atposition, targetdist
+
+		-- This gives us the number of approx. 50 ogrid steps in the distance
+		steps = LOUDFLOOR( VDist3( position, targetPos ) / 50 ) + 1
+	
+		xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+		ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+
+        nextpos = { 0, 0, 0 }
+	
+		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+		for i = 1, steps do
+
+            nextpos[1] = position[1] - (xstep * i)
+            nextpos[3] = position[3] - (ystep * i)
+            
+            for u, unit in unitList do
+            
+                noTeleDistance  = __blueprints[unit.BlueprintID].Defense.NoTeleDistance
+                atposition      = GetPosition(unit)
+                targetdist      = VDist2(nextpos[1], nextpos[3], atposition[1], atposition[3])
+                
+                if targetdist < noTeleDistance then
+                    LOG("*AI DEBUG OnTeleportUnit blocked around "..repr(nextpos))
+                    return true
+                end
+            end
+
+		end
+	
+		return false    -- not blocked
+	end
 	
 	for num, brain in BRAINS do
 	
 		if not IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) and aiBrain.Armyindex != brain.ArmyIndex then
 		
-			local unitList = GetListOfUnits( brain, categories.ANTITELEPORT, false, true)
+			unitList = GetListOfUnits( brain, categories.ANTITELEPORT, false, true)
 			
-			for i, unit in unitList do
-			
-				local noTeleDistance = __blueprints[unit.BlueprintID].Defense.NoTeleDistance
-				local atposition = GetPosition(unit)
-                local targetdestdistance = false
-                
-                if location and atposition then
-				
-                    targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
-                    
-                end
-
-				-- if the antiteleport range covers the targetlocation
-				if targetdestdistance and noTeleDistance and noTeleDistance > targetdestdistance then
-				
-					--FloatingEntityText(self.EntityID,'Teleportation Malfunction')
-					
-					-- play audio warning
-					--if GetFocusArmy() == self:GetArmy() then
-						--local Voice = Sound {Bank = 'LOUD', Cue = 'AttackRequestFailed',}
-
-						--ForkThread(aiBrain.PlayVOSound, aiBrain, Voice, 'RemoteViewingFailed')
-					--end
-					
-					return true
-				end
+            if CheckBlockingAntiTeleport( self:GetPosition(), targetPos ) then
+                return true
 			end
 		end
 	end
