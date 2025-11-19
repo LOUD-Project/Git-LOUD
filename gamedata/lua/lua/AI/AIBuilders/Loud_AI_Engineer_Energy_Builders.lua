@@ -4,36 +4,6 @@ local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
-local GetArmyUnitCap        = GetArmyUnitCap
-local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
-
-local AboveUnitCap65 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
-		return 10, true
-	end
-	
-	return self.Priority, true
-end
-
-local AboveUnitCap75 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
-local AboveUnitCap98 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .98 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
 -- imbedded into the Builder
 local First30Minutes = function( self,aiBrain )
 	
@@ -162,10 +132,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 851,
-        
-        PriorityFunction = AboveUnitCap98,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
@@ -200,10 +169,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap65,
-        
+
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
@@ -305,12 +273,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 700,
-        
-        PriorityFunction = AboveUnitCap65,
-        
+
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
+
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
@@ -339,12 +306,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
@@ -433,12 +400,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
@@ -475,10 +442,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap65,
-        
+
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
@@ -574,13 +540,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction', Builder
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 700,
-        
-        PriorityFunction = AboveUnitCap65,
-		
+
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 0, categories.HYDROCARBON }},
+
             { UCBC, 'AdjacencyCheck', { 'LocationType', 'HYDROCARBON', 450, 'ueb1105' }},
         },
 		
@@ -598,179 +565,3 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction', Builder
     },
 }
 
-
---[[
-
-BuilderGroup {BuilderGroupName = 'Energy Facility', BuildersType = 'EngineerBuilder',
-	
--- starts the production of T3 Power by building a sub-facility at the rear of the base
--- maps with starting positions too close to the edge of the map - or on rugged ground
--- will cause this to fail and 'upset' the entire applecart
-    Builder {BuilderName = 'T3 Power Facility',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        Priority = 990,
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-        },
-		
-        BuilderType = { 'T3' },
-		
-        BuilderData = {
-			DesiresAssist = true,
-            NumAssistees = 5,
-            Construction = {
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 1,
-				Iterations = 1,
-				Radius = 50,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3PowerFacility',
-                BuildStructures = {
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T2ShieldDefense',
-					'T2ShieldDefense',
-					'T3MassCreation',
-					'T3MissileDefense',
-					'T3MissileDefense',
-					'T2AADefense',
-					'T2AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3GroundDefense',
-					'T3GroundDefense',
-                },
-            }
-        }
-    },
-
-    Builder {BuilderName = 'Energy Storage Power Facility',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        Priority = 750,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'HaveLessThanUnitsWithCategory', { 8, categories.ENERGYSTORAGE }},
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-        },
-		
-        BuilderType = { 'T1','T2' },
-		
-        BuilderData = {
-            Construction = {
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 1,
-				Iterations = 1,
-				Radius = 50,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3PowerFacility',
-                BuildStructures = {
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-                },
-            }
-        }
-    },
-
-    Builder {BuilderName = 'Energy Storage Power Facility Stage 2',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        Priority = 710,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-			{ UCBC, 'HaveLessThanUnitsWithCategory', { 16, categories.ENERGYSTORAGE }},
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
-        },
-		
-        BuilderType = { 'T1','T2' },
-		
-        BuilderData = {
-            Construction = {
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 1,
-				Iterations = 1,
-				Radius = 50,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3PowerFacility',
-                BuildStructures = {
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-					'EnergyStorage',
-                },
-            }
-        }
-    },
-}	
-
-BuilderGroup {BuilderGroupName = 'Energy Facility - LOUD_IS', BuildersType = 'EngineerBuilder',
-
-    Builder {BuilderName = 'T3 Power Facility - LOUD_IS',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        Priority = 990,
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-        },
-		
-        BuilderType = { 'T3' },
-		
-        BuilderData = {
-			DesiresAssist = true,
-            NumAssistees = 5,
-            Construction = {
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 1,
-				Iterations = 1,
-				Radius = 50,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3PowerFacility',
-                BuildStructures = {
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T3EnergyProduction',
-					'T2ShieldDefense',
-					'T2ShieldDefense',
-					'T3MassCreation',
-					'T3MissileDefense',
-					'T3MissileDefense',
-					'T2AADefense',
-					'T2AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3AADefense',
-					'T3GroundDefense',
-					'T3GroundDefense',
-                },
-            }
-        }
-    },
-}
-
---]]

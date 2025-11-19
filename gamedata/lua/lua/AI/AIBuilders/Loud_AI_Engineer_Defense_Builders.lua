@@ -35,33 +35,6 @@ local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetPosition           = moho.entity_methods.GetPosition
 local GetThreatAtPosition   = moho.aibrain_methods.GetThreatAtPosition
 
-local AboveUnitCap65 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
-local AboveUnitCap75 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
-local AboveUnitCap85 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
 -- Just a note -- many of these builders use the 'BasePerimeterSelection = true' function
 -- This will direct the AI to build only one of these positions at a time -- selecting randomly
 -- from the available positions (which depends upon the BasePerimeterOrientation)
@@ -1406,13 +1379,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 745,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
 		InstanceCount = 2,
         
         BuilderConditions = {
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -3206,10 +3179,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 
             return (builder.OldPriority or builder.Priority), true
         end,
-        
-        PriorityFunction = AboveUnitCap75,
-        
+
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
@@ -4002,8 +3975,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap85,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -4069,8 +4040,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap85,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -4997,10 +4966,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 745,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
@@ -5318,9 +5287,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval', BuildersT
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 

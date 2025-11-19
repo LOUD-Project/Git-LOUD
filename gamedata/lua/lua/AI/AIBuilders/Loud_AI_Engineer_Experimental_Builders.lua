@@ -5,18 +5,6 @@ local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 local BHVR  = '/lua/ai/aibehaviors.lua'
 
-local GetArmyUnitCap        = GetArmyUnitCap
-local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
-
-local AboveUnitCap80 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
-
 local LessThan20MinutesRemain = function(self, aiBrain)
 
 	if aiBrain.VictoryTime then
@@ -1004,10 +992,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction', BuildersTyp
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 845,
-        
-        PriorityFunction = AboveUnitCap80,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
@@ -1132,10 +1120,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
-        
-        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
@@ -1179,10 +1167,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval', Bui
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
-        
-        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
@@ -1223,8 +1211,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction', Bui
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
-        
-        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
@@ -1319,8 +1305,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
-        
-        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
@@ -1373,8 +1357,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-        
-        PriorityFunction = AboveUnitCap80,
 
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
@@ -1469,9 +1451,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-        
-        PriorityFunction = AboveUnitCap80,
-		
+
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
