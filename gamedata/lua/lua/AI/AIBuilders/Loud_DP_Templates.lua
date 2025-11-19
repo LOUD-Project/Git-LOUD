@@ -898,8 +898,10 @@ DefensivePointSmall = {
         },
         
         {{ 'T2ShieldDefense', 'T3ShieldDefense'	},
-            { 0, 6 },
-            { 0, -13 },
+            { 0,  6 },
+            { 0,-13 },
+            {-19, 0 },
+            { 19, 0 },
         },
         
         {{ 'T2EnergyProduction' },
@@ -912,9 +914,7 @@ DefensivePointSmall = {
         },
         
         {{ 'T2Artillery'},
-            { 0,-6 },
-            { 0,-2 },
-            { 0, 6 },
+            {-2, 0 },
             { 0, 2 },
 			{ 6,-6 },
 			{-6,-6 },
@@ -1056,12 +1056,16 @@ DefensivePointSmall = {
 			{-5, 7 },
         },
         
+        {{ 'T3TeleportJammer'},
+			{ 0,-19 },
+        },
+
 		{{ 'T4AADefense'},
-			{-3,-7 },
+			{-7,-14 },
 		},
         
         {{ 'T4GroundDefense'},
-            { 5, 7 },
+            { 7, 14 },
         },
     },
     
@@ -1072,8 +1076,10 @@ DefensivePointSmall = {
         },
         
         {{ 'T2ShieldDefense','T3ShieldDefense'	},
-            { 0, 6 },
-            { 0, -13 },
+            { 0,  6 },
+            { 0,-13 },
+            {-19, 0 },
+            { 19, 0 },
         },
         
         {{ 'T2EnergyProduction' },
@@ -1086,9 +1092,7 @@ DefensivePointSmall = {
         },
         
         {{ 'T2Artillery' },
-            { 0,-6 },
-            { 0,-2 },
-            { 0, 6 },
+            {-2, 0 },
             { 0, 2 },
 			{ 6,-6 },
 			{-6,-6 },
@@ -1230,12 +1234,16 @@ DefensivePointSmall = {
 			{-5, 7 },
         },
         
+        {{ 'T3TeleportJammer'},
+			{ 0,-19 },
+        },
+        
 		{{ 'T4AADefense'},
-			{-3,-6 },
+			{-7,-14 },
 		},
         
         {{ 'T4GroundDefense'},
-            { 5, 7 },
+            { 7, 14 },
         },
     },
     
@@ -1246,8 +1254,10 @@ DefensivePointSmall = {
         },
         
         {{ 'T2ShieldDefense','T3ShieldDefense'	},
-            { 0, 6 },
-            { 0, -13 },
+            { 0,  6 },
+            { 0,-13 },
+            {-19, 0 },
+            { 19, 0 },
         },
         
         {{ 'T2EnergyProduction' },
@@ -1260,9 +1270,7 @@ DefensivePointSmall = {
         },
         
         {{ 'T2Artillery'},
-            { 0,-6 },
-            { 0,-2 },
-            { 0, 6 },
+            {-2, 0 },
             { 0, 2 },
 			{ 6,-6 },
 			{-6,-6 },
@@ -1404,12 +1412,16 @@ DefensivePointSmall = {
 			{-5, 7 },
         },
         
+        {{ 'T3TeleportJammer'},
+			{ 0,-19 },
+        },
+        
 		{{ 'T4AADefense'},
-			{-3,-6 },
+			{-7,-14 },
 		},
         
         {{ 'T4GroundDefense'},
-            { 5, 7 },
+            { 7, 14 },
         },
     },
 
@@ -1421,8 +1433,10 @@ DefensivePointSmall = {
         },
         
         {{ 'T2ShieldDefense', 'T3ShieldDefense'},
-            { 0, 6 },
-            { 0, -13 },
+            { 0,  6 },
+            { 0,-13 },
+            {-19, 0 },
+            { 19, 0 },
         },
         
         {{ 'T2EnergyProduction'},
@@ -1435,9 +1449,7 @@ DefensivePointSmall = {
         },
         
         {{ 'T2Artillery'},
-            { 0,-6 },
-            { 0,-2 },
-            { 0, 6 },
+            {-2, 0 },
             { 0, 2 },
 			{ 6,-6 },
 			{-6,-6 },
@@ -1579,12 +1591,16 @@ DefensivePointSmall = {
 			{-5, 7 },
         },
         
+        {{ 'T3TeleportJammer'},
+			{ 0,-19 },
+        },
+        
 		{{ 'T4AADefense'},
-			{-3,-6 },
+			{-7,-14 },
 		},
         
         {{ 'T4GroundDefense'},
-            { 5, 7 },
+            { 7, 14 },
         },
     },
 }

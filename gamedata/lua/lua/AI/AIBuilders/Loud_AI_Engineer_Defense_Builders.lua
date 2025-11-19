@@ -24,7 +24,9 @@ local ENERGY    = categories.STRUCTURE * categories.ENERGYPRODUCTION
 local FACTORY   = categories.STRUCTURE * categories.FACTORY
 local HVYARTY   = categories.STRUCTURE * categories.ARTILLERY * categories.STRATEGIC
 local NUKESILO  = (categories.NUKE * categories.SILO) + (categories.SATELLITEUPLINK * categories.FACTORY)
+local RADAR     = categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE
 local SHIELD    = categories.STRUCTURE * categories.SHIELD
+local T3PD      = categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE
 local T4AIR     = categories.EXPERIMENTAL * categories.MOBILE * categories.AIR
 local T4LAND    = categories.EXPERIMENTAL * categories.MOBILE * categories.DIRECTFIRE
 
@@ -3092,8 +3094,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter', Bui
 		InstanceCount = 1,
         
         Priority = 745,
-        
-        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
@@ -5762,10 +5762,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
         
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
@@ -6001,13 +6001,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		
         BuilderData = {
 			DesiresAssist = true,
-			NumAssistees = 4,
+			NumAssistees = 2,
 			
             Construction = {
 				Radius = 1,
 				NearBasePerimeterPoints = true,
 
-				ThreatMax = 60,
+				ThreatMax = 100,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -6016,7 +6016,52 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             }
         }
     },    
+
+    Builder {BuilderName = 'T3 DP STD Teleport Jamming',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.ANTITELEPORT * categories.STRUCTURE ) then
+                return 10, true
+            end
     
+            return (self.OldPriority or self.Priority), true
+        end,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+            
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+		
+			Construction = {
+				NearBasePerimeterPoints = true,
+
+				ThreatMax = 75,				
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+
+                BuildStructures = {'T3TeleportJammer'},
+            }
+        }
+    },	
+
     Builder {BuilderName = 'T4 DP STD AA',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -6114,11 +6159,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 752,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -6271,10 +6316,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 760,
-        
-        PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
@@ -6340,11 +6385,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 700,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -6376,10 +6421,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 700,
-        
-        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -6578,348 +6622,3 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
     },	
 }
 
-
---[[
-BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small', BuildersType = 'EngineerBuilder',
-
-    Builder {BuilderName = 'DP SML Radar',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 751,
-
-        BuilderConditions = {
-        
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
-			
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }}, 			
-        },
-		
-		BuilderType = { 'T2','T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 75,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {
-                    'T2Radar',
-                    'T2MissileDefense',
-                    'T2EnergyProduction',
-                    'T2RadarJammer',
-                }
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T2 DP SML Auxiliary Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 751,
-
-        BuilderConditions = {
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
-        },
-		
-		BuilderType = { 'T2','T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-            
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 75,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {
-					'T2AirStagingPlatform',
-                }
-            }
-        }
-    },	
-
-    Builder {BuilderName = 'T3 DP SML AA Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-        
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }}, 
-            
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, AA * categories.TECH3, 0, 24 }},
-        },
-		
-		BuilderType = { 'T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 75,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {
-					'T3AADefense',
-                }
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T2 DP SML Shields',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-        
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
-            
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY, 0, 24 }},
-        },
-		
-		BuilderType = { 'T2','T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 100,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {'T2ShieldDefense'}
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T3 DP SML PD Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-        
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
-            
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE, 0, 24 }},
-        },
-		
-		BuilderType = { 'T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 100,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {'T3GroundDefense'}
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'T2 DP SML TML',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }}, 
-            
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE }},			
-        },
-		
-        BuilderType = {'T2','T3','SubCommander' },
-		
-        BuilderData = {
-            Construction = {
-                NearBasePerimeterPoints = true,
-				
-				ThreatMax = 100,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-				
-                BuildStructures = {'T2StrategicMissile'},
-            }
-        }
-    },
-    
-    Builder {BuilderName = 'T3 DP SML Tactical Artillery',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }},
-            
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
-        },
-		
-        BuilderType = { 'T3','SubCommander'},
-		
-        BuilderData = {
-			DesiresAssist = true,
-			NumAssistees = 4,
-			
-            Construction = {
-				Radius = 1,
-				NearBasePerimeterPoints = true,
-
-				ThreatMax = 100,
-
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-
-                BuildStructures = {'T3TacticalArtillery'},
-            }
-        }
-    },    
-
-    Builder {BuilderName = 'T4 DP SML AA Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 750,
-		
-		PriorityFunction = IsPrimaryBase,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 35, 'Air' }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
-            
-			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, SHIELD - categories.ANTIARTILLERY, 0, 24 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, AA * categories.EXPERIMENTAL, 0, 24 }},
-        },
-		
-		BuilderType = { 'SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			NumAssistees = 2,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 90,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {'T4AADefense'}
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'T4 DP SML Antinuke Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 740,
-		
-		PriorityFunction = IsPrimaryBase,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			
-		    { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SMD }},			
-
-			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, SHIELD - categories.ANTIARTILLERY, 0, 24 }},
-			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-        },
-		
-		BuilderType = { 'SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-                ThreatMax = 60,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {'T3StrategicMissileDefense'}
-            }
-        }
-    },
-	
-}
---]]
