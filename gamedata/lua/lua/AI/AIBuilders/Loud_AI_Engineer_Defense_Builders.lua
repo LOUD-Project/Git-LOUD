@@ -5325,17 +5325,30 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY ) then
+                return 10, true
+            end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
         BuilderConditions = {
             { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
 
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
 
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 250 }},            
+			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 250 }},            
         
-			{ EBC, 'LessThanEnergyTrend', { 45 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			--{ EBC, 'LessThanEnergyTrend', { 45 }},        
+			--{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
@@ -5367,9 +5380,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		InstanceCount = 1,
         
         Priority = 751,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
 
-        PriorityFunction = IsEnemyCrushingLand,
-		
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+	
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
+
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
@@ -5381,9 +5405,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5464,19 +5486,29 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         
         Priority = 751,
         
-        PriorityFunction = IsEnemyCrushingAir,
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.AirRatio > 1.5 then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, AA ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
-
-            -- less than 4 AA guns at location - total
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5518,12 +5550,29 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+            
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, AA ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, RADAR ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
         BuilderConditions = {
-            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
-
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
-            
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -5601,18 +5650,35 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		
         Priority = 751,
         
-        PriorityFunction = AboveUnitCap75,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
             
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, AA ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, SHIELD ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},            
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
+			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},            
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -5641,20 +5707,35 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		
         Priority = 751,
         
-        PriorityFunction = AboveUnitCap75,
-		
-        BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
             
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, AA ) then
+                return 10, true
+            end
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, SHIELD ) then
+                return 10, true
+            end
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }},
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
-			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, SHIELD - categories.ANTIARTILLERY }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+
+			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -5689,11 +5770,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.01, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * categories.TECH3 }},
         },
@@ -5723,19 +5802,32 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+            
+            if aiBrain.LandRatio > 3 then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, T3PD ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
-            
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }}, 
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -5805,8 +5897,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+        
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
         
@@ -5841,20 +5935,31 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.COUNTERINTELLIGENCE * categories.STRUCTURE ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
         BuilderConditions = {
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
-
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.COUNTERINTELLIGENCE * categories.STRUCTURE }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 30, 1.01, 1.02 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5883,16 +5988,27 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE ) then
+                return 10, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.04 }}, 
-            
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE }},			
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
         },
 		
         BuilderType = {'T2','T3','SubCommander' },
@@ -6074,23 +6190,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-		
-		PriorityFunction = IsPrimaryBase,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.AirRatio > 1.5 then
+                return 10, true
+            end
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SHIELD ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AA * categories.EXPERIMENTAL ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+      
+            return (self.OldPriority or self.Priority), true
+        end,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
-
-			-- must have 2 shields here
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
-
-            -- must not have other T4 AA
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, AA * categories.EXPERIMENTAL }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -6119,23 +6246,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
-		
-		--PriorityFunction = IsPrimaryBase,
-		
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.LandRatio > 3 then
+                return 10, true
+            end
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SHIELD ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.STRUCTURE * categories.DEFENSE * categories.EXPERIMENTAL - categories.ANTIAIR ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+      
+            return (self.OldPriority or self.Priority), true
+        end,
+
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'LandStrengthRatioLessThan', { 3 }},
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
-
-			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
-            
-            -- must not have other T4 PD
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.DEFENSE * categories.EXPERIMENTAL - categories.ANTIAIR }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -6205,18 +6343,35 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 750,
         
-        PriorityFunction = AboveUnitCap75,
-		
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.FactionIndex == 2 or aiBrain.FactionIndex == 4 then
+                return 0, false
+            end
+ 
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, categories.ENGINEERSTATION ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+      
+            return (self.OldPriority or self.Priority), true
+        end,
+
         BuilderConditions = {
- 			{ MIBC, 'FactionIndex', { 1, 3 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ENGINEERSTATION}},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6243,16 +6398,33 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap75,
-		
-        BuilderConditions = {
- 			{ MIBC, 'FactionIndex', { 2, 4 } },
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.FactionIndex == 1 or aiBrain.FactionIndex == 3 then
+                return 0, false
+            end
+ 
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ENGINEERSTATION}},
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, categories.ENGINEERSTATION ) then
+                return 10, true
+            end
+
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+                return (self.OldPriority or self.Priority) + 50, true
+            end
+      
+            return (self.OldPriority or self.Priority), true
+        end,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -6289,7 +6461,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
+			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, RADAR }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
