@@ -842,12 +842,12 @@ MassFabLayout = {
 			{ 17, 17 }, -- right front corner
 			{-33,-11 }, -- left back
 			{ 33,-11 }, -- right back
-			{-11,-33 },	-- rear left
-			{ 11,-33 }, -- rear right
 			{-33, 11 },	-- left front
 			{ 33, 11 }, -- right front
-			{-11, 33 },	-- left front
-			{ 11, 33 }, -- right front
+			{-11, 33 },	-- front left
+			{ 11, 33 }, -- front right
+			{-11,-33 },	-- rear left
+			{ 11,-33 }, -- rear right
 		},
 		{{'T1MassCreation'},
             {  5, 15 }, -- front
@@ -865,16 +865,16 @@ MassFabLayout = {
 -- Aeon
     {
 		{{'T3MassCreation'},
-			{-17, 17 },
-			{ 17, 17 },
-			{-33,-11 },
-			{ 33,-11 },
-			{-11,-33 },
-			{ 11,-33 },
-			{-33, 11 },
-			{ 33, 11 },
-			{-11, 33 },
-			{ 11, 33 },
+			{-17, 17 },	-- left front corner
+			{ 17, 17 }, -- right front corner
+			{-33,-11 }, -- left back
+			{ 33,-11 }, -- right back
+			{-33, 11 },	-- left front
+			{ 33, 11 }, -- right front
+			{-11, 33 },	-- front left
+			{ 11, 33 }, -- front right
+			{-11,-33 },	-- rear left
+			{ 11,-33 }, -- rear right
 		},
 		{{'T1MassCreation'},
             {  5, 15 },
@@ -892,16 +892,16 @@ MassFabLayout = {
 -- Cybran
     {
 		{{'T3MassCreation'},
-			{-17, 17 },
-			{ 17, 17 },
-			{-33,-11 },
-			{ 33,-11 },
-			{-11,-33 },
-			{ 11,-33 },
-			{-33, 11 },
-			{ 33, 11 },
-			{-11, 33 },
-			{ 11, 33 },
+			{-17, 17 },	-- left front corner
+			{ 17, 17 }, -- right front corner
+			{-33,-11 }, -- left back
+			{ 33,-11 }, -- right back
+			{-33, 11 },	-- left front
+			{ 33, 11 }, -- right front
+			{-11, 33 },	-- front left
+			{ 11, 33 }, -- front right
+			{-11,-33 },	-- rear left
+			{ 11,-33 }, -- rear right
 		},
 		{{'T1MassCreation'},
             {  5, 15 },
@@ -919,16 +919,16 @@ MassFabLayout = {
 -- Sera
     {
 		{{'T3MassCreation'},
-			{-17, 17 },
-			{ 17, 17 },
-			{-33,-11 },
-			{ 33,-11 },
-			{-11,-33 },
-			{ 11,-33 },
-			{-33, 11 },
-			{ 33, 11 },
-			{-11, 33 },
-			{ 11, 33 },
+			{-17, 17 },	-- left front corner
+			{ 17, 17 }, -- right front corner
+			{-33,-11 }, -- left back
+			{ 33,-11 }, -- right back
+			{-33, 11 },	-- left front
+			{ 33, 11 }, -- right front
+			{-11, 33 },	-- front left
+			{ 11, 33 }, -- front right
+			{-11,-33 },	-- rear left
+			{ 11,-33 }, -- rear right
 		},
 		{{'T1MassCreation'},
             {  5, 15 },
@@ -2421,32 +2421,30 @@ ResourceFacility = {
         },
         
         {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
-			{-8,-8 },       # AA 4
-			{ 8, 8 },
+			{ 7, 7 },
+			{-7, 7 },
+			{-8,-8 },
 			{ 8,-8 },
-			{-8, 8 },
-			{-10,-10},      # T2 TMD 2
+			{-10,-10 },
 			{ 10, 10 },
-			{ 10,-10 },     # T2 PD 2
+			{ 10,-10 },
 			{-10, 10 },
         },
         
 		{{'T3TeleportJammer','T2RadarJammer'},
 			{-9,-9 },
-			{ 9, 9 },
 			{ 9,-9 },
 			{-9, 9 },
+			{ 9, 9 },
 		},
         
         {{'T4EconExperimental'},
-			{ 0, 0 },       # Resource Gen
+			{ 0, 0 },
         },
         
 		{{'T4GroundDefense'},
-			{-11,-11 },
-			{ 11, 11 },
-			{-11, 11 },
-			{ 11,-11 },
+			{ -11,-11 },
+			{  11,-11 },
 		},
         
 		{{'EnergyStorage','T3Storage'},
@@ -2491,20 +2489,20 @@ ResourceFacility = {
 -- Aeon Resource Facility
     {
         {{'T3ShieldDefense','T2ShieldDefense'},
-			{ 0, -10 },
-			{ 0, 10 },
+			{  0,-10 },
+			{  0, 10 },
 			{ 10, 0 },
-			{ -10, 0 },
+			{-10, 0 },
         },
         {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
-			{ -8, -8 },
-			{ 8, 8 },
-			{ 8, -8 },
-			{ -8, 8 },
-			{ -10, -10},
+			{ 7, 7 },
+			{-7, 7 },
+			{-8,-8 },
+			{ 8,-8 },
+			{-10,-10},
 			{ 10, 10 },
-			{ 10, -10 },
-			{ -10, 10 },
+			{ 10,-10 },
+			{-10, 10 },
         },
 		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
@@ -2516,10 +2514,8 @@ ResourceFacility = {
 			{ 0, 0 },
         },
 		{{'T4GroundDefense'},
-			{ -11, -11 },
-			{  11,  11 },
-			{ -11,  11 },
-			{  11, -11 },
+			{ -11,-11 },
+			{  11,-11 },
 		},		
 		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
@@ -2567,14 +2563,14 @@ ResourceFacility = {
 			{ -10, 0 },
         },
         {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
-			{ -8, -8 },
-			{ 8, 8 },
-			{ 8, -8 },
-			{ -8, 8 },
-			{ -10, -10},
+			{ 7, 7 },
+			{-7, 7 },
+			{-8,-8 },
+			{ 8,-8 },
+			{-10,-10},
 			{ 10, 10 },
-			{ 10, -10 },
-			{ -10, 10 },
+			{ 10,-10 },
+			{-10, 10 },
         },
 		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
@@ -2586,10 +2582,8 @@ ResourceFacility = {
 			{ 0, 0 },
         },
 		{{'T4GroundDefense'},
-			{ -11, -11 },
-			{  11,  11 },
-			{ -11,  11 },
-			{  11, -11 },
+			{ -11,-11 },
+			{  11,-11 },
 		},
 		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
@@ -2637,14 +2631,14 @@ ResourceFacility = {
 			{ -10, 0 },
         },
         {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
-			{ -8, -8 },
-			{ 8, 8 },
-			{ 8, -8 },
-			{ -8, 8 },
-			{ -10, -10},
+			{ 7, 7 },
+			{-7, 7 },
+			{-8,-8 },
+			{ 8,-8 },
+			{-10,-10},
 			{ 10, 10 },
-			{ 10, -10 },
-			{ -10, 10 },
+			{ 10,-10 },
+			{-10, 10 },
         },
 		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
@@ -2656,10 +2650,8 @@ ResourceFacility = {
 			{ 0, 0 },
         },
 		{{'T4GroundDefense'},
-			{ -12, -12 },
-			{  12,  12 },
-			{ -12,  12 },
-			{  12, -12 },
+			{ -12,-12 },
+			{  12,-12 },
 		},		
 		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
