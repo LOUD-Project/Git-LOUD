@@ -97,7 +97,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
 		
         BuilderConditions = {
             
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
@@ -110,7 +110,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
 		
         BuilderData = {
 			DesiresAssist = true,
-			NumAssistees = 3,
+			NumAssistees = 2,
             Construction = {
 				Radius = 50,
 				NearBasePerimeterPoints = true,
