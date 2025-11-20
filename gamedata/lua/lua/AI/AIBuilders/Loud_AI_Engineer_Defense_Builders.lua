@@ -1111,10 +1111,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * categories.EXPERIMENTAL, 10, 42 ) then
-            
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * categories.EXPERIMENTAL, 10, 45 ) then
                 return 10, true
-                
             end
 
             if aiBrain.LandRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 2, T4LAND,'Enemy') then
@@ -5414,11 +5412,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 751,
-        
-        PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -5439,13 +5435,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 			
 				NearBasePerimeterPoints = true,
 
-                ThreatMin = 20,
                 ThreatMax = 125,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
-                BuildStructures = {'T2GroundDefense','T2GroundDefense'}
+                BuildStructures = {'T2GroundDefense',
+					'Wall',
+					'T2Wall',
+					'Wall',
+					'T2Wall',                
+                    'T2GroundDefense',
+					'Wall',
+					'T2Wall',
+					'Wall',
+					'T2Wall',
+                }
             }
         }
 		
@@ -5484,19 +5489,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 			
 				NearBasePerimeterPoints = true,
 
-                ThreatMin = 20,
                 ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {'T2AADefense',
+					'Wall',
+					'T2Wall',
+					'Wall',
+					'T2Wall',
+					'Wall',
 					'T2AADefense',
-					'Wall',
-					'T2Wall',
-					'Wall',
-					'T2Wall',
-					'Wall',
 					'T2Wall',
 					'Wall',
 					'T2Wall',
@@ -5553,10 +5557,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         Priority = 751,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 10, true
-            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
                 return 10, true
@@ -5570,6 +5570,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
@@ -5621,7 +5623,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 90,
+                ThreatMax = 100,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5663,7 +5665,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 75,
+                ThreatMax = 100,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5823,11 +5825,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
-                BuildStructures = {'T2MissileDefense'}
+                BuildStructures = {'T2MissileDefense',
+					'Wall',
+					'T2Wall',
+					'Wall',
+					'T2Wall',
+                }
             }
         }
     },
-
 	
     Builder {BuilderName = 'T2 DP STD Jammer',
 	
@@ -5946,16 +5952,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-        
-        PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.04 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ENERGYSTORAGE * categories.TECH3 }},
         },
@@ -5967,7 +5972,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 100,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -6097,7 +6102,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -6142,7 +6147,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -6256,7 +6261,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 60,
+				ThreatMax = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
