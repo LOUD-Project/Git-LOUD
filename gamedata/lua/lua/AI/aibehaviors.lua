@@ -3438,7 +3438,7 @@ function AirForceAILOUD( self, aiBrain )
                                 end
                                 
                                 if attackissued then
-                                    u:ForkThread( ProsecuteTarget, aiBrain, u.target, searchrange, false, AirForceDialog )
+                                    u:ForkThread( ProsecuteTarget, aiBrain, u.target, searchrange, 3, AirForceDialog )
                                 else
                                     u.target = nil
                                 end
@@ -3447,7 +3447,7 @@ function AirForceAILOUD( self, aiBrain )
 
                             end
 
-                            if attackissuedcount > 6 then
+                            if attackissuedcount > 8 then
                                 break
                             end
 
@@ -3456,7 +3456,7 @@ function AirForceAILOUD( self, aiBrain )
                         attackercount = attackercount - attackissuedcount
                         
                         --- 1 tick for each secondary --
-                        WaitTicks( attackissuedcount + 1 )
+                        WaitTicks( LOUDFLOOR(attackissuedcount/2) + 1 )
                     end
                     
                 end
