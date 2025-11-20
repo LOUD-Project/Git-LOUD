@@ -1317,14 +1317,14 @@ Platoon = Class(PlatoonMethods) {
 			aiBrain.PathRequests['Replies'][platoon] = false
 
             if PathFindingDialog then
-                LOG( dialog.." path request submitted")
+                LOG( dialog.." path request submitted on tick "..GetGameTick())
             end
             
             local Replies = aiBrain.PathRequests['Replies']
 			
 			local waitcount = 1
 			
-			-- loop here until reply or 90 seconds
+			-- loop here until reply or 300 ticks
 			while waitcount < 100 do
 
 				WaitTicks(3)
@@ -1368,7 +1368,7 @@ Platoon = Class(PlatoonMethods) {
 			end
 
             if PathFindingDialog then
-                LOG( dialog.." gets NO PATH response " )
+                LOG( dialog.." gets NO PATH response on tick "..GetGameTick() )
             end            
 	
 			return false, 'NoPath', 0, 0
@@ -1380,7 +1380,7 @@ Platoon = Class(PlatoonMethods) {
         path[LOUDGETN(path)+1] = destination
 
         if PathFindingDialog then
-            LOG( dialog.." gets path response "..repr(path) )
+            LOG( dialog.." gets path response on tick "..GetGameTick())     ---..repr(path) )
         end            
 	
 		return path, 'Pathing', pathlength, pathcost
@@ -9165,6 +9165,10 @@ Platoon = Class(PlatoonMethods) {
                     
                         -- now use distance to modify the value and go after the most valuable
                         if (value * distancefactor) > targetvalue then
+                        
+                            if LandForceAIDialog then
+                                LOG( dialog.." storing HiPri position "..repr(Target.Position).." worth "..(value * distancefactor).." on tick "..GetGameTick())
+                            end
 					
                             target = Target
                             targetmilvalue = milvalue
@@ -9334,7 +9338,7 @@ Platoon = Class(PlatoonMethods) {
                             else
 
                                 if LandForceAIDialog then
-                                    LOG(dialog.." HiPri recheck - target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength.." - milvalue is "..targetmilvalue.." on tick "..GetGameTick() )
+                                    LOG(dialog.." HiPri recheck - target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mythreat.." - milvalue is "..targetmilvalue.." on tick "..GetGameTick() )
                                 end
                                 
                                 targetLocation = false

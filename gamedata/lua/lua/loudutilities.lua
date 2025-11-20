@@ -3732,18 +3732,24 @@ function PathGeneratorAir( aiBrain )
         
                 if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 
-                    aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+                    aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost, SubmitTime = GetGameTick() }
+            
+                    if PathFindingDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." reply submitted on tick "..GetGameTick())
+                    end
+     
                     break
                 end
             end
 			
             if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
+                
+                aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0, SubmitTime = GetGameTick() }
             
                 if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe AIR path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe AIR path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." reply submitted on tick "..GetGameTick())
                 end
-                
-                aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 
             end
             
@@ -3804,7 +3810,7 @@ function PathGeneratorAmphibious(aiBrain)
             if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (stepsize*.6) then
             
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
                 end
      
                 return true
@@ -3965,7 +3971,7 @@ function PathGeneratorAmphibious(aiBrain)
             ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
             end
 
 			closed = {}
@@ -3991,7 +3997,7 @@ function PathGeneratorAmphibious(aiBrain)
 
 				if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 					
-					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost, SubmitTime = GetGameTick() }
 					break
 				end
 			end
@@ -3999,10 +4005,10 @@ function PathGeneratorAmphibious(aiBrain)
 			if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe AMPHIB path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
                 
-				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0, SubmitTime = GetGameTick() }
 			end
 		else
             WaitTicks(4)
@@ -4202,7 +4208,7 @@ function PathGeneratorLand(aiBrain)
             ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." starts LAND pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." starts LAND pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
             end
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
@@ -4228,7 +4234,7 @@ function PathGeneratorLand(aiBrain)
 
 				if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 
-					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost, SubmitTime = GetGameTick() }
 					break
 				end
 				
@@ -4237,10 +4243,10 @@ function PathGeneratorLand(aiBrain)
 			if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then            
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe LAND path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe LAND path found to "..repr(destination))
                 end
                 
-				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0, SubmitTime = GetGameTick() }
 			end
 		else
             WaitTicks(3)
@@ -4478,7 +4484,7 @@ function PathGeneratorWater(aiBrain)
 
 				if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 
-					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost, SubmitTime = GetGameTick() }
 					break
 				end
 
@@ -4490,7 +4496,7 @@ function PathGeneratorWater(aiBrain)
                     LOG( dialog..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination).." on tick "..GetGameTick())
                 end
                 
-				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0, SubmitTime = GetGameTick() }
 			end
         else
             WaitTicks(3)
