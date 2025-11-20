@@ -8936,6 +8936,7 @@ Platoon = Class(PlatoonMethods) {
         local WaitTicks     = WaitTicks
         
         local dataList                  = GetPlatoonUnits(self)
+        local dataListcount             = 0
         local numberOfUnitsInPlatoon    = LOUDGETN(dataList)
         local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 		local OriginalSurfaceThreat     = CalculatePlatoonThreat( self,'Surface', ALLUNITS)
@@ -9065,18 +9066,18 @@ Platoon = Class(PlatoonMethods) {
 
             -- if no local target then seek one on the HiPri list
 			if (not target) and (not targetLocation) then
-			
-                if LandForceAIDialog then
-                    LOG(dialog.." seeks HiPri target from "..repr(platPos).." on tick "..GetGameTick() )
-				end
                 
 				_, newposition = GetPrimaryLandAttackBase(aiBrain)
                 
        			mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
 
-				dataList = GetHiPriTargetList( aiBrain, newposition, targettypes, MaximumAttackRange, true )
+				dataList, dataListcount = GetHiPriTargetList( aiBrain, newposition, targettypes, MaximumAttackRange, true )
 
 				targetvalue = 0
+			
+                if LandForceAIDialog then
+                    LOG(dialog.." seeks HiPri target from "..repr(platPos).." HiPri target list has "..dataListcount.." entries on tick "..GetGameTick() )
+				end
 				
 				for _,Target in dataList do
 
@@ -9261,6 +9262,11 @@ Platoon = Class(PlatoonMethods) {
                         -- break out and return to target selection process --
                         continue
 					else
+					
+                        if LandForceAIDialog then
+                            LOG(dialog.." - executing path movement on tick "..GetGameTick() )
+                        end
+
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance )
 
 						-- having issued the movement commands, this would be a good place to setup a callback
@@ -9320,6 +9326,10 @@ Platoon = Class(PlatoonMethods) {
 
                     -- confirm HiPri target is still valid every 3rd iteration
                     if targettype == 'HiPri' and LOUDMOD( travelcount, 3 ) == 0 then
+					
+                        if LandForceAIDialog then
+                            LOG(dialog.." - rechecking HiPri target on tick "..GetGameTick() )
+                        end
                 
                         reason, targetthreat, newposition = RecheckHiPriTarget( aiBrain, targetLocation, targetclass, 0, true  )
 				
