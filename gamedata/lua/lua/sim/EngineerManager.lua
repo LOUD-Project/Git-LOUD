@@ -383,7 +383,7 @@ EngineerManager = Class(BuilderManager) {
 	-- Delays him before seeking a new task to avoid thrashing the EM
     DelayAssignEngineerTask = function( self, unit, aiBrain )
     
-        local delay = LOUDMIN( 101, 14 + (unit.failedbuilds * 5))
+        local delay = LOUDMIN( 101, 14 + ((unit.failedbuilds or 0) * 5))
 
         if ScenarioInfo.EngineerDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." waiting "..delay.." ticks")
