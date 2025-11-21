@@ -3848,11 +3848,13 @@ Unit = Class(UnitMethods) {
     OnWorkEnd = function(self, work)
 	
         self:SetActiveConsumptionInactive()
-        
+      
         self:PlayUnitSound('EnhanceEnd')
 		
         self:StopUnitAmbientSound('EnhanceLoop')
-		
+        
+        self:ClearWork()
+  		
         self:CleanupEnhancementEffects()
 		
     end,

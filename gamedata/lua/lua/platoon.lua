@@ -701,9 +701,11 @@ Platoon = Class(PlatoonMethods) {
     
             local LOUDENTITY    = LOUDENTITY
             local LOUDFIND      = LOUDFIND
+            
+            local BuilderName = self.BuilderName
 
 			if PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." beginning Disband")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(self.BuilderInstance).." beginning Disband")
 			end
 
 			if self.MoveThread then
@@ -721,8 +723,6 @@ Platoon = Class(PlatoonMethods) {
 					
 					-- processing for engineers --
 					if LOUDENTITY( ENGINEERS, v ) then
-
-                        local BuilderName = self.BuilderName
 
 						local EM = aiBrain.BuilderManagers[v.LocationType].EngineerManager
 
@@ -748,9 +748,9 @@ Platoon = Class(PlatoonMethods) {
                     
 						if NameEngineers then
 						
-							if v.BuilderName and not LOUDENTITY( COMMANDER, v ) then
+							if BuilderName and not LOUDENTITY( COMMANDER, v ) then
 							
-								v:SetCustomName("Eng "..v.EntityID.." Last: "..v.BuilderName)
+								v:SetCustomName("Eng "..v.EntityID.." Last: "..BuilderName)
 							else
 								v:SetCustomName( aiBrain.Nickname )
 							end
@@ -1390,10 +1390,10 @@ Platoon = Class(PlatoonMethods) {
 	ReturnToBaseAI = function( self, aiBrain )
     
         local RTBDialog = false
+        local dialog = "* AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance)
 
         local EngineerDialog    = ScenarioInfo.EngineerDialog    
         local NameEngineers     = ScenarioInfo.NameEngineers
-        local PlatoonDialog     = ScenarioInfo.PlatoonDialog
 	
 		-- since RTB always deals with MOBILE units we use the Entity based GetPosition
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
@@ -1453,7 +1453,8 @@ Platoon = Class(PlatoonMethods) {
         
         local platPos = GetPlatoonPosition(self)
 
-        local BuilderName, LocationType
+        local BuilderName = self.BuilderName
+        local LocationType
 
 		-- process the units to identify engineers and the CDR
 		-- and to determine which base to RTB to
@@ -1462,7 +1463,6 @@ Platoon = Class(PlatoonMethods) {
 			-- set the 'platoonDead' to false
 			if not v.Dead then
             
-                BuilderName = v.BuilderName
                 LocationType = v.LocationType
 			
 				platoonDead = false
@@ -1477,7 +1477,7 @@ Platoon = Class(PlatoonMethods) {
 					engineer = v
 
 					-- Engineer naming
-                    if BuilderName and NameEngineers then
+                    if NameEngineers then
 					
 						if not LOUDENTITY( COMMANDER, v ) then
 							v:SetCustomName("Eng "..v.EntityID.." RTB from "..BuilderName.." to "..LocationType )
@@ -1550,7 +1550,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI to "..repr(RTBLocation).." at tick "..GetGameTick() )
+			LOG( dialog.." RTBAI to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
 		local lastpos = { 0, 0, 0 }
@@ -1661,7 +1661,7 @@ Platoon = Class(PlatoonMethods) {
 		distance = VDist3( platPos, RTBLocation )
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB distance is "..string.format("%.1f",distance) )
+			LOG( dialog.." RTBAI distance is "..string.format("%.1f",distance) )
 		end
 
         UseFormation = 'GrowthFormation'
@@ -1697,6 +1697,7 @@ Platoon = Class(PlatoonMethods) {
             end
             
             -- markers might be quite a bit further away on larger maps
+            -- this adds some extra distance for larger maps
             markerradius = markerradius + (ScenarioInfo.IMAPSize/4)
 
             IssueClearCommands( GetPlatoonUnits(self) )
@@ -1707,7 +1708,7 @@ Platoon = Class(PlatoonMethods) {
                 reason = 'Direct'
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI gets direct path "..repr(path) )
+                    LOG( dialog.." RTBAI gets direct path "..repr(path) )
                 end
 
             else 
@@ -1750,7 +1751,7 @@ Platoon = Class(PlatoonMethods) {
 			if path then
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI executes path movement "..repr(path) )
+                    LOG( dialog.." RTBAI executes path movement "..repr(path) )
                 end
 
 				if PlatoonExists(aiBrain, self) then
@@ -1766,7 +1767,7 @@ Platoon = Class(PlatoonMethods) {
 				usedTransports = false
 
                 if RTBDialog then				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI gets NO path "..repr(path))
+                    LOG( dialog.." RTBAI gets NO path "..repr(path))
                 end
 
 				-- try to use transports --
@@ -1805,7 +1806,7 @@ Platoon = Class(PlatoonMethods) {
         rtbdistance = 60
        
         if engineer then
-            rtbdistance = 35
+            rtbdistance = 30
         end
 
 		count = false       -- signals completion of the RTB process
@@ -1816,7 +1817,7 @@ Platoon = Class(PlatoonMethods) {
         while (not count) and PlatoonExists(aiBrain, self) and distance > rtbdistance do
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
+                LOG( dialog.." RTBAI cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
             end
 
             merged = false
@@ -1937,7 +1938,7 @@ Platoon = Class(PlatoonMethods) {
 					StuckCount = StuckCount + 1
 
                     if RTBDialog then                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
+                        LOG( dialog.." RTBAI appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
                     end
 				else
 					lastpos[1] = platPos[1]
@@ -1945,7 +1946,7 @@ Platoon = Class(PlatoonMethods) {
                     lastpos[3] = platPos[3]
                     
                     if StuckCount > 0 and RTBDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI appears to have moved "..VDist3Sq( lastpos, platPos) )
+                        LOG( dialog.." RTBAI appears to have moved "..VDist3Sq( lastpos, platPos) )
                     end
 
 					StuckCount = 0
@@ -1961,7 +1962,7 @@ Platoon = Class(PlatoonMethods) {
 				end
             
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB Location "..repr(bestBase.BaseName).." stuck "..StuckCount.." or no longer valid" )                
+                    LOG( dialog.." RTB Location "..repr(bestBase.BaseName).." stuck "..StuckCount.." or no longer valid" )                
                 end
   				
 				platooncount = 0
@@ -2021,7 +2022,7 @@ Platoon = Class(PlatoonMethods) {
 				returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
                 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." gets new RTB Location "..returnpool.BuilderLocation.." at "..repr(bases[returnpool.BuilderLocation].Position ) )
+                    LOG( dialog.." gets new RTB Location "..returnpool.BuilderLocation.." at "..repr(bases[returnpool.BuilderLocation].Position ) )
                 end
 
                 count = true -- signal the end of the primary loop
@@ -2046,7 +2047,7 @@ Platoon = Class(PlatoonMethods) {
             if bases[bestBase.BaseName].EngineerManager.Active then
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  appears to have arrived" )		
+                    LOG( dialog.." RTBAI cycle "..cyclecount.."  appears to have arrived on tick "..GetGameTick() )		
                 end
 
                 if self.MoveThread then
@@ -2069,7 +2070,7 @@ Platoon = Class(PlatoonMethods) {
 
                 -- the base was declared DEAD --
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." arrives at DEAD base" )		
+                    LOG( dialog.." arrives at DEAD base on tick "..GetGameTick() )		
                 end
 
                 if MovementLayer == "Land" or MovementLayer == "Amphibious" then
