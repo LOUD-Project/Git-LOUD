@@ -135,7 +135,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 
@@ -172,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			
