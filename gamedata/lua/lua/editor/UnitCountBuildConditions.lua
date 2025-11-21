@@ -321,29 +321,38 @@ end
 function UnitsLessAtLocationInRange( aiBrain, locationType, unitCount, testCat, rangemin, rangemax)
 
     local BM = aiBrain.BuilderManagers[locationType]
-
     
 	if BM.EngineerManager.Active then
 
 		local managerposition = BM.Position
-		local numUnits = 0
-        local GetPosition = GetPosition
-        local VDist2Sq = VDist2Sq
+        
+        if not rangemax then 
+            rangemax = BM.RallyPointRadius
+        end
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
+        local numUnits = table.getn(units)
 		
 		local rangetest = rangemin * rangemin
-        local pos
         
-		for _, v in units do
+        if rangetest > 0 then
         
-			pos = GetPosition(v)
+            numUnits = 0
+        
+            local pos
+            local GetPosition = GetPosition
+            local VDist2Sq = VDist2Sq
+
+            for _, v in units do
+        
+                pos = GetPosition(v)
             
-			if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
-				numUnits = numUnits + 1
-			end
+                if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
+                    numUnits = numUnits + 1
+                end
             
-		end
+            end
+        end
         
 		return numUnits < unitCount
 	end
@@ -370,29 +379,35 @@ function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCa
 	if BM.EngineerManager then
 	
 		local managerposition = BM.Position
-		local numUnits = 0
-        local GetPosition = GetPosition
-        local VDist2Sq = VDist2Sq
         
         if not rangemax then 
             rangemax = BM.RallyPointRadius
         end
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
+        local numUnits = table.getn(units)
 		
 		local rangetest = rangemin * rangemin
-        local pos
         
-		for _, v in units do
+        if rangetest > 0 then
         
-			pos = GetPosition(v)
+            numUnits = 0
+
+            local pos
+            local GetPosition = GetPosition
+            local VDist2Sq = VDist2Sq
+
+            for _, v in units do
+        
+                pos = GetPosition(v)
             
-			if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
-				numUnits = numUnits + 1
-			end
-		end
-        
-		return numUnits > unitCount
+                if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
+                    numUnits = numUnits + 1
+                end
+            end
+        end
+
+        return numUnits > unitCount
 	end
     
 	return false
