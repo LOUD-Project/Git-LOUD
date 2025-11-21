@@ -509,16 +509,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 800,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+			
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-			
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
-            
+
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
         },
 		
@@ -548,19 +557,28 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 800,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
             { UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.TELEPORTER }},
-
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.TELEPORTER }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -681,16 +699,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-        
-        PriorityFunction = AboveUnitCap75,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
-            
-                return 11, true
-               
-            end
             
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
@@ -703,6 +713,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -739,21 +751,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+
+            if aiBrain.NumBasesLand <= 1 then
+            
+                return 11, true
+                
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
-
-			{ UCBC, 'ExpansionBaseCount', { 1, '>' } },
-
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.TELEPORTER }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -791,19 +816,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
-
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
@@ -836,21 +868,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 900,
-        
-        PriorityFunction = AboveUnitCap75,
-		
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+
+            if aiBrain.NumBasesLand <= 1 then
+            
+                return 11, true
+                
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
-
-			{ UCBC, 'ExpansionBaseCount', { 1, '>' } },
-
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.TELEPORTER }},
         },
 		
         BuilderType = { 'SubCommander' },

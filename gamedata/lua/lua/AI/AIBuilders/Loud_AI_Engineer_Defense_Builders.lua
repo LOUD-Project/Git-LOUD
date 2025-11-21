@@ -163,11 +163,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 end
                 
                 if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - categories.TECH1 ) then
-                    return 10, true
+                    return 11, true
                 end
 
                 if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD, 30, 50 ) then
-                    return 10, true
+                    return 12, true
                 end
  
                 if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 360 then
@@ -245,15 +245,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 end
         
                 if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 400 ) then
-                    return 10, true
+                    return 11, true
                 end
 
                 if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - categories.TECH1 ) then
-                    return 10, true
+                    return 11, true
                 end
 
                 if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA, 30, 42 ) then
-                    return 10, true
+                    return 12, true
                 end
  
                 -- if air ratio poor 
@@ -306,15 +306,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+            if aiBrain.LandRatio >= 2 then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, PD * categories.TECH3, 15, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
             
@@ -346,6 +346,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },        
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
         },
 		
@@ -383,15 +385,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+            if aiBrain.AirRatio >= 3 then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, AA, 15, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -405,6 +407,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },        
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
         },
 		
@@ -437,15 +441,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if aiBrain.LandRatio >= 2.0 then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, TMD, 14, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -471,6 +475,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
 		
@@ -503,9 +509,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
-                return 11, true
+                return 10, true
                
             end
             
@@ -533,6 +539,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },        
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -570,15 +578,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+            if aiBrain.AirRatio >= 2.5 then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 11, AA * categories.TECH3, 15, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -592,6 +600,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -630,15 +640,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, TMD, 14, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -660,6 +670,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -698,15 +710,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -732,6 +744,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
@@ -768,15 +782,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -798,6 +812,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
@@ -832,15 +848,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
          
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 10, 20 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -862,6 +878,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
         
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
@@ -898,7 +916,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
          
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -906,7 +924,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 ) then
             
-                return 10, true
+                return 12, true
                 
             end
     
@@ -914,6 +932,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
@@ -948,7 +968,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
          
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -956,7 +976,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ARTILLERY * categories.TACTICAL ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -972,6 +992,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }}, 
@@ -1017,7 +1039,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             if GreaterThanEnergyIncome( aiBrain, 12600) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) then
                 return (self.OldPriority or self.Priority), true
             else
-                return 10, true
+                return 12, true
             end
         
         end,
@@ -1105,14 +1127,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * categories.EXPERIMENTAL, 10, 45 ) then
-                return 10, true
+                return 12, true
             end
 
             if aiBrain.LandRatio <= 1.2 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 2, T4LAND,'Enemy') then
@@ -1133,6 +1155,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},
@@ -1172,15 +1196,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
-                return 10, true
+                return 11, true
                
             end
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, AA * categories.EXPERIMENTAL, 10, 40 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -1202,6 +1226,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -1243,15 +1269,21 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
+               
+            end
+            
+            if not UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, FACTORY ) then
+                
+                return 11, true
                
             end
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -1278,8 +1310,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
-
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY}},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1311,7 +1341,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -1319,13 +1349,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 
             if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -1424,7 +1454,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -1432,13 +1462,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
     
@@ -1487,19 +1517,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
      
@@ -1548,19 +1578,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
     
@@ -1609,8 +1639,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
+                return 10, true
+               
+            end
+            
+            if not UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, FACTORY ) then
+                
                 return 11, true
                
             end
@@ -1644,8 +1680,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
-
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY}},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1678,7 +1712,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -1686,13 +1720,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 
             if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -1756,7 +1790,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -1764,13 +1798,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
     
@@ -1819,19 +1853,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
      
@@ -1880,19 +1914,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
                 return 10, true
             end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 12, true
              
             end
     
@@ -1939,27 +1973,20 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-			
-			if aiBrain.VictoryTime then
-			
-				if aiBrain.VictoryTime < ( aiBrain.CycleTime + ( 60 * 45 ) ) then	-- less than 45 minutes left
-					return 0, false
-				end
-			end
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 50000 ) then
+       
+            if not GreaterThanEnergyIncome( aiBrain, 50000 ) then
                 return 10, true
             end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
-                return 10, true
+                return 11, true
              
             end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.EXPERIMENTAL * categories.SHIELD ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -1969,6 +1996,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
         Priority = 745,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
@@ -2007,14 +2036,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         Priority = 850,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 10, true
-            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
             
-                return 10, true
+                return 12, true
              
             end
     
@@ -2022,8 +2047,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
-            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, FACTORY * categories.AIR }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
         BuilderType = {'T1' },
@@ -2056,14 +2080,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         Priority = 850,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 10, true
-            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
-                return 10, true
+                return 12, true
              
             end
 	
@@ -2112,21 +2132,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         Priority = 850,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 0, false
-            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
-                return 0, false
+                return 10, false
             end
     
             return (self.OldPriority or self.Priority), true
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
-            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, FACTORY * categories.AIR }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
         BuilderType = {'T1'},
@@ -2159,14 +2174,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         Priority = 850,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
-                return 10, true
-            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
-                return 10, true
+                return 12, true
              
             end
 	
@@ -2178,7 +2189,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -2426,7 +2437,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -2434,7 +2445,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, TMD, 56, 80 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -2450,6 +2461,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
@@ -2489,7 +2502,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -2497,7 +2510,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 26, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2, 55, 83 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -2513,6 +2526,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
@@ -2559,7 +2574,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if aiBrain.LandRatio >= 1.2 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -2567,7 +2582,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * categories.TECH3, 56, 80 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -2583,6 +2598,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+        
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
@@ -2627,7 +2644,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 1.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.AirRatio >= 1.5 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -2635,7 +2652,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, AA * categories.TECH3, 56, 80 ) then
             
-                return 10, true
+                return 12, true
                 
             end
     
@@ -2643,6 +2660,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2684,7 +2703,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -2692,7 +2711,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 15, TMD, 56, 80 ) then
             
-                return 10, true
+                return 12, true
                 
             end
 
@@ -2708,6 +2727,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
@@ -2747,7 +2768,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -2755,7 +2776,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, SHIELD - categories.ANTIARTILLERY, 60, 88 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -2777,6 +2798,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
@@ -2822,7 +2845,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -2830,7 +2853,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA * categories.EXPERIMENTAL, 50, 88 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -2844,6 +2867,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2890,7 +2915,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 1.2 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -2898,7 +2923,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, PD * categories.EXPERIMENTAL, 50, 88 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -2920,6 +2945,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2972,7 +2999,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                     return (self.OldPriority or self.Priority), true
                 end
             else
-                return 10, true
+                return 11, true
             end
         
         end,
@@ -3024,7 +3051,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 1.2 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -3054,6 +3081,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
@@ -3163,7 +3192,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 2 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -3171,7 +3200,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 36, AA * categories.TECH3, 90, 120 ) then
             
-                return 10, true
+                return 12, true
              
             end
 
@@ -3179,7 +3208,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         end,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -3235,6 +3264,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
         end,
 		
         BuilderConditions = {
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},

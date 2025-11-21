@@ -4,16 +4,16 @@ local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
--- imbedded into the Builder
-local First30Minutes = function( self,aiBrain )
-	
-	if aiBrain.CycleTime > 1800 then
-		return 0, false
-	end
-	
-	return self.Priority,true
-end
+local GetUnitsAroundPoint                           = moho.aibrain_methods.GetUnitsAroundPoint
+local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
+local HaveGreaterThanUnitsWithCategory              = import(UCBC).HaveGreaterThanUnitsWithCategory
+local HaveGreaterThanUnitsWithCategoryAndAlliance   = import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance
+local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
+local UnitsGreaterAtLocationInRange                 = import(UCBC).UnitsGreaterAtLocationInRange
+local UnitsLessAtLocation                           = import(UCBC).UnitsLessAtLocation
+local UnitsLessAtLocationInRange                    = import(UCBC).UnitsLessAtLocationInRange
 
+-- imbedded into the Builder
 local First45Minutes = function( self,aiBrain )
 	
 	if aiBrain.CycleTime > 2700 then
@@ -23,14 +23,11 @@ local First45Minutes = function( self,aiBrain )
 	return self.Priority,true
 end
 
-local First60Minutes = function( self,aiBrain )
-	
-	if aiBrain.CycleTime > 3600 then
-		return 0, false
-	end
-	
-	return self.Priority,true
-end
+local ENERGY    = categories.ENERGYPRODUCTION
+local HYDRO     = categories.HYDROCARBON
+local ENERGYT1  = ENERGY * categories.TECH1
+local ENERGYT3  = ENERGY * categories.TECH3
+
 
 
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'EngineerBuilder',
@@ -44,19 +41,29 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         InstanceCount = 4,
 		
         Priority = 761,
-		
-		PriorityFunction = First45Minutes,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if aiBrain.CycleTime > 3600 then
+                return 0, false
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT3 ) then
+                return 11, true
+            end
+            
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 75, ENERGYT1, 0, 33 ) then
+                return 12, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
 		
         BuilderConditions = {
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
             { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
-            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-
-            -- this should pick up only factory ring T1 Pgens - and not those at extractors
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
         },
 		
         BuilderType = { 'T1' },
@@ -84,14 +91,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         Priority = 900,
         
-		PriorityFunction = function( self,aiBrain )
+        PriorityFunction = function( self, aiBrain, unit, manager )
 	
             if aiBrain.CycleTime > 3600 then
                 return 0, false
             end
             
-            if import(UCBC).HaveGreaterThanUnitsWithCategory( aiBrain, 0, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON ) then
-                return 10, true
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT3 ) then
+                return 12, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 8, ENERGY - categories.TECH1 ) then
+                return 11, true
             end
 	
             return (self.OldPriority or self.Priority), true
@@ -102,9 +113,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
-            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
 		
         BuilderType = {'T2'},
@@ -132,16 +140,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 851,
-
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 25, ENERGYT3 - HYDRO ) then
+                return 12, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+    
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -177,7 +192,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
@@ -209,34 +224,31 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         Priority = 840,
         
-        PriorityFunction = function(self, aiBrain)
-        
-            if import(LUTL).GreaterThanEnergyIncome( aiBrain, 33600) then
-
-                return self.Priority, true
-
-            else
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if not GreaterThanEnergyIncome( aiBrain, 33600 ) then
                 return 10, true
             end
-        
+            
+            if not UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 20, ENERGYT3 - HYDRO, 0, 59 ) then
+                return 11, true
+            end
+            
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, ENERGYT3, 60, 80 ) then
+                return 12, true
+            end
+
+            return (self.OldPriority or self.Priority), true
         end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},
-            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-            
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
-			
-			-- must have much of the inner core power systems complete
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 20, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON, 0, 59 }},
             
-			-- must have less than 9 T3 power in the perimeter already
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.ENERGYPRODUCTION * categories.TECH3, 60, 80 }},
-            
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -321,9 +333,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			-- don't build T3 power if one is already being built somewhere else
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
             
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, ENERGYT3 - HYDRO }},
         },
         
         BuilderData = {
@@ -367,7 +379,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION - categories.TECH1) - categories.HYDROCARBON }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
             
 			{ EBC, 'LessThanEnergyTrend', { 45 }},
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
@@ -410,7 +422,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, ENERGYT3 - HYDRO }},
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
@@ -450,7 +462,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
@@ -502,7 +514,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
             
             { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },
@@ -518,7 +530,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 				
 				MinStructureUnits = 4,
                 
-                AdjacencyStructure = categories.ENERGYPRODUCTION * categories.TECH1,
+                AdjacencyStructure = ENERGYT1,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'EnergyAdjacency',
@@ -546,9 +558,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction', Builder
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 0, categories.HYDROCARBON }},
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 0, HYDRO }},
 
-            { UCBC, 'AdjacencyCheck', { 'LocationType', 'HYDROCARBON', 450, 'ueb1105' }},
+            { UCBC, 'AdjacencyCheck', { 'LocationType', 'HYDRO', 450, 'ueb1105' }},
         },
 		
         BuilderType = { 'T1' },
@@ -556,7 +568,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction', Builder
         BuilderData = {
             Construction = {
 			
-				AdjacencyCategory = categories.HYDROCARBON,
+				AdjacencyCategory = HYDRO,
                 AdjacencyDistance = 450,
                 
                 BuildStructures = {'EnergyStorage','EnergyStorage'},
