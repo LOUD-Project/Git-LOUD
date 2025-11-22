@@ -1363,7 +1363,7 @@ AIBrain = Class(moho.aibrain_methods) {
                 if self.RefuelPool then
                     self:DisbandPlatoon(self.RefuelPool)
                 end
-                		
+
 				if self.StructurePool then self:DisbandPlatoon(self.StructurePool) end
                 
                 if self.TransportPool then

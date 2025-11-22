@@ -1,3 +1,32 @@
+### Release 11-21-2025
+
+LUA 7.37
+
+- numerous revisions to AI DEBUG logging to identify processes and introduce timestamps
+    -- we are still chasing a rare 'stall' bug, so please, submit LOG files and replays if it happens
+- located a bug, preventing the building of quite a few defensive structures (James via Discord)
+    - this bug was preventing a number of builds (NUKES, ARTILLERY, various defensive structures)
+- a minor change to DefaultBeamWeapons - keeping EconomyEvents local, before passing back to DefaultProjectileWeapons
+- Personal Teleportation will now be blocked by intervening ANTITELEPORT devices, not just in the destination area
+    - there is no 'warning' that a teleport is invalid, you must fully charge, and execute, before the block happens
+    - teleport nodes are not blocked in this manner
+- AI Pathfinding had a very rare but serious flaw that could cause 'dead' platoons
+- AI Spawn wave resets the 'ArmyNeedsTransport' flag, to prevent oversupply of transports (MostLostNoob)
+    -- the spawn wave will no longer supply transports if they're not needed by the AI
+- AI recognizes Strategic Artillery properly with respect to prioritizing shield building
+- AI largest formations no longer concerned about 'retreating' and will push on until death
+- AI recognizes SATELLITE structures with respect to prioritizing Anti-Nuke building (for anti-sat)
+    -- anti-nukes, built when NUKE restrictions are in play, will no longer construct anti-nukes 
+- AI recognizes mobile NUKE platforms (subs and Sera battleships) as nuke launchers triggering anti-nuke builds
+- AI adjustment to eco requirements for Nukes & Artillery to match with T4 Experimentals, better focus on MAIN
+- AI reduction of T4 Land Experimental 1 instances from 3 to 2
+- AI reduction of T4 Land Experimental 2 Land Strength trigger from 1.1 >> 1.0, NumAssistees 3 >> 2
+- AI will understand the AIRTRANSPORTS restriction, removes delays, waiting for transports that will never appear
+- AI minor layout change to the MAIN base Resource Facility & T3 Mass Fabs
+
+
+
+
 ### Release 11-10-2025
 
 LUA 7.36
@@ -10,6 +39,7 @@ UNITS 7.22
 - UNITS UEF T2 Hover gains depth charge
 - UNITS T4 Air unit marked with CANNOTUSEAIRSTAGING
 - UNITS When NUKES are restricted, Strategic Missile Defenses will no longer auto-build, this will save the AI a lot of resources
+    -- the AI will still build one for anti-sat purposes
 - BrewLAN T3 Torp Launchers (see above)
 - BO Aeon T3 Hover Wraith gains depth charge
 - BO Sera T3 Lightning tank now has energy cost to fire
