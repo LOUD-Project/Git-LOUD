@@ -27,6 +27,7 @@ UnitBlueprint {
 		'SIZE40',
 		'SIZE44',
 		'SIZE48',
+        'SATELLITEUPLINK',
         'SELECTABLE',
         'LAND',
         'VISIBLETORECON',
