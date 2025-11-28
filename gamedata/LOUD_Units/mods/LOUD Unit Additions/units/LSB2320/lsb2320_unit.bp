@@ -192,7 +192,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -208,7 +208,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 			
             RackBones = {
 					{
@@ -280,7 +280,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun1',
@@ -296,7 +296,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {
@@ -367,7 +367,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.3,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun2',
@@ -383,7 +383,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {

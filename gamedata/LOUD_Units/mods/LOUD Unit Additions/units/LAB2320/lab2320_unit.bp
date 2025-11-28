@@ -173,7 +173,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.175,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun1',
@@ -187,7 +187,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 			
             RackBones = {
                 {
@@ -256,7 +256,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.175,
             FiringTolerance = 1,
 			
             Label = 'MainGun1',
@@ -271,7 +271,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 			
             RackBones = {
                 {
@@ -338,7 +338,7 @@ UnitBlueprint {
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.175,
             FiringTolerance = 1,
 			
             Label = 'MainGun2',
@@ -353,7 +353,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			ProjectileLifetime = 12,
+			ProjectileLifetime = 15,
 			
             RackBones = {
                 {
