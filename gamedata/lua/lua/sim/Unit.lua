@@ -5335,18 +5335,18 @@ Unit = Class(UnitMethods) {
 	
 	-- issued when a unit tries to start a teleport
     OnTeleportUnit = function(self, teleporter, location, orientation)
+	
+        local mybrain = GetAIBrain(self)
 
         self.teleported = false
 	
         if not self.teleporting then
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
+            LOG("*AI DEBUG "..mybrain.Nickname.." OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." on tick "..GetGameTick() )
             self.teleporting = true
         else 
-            LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
+            LOG("*AI DEBUG "..mybrain.Nickname.." OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
             return
         end
-	
-        local mybrain = GetAIBrain(self)
 
 		local bp = ALLBPS[self.BlueprintID]
         
@@ -5524,8 +5524,12 @@ Unit = Class(UnitMethods) {
 
     InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation, telecostpaid)
     
-        local TeleportDialog = false
-	
+        local TeleportDialog = true
+
+        if TeleportDialog then
+            LOG("*AI DEBUG Initiate Teleport Thread begins on tick "..GetGameTick() )
+        end	
+
         self:OnTeleportCharging(location)
 	
         local tbp = ALLBPS[teleporter.BlueprintID]
@@ -5579,6 +5583,10 @@ Unit = Class(UnitMethods) {
         end
         
         self:SetMaintenanceConsumptionInactive()
+
+        if TeleportDialog then
+            LOG("*AI DEBUG Initiate Teleport Thread creating "..repr(teleporttime).." second drain on tick "..GetGameTick() )
+        end	
 
         self.TeleportDrain = CreateEconomyEvent(self, teleportenergy or 10000, 0, teleporttime or 15, self.UpdateTeleportProgress)
 

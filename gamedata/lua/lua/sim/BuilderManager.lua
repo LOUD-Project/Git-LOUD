@@ -213,8 +213,15 @@ BuilderManager = Class {
         local BuilderType       = unit.BuilderType
         local ManagerType       = self.ManagerType
 
-        local PriorityDialog    = ScenarioInfo.PriorityDialog
-        
+        local EngineerDialog    = ScenarioInfo.EngineerDialog
+
+        local PriorityDialog    = ScenarioInfo.PriorityDialog or EngineerDialog
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..unit.EntityID.." "..ManagerType.." "..BuilderType
+
+        if EngineerDialog or PriorityDialog then
+            LOG( dialog.." GetHighestBuilder begins on tick "..GetGameTick() )
+        end
+
         local LOUDSORT = LOUDSORT
 
 		-- function that checks all the conditions of a builder
@@ -269,7 +276,7 @@ BuilderManager = Class {
             self.BuilderData[BuilderType].Builders = RebuildTable( self.BuilderData[BuilderType].Builders )
         
             if PriorityDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." tasks on tick "..GetGameTick() )
+                LOG( dialog.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." tasks on tick "..GetGameTick() )
             end
     
 			LOUDSORT( self.BuilderData[BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
@@ -278,11 +285,11 @@ BuilderManager = Class {
             
                 if not self.BuilderData[BuilderType].displayed then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." SORTED "..BuilderType.." Builders are ")
+                    LOG( dialog.." SORTED "..BuilderType.." Builders are ")
                     
-                    --for k,v in self.BuilderData[BuilderType].Builders do
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." "..repr(v.Priority).." "..v.BuilderName)
-                    --end
+                    for k,v in self.BuilderData[BuilderType].Builders do
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." "..repr(v.Priority).." "..v.BuilderName)
+                    end
                     
                     self.BuilderData[BuilderType].displayed = true
                 end
@@ -309,7 +316,7 @@ BuilderManager = Class {
 			if Builders[TaskName].PriorityFunction and Priority > 0 then
             
                 if PriorityDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction review for "..Priority.." "..TaskName )
+                    LOG( dialog.." PriorityFunction review for "..Priority.." "..TaskName.." on tick "..GetGameTick() )
                 end
 
 				newPri = false
@@ -321,7 +328,7 @@ BuilderManager = Class {
 				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
 				
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
+						LOG( dialog.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
 					end
 
 					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
@@ -347,7 +354,11 @@ BuilderManager = Class {
                     if GetBuilderStatus( task.BuilderConditions ) then
 
                         if BuilderParamCheck(self, task, unit) then
-						
+
+                            if PriorityDialog then
+                                LOG( dialog.." adding "..repr(TaskName).." on tick "..GetGameTick() )
+                            end
+							
                             found = Priority
 							counter = counter + 1
                             possibleBuilders[counter] = k
@@ -365,7 +376,7 @@ BuilderManager = Class {
 				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..ManagerType.." "..BuilderType.." Removing "..repr(TaskName) )
+						LOG( dialog.." Removing "..repr(TaskName).." on tick "..GetGameTick() )
 					end
 					
                     self.BuilderData[BuilderType].Builders[k] = nil

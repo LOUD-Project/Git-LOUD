@@ -2235,10 +2235,6 @@ function AirUnitRefitThread( unit, aiBrain )
             end
 
         end
-        
-	else
-
-        return
     end
 
     WaitTicks(2)
@@ -2293,10 +2289,9 @@ function AirUnitRefitThread( unit, aiBrain )
             
 		end
 
+        unit.InRefit = nil
+        unit.RefitThread = nil
 	end
-
-    unit.InRefit = nil
-    unit.RefitThread = nil
 
 end
 
@@ -4765,6 +4760,8 @@ function ParseIntelThread( aiBrain )
     -- this rate is important since it must be able to keep up with the shift in fast moving air units -- this is the primary performance value -
 	local parseinterval = 58    -- the rate of a single iteration in ticks - every 5.7 seconds (relative to the IMAP update cycle which is 3 seconds)
     
+    local threatcount
+    
     if ScenarioInfo.Options.FogOfWar == 'none' then
         parseinterval = parseinterval + 30      -- when FOW is turned off, we'll add 50% to the amount of time a cycle will take (8.7 seconds)
     end
@@ -4830,7 +4827,7 @@ function ParseIntelThread( aiBrain )
             -- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
             if DisplayIntelPoints and not aiBrain.IntelDebugThread then
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Starting Intel Debug Thread")
+                LOG( dialog.." begins")
 
                 aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel, parseinterval )
 
@@ -4863,7 +4860,7 @@ function ParseIntelThread( aiBrain )
         end
 
 		if IntelDialog then
-            LOG( dialog.." begins iteration "..repr(iterationcount).." at GameSecond "..GetGameTick() )
+            LOG( dialog.." begins iteration "..repr(iterationcount).." on tick "..GetGameTick() )
         end
 	
 		-- loop thru each of the threattypes
@@ -4897,17 +4894,23 @@ function ParseIntelThread( aiBrain )
                 threats = GetThreatsAroundPosition( aiBrain, HomePosition, 32, true, ThreatTypeName)
 			
                 gametime = LOUDFLOOR(GetGameTimeSeconds())
+                
+                threatcount = 0
 				
 				if IntelDialog then
 
                     if threats[1] then
-                        LOG( dialog.." "..ThreatTypeName.." gets "..LOUDGETN(threats).." results on iteration "..repr(iterationcount).." on tick "..GetGameTick())
+                        LOG( dialog.." "..ThreatTypeName.." gets "..LOUDGETN(threats).." results on tick "..GetGameTick())
                     end
 				end
+                
+                threatcount = 0
 	
                 -- examine each threat and add those that are high enough to the InterestList if enemy units are found at that location
                 -- but regardless - we add any threat amount to the total - even those we might ignore
                 for _,threat in threats do
+                
+                    threatcount = threatcount + 1
                 
                     threatreport = threat[3]
 
@@ -4925,7 +4928,7 @@ function ParseIntelThread( aiBrain )
                     if threatreport > threatamounttrigger then
 					
 						if IntelDialog then
-							LOG( dialog.." "..ThreatTypeName.." processing threat of "..repr(threatreport).." at "..repr( {threat[1],0,threat[2]} ).." on tick "..GetGameTick())
+							LOG( dialog.." "..ThreatTypeName.." processing result "..threatcount.." of "..repr(threatreport).." at "..repr( {threat[1],0,threat[2]} ).." on tick "..GetGameTick())
 						end
 	
                         -- count the number of checks we've done and insert a wait to keep this routine from hogging the CPU 
@@ -4957,11 +4960,7 @@ function ParseIntelThread( aiBrain )
                         x1 = 0
                         x2 = 0
                         x3 = 0
-   
-                        if IntelDialog then
-                            LOG( dialog.." "..ThreatTypeName.." processing "..counter.." units on tick "..GetGameTick())
-                        end
-						
+					
                         if units then
                         
                             counter = 0

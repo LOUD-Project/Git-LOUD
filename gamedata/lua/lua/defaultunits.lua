@@ -2724,6 +2724,8 @@ TeleportUnit = Class(StructureUnit) {
 		self.TeleportInProgress = true
 		destinationGate.TeleportInProgress = true
 
+		LOG("*AI DEBUG Teleport Units begins on Tick "..GetGameTick() )
+
 		self:RemoveToggleCap('RULEUTC_WeaponToggle')
  
 		self.TeleportingUnits = warpUnits
@@ -2737,7 +2739,7 @@ TeleportUnit = Class(StructureUnit) {
 		-- calculate economic costs for teleport
 		for k, v in warpUnits do
 
-			if v.GetPosition then
+			if v.GetPosition and not v.Dead then
 
 				IssueStop( { v } )
 				IssueClearCommands( { v } )

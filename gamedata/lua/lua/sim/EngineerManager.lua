@@ -233,6 +233,12 @@ EngineerManager = Class(BuilderManager) {
     AssignEngineerTask = function( self, unit, aiBrain )
     
         local EngineerDialog = ScenarioInfo.EngineerDialog
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..unit.EntityID
+
+        if EngineerDialog then
+            LOG( dialog.." starts AssignEngineerTask on tick "..GetGameTick() )
+        end
+
         local PlatoonDialog = ScenarioInfo.PlatoonDialog
 
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
@@ -244,10 +250,6 @@ EngineerManager = Class(BuilderManager) {
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
 		end
-
-        if EngineerDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." starts AssignEngineerTask at "..self.LocationType.." on tick "..GetGameTick() )
-        end
 
 		unit.AssigningTask = true
 
@@ -269,7 +271,7 @@ EngineerManager = Class(BuilderManager) {
 			end
 
             if EngineerDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." Eng "..unit.EntityID.." "..repr(BuilderName).." forms on tick "..GetGameTick() )
+                LOG( dialog.." "..repr(BuilderName).." using "..repr(PlanName).." forms on tick "..GetGameTick() )
             end
 			
             local hndl = MakePlatoon( aiBrain, BuilderName, PlanName or 'none' )
@@ -289,7 +291,7 @@ EngineerManager = Class(BuilderManager) {
 			
 			if not builder:StoreHandle( hndl, self, unit.BuilderType ) then
 			
-				WARN("*AI DEBUG "..aiBrain.Nickname.." no available instance for "..BuilderName.." Eng "..unit.EntityID.." Creation Time "..hndl.CreationTime.." told that "..builder.InstanceAvailable.." were available")
+				WARN( dialog.." no available instance for "..BuilderName.." on tick "..GetGameTick())
 				
 				builder.InstanceAvailable = 0
 				aiBrain:DisbandPlatoon(hndl)
@@ -333,6 +335,11 @@ EngineerManager = Class(BuilderManager) {
             if PlatoonAIPlan then
 			
                 hndl.PlanName = PlatoonAIPlan
+
+                if EngineerDialog then
+                    LOG( dialog.." "..repr(BuilderName).." using PlatoonAIPlan "..repr(hndl.PlanName).." override on tick "..GetGameTick() )
+                end
+
                 hndl:SetAIPlan(PlatoonAIPlan, aiBrain)
             end
 
@@ -364,7 +371,7 @@ EngineerManager = Class(BuilderManager) {
             else
             
                 if EngineerDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..unit.EntityID.." finds NO TASK on tick "..GetGameTick() )
+                    LOG( dialog.." finds NO TASK on tick "..GetGameTick() )
                 end
                 
             end
@@ -386,14 +393,14 @@ EngineerManager = Class(BuilderManager) {
         local delay = LOUDMIN( 101, 14 + ((unit.failedbuilds or 0) * 5))
 
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." waiting "..delay.." ticks")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..unit.EntityID.." waiting "..delay.." ticks")
         end    
 
 		WaitTicks( delay )
         
         local IsUnitState = IsUnitState
         
-        while unit and not unit.Dead and not unit.AssigningTask do
+        while unit and (not unit.Dead) and (not unit.AssigningTask) do
 
 			if not ( unit.Fighting or unit.AssigningTask) and not unit.Dead then
 				-- send the engineer off to find a job --

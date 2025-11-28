@@ -298,7 +298,7 @@ function RemoteViewing(SuperClass)
         DisableVisibleEntity = function(self)
 
             if RemoteViewingDebug then        
-                LOG("*AI DEBUG DisableVisibleEntity")
+                LOG("*AI DEBUG DisableVisibleEntity on tick "..GetGameTick() )
             end
             
             -- if visible entity already off
@@ -373,7 +373,7 @@ function RemoteViewing(SuperClass)
         -- an auto disable feature. removes the view after a set period
         Viewtime = function(self, viewtime)
 
-            if viewtime > 0 then
+            if viewtime >= 1 then
 
                 WaitTicks(viewtime * 10)
 

@@ -99,10 +99,13 @@ BrainConditionsMonitor = Class {
 	-- and we add in some additional duration based upon number of players
     ConditionMonitorThread = function(self, aiBrain)
 
-		local LOUDCEIL = math.ceil
+        -- BCM logging --
+        local BCMDialog = false
+
+		local LOUDCEIL  = math.ceil
         local LOUDFLOOR = math.floor
-        local LOUDMAX = math.max
-        local type = type
+        local LOUDMAX   = math.max
+        local type      = type
         local WaitTicks = coroutine.yield	
 
 		-- record current game time
@@ -150,9 +153,6 @@ BrainConditionsMonitor = Class {
         local playerfactor = LOUDGETN(ArmyBrains) * 5
         
         local minimumcycletime = 120
-
-        -- BCM logging --
-        local BCMDialog = false
         
         local Instant
 
@@ -165,8 +165,8 @@ BrainConditionsMonitor = Class {
 			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime )
             
             if BCMDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..numResults.." Results  "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration.." ticks -- checkrate is "..(checkrate-1).." ticks")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles on tick "..GetGameTick() )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Duration for "..numResults.." Results  "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration.." ticks -- checkrate is "..(checkrate-1).." ticks")
             end
 
 			numChecks = 0
