@@ -4993,10 +4993,14 @@ function ParseIntelThread( aiBrain )
                             if counter > 0 then
 
                                 -- divide the position values by the counter to get average position (gives you the heart of the real cluster)
-                                newPos[1] = x1/counter
-                                newPos[2] = x2/counter
-                                newPos[3] = x3/counter
-
+                                newPos[1] = LOUDFLOOR(x1/counter)
+                                newPos[2] = LOUDFLOOR(x2/counter)
+                                newPos[3] = LOUDFLOOR(x3/counter)
+   
+                                if IntelDialog then
+                                    LOG( dialog.." "..ThreatTypeName.." finds "..counter.." units at avg. Position "..repr(newPos).." on tick "..GetGameTick())
+                                end
+	
                                 if DisplayIntelPoints and ScenarioInfo.ThreatTypes[ThreatTypeName].Active then
                                     ForkThread( DrawCirc, aiBrain, LOUDCOPY(newPos), ScenarioInfo.ThreatTypes[ThreatTypeName].Color )
                                 end
@@ -5004,59 +5008,75 @@ function ParseIntelThread( aiBrain )
                             else
 
                                 if IntelDialog then
-                                    LOG( dialog.." "..ThreatTypeName.." found NO units on tick "..GetGameTick() )
+                                    LOG( dialog.." "..ThreatTypeName.." found NO units at "..repr(newPos).." on tick "..GetGameTick() )
                                 end
                             
                             end
 
                             -- get the current threat at this position - we have to use 'Rings' here
-                            newthreat = LOUDMAX( 0, GETTHREATATPOSITION( aiBrain, newPos, Rings, true, ThreatTypeName ))
+                            newthreat = LOUDFLOOR(LOUDMAX( 0, GETTHREATATPOSITION( aiBrain, newPos, Rings, true, ThreatTypeName )))
+                            
+                            if IntelDialog then
+                                LOG( dialog.." "..ThreatTypeName.." gets IMAP threat from "..repr(newPos).." of "..newthreat.." using "..Rings.." rings on tick "..GetGameTick() )
+                            end
 
-                            -- total up the ring values
+                            -- total up the ring values just to verify that total matches 
                             for _,v in GetThreatsAroundPosition( aiBrain, newPos, Rings, true, ThreatTypeName) do
                                 oldthreat = oldthreat + v[3]
                             end
                             
+                            oldthreat = LOUDFLOOR(oldthreat)
+                            
                             if IntelDialog then
-
                                 if newthreat != oldthreat then
-                                    LOG( dialog.." "..ThreatTypeName.." reports IMAP threat of "..newthreat.." modifier "..repr(ThresholdMult).." using "..Rings.." rings old is "..repr(oldthreat).." there are "..counter.." units involved")
+                                    WARN( dialog.." "..ThreatTypeName.." IMAP threat of "..newthreat.." modifier "..repr(ThresholdMult).." using "..Rings.." rings NO MATCH old is "..repr(oldthreat).." there are "..counter.." units involved")
                                 end
                             end
                             
                             -- modify block threat with ThresholdMult (based on IMAP block size) 
                             newthreat = newthreat/ThresholdMult
                             
+                            if IntelDialog then
+                                LOG( dialog.." "..ThreatTypeName.." results in threat of "..newthreat.." modifier "..repr(ThresholdMult).." on tick "..GetGameTick() )
+                            end
+                            
                             -- if the IMAP threat is less than half of the reported threat at that position reduce IMAP by 50%
-							if newthreat < (threatreport/2) and GetGameTick() > 5400 then
+							if newthreat < (threatreport * .5) and GetGameTick() > 5400 then
                             
 								if IntelDialog then
-									LOG( dialog.." "..ThreatTypeName.." reports "..newthreat.." versus "..threatreport.." from IMAP - reducing by 50%")
+									LOG( dialog.." "..ThreatTypeName.." reports "..newthreat.." versus "..threatreport.." from IMAP - assigning 50% reduction")
 								end
+ 
+                                -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds 
+                                ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.5, 0.05, ThreatTypeName)
 
-                                -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds
-                                ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.5, 0.05, ThreatTypeName)                                       
-                                
                                 threatreport = threatreport * .5
-
-							end
-                            
+                            end
 
                             -- NOTE: This command will only get those units that are detected --
                             units = GetUnitsAroundPoint( aiBrain, threatcategories, newPos, unitgetrange, 'Enemy')
 						
                             -- and if we don't see anything - reduce it by 20%
-                            if not units[1] and GetGameTick() > 5400 then
+                            if (not units[1]) and GetGameTick() > 5400 then
                             
                                 if IntelDialog then
-                                    LOG( dialog.." "..ThreatTypeName.." shows "..threatreport.." but I SEE no units - reducing by 20%")
+                                    LOG( dialog.." "..ThreatTypeName.." shows "..threatreport.." but I SEE no units - assigning 20% reduction")
+                                end
+ 
+                                -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds 
+                                ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.2, 0.05, ThreatTypeName)                                        
+ 
+                                threatreport = threatreport * .8
+                            end
+
+                            -- if the values don't match - write the new value
+                            if newthreat < threatreport then
+                            
+                                if IntelDialog then
+                                    LOG( dialog.." "..ThreatTypeName.." updated result "..threatcount.." at "..repr({threat[1],0,threat[2]}).." to "..threatreport.." on tick "..GetGameTick() )
                                 end
 
-                                -- reduce the existing threat by 20% with a 5% decay - IMAP refreshes every 3 seconds
-                                ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.2, 0.05, ThreatTypeName)                                       
-                                
-                                newthreat = threatreport * .8
-                                
+                                newthreat = threatreport
                             end
 
 							newtime = LOUDFLOOR(gametime)
@@ -5072,10 +5092,10 @@ function ParseIntelThread( aiBrain )
 								-- it's got to be of the same type
                                 if Type == ThreatTypeName then
                                 
-                                    LastUpdate = loc.LastUpdate
-                                    Permanent = loc.Permanent
-                                    Position = loc.Position
-                                    Threat = loc.Threat
+                                    LastUpdate  = loc.LastUpdate
+                                    Permanent   = loc.Permanent
+                                    Position    = loc.Position
+                                    Threat      = loc.Threat
 
 									-- and within the merge distance
 									if LOUDV2( newPos[1],newPos[3], Position[1],Position[3] ) <= mergeradius then
@@ -5096,21 +5116,25 @@ function ParseIntelThread( aiBrain )
 										dupe = true
 										
 										if newthreat > threatamounttrigger then
+                                        
+                                            if Threat != newthreat or (Position[1] != newPos[1] or Position[3] != newPos[3]) then
 										
-											if IntelDialog then
-												LOG( dialog.." "..ThreatTypeName.." Updating Existing threat of "..repr(Threat).." to "..repr(newthreat).." from "..repr(Position).." to "..repr(newPos) )
-											end
+                                                if IntelDialog then
+                                                    LOG( dialog.." "..ThreatTypeName.." Updating Existing HiPri threat of "..repr(Threat).." to "..repr(newthreat).." from "..repr(Position).." to "..repr(newPos) )
+                                                end
 										
-											-- so update the existing entry
-											loc.Threat = newthreat
+                                                -- so update the existing entry
+                                                loc.Threat = newthreat
+								
+                                                loc.Position[1] = newPos[1]
+                                                loc.Position[2] = newPos[2]
+                                                loc.Position[3] = newPos[3]
+                                            end
 										
-											if LastUpdate < newtime then
-												loc.LastUpdate = newtime
-											end
-										
-											loc.Position[1] = newPos[1]
-                                            loc.Position[2] = newPos[2]
-                                            loc.Position[3] = newPos[3]
+                                            if LastUpdate < newtime then
+                                                loc.LastUpdate = newtime
+                                            end
+		
 										end
                                     
                                     end
@@ -5119,7 +5143,7 @@ function ParseIntelThread( aiBrain )
                                         
 										if IntelDialog then
                                             LOG( dialog.." PARSEINTEL data is "..repr(loc))
-											LOG( dialog.." "..ThreatTypeName.." Removing Existing "..repr(Threat).." too low at "..repr(Position))
+											LOG( dialog.." "..ThreatTypeName.." Removing Existing HiPri threat of "..repr(Threat).." too low at "..repr(Position))
 										end
 
 										-- newthreat is too low 
@@ -5135,7 +5159,7 @@ function ParseIntelThread( aiBrain )
                             if (not dupe) and newthreat > threatamounttrigger then
 							
 								if IntelDialog then
-									LOG( dialog.." "..ThreatTypeName.." Inserting new threat of "..newthreat.." at "..repr(newPos))
+									LOG( dialog.." "..ThreatTypeName.." Inserting new HiPri threat of "..newthreat.." at "..repr(newPos))
 								end
 
                                 LOUDINSERT(aiBrain.IL.HiPri, { Position = { newPos[1],newPos[2],newPos[3] }, Type = ThreatTypeName, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
@@ -5143,16 +5167,20 @@ function ParseIntelThread( aiBrain )
                             
 						else
 
+							if IntelDialog then
+								LOG( dialog.." "..ThreatTypeName.." reduce Existing HiPri threat "..repr(threatreport).." to "..repr(threatreport * -0.75).." at "..repr(threat) )
+							end
+
                             -- reduce the existing threat by 75% with a 5% decay - IMAP refreshes every 3 seconds
                             ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.75, 0.05, ThreatTypeName)                                       
    
                             -- remove or reduce HiPri targets in range --
                             for k,loc in aiBrain.IL.HiPri do
                             
-                                Permanent = loc.Permanent
-                                Position = loc.Position
-                                Threat = loc.Threat
-                                Type = loc.Type
+                                Permanent   = loc.Permanent
+                                Position    = loc.Position
+                                Threat      = loc.Threat
+                                Type        = loc.Type
                             
                                 if Type == ThreatTypeName then
                                 
@@ -5178,18 +5206,26 @@ function ParseIntelThread( aiBrain )
                         end
                         
                         if rebuild then
+
+							if IntelDialog then
+								LOG( dialog.." rebuilding HiPri table on tick "..GetGameTick() )
+							end
+                        
                             aiBrain.IL.HiPri = aiBrain:RebuildTable(aiBrain.IL.HiPri)
                             rebuild = false
                         end
-                        
-                        WaitTicks(2)    -- again - the first tick is lost
-                        
-                        usedticks = usedticks + 1
-					end
+
+					else
+					
+						if IntelDialog then
+							LOG( dialog.." "..ThreatTypeName.." result "..threatcount.." of "..repr(LOUDFLOOR(threatreport)).." ignored on tick "..GetGameTick())
+						end
+
+                    end
                     
-                    WaitTicks(2)
+                    WaitTicks(3)
                     
-                    usedticks = usedticks + 1
+                    usedticks = usedticks + 2
                     
                 end
 
@@ -5203,10 +5239,10 @@ function ParseIntelThread( aiBrain )
                 -- purge outdated, non-permanent intel if past the timeout period or below the threat threshold
                 for s, t in aiBrain.IL.HiPri do
                 
-                    LastUpdate = t.LastUpdate
-                    Permanent = t.Permanent
-                    Threat = t.Threat
-                    Type = t.Type
+                    LastUpdate  = t.LastUpdate
+                    Permanent   = t.Permanent
+                    Threat      = t.Threat
+                    Type        = t.Type
                     
                     -- if this type of threat has a timeout value
                     if ThreatTypeName == Type and intelChecks[Type][2] > 0 then
@@ -5244,6 +5280,11 @@ function ParseIntelThread( aiBrain )
                 end
                 
                 if rebuild then
+
+                    if IntelDialog then
+						LOG( dialog.." rebuilding HiPri table (after purge) on tick "..GetGameTick() )
+					end
+
                     aiBrain.IL.HiPri = aiBrain:RebuildTable(aiBrain.IL.HiPri)
                     rebuild = false
                 end
@@ -5253,6 +5294,10 @@ function ParseIntelThread( aiBrain )
                 usedticks = usedticks + 1
             end
             
+		end
+
+		if IntelDialog then
+			LOG( dialog.." resorting HiPri table on tick "..GetGameTick() )
 		end
 
 		-- sort it by distance from MAIN -- HOLD IT A SECOND - I know how important MAIN is - but what if we used PRIMARYATTACKBASE ?
@@ -5271,7 +5316,7 @@ function ParseIntelThread( aiBrain )
         
 		
 		if IntelDialog then
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL resorts HiPri list is "..repr(aiBrain.IL.HiPri))	
+			--LOG( dialog.." HiPri list is "..repr(aiBrain.IL.HiPri))	
 		end
 
 		if parseinterval - usedticks >= 10 then
@@ -5285,7 +5330,6 @@ function ParseIntelThread( aiBrain )
 			if parseinterval - usedticks > 36 then
 			
 				if checkspertick > 1 then
-                
 					checkspertick = checkspertick - 1
 				end
 			end
@@ -5569,14 +5613,14 @@ function ParseIntelThread( aiBrain )
                 end            
 
             end
-            
-            grandairtot = 0
-            grandlandtot = 0
-            grandnavaltot = 0
 
             if IntelDialog then
                 LOG( dialog.." Collect Enemy PRODUCTION values on tick "..GetGameTick())
             end
+            
+            grandairtot     = 0
+            grandlandtot    = 0
+            grandnavaltot   = 0
 
             -- ENEMY PRODUCTION FOCUS --
             -- accumulate the value of all enemy owned factories -- divide by number of opponents
@@ -5596,7 +5640,7 @@ function ParseIntelThread( aiBrain )
                     
                         aircount = aircount + 1
                     
-                        if u:GetFractionComplete() == 1 then
+                        if u:GetFractionComplete() == 1 and not u.Dead then
 
                             if IsIdleState(u) or IsPaused(u) then 
                                 airidle = airidle + 1
@@ -5616,15 +5660,15 @@ function ParseIntelThread( aiBrain )
                     
                     grandairtot = grandairtot + airtot
 
-                    landcount = 0
-                    landidle = 0
-                    landtot = 0
+                    landcount   = 0
+                    landidle    = 0
+                    landtot     = 0
                     
                     for _,u in EntityCategoryFilterDown( LAND, units) do
                     
                         landcount = landcount + 1
                         
-                        if u:GetFractionComplete() == 1 then
+                        if u:GetFractionComplete() == 1 and not u.Dead then
 
                             if IsIdleState(u) or IsPaused(u) then 
                                 landidle = landidle + 1
@@ -5644,15 +5688,15 @@ function ParseIntelThread( aiBrain )
                     
                     grandlandtot = grandlandtot + landtot
             
-                    navcount = 0
-                    navidle = 0
-                    navaltot = 0
+                    navcount    = 0
+                    navidle     = 0
+                    navaltot    = 0
                     
                     for _,u in EntityCategoryFilterDown( NAVALFAC, units) do
                     
                         navcount = navcount + 1
                         
-                        if u:GetFractionComplete() == 1 then
+                        if u:GetFractionComplete() == 1 and not u.Dead then
 
                             if IsIdleState(u) or IsPaused(u) then 
                                 navidle = navidle + 1
@@ -5677,9 +5721,9 @@ function ParseIntelThread( aiBrain )
             
             units = GetListOfUnits( aiBrain, categories.FACTORY, false, true )
             
-            myaircount = 0
-            myairidle = 0
-            myairtot = 0
+            myaircount  = 0
+            myairidle   = 0
+            myairtot    = 0
 
             if IntelDialog then
                 LOG( dialog.." Calculate AIR PRODUCTION values on tick "..GetGameTick())
@@ -5689,7 +5733,7 @@ function ParseIntelThread( aiBrain )
 
                 myaircount = myaircount + 1
 
-                if u:GetFractionComplete() == 1 then
+                if u:GetFractionComplete() == 1 and not u.Dead then
 
                     if IsIdleState(u) then 
                         myairidle = myairidle + 1
@@ -5714,8 +5758,8 @@ function ParseIntelThread( aiBrain )
             aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
             
             mylandcount = 0
-            mylandidle = 0
-            mylandtot = 0
+            mylandidle  = 0
+            mylandtot   = 0
 
             if IntelDialog then
                 LOG( dialog.." Calculate LAND PRODUCTION values on tick "..GetGameTick())
@@ -5725,7 +5769,7 @@ function ParseIntelThread( aiBrain )
 
                 mylandcount = mylandcount + 1
 
-                if u:GetFractionComplete() == 1 then
+                if u:GetFractionComplete() == 1 and not u.Dead then
 
                     if IsIdleState(u) then 
                         mylandidle = mylandidle + 1
@@ -5746,9 +5790,9 @@ function ParseIntelThread( aiBrain )
 
             aiBrain.LandProdRatio = mylandtot/(LOUDMAX(NumOpponents,grandlandtot)/NumOpponents)
 
-            mynavalcount = 0
-            mynavalidle = 0
-            mynavaltot = 0
+            mynavalcount    = 0
+            mynavalidle     = 0
+            mynavaltot      = 0
 
             if IntelDialog then
                 LOG( dialog.." Calculate NAVAL PRODUCTION values on tick "..GetGameTick())
@@ -5758,7 +5802,7 @@ function ParseIntelThread( aiBrain )
 
                 mynavalcount = mynavalcount + 1
 
-                if u:GetFractionComplete() == 1 then
+                if u:GetFractionComplete() == 1 and not u.Dead then
 
                     if IsIdleState(u) then 
                         mynavalidle = mynavalidle + 1
