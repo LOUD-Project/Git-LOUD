@@ -1017,9 +1017,9 @@ function ModBlueprints(all_blueprints)
 
                             wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.45
                             
-                            if wep.BallisticArc == 'RULEBA_HighArc' then
+                            if wep.BallisticArc == 'RULEUBA_HighArc' then
                             
-                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 3.3
+                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
                                 
                             end
 
@@ -1034,6 +1034,12 @@ function ModBlueprints(all_blueprints)
                     end
                     
 				end
+                
+                if wep.ProjectileLifetime and wep.BallisticArc == 'RULEUBA_HighArc' then
+                
+                    wep.ProjectileLifetime = wep.ProjectileLifetime * 1.25
+                
+                end
                 
                 if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'QuantumMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
 
