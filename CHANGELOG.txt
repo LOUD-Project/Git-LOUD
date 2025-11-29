@@ -1,3 +1,18 @@
+### Release
+
+LUA 7.38
+Brewlan for LOUD 0.8.8.9.125
+CIV_UNITS 7.1
+LOUD_UNITS 7.12
+
+- added SATELLITEUPLINK category to dummy unit in CIV_UNITS to prevent a category error if no mods are turned on
+- increased default projectile lifetimes for barrage artillery (12 > 15)
+- increased projectile lifetime for Ivan Drop Pod Artillery
+- additional AI DEBUG logging revisions, inserting timestamps and standardizing log outputs
+- fixed a bug in blueprint process that was NOT applying additional projectile lifetime to HiArc projectile weapons
+
+
+
 ### Release 11-21-2025
 
 LUA 7.37
