@@ -2048,6 +2048,10 @@ FactoryUnit = Class(StructureUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt, order )
+    
+        if ScenarioInfo.DisplayFactoryBuilds then
+            LOG("*AI DEBUG Factory OnStopBuild "..self.BlueprintID.." built "..unitBeingBuilt.BlueprintID.." on tick "..GetGameTick() )
+        end
 
         StructureUnitOnStopBuild(self, unitBeingBuilt, order )
 
@@ -2071,11 +2075,19 @@ FactoryUnit = Class(StructureUnit) {
 
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
+    
+        if ScenarioInfo.DisplayFactoryBuilds then
+            LOG("*AI DEBUG Factory FinishBuildThread "..self.BlueprintID.." built "..unitBeingBuilt.BlueprintID.." on tick "..GetGameTick() )
+        end
 
         local bp = __blueprints[self.BlueprintID]
         local bpAnim = bp.Display.AnimationFinishBuildLand
 
         if bpAnim and EntityCategoryContains(categories.LAND, unitBeingBuilt) then
+    
+            if ScenarioInfo.DisplayFactoryBuilds then
+                LOG("*AI DEBUG Factory OnStopBuild "..self.BlueprintID.." ANIM IS "..repr(bpAnim).." on tick "..GetGameTick() )
+            end
 
             self.RollOffAnim = CreateAnimator(self)
             
