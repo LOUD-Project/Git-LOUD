@@ -2161,11 +2161,11 @@ FactoryUnit = Class(StructureUnit) {
 
         local bp = __blueprints[self.BlueprintID].Physics.RollOffPoints
 
-		local pos = LOUDCOPY(self.CachePosition)
+		--local pos = LOUDCOPY(self.CachePosition)
 
-		local px = pos[1]
-		local py = pos[2]
-		local pz = pos[3]
+		local px = self.CachePosition[1]
+		local py = self.CachePosition[2]
+		local pz = self.CachePosition[3]
 
         if not bp then return 0, px, py, pz end
 

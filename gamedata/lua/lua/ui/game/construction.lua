@@ -23,6 +23,7 @@ local Templates         = import('/lua/ui/game/build_templates.lua')
 local UIUtil            = import('/lua/ui/uiutil.lua')
 local UnitViewDetail    = import('/lua/ui/game/unitviewdetail.lua')
 
+local DEEPCOPY      = table.deepcopy
 local LOUDGETN      = table.getn
 local LOUDINSERT    = table.insert
 local LOUDSORT      = table.sort

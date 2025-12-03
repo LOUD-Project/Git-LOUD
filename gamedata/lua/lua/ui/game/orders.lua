@@ -16,6 +16,8 @@ local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
 local UIMain        = import('/lua/ui/uimain.lua')
 local UIUtil        = import('/lua/ui/uiutil.lua')
 
+local DEEPCOPY      = table.deepcopy
+
 controls = {
     mouseoverDisplay = false,
     orderButtonGrid = false,
@@ -1473,7 +1475,7 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
     controls.orderButtonGrid:DestroyAllItems(true)
 
     -- create our copy of orders table
-    standardOrdersTable = table.deepcopy(defaultOrdersTable)
+    standardOrdersTable = DEEPCOPY(defaultOrdersTable)
     
     -- look in blueprints for any icon or tooltip overrides
     -- note that if multiple overrides are found for the same order, then the default is used
@@ -1548,7 +1550,7 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
     controls.orderButtonGrid:DestroyAllItems(true)
 
     -- create our copy of orders table
-    standardOrdersTable = table.deepcopy(defaultOrdersTable)
+    standardOrdersTable = DEEPCOPY(defaultOrdersTable)
 
     -- look in blueprints for any icon or tooltip overrides
     -- note that if multiple overrides are found for the same order, then the default is used
@@ -1749,7 +1751,7 @@ function SetupOrdersControl(parent, mfd)
     controls.mfdControl = mfd
 
     -- create our copy of orders table
-    standardOrdersTable = table.deepcopy(defaultOrdersTable)
+    standardOrdersTable = DEEPCOPY(defaultOrdersTable)
 
     SetLayout(UIUtil.currentLayout)
 
