@@ -808,6 +808,7 @@ Platoon = Class(PlatoonMethods) {
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
         local PathFindingDialog         = ScenarioInfo.PathFindingDialog or false
+
         local dialog = "*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer
 
         local GetPlatoonUnits           = GetPlatoonUnits
@@ -905,7 +906,6 @@ Platoon = Class(PlatoonMethods) {
 
 		
 		--** A Whole set of localized function **--
-		-------------------------------------------
 
 		local AIGetThreatLevelsAroundPoint = function( position )
 
@@ -1032,26 +1032,29 @@ Platoon = Class(PlatoonMethods) {
 		local GetClosestSafePathNodeInRadiusByLayerLOUD = function( location, seeksafest, goalseek, threatmodifier, blockingcheck )
 
             -- the marker list is the master list of all movement markers of the Platoons current layer (Land, Amphib, Air, Water)
-			if markerlist then
+			if markerlist[1] and location then
 
-                local CheckBlockingTerrain = CheckBlockingTerrain
+                local CheckBlockingTerrain      = CheckBlockingTerrain
                 local GetThreatBetweenPositions = GetThreatBetweenPositions
-                local LOUDCOPY = LOUDCOPY
-                local LOUDSORT = LOUDSORT
-				local VDist2 = VDist2
-                local VDist3 = VDist3
+
+                local LOUDCOPY  = LOUDCOPY
+                local LOUDSORT  = LOUDSORT
+				local VDist2    = VDist2
+                local VDist3    = VDist3
+                local VDist3Sq  = VDist3Sq 
 
 				local counter = 0
 				local positions = {}			
 
                 local maxthreat = (threatallowed * threatmodifier)
                 local maxthreattest = maxthreat
+
                 local nomarkers = true
 
                 local Node, Position, goaldistance, testdistance, thisdistance, thisthreat
 				
 				-- sort the table by closest to the given location (start position of this test)
-				LOUDSORT(markerlist, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
+				LOUDSORT(markerlist, function(a,b) return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
                 
                 if goalseek then
                     -- only allow points that are closer (within 10%) of the goal
@@ -9091,7 +9094,9 @@ Platoon = Class(PlatoonMethods) {
                     targettype = 'Local'
                     targetLocation = LOUDCOPY(targetLocation)
 				end
-			end
+			else
+                target = false
+            end
 
             -- if no local target then seek one on the HiPri list
 			if (not target) and (not targetLocation) then

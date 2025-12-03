@@ -38,13 +38,16 @@ local VectorCached = { 0, 0, 0 }
 function GetClosestPathNodeInRadiusByLayer(location, layer)
 
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
-    local VDist3 = VDist3
+
 	
-	if nodes then
-		
-		LOUDSORT( nodes, function(a,b) local VDist3 = VDist3 return VDist3( a.position, location ) < VDist3( b.position, location ) end )
+	if nodes[1] then
+        
+        local VDist3 = VDist3		
+
+		LOUDSORT( nodes, function(a,b) return VDist3( a.position, location ) < VDist3( b.position, location ) end )
         
         local position = nodes[1].position
+
         local distance = VDist3( position, location )
 
 		-- if the first result is within radius then respond
