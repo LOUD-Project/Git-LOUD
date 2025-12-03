@@ -1019,7 +1019,7 @@ function ModBlueprints(all_blueprints)
                             
                             if wep.BallisticArc == 'RULEUBA_HighArc' then
                             
-                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
+                                wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 2.6
                                 
                             end
 
