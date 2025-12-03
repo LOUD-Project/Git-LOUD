@@ -16,6 +16,32 @@ doscript '/lua/globalInit.lua'
 
 WaitFrames = coroutine.yield
 
+
+local counter = {}
+
+function trace(event, line)
+
+    local info = debug.getinfo(2)
+    local source = info.source or 'unknown'
+    local name = info.name or info.what or'unknown'
+
+    counter[source] = counter[source] or {}
+    counter[source][name] = (counter[source][name] or 0) + 1
+
+    if math.mod(counter[source][name], 100000) == 0 then
+        --repr(info)
+        --LOG(string.format('trace: %s:%s called %d times', source, name, counter[source][name]))
+        --LOG(string.format('trace: %s:%s UI called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line) ) )
+
+        LOG(debug.traceback())
+        LOG(GameTick(), CurrentTime(), string.format('user trace: %s:%s called %d times', source, name, counter[source][name], tostring(event), tostring(line)))
+    end
+
+end
+
+--debug.sethook(trace, "count")
+--debug.sethook(trace, "line")
+
 function WaitSeconds(n)
     local later = CurrentTime() + n
     WaitFrames(1)

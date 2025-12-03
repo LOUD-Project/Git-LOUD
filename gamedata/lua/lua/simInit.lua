@@ -71,10 +71,46 @@ LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
 import('/lua/sim/adjacencybuffs.lua')
 
 InitialRegistration = false
-    
+
+local debounced = false
+local counter = {}
+
+function trace(event, line)
+
+    if not debounced then
+
+        local info = debug.getinfo(2)
+        local source = info.source or 'unknown'
+        local name = info.name or info.what or'unknown'
+
+        counter[source] = counter[source] or {}
+        counter[source][name] = (counter[source][name] or 0) + 1
+
+        if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 15091) then
+
+            --if (GetGameTick() >= 15091) then
+              --  LOG(debug.traceback())
+            --end        
+            
+            LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
+        end
+
+        --if math.mod(counter[source][name], 100000) == 0 then
+          --  repr(info)
+            --LOG(string.format('trace: %s:%s called %d times', source, name, counter[source][name]))
+            --LOG(string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
+        --end
+
+    end
+
+end
+
+--debug.sethook(trace, "count")
+--debug.sethook(trace, "line")
+
 function WaitSeconds(n)
     if n < 1 then
-        n = n + .1
+        n = .1
     end
     WaitTicks(math.max(1, n*10))
 end
