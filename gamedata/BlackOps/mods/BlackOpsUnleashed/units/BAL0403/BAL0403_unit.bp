@@ -151,7 +151,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         UnitName = '<LOC bal0403_name>Interrogater',
     },
