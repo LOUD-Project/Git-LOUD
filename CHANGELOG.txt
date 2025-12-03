@@ -1,4 +1,16 @@
-### Release
+### Release 12-03-2025
+
+LUA 7.39
+Black Ops for LOUD 7.21
+
+- fixed race condition (stall) in target acquisition
+- some fundamental debug capability (courtesy Jip)
+- fixed typo in blueprint process (CDRMV)
+- fixed icon background (BAL0403) in BO Interrogator (Frust Berry)
+
+
+
+### Release 11-28-2025
 
 LUA 7.38
 Brewlan for LOUD 0.8.8.9.125
