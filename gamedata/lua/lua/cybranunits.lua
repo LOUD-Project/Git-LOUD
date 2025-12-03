@@ -201,7 +201,7 @@ CSeaFactoryUnit = Class(FactoryUnit) {
     
     OnUnpaused = function(self)
         StructureUnit.OnUnpaused(self)
-        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self:IsUnitState('Upgrading') and self:IsUnitState('Building') then
+        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and (not self:IsUnitState('Upgrading')) and self:IsUnitState('Building') then
             self:StartArmsMoving()
         end
     end,

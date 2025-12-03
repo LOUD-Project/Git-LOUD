@@ -119,7 +119,7 @@ function AreaTriggerThread(callbackFunction, rectangleTable, category, onceOnly,
         -- You don't want a specific amount and the correct unit category entered
         -- You don't want a specific amount, there are no longer the category inside and you wanted the test inverted
         -- You want a specific amount and we have enough.
-        if ( triggered and not invert and not number) or (not triggered and invert and not number) or (triggered and number) then
+        if ( triggered and (not invert) and not number) or ((not triggered) and invert and not number) or (triggered and number) then
 		
             if name then
 			

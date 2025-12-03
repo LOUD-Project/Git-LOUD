@@ -600,7 +600,7 @@ MissileTorpDestroy = Class(Entity) {
                     SetDrawScale( other, 0.1 )
                 end
 
-                if self and not BeenDestroyed(self) and self.EnemyProj and not BeenDestroyed(self.EnemyProj) and not self.Owner.Dead then
+                if self and (not BeenDestroyed(self)) and self.EnemyProj and (not BeenDestroyed(self.EnemyProj)) and not self.Owner.Dead then
 				
                     LOUDSTATE( self, self.RedirectingState)
                     
@@ -791,7 +791,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
                 EnemyProj.MoveThread = nil
             end
 
-            if self.Enemy and not BeenDestroyed(self.Enemy) and not BeenDestroyed(EnemyProj) then
+            if self.Enemy and (not BeenDestroyed(self.Enemy)) and not BeenDestroyed(EnemyProj) then
 
 				EnemyProj:SetVelocity( 2.5 )
             

@@ -130,7 +130,7 @@ function ProcessAIChat(to, from, text)
 	if (to == 'allies' or type(to) == 'number') then
 	
 		for i, v in armies.armiesTable do
-			if not v.human and not v.civilian and IsAlly(i, from) and (to == 'allies' or to == i) then
+			if not v.human and (not v.civilian) and IsAlly(i, from) and (to == 'allies' or to == i) then
 			
 				local testtext = string.gsub(text, '%s(.*)', '')
 				local aftertext = string.gsub(text, '^%a+%s', '')

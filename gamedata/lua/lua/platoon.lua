@@ -9082,7 +9082,7 @@ Platoon = Class(PlatoonMethods) {
 
 			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
 			
-			if target and not target.Dead and PlatoonExists( aiBrain, self) then
+			if target and (not target.Dead) and PlatoonExists( aiBrain, self) then
 			
 				if Behaviors.LocationInWaterCheck( GetPosition(target) ) then
 					target = false
@@ -9576,7 +9576,7 @@ Platoon = Class(PlatoonMethods) {
             -- this can return a moving targetLocation
 			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
 			
-			if target and not target.Dead and PlatoonExists( aiBrain, self) then
+			if target and (not target.Dead) and PlatoonExists( aiBrain, self) then
 			
 				if Behaviors.LocationInWaterCheck( GetPosition(target) ) and not CanAttackTarget(self,'Attack',target) then
 					target = false

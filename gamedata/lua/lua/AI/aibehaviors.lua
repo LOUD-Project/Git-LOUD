@@ -151,9 +151,9 @@ function CommanderThread( platoon, aiBrain )
 		end
 		
         -- resume building
-        if not cdr.Dead and IsIdleState(cdr) and not cdr.Fighting and not cdr.Upgrading and not IsUnitState( cdr, "Building")
-			and not cdr:IsUnitState("Attacking") and not cdr:IsUnitState("Repairing") and not cdr.UnitBeingBuiltBehavior and not cdr:IsUnitState("Upgrading") 
-			and not cdr:IsUnitState("Enhancing") then
+        if not cdr.Dead and IsIdleState(cdr) and (not cdr.Fighting) and (not cdr.Upgrading) and (not IsUnitState( cdr, "Building"))
+			and (not cdr:IsUnitState("Attacking")) and (not cdr:IsUnitState("Repairing")) and (not cdr.UnitBeingBuiltBehavior) and (not cdr:IsUnitState("Upgrading"))
+			and (not cdr:IsUnitState("Enhancing")) then
 		
             if not cdr.EngineerBuildQueue or LOUDGETN(cdr.EngineerBuildQueue) == 0 then
 				
@@ -2116,7 +2116,7 @@ function NavalScoutingAI( self, aiBrain )
         -- otherwise go right back and find another mission
         if PlatoonExists(aiBrain,self) then
 
-            if not targetArea and not reconcomplete then
+            if (not targetArea) and not reconcomplete then
 
                 if NavalScoutDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI finds no recon mission")
@@ -5345,7 +5345,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 WaitTicks(1)                
             end
         
-			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+			if (target and not target.Dead) and PlatoonExists(aiBrain, self) then
             
                 SecondaryAATargets = false
                 AACount = 0
@@ -5547,7 +5547,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                                 end
                         
                                 -- all others go for primary
-                                if not target.Dead and not attackissued then
+                                if (not target.Dead) and not attackissued then
 
                                     IssueAttack( {u}, target )
                                     attackissued = true
@@ -5565,7 +5565,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     
                 end
                 
-			end
+			else
+                target = false
+            end
             
         end
 
@@ -6560,7 +6562,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
 		-- if no target and no movement orders -- use HiPri list
 		-- issue movement orders -- if list is empty RTB instead --
-        if not target and not self.MoveThread then
+        if (not target) and not self.MoveThread then
         
             if NavalBombardAIDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..self.BuilderName.." "..self.BuilderInstance.." seeks HiPri Target location from "..repr(GetPlatoonPosition(self)) )
@@ -6769,7 +6771,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		-- loop here until target dies or moves out of range -- 
 		-- wait 3 seconds between target checks --
 
-		while target and not target.Dead and PlatoonExists(aiBrain, self) do
+		while target and (not target.Dead) and PlatoonExists(aiBrain, self) do
             
             if not updatedtargetposition then
                 
@@ -7166,7 +7168,7 @@ end
 -- this will fire up the FatBoyThread 
 function FatBoyAI( unit, aiBrain )
 
-	if not unit.Dead and LOUDENTITY( categories.uel0401, unit ) and not unit.FatBoyThread then
+	if (not unit.Dead) and LOUDENTITY( categories.uel0401, unit ) and not unit.FatBoyThread then
 	
 		LOG("*AI DEBUG FatBoy Initialization starting")
 		
@@ -7936,7 +7938,7 @@ function TMLThread( unit, aiBrain )
                         end
 
                         -- if there is a target -- fire at it
-                        if target and not target.Dead and not unit.Dead then
+                        if target and (not target.Dead) and not unit.Dead then
 			
                             if LOUDENTITY(categories.STRUCTURE, target) then
                             
@@ -8110,7 +8112,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
     local NameEngineers = ScenarioInfo.NameEngineers
     local SCUEnhanceDialog = ScenarioInfo.SCUEnhanceDialog
     
-    while not unit.Dead and not unit.EnhancementsComplete do
+    while (not unit.Dead) and not unit.EnhancementsComplete do
 
         CurrentEnhancement = EnhanceList[1]
 
@@ -8307,13 +8309,13 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
     local FactoryEnhanceDialog = ScenarioInfo.FactoryEnhanceDialog
   
-    while EBP and not unit.Dead and not unit.EnhancementsComplete do
+    while EBP and (not unit.Dead) and not unit.EnhancementsComplete do
 	
 		WaitTicks(201)
 
         CurrentEnhancement = EnhanceList[1]
 
-        while not unit.Dead and not HasEnhancement(unit, CurrentEnhancement) do
+        while (not unit.Dead) and not HasEnhancement(unit, CurrentEnhancement) do
 
 			if IsIdleState(unit) then
 		
@@ -8896,7 +8898,7 @@ function AirLandToggle(platoon, aiBrain)
 				for n,wType in w.FireTargetLayerCapsTable do
 				
 					if string.find( wType, 'Air' ) then
-						if not v.Dead and not v.AirLandToggleThread then
+						if (not v.Dead) and not v.AirLandToggleThread then
 							v.AirLandToggleThread = v:ForkThread( AirLandToggleThread, aiBrain )
 							break
 						end
@@ -9580,13 +9582,13 @@ function GetExperimentalUnit( platoon )
 	
     for _,v in GetPlatoonUnits(platoon) do
 	
-		if not v.Dead and unit then
+		if (not v.Dead) and unit then
 		
 			IssueGuard( {v}, unit )
 			
 		end
 		
-        if not v.Dead and not unit then
+        if (not v.Dead) and not unit then
 		
             unit = v
 			
@@ -9682,17 +9684,17 @@ function BehemothBehavior(self)
             IssueAggressiveMove({experimental}, targetLocation) 
 			patrolling = false
 			
-			while VDist3( experimental:GetPosition(), targetLocation ) > 10 and not experimental.Dead and experimental:GetHealthPercent() > .42 do
+			while VDist3( experimental:GetPosition(), targetLocation ) > 10 and (not experimental.Dead) and experimental:GetHealthPercent() > .42 do
 				WaitTicks(20)
 				pos = experimental:GetPosition()
 			end
 			
-            while not experimental.Dead and experimental:GetHealthPercent() > .42 and WreckBase( self, target ) and not InWaterCheck(self) do
+            while (not experimental.Dead) and experimental:GetHealthPercent() > .42 and WreckBase( self, target ) and not InWaterCheck(self) do
 				LOG("*AI DEBUG Behemoth cleansing target area")
 				WaitTicks(20)
             end
 		
-        elseif not targetLocation or experimental:GetHealthPercent() <= .75 then
+        elseif (not targetLocation) or experimental:GetHealthPercent() <= .75 then
 
 			if not patrolling then
 				IssueClearCommands({experimental})

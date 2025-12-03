@@ -1070,7 +1070,7 @@ Unit = Class(UnitMethods) {
 	-- when you are captured
     OnCaptured = function(self, captor)
 	
-        if self and not self.Dead and captor and not captor.Dead and GetAIBrain(self) ~= GetAIBrain(captor) then
+        if self and (not self.Dead) and captor and (not captor.Dead) and GetAIBrain(self) ~= GetAIBrain(captor) then
 		
             if not self:IsCapturable() then
 			
@@ -2673,7 +2673,7 @@ Unit = Class(UnitMethods) {
 		-- If factory, destroy what I'm building if I die
 		if LOUDENTITY(FACTORY, self) then
 		
-			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
+			if self.UnitBeingBuilt and (not self.UnitBeingBuilt.Dead) and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 				self.UnitBeingBuilt:Destroy()
 			end
 		end
@@ -4423,7 +4423,7 @@ Unit = Class(UnitMethods) {
 	
 			for k,v in self.EventCallbacks.OnStartBuild do
 		
-				if v and unit and not unit.Dead and LOUDENTITY(v.Category, unit) then
+				if v and unit and (not unit.Dead) and LOUDENTITY(v.Category, unit) then
 			
 					v.CallbackFunction(self, unit)
 				end
@@ -4463,7 +4463,7 @@ Unit = Class(UnitMethods) {
 		
             for k, v in self.EventCallbacks.OnUnitBuilt do
 			
-                if v and unit and not unit.Dead and LOUDENTITY(v.Category, unit) then
+                if v and unit and (not unit.Dead) and LOUDENTITY(v.Category, unit) then
 				
                     --Function will call back with both the unit's and the unit being built's handle
                     v.CallBackFunction(self, unit)

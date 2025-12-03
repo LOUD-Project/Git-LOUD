@@ -653,7 +653,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local flipDirection = true
 
     -- WARP our projectile back to the initial corner and lower based on build completeness
-    while not builder.Dead and not unitBeingBuilt.Dead do
+    while (not builder.Dead) and not unitBeingBuilt.Dead do
     
         if flipDirection then
         
@@ -775,7 +775,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     local flipDirection = true
 
     -- WARP our projectile back to the initial corner and lower based on build completeness
-    while not builder.Dead and not unitBeingBuilt.Dead do
+    while (not builder.Dead) and not unitBeingBuilt.Dead do
     
         local frac = GetFractionComplete(unitBeingBuilt)
         
@@ -844,7 +844,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
 
-        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) and not projectile:BeenDestroyed() do
+        while (not builder.Dead) and (not unitBeingBuilt.Dead) and IsBeingBuilt(unitBeingBuilt) and not projectile:BeenDestroyed() do
 
             x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
         
@@ -946,7 +946,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 
             LOUDWARP( projectile, pos)
   
-            while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
+            while (not builder.Dead) and (not unitBeingBuilt.Dead) and IsBeingBuilt(unitBeingBuilt) do
 
                 x, y, z = RandomOffset( unitBeingBuilt, 1 )
         

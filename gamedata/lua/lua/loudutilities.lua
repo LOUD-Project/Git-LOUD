@@ -641,7 +641,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 	
 		for k,v in units do
 		
-			if not v.Dead and not IsBeingBuilt(v) and v.ArmyIndex == ArmyIndex then
+			if not v.Dead and (not IsBeingBuilt(v)) and v.ArmyIndex == ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
 				if (not v.Attached) and (not v.PlatoonHandle or (v.PlatoonHandle == ArmyPool)) or (useRefuelPool and v.PlatoonHandle == RefuelPool) then
@@ -6115,7 +6115,7 @@ function AIPickEnemyLogic( self, brainbool )
 	
         armyindex = v.ArmyIndex
 		
-        if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
+        if (not v:IsDefeated()) and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
 

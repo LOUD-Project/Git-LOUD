@@ -122,7 +122,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     CreateBeamEffects = function(self)
 
-        if (not self.FxBeamStartPoint and not self.FxBeamEndPoint and not self.FxBeam) then return end
+        if (not self.FxBeamStartPoint and (not self.FxBeamEndPoint) and (not self.FxBeam)) then return end
         
         local army = self.Army
 		

@@ -464,7 +464,7 @@ Projectile = Class( ProjectileMethods ) {
                 -- from adv missile track and retarget
                 local target = GetTrackingTarget(self)
 		
-                if target and not target.Dead and target.IncommingDamage then
+                if target and (not target.Dead) and target.IncommingDamage then
 		
                     -- reduce the amount of damage incoming to this target
                     target.IncommingDamage = target.IncommingDamage - DD.DamageAmount

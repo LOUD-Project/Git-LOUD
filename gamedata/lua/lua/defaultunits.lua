@@ -1239,7 +1239,7 @@ MobileUnit = Class(Unit) {
 		end
         
 		
-		if target and not BeenDestroyed(target) and target.BeingReclaimed then
+		if target and (not BeenDestroyed(target)) and target.BeingReclaimed then
 		
 			target:RevertRegenRate()
 			target.BeingReclaimed = false
@@ -2326,7 +2326,7 @@ FactoryUnit = Class(StructureUnit) {
 
         StructureUnitOnKilled(self, instigator, type, overkillRatio)
 
-        if self.UnitBeingBuilt and not BeenDestroyed(self.UnitBeingBuilt) and GetFractionComplete(self.UnitBeingBuilt) < 1 then
+        if self.UnitBeingBuilt and (not BeenDestroyed(self.UnitBeingBuilt)) and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 
             self.UnitBeingBuilt:Destroy()
 

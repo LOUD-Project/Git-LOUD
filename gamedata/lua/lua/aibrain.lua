@@ -399,7 +399,7 @@ function SetAIDebug(data)
                 
                     LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
                 
-                    if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
+                    if brain.BrainType == 'AI' and (not ArmyIsCivilian(brain.ArmyIndex)) and not brain.IntelDebugThread then
                         brain.IntelDebugThread = ForkThread( LoudUtils.DrawIntel, brain, 50)
                     end
                 end

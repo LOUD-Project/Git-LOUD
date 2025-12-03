@@ -307,7 +307,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 
 		for i, weapon in weapons do
 			-- Check for DummyWeapon Label (Used by Paragons for Range Rings).
-			if not LOUDFIND(weapon.Label, 'Dummy') and not LOUDFIND(weapon.Label, 'Tractor') and not LOUDFIND(weapon.Label, 'Painter') then
+			if not LOUDFIND(weapon.Label, 'Dummy') and (not LOUDFIND(weapon.Label, 'Tractor')) and not LOUDFIND(weapon.Label, 'Painter') then
 				-- Check for RangeCategories.
 				if weapon.RangeCategory ~= nil then
 					if weapon.RangeCategory == 'UWRC_DirectFire' then

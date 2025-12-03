@@ -487,7 +487,7 @@ function PlayDialogue()
         
             for k,v in dTable do
             
-                if v ~= nil and not dTable.Flushed and ( not ScenarioInfo.OpEnded or dTable.Critical ) then
+                if v ~= nil and (not dTable.Flushed) and ( not ScenarioInfo.OpEnded or dTable.Critical ) then
 
                     if not v.vid and v.bank and v.cue then
                         table.insert(Sync.Voice, {Cue=v.cue, Bank=v.bank} )
