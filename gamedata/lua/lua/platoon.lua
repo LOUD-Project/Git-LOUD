@@ -6643,7 +6643,7 @@ Platoon = Class(PlatoonMethods) {
 
                                                     if DistressResponseDialog and target then
                                                         LOG( dialog.." engaged target within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
-                                                    end                                                        
+                                                    end
 
                                                 end
 
