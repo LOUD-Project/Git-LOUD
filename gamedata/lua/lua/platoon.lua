@@ -6364,7 +6364,7 @@ Platoon = Class(PlatoonMethods) {
 	
 			if alertposition then
                 if DistressResponseDialog then
-                    LOG( dialog.." selects "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." on tick "..GetGameTick())
+                    LOG( dialog.." selects "..repr(alertposition).." from "..( repr(alertplatoon) ).." distance "..alertrange.." on tick "..GetGameTick())
                 end
 
 				return alertposition, distresstype, alertplatoon
@@ -6395,14 +6395,16 @@ Platoon = Class(PlatoonMethods) {
                     end
 			
                     if DistressResponseDialog then
-                        LOG( dialog.."responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." on tick "..GetGameTick() )
+                        LOG( dialog.."responds to "..distressType.." DISTRESS from "..( repr(distressplatoon.BuilderName) or repr(distressplatoon) ).." at "..repr(distressLocation).." on tick "..GetGameTick() )
                     end
  
                     --- store this distressLocation so that we can ignore it
                     --- if it comes up after we've cleared the area
                     previousdistress = LOUDCOPY(distressLocation)                    
 
-                    if not unit or unit.Dead then
+                    if (not unit) or unit.Dead then
+
+                        unit = false
 					
                         -- find a unit in the platoon --
                         for _,u in GetPlatoonUnits(self) do
@@ -6645,7 +6647,7 @@ Platoon = Class(PlatoonMethods) {
 
                                                 end
 
-                                                if DistressResponseDialog then
+                                                if DistressResponseDialog and not target then
 
                                                     if distressbrain and (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') and PlatoonExists(distressbrain, distressplatoon)  then
                                                         LOG( dialog.." no target found within "..targetingrange.." of position "..repr(GetPlatoonPosition(distressplatoon)).." on tick "..GetGameTick() )
