@@ -86,11 +86,11 @@ function trace(event, line)
         counter[source] = counter[source] or {}
         counter[source][name] = (counter[source][name] or 0) + 1
 
-        if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 15091) then
+        if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 27664) then
 
-            --if (GetGameTick() >= 15091) then
-              --  LOG(debug.traceback())
-            --end        
+            if (GetGameTick() >= 27664) then
+                LOG(debug.traceback())
+            end        
             
             LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
         end

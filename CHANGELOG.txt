@@ -1,3 +1,11 @@
+### Release 12-07-2025
+
+LUA 7.39.2
+
+- fixed a stall condition in LandForceAI
+- turned off DistressResponse pings from AI
+
+
 ### Release 12-05-2025
 
 LUA 7.39.1

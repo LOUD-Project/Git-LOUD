@@ -9218,12 +9218,9 @@ Platoon = Class(PlatoonMethods) {
                             notargetcount = 0
                         end
                     end
-					
-                    if not path then
-                        WaitTicks(2)
-                    end
-				end
-                
+
+                    WaitTicks(2)
+                end
 			end
 			
 			-- if no target then seek a DP and increase the number of tries by 1
@@ -9238,9 +9235,10 @@ Platoon = Class(PlatoonMethods) {
                 end
 
 				targetLocation, name = AIGetClosestMarkerLocation( aiBrain, 'Defensive Point', platPos[1], platPos[3] )
-                target = false
+
                 targetclass = false
 				targettype = 'DP'
+
 				notargetcount = notargetcount + 1
 			end
 
