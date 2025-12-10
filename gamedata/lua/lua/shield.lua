@@ -641,7 +641,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			end
 			
             self:RemoveShield()
-        
+  
             self:ChargingUp(0, self.ShieldEnergyDrainRechargeTime)
             
             -- If the unit is attached to a transport, make sure the shield goes to the off state

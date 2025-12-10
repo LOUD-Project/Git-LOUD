@@ -60,7 +60,6 @@ local LOUDATTACHBEAMENTITY  = AttachBeamEntityToEntity
 
 local TrashBag      = TrashBag
 local TrashAdd      = TrashBag.Add
-local TrashDestroy  = TrashBag.Destroy
 
 local ALLBPS = __blueprints
 

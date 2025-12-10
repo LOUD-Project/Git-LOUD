@@ -41,7 +41,6 @@ local TrackTarget       = moho.projectile_methods.TrackTarget
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
 
 TFragmentationGrenade= Class(EmitterProjectile) {
 

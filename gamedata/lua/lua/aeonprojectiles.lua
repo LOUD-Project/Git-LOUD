@@ -225,9 +225,9 @@ AIMFlareProjectile = Class(EmitterProjectile) {
         EmitterProjectileOnImpact(self, TargetType, targetEntity)
 		
         if TargetType == 'Terrain' or TargetType == 'Water' or TargetType == 'Prop' then
-            if self.Trash then
-                TrashDestroy(self.Trash)
-            end
+
+            TrashDestroy(self.Trash)
+
             self:Destroy()
         end
     end,

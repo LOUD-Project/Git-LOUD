@@ -1186,9 +1186,8 @@ MobileUnit = Class(Unit) {
     end,
 
     StopCaptureEffects = function( self, target )
-		if self.CaptureEffectsBag then
-			TrashDestroy(self.CaptureEffectsBag)
-		end
+
+        TrashDestroy(self.CaptureEffectsBag)
     end,
 	
     -- Return the total time in seconds, cost in energy, and cost in mass to capture the given target.
@@ -1234,16 +1233,12 @@ MobileUnit = Class(Unit) {
         
         self:DoUnitCallbacks('OnStopReclaim', target)
 
-		if self.ReclaimEffectsBag then
-			TrashDestroy(self.ReclaimEffectsBag)
-		end
-        
-		
+		TrashDestroy(self.ReclaimEffectsBag)
+
 		if target and (not BeenDestroyed(target)) and target.BeingReclaimed then
 		
 			target:RevertRegenRate()
 			target.BeingReclaimed = false
-			
 		end
 
 		--self:StopUnitAmbientSound('ReclaimLoop')

@@ -26,7 +26,7 @@ TrashBag = Class {
     -- Call Destroy() for all objects in this bag.
     Destroy = function(self)
     
-        if self.Counter then
+        if self.Counter > 1 then
 
             for i = 1, self.Counter - 1 do
 

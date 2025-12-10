@@ -476,9 +476,7 @@ Projectile = Class( ProjectileMethods ) {
             end
         end
 
-		if self.Trash then
-			TrashDestroy(self.Trash)
-		end
+        TrashDestroy(self.Trash)
 
     end,
 

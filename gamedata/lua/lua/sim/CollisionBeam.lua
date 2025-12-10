@@ -53,9 +53,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     OnDestroy = function(self)
-        if self.Trash then
-            TrashDestroy(self.Trash)
-        end
+
+        TrashDestroy(self.Trash)
     end,
 
     OnEnable = function(self)
