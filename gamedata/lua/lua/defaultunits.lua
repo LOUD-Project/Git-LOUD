@@ -4761,6 +4761,46 @@ MineStructureUnit = Class(StructureUnit) {
             FxDeathLand     = EffectTemplate.DefaultHitExplosion01,
             FxDeathSeabed   = EffectTemplate.DefaultProjectileWaterImpact,
             FxDeathWater    = EffectTemplate.SRifterArtilleryWaterHit,
+    
+            RackSalvoFireReadyState = State {
+
+                WeaponWantEnabled = true,
+                WeaponAimWantEnabled = true,
+
+                Main = function(self)
+            
+                    local bp = self.bp
+                    local unit = self.unit
+            
+                    if ScenarioInfo.WeaponStateDialog then
+                        LOG("*AI DEBUG SuicideWeapon RackSalvo Fire Ready State "..repr(bp.Label).." at "..GetGameTick() )
+                    end
+
+                    self.WeaponCanFire = false
+			
+                    if self.EconDrain then
+
+                        WaitFor(self.EconDrain)
+                
+                        self.WeaponCharged = true
+				
+                        RemoveEconomyEvent( unit, self.EconDrain )
+				
+                        self.EconDrain = nil
+
+                        if ScenarioInfo.WeaponStateDialog then
+                            LOG("*AI DEBUG SuicideWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." Economy Event Ends at "..GetGameTick() )
+                        end
+
+                    end
+			
+                    self.WeaponCanFire = true
+
+                    self:OnWeaponFired()    --LOUDSTATE(self, self.RackSalvoFiringState)
+
+                end,
+
+            },
             
             OnWeaponFired = function(self)
 
@@ -4795,12 +4835,6 @@ MineStructureUnit = Class(StructureUnit) {
                     end
                 end
 
-                --local proj = self.unit:CreateProjectile(bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-                
-                --if proj.EffectThread then
-                    --proj:ForkThread(proj.EffectThread)
-                --end
- 
                 self.unit.DeathWeaponEnabled = false
 
                 self.unit:CosmeticDamage(radius)
