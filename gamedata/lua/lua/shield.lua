@@ -425,6 +425,15 @@ Shield = Class(moho.shield_methods,Entity) {
         self:SetCollisionShape('None')
 
 		self:SetMesh('')
+        
+        if self.Owner.ShieldEffectsBag then
+        
+            for k,v in self.Owner.ShieldEffectsBag do
+                v:Destroy()
+            end
+            
+            self.Owner.ShieldEffectsBag = {}
+        end
 		
 		if self.MeshZ != nil then
 			self.MeshZ:Destroy()

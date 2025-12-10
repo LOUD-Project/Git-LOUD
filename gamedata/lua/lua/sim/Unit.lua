@@ -5106,12 +5106,32 @@ Unit = Class(UnitMethods) {
     end,
 
     OnShieldEnabled = function(self)
+
+        if self.ShieldEffects then
+            
+            if not self.ShieldEffectsBag then
+                self.ShieldEffectsBag = {}
+            end
+            
+            for k,v in self.ShieldEffects do
+                LOUDINSERT(self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, self:GetArmy(), v ))
+            end
+        end
 	
         self:SetMaintenanceConsumptionActive()
 		
     end,
 
     OnShieldDisabled = function(self)
+    
+        if self.ShieldEffectsBag then
+            
+            for k,v in self.ShieldEffectsBag do
+                v:Destroy()
+            end
+            
+            self.ShieldEffectsBag = {}
+        end
 
         self:SetMaintenanceConsumptionInactive()
 		
