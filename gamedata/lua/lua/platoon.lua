@@ -3493,7 +3493,7 @@ Platoon = Class(PlatoonMethods) {
                 LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point - resetting PSource to my current location "..repr(position) )
             end
             
-            PSource = table.copy(position)
+            PSource = LOUDCOPY(position)
  
 		end
 

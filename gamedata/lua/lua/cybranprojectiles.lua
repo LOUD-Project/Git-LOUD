@@ -325,26 +325,16 @@ CIFMolecularResonanceShell = Class(SinglePolyTrailProjectile) {
         self.Impacted = false
     end,
 
-    DelayedDestroyThread = function(self)
-        WaitTicks( 3 )
-        self.CreateImpactEffects( self, self.Army, self.FxImpactUnit, self.FxUnitHitScale )
-        self:Destroy()
-    end,
-
     OnImpact = function(self, TargetType, TargetEntity)
+
         if self.Impacted == false then
+
             self.Impacted = true
-            if TargetType == 'Terrain' then
 
-                SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
+            SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
 
-                self:ForkThread( self.DelayedDestroyThread )
-            else
+            self:Destroy()
 
-                SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
-
-                self:Destroy()
-            end
         end
     end,
 }
@@ -460,6 +450,7 @@ CNeutronClusterBombProjectile = Class(SinglePolyTrailProjectile) {
 
     -- Note: Damage is done once in AOE by main projectile. Secondary projectiles are just visual.
     OnImpact = function(self, TargetType, TargetEntity)
+
         if self.Impacted == false and TargetType != 'Air' then
 		
 			local Random = Random

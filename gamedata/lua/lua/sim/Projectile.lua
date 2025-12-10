@@ -533,7 +533,7 @@ Projectile = Class( ProjectileMethods ) {
 			
             if radius then
 
-                local pos = table.copy(GetPosition(self))		
+                local pos = LOUDCOPY(GetPosition(self))		
 
                 if ScenarioInfo.ProjectileDialog then
                     ForkThread( function() LOG("*AI DEBUG Projectile OnDamage Area at "..repr(pos).." for "..damage.." - damageData is "..repr(damageData) ) end )
