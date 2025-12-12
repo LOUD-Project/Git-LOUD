@@ -154,7 +154,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
 			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
@@ -246,7 +245,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
+   			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
         },
@@ -330,7 +329,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 
 			{ EBC, 'LessThanEnergyTrend', { 300 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			-- don't build T3 power if one is already being built somewhere else
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
@@ -426,7 +424,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},            
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
         },
         
         BuilderData = {

@@ -282,7 +282,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
             { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 
@@ -369,7 +369,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
@@ -455,7 +455,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
             
