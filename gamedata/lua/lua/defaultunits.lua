@@ -1110,9 +1110,9 @@ MobileUnit = Class(Unit) {
             
                 local function delaythreat( brain, position, threatamount, threattype)
                 
-                    local WaitTicks = coroutine.yield
-                    local fastamount = threatamount * .02
-                    local assign = moho.aibrain_methods.AssignThreatAtPosition
+                    local WaitTicks     = WaitTicks
+                    local fastamount    = threatamount * .02
+                    local assign        = moho.aibrain_methods.AssignThreatAtPosition
                 
                     -- immediately reduce the IMAP threat of the unit but make sure this is fully decayed
                     -- by the time the natural decay begins
@@ -1389,7 +1389,7 @@ MobileUnit = Class(Unit) {
         local army = self.Army
 
         local CSPLATON = CreateSplatOnBone
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
 
         -- Syntatic reference
         -- CreateSplatOnBone(entity, offset, boneName, textureName, sizeX, sizeZ, lodParam, duration, army)
@@ -3662,8 +3662,8 @@ SubUnit = Class(MobileUnit) {
         end
 
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
-		local Random = Random
-		local WaitTicks = coroutine.yield
+		local Random                = Random
+		local WaitTicks             = WaitTicks
 
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs)
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs)
@@ -3877,8 +3877,8 @@ SeaUnit = Class(MobileUnit) {
         local numBones = GetBoneCount(self) - 1
 
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
-		local Random = Random
-		local WaitTicks = coroutine.yield
+		local Random                = Random
+		local WaitTicks             = WaitTicks
 
 
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs*.66)

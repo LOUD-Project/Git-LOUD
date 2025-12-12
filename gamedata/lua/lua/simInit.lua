@@ -72,36 +72,34 @@ import('/lua/sim/adjacencybuffs.lua')
 
 InitialRegistration = false
 
-local debounced = false
+
 local counter = {}
 
 function trace(event, line)
 
-    if not debounced then
+    local info = debug.getinfo(2)
+    local source = info.source or 'unknown'
+    local name = info.name or info.what or'unknown'
 
-        local info = debug.getinfo(2)
-        local source = info.source or 'unknown'
-        local name = info.name or info.what or'unknown'
+    counter[source] = counter[source] or {}
+    counter[source][name] = (counter[source][name] or 0) + 1
 
-        counter[source] = counter[source] or {}
-        counter[source][name] = (counter[source][name] or 0) + 1
+    -- valar is 22609
 
-        if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 27664) then
+    if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 22609) then
 
-            if (GetGameTick() >= 27664) then
-                LOG(debug.traceback())
-            end        
+        if (GetGameTick() >= 22609) then
+              LOG(debug.traceback())
+        end        
             
-            LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
-        end
-
-        --if math.mod(counter[source][name], 100000) == 0 then
-          --  repr(info)
-            --LOG(string.format('trace: %s:%s called %d times', source, name, counter[source][name]))
-            --LOG(string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
-        --end
-
+        LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
     end
+
+    --if math.mod(counter[source][name], 100000) == 0 then
+        --  repr(info)
+        --LOG(string.format('trace: %s:%s called %d times', source, name, counter[source][name]))
+        --LOG(string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
+    --end
 
 end
 

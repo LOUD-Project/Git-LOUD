@@ -318,7 +318,7 @@ end
 
 function GroupDeathTriggerThread(callbackFunction, group, name)
 
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
     local allDead = false
 	
@@ -489,7 +489,7 @@ end
 function UnitDistanceTriggerThread( callbackFunction, unitOne, unitTwo, distance )
 
 	local VDist3 = VDist3
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
     while not ( VDist3( unitOne:GetPosition(), unitTwo:GetPosition() ) < distance  ) do
 	

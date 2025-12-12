@@ -178,7 +178,7 @@ end
 function CreateTimedStuctureUnitExplosion( obj )
 
 	local LOUDFLOOR = math.floor
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
     local numExplosions = LOUDFLOOR( GetAverageBoundingXYZRadius(obj) * (Random() * (4) + 2) )
     

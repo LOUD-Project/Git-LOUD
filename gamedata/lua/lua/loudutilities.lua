@@ -7227,7 +7227,7 @@ function DrawIntel( aiBrain, parseinterval)
 
     LOG("*AI DEBUG "..aiBrain.Nickname.." DrawIntel Thread starts")
 
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
     local DrawC = DrawCircle
     
     local ArmyIndex = aiBrain.ArmyIndex

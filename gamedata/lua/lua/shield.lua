@@ -916,9 +916,9 @@ ProjectedShield = Class(Shield){
 
     CreateImpactEffect = function(self, vector)
 
-        local AttachBeamEntityToEntity = AttachBeamEntityToEntity
-        local CreateEmitterAtBone = CreateEmitterAtBone
-        local WaitTicks = coroutine.yield
+        local AttachBeamEntityToEntity  = AttachBeamEntityToEntity
+        local CreateEmitterAtBone       = CreateEmitterAtBone
+        local WaitTicks                 = WaitTicks
 
         if not self.Dead then
         

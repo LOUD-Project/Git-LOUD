@@ -33,8 +33,8 @@ function trace(event, line)
         --LOG(string.format('trace: %s:%s called %d times', source, name, counter[source][name]))
         --LOG(string.format('trace: %s:%s UI called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line) ) )
 
-        LOG(debug.traceback())
-        LOG(GameTick(), CurrentTime(), string.format('user trace: %s:%s called %d times', source, name, counter[source][name], tostring(event), tostring(line)))
+        --LOG(debug.traceback())
+        LOG(GameTick(), string.format('user trace: %s:%s called %d times', source, name, counter[source][name], tostring(event), tostring(line)))
     end
 
 end

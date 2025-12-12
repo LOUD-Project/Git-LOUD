@@ -2200,9 +2200,9 @@ Unit = Class(UnitMethods) {
 			
 			local pos = table.copy(self:GetPosition())
 			
-			local mass = bp.Economy.BuildCostMass * (Wreckage.MassMult or 0)
-			local energy = bp.Economy.BuildCostEnergy * (Wreckage.EnergyMult or 0)
-			local time = (Wreckage.ReclaimTimeMultiplier or 1)
+			local mass      = bp.Economy.BuildCostMass * (Wreckage.MassMult or 0)
+			local energy    = bp.Economy.BuildCostEnergy * (Wreckage.EnergyMult or 0)
+			local time      = (Wreckage.ReclaimTimeMultiplier or 1)
             
 			local prop = CreateProp( pos, wreck )
 
@@ -2214,9 +2214,9 @@ Unit = Class(UnitMethods) {
 			
 			prop:SetMaxReclaimValues(time, time, mass, energy)
 			
-			mass = (mass - (mass * (overkillRatio or 1))) * GetFractionComplete(self)
-			energy = (energy - (energy * (overkillRatio or 1))) * GetFractionComplete(self)
-			time = time - (time * (overkillRatio or 1))
+			mass    = (mass - (mass * (overkillRatio or 1))) * GetFractionComplete(self)
+			energy  = (energy - (energy * (overkillRatio or 1))) * GetFractionComplete(self)
+			time    = time - (time * (overkillRatio or 1))
 			
 			prop:SetReclaimValues(time, time, mass, energy)
 			
@@ -2310,7 +2310,7 @@ Unit = Class(UnitMethods) {
 			
         end
 		
-		local DNCList = ALLBPS[other.BlueprintID].DoNotCollideList
+		local DNCList = ALLBPS[other.BlueprintID].DoNotCollideList or false
 		
 		if DNCList then
 		
@@ -2323,7 +2323,7 @@ Unit = Class(UnitMethods) {
 			
 		end
 
-		local DNCList = ALLBPS[self.BlueprintID].DoNotCollideList	
+		local DNCList = ALLBPS[self.BlueprintID].DoNotCollideList or false	
 		
 		if DNCList then
 		
@@ -2344,7 +2344,7 @@ Unit = Class(UnitMethods) {
 			end
 		end
 
-        if not self.Dead and self.EXPhaseEnabled then
+        if (not self.Dead) and self.EXPhaseEnabled then
 		
             if LOUDENTITY(PROJECTILE, other) then 
 			

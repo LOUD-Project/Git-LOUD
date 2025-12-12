@@ -530,7 +530,7 @@ function CollectCurrentScores()
     local SetArmyStat = moho.aibrain_methods.SetArmyStat
     
 	local GetBlueprintStat = moho.aibrain_methods.GetBlueprintStat
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
 	local massSpent, energySpent, massValueDestroyed, massValueLost, energyValueDestroyed, energyValueLost
 	local mass_total, mass_used, mass_total_waste, energy_total, energy_used, energy_total_waste
