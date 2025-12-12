@@ -1,3 +1,14 @@
+### Release 12-12-2025
+
+LUA 7.40
+
+- fixed an issue with mines detonating leading to crash
+- some minor cleanup and style work
+- fixed an issue with mobile shield effects stacking up when E was bouncing
+- decoupled LOUD's energy storage % requirment from T3 Energy construction
+    -- even when being kept at 100% storage by allied players, LOUD will construct his own T3 power
+
+
 ### Release 12-07-2025
 
 LUA 7.39.2
