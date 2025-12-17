@@ -826,6 +826,11 @@ Platoon = Class(PlatoonMethods) {
 
 		local threattype    = ThreatTable[platoonLayer]
 
+        local counter       = 0
+        local maxthreat     = 0
+        local positions     = {}    -- reused several times
+        local temptable     = {}    -- reused several times within
+
 		-- threatallowed controls how much threat is considered acceptable at any point
 		local threatallowed = threatallowed or 5
         
@@ -906,7 +911,6 @@ Platoon = Class(PlatoonMethods) {
 
 		
 		--** A Whole set of localized function **--
-
 		local AIGetThreatLevelsAroundPoint = function( position )
 
 			if threattype == 'AntiAir' then
@@ -1037,135 +1041,108 @@ Platoon = Class(PlatoonMethods) {
                 local CheckBlockingTerrain      = CheckBlockingTerrain
                 local GetThreatBetweenPositions = GetThreatBetweenPositions
 
-                local LOUDCOPY  = LOUDCOPY
-                local LOUDSORT  = LOUDSORT
-				local VDist2    = VDist2
-                local VDist3    = VDist3
-                local VDist3Sq  = VDist3Sq 
+                local LOUDSORT      = LOUDSORT
+				local VDist2        = VDist2
+                local VDist3        = VDist3
 
-				local counter = 0
-				local positions = {}			
-
-                local maxthreat = (threatallowed * threatmodifier)
-                local maxthreattest = maxthreat
-
-                local nomarkers = true
+				counter     = 0
+                maxthreat   = threatallowed * threatmodifier
+				positions   = {}			
+                temptable   = {}
 
                 local Node, Position, goaldistance, testdistance, thisdistance, thisthreat
-				
-				-- sort the table by closest to the given location (start position of this test)
-				LOUDSORT(markerlist, function(a,b) return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
                 
-                if goalseek then
-                    -- only allow points that are closer (within 10%) of the goal
-                    -- as sometimes the only connecting marker is actually a bit further away from the desired goal
-                    goaldistance = VDist3(location,goalseek) * 1.1
+                testdistance = MaxMarkerDist
+                
+                -- only AIR platoons will use full Marker Distances
+                if platoonLayer != 'Air' then
+                    testdistance = testdistance * .6
                 end
-	
-				-- traverse the list and make a new list of those with allowable threat and within the MaxMarkerDist range
-				-- since the source table is already sorted by range, the output table will be created in a sorted order
-                -- if we are seeking the safest, we should always immediately return when we get a 0 or less threat - as it will also be the closest
-                -- if we are goalseeking then we must review them all - and then sort to get the one closest to the goal (that is still safe)
-				for _,v in markerlist do
                 
-                    Node = v.node
-                    Position = LOUDCOPY(v.position)
+                -- this code provided by Delins 
+                for _,v in markerlist do
+                
+                    Position = v.position
                     
-                    testdistance = VDist2( Position[1],Position[3], location[1],location[3] )
-
-					-- process only those entries within the radius
-					if testdistance <= MaxMarkerDist then
+                    v.resultdist = LOUDFLOOR( VDist2( Position[1],Position[3], location[1],location[3] ) )
                     
-                        nomarkers = false
-                        
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker "..repr(Node).." at "..repr(Position).." goalseek is "..repr(goalseek).." seeksafest is "..repr(seeksafest) )
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." IMAPRadius is "..IMAPRadius.." testdistance is "..testdistance.." factor would be "..testdistance/IMAPRadius )
-
-                        thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype ) / math.max( 1, testdistance/IMAPRadius )
-                        
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." Gets "..thisthreat.." "..threattype.." threat between "..repr(location).." and "..repr(Position).." Max "..maxthreattest.." modifier is "..math.max( 1, testdistance/IMAPRadius )  )
-
-                        if thisthreat <= maxthreattest then
-                        
-                            if goalseek then
-                                thisdistance = VDist3(Position, goalseek)
-                            else
-                                -- record lowest threat
-                                maxthreattest = thisthreat
-                            end
-
-                            if not CheckBlockingTerrain( location, Position, blockingcheck ) then
-
-                                -- add only those with acceptable threat to the new list
-                                -- if seeksafest or goalseek and there is any kind of threat, we'll build a table of points with allowable threats
-                                -- otherwise we'll just take the closest one with zero threat
-
-                                -- if threat is zero - and we're not goalseeking - we'll use it immediately
-                                -- if we are goalseeking - the tested Position has to be closer to the goal than the location where we started this test from
-                                -- we'll just add the location to the list of positions and sort it afterwards by which is closer to the goal
-                                if thisthreat > 0 or ( goalseek and thisdistance < goaldistance ) then
-                                
-                                    if counter > 0 then
-                                    
-                                        if platoonLayer != 'Air' and testdistance > (MaxMarkerDist * .5) then
-                                            break
-                                        end
-
-                                    end
-                                    
-                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker "..repr(Node).." at "..repr(Position).." ADDED" )
-
-                                    counter = counter + 1						
-                                    positions[counter] = { thisthreat, Node, Position, math.floor(testdistance), math.floor(thisdistance or 0) }
-
-                                    -- within DIRECT range --
-                                    if platoonLayer == 'Air' and thisdistance and thisdistance < stepsize then
-                                        break
-                                    end
-                                    
-                                    goaldistance = thisdistance
-                                
-                                else
-                                    if not goalseek then
-                                        return ScenarioInfo.PathGraphs[platoonLayer][Node], Node or GetPathGraphs()[platoonLayer][Node], Node
-                                    end
-                                end
-
-                            end
-
-                        end
-                        
-					else
-                        break   -- markers are sorted by range from location so we've exhausted any that are close enough
+                    if v.resultdist <= testdistance then
+                    
+                        counter = counter + 1
+                        temptable[counter] = v
                     end
+                end
+                
+                if counter == 0 then
+                    WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location) )
+                    return false, false
+                end
+
+				-- sort the table by closest to the given location (start position of this test)
+				LOUDSORT(temptable, function(a,b) return a.resultdist < b.resultdist end)
+                
+                ---LOG("*AI DEBUG sorted temptable is "..repr(temptable) )
+
+                counter         = 0
+                goaldistance    = VDist3(location,goalseek) * 1.1   -- only allow points closer (110%) to the goal than the start, sometimes the only marker is further away
+	
+				-- traverse the list and make a new list of those with allowable threat 
+				for _,v in temptable do
+                
+                    Node            = v.node
+                    Position        = v.position
+                    testdistance    = v.resultdist
                     
+                    thisdistance = LOUDFLOOR( VDist3(Position, goalseek) )
+                    
+                    -- only process those closer to the goal
+                    if thisdistance <= goaldistance then
+
+                        thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype ) / LOUDMAX( 1, testdistance/IMAPRadius )
+
+                        -- only those with acceptable threat
+                        if thisthreat <= maxthreat and not CheckBlockingTerrain( location, Position, blockingcheck ) then
+
+                            counter = counter + 1						
+                            positions[counter] = { thisthreat, Node, Position, testdistance, thisdistance }
+
+                            -- within DIRECT range --
+                            if platoonLayer == 'Air' and thisdistance < stepsize then
+                                break
+                            end
+
+                        --else
+                          --  if thisthreat > maxthreat then
+                            --    WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." sees "..thisthreat.." threat - allowed is "..maxthreat )
+                            --end
+                        end
+                    end
 				end
 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker list is "..counter) 
+                if counter == 0 then
+                    ---WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." PathFind checked marker list is "..counter.." to "..repr(goalseek) ) 
+                    return false, false
+                end
 
 				-- resort positions 
 
-				if goalseek and not seeksafest then
-                    -- sort by shortest total distance to goal (sum of both distances, from start and to goal)
+				if not seeksafest then
+                    -- goalseek only -- shortest total distance (sum of both distances, from start and to goal)
 					LOUDSORT(positions, function(a,b) return a[4]+a[5] < b[4]+b[5] end)
 				else
-                    if seeksafest and not goalseek then
-                        -- sort by threat -- plus a small distance modifier - so if threat is the same (or very close), we prefer the result closer to the start
-                        LOUDSORT(positions, function(a,b) return a[1]+(a[4]*.05) < b[1]+(b[4]*.05) end)
-                    else
-                        -- seeksafest and goalseek
-                        LOUDSORT(positions, function(a,b) return a[1]+((a[4]+a[5])*.05) < b[1]+((b[4]+b[5])*.05) end)
-                    end
+                    -- seeksafest -- lowest threat with minor distance modifier (favors lowest threat and distance values)
+                    LOUDSORT(positions, function(a,b) return a[1]+((a[4]+a[5])*.05) < b[1]+((b[4]+b[5])*.05) end)
                 end
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker positions maxthreat is "..repr(maxthreat).." positions are "..repr(positions) )
+                ---LOG("*AI DEBUG sorted positions is "..repr(positions))
 
-				local bestThreat = maxthreat
 				local bestMarker = positions[1][2]	-- default to the one closest to goalseek
 			
-				-- loop thru to find one with lowest threat	-- if all threats are equal we'll end up with the closest
+				-- loop thru to find lowest threat -- if all threats are equal we'll end up with the closest
 				if seeksafest then
-			
+
+                    local bestThreat = maxthreat			
+
 					for _,v in positions do
 				
 						if v[1] < bestThreat then
@@ -1175,20 +1152,8 @@ Platoon = Class(PlatoonMethods) {
 					end
 				end
 
-				if bestMarker then
-               
-					return ScenarioInfo.PathGraphs[platoonLayer][bestMarker],bestMarker or GetPathGraphs()[platoonLayer][bestMarker],bestMarker
-				else
-                
-                    if nomarkers then
-                        --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
-                    else
-                        if PathFindingDialog then
-                            LOG( dialog.." No safe marker was found - using "..maxthreat.." threat - near "..repr(location).." available positions were "..repr(positions) )
-                        end
-                    end
-                    
-                end
+				return ScenarioInfo.PathGraphs[platoonLayer][bestMarker],bestMarker or GetPathGraphs()[platoonLayer][bestMarker],bestMarker
+
             end
 			
 			return false, false
