@@ -12,12 +12,17 @@ local WaitTicks = coroutine.yield
 function RemoteViewing(SuperClass)
 
     local RemoteViewingDebug = false
+    local dialog = "*AI DEBUG "
 
     return Class(SuperClass) {
 	
         OnCreate = function(self)
 		
             SuperClass.OnCreate(self)
+            
+            if RemoteViewingDebug then
+                dialog = "*AI DEBUG "..self:GetAIBrain().Nickname.." RemoteViewing "
+            end
 			
             self.RemoteViewingData = {
                 Abilities               = self:GetBlueprint().Abilities,
@@ -31,7 +36,7 @@ function RemoteViewing(SuperClass)
             }
 
             if RemoteViewingDebug then
-                LOG("*AI DEBUG OnCreate for "..repr(self.BlueprintID) )
+                LOG( dialog.." OnCreate for "..repr(self.BlueprintID) )
             end
   
         end,
@@ -39,7 +44,7 @@ function RemoteViewing(SuperClass)
         OnStopBeingBuilt = function(self,builder,layer)
 
             if RemoteViewingDebug then
-                LOG("*AI DEBUG OnStopBeingBuilt for "..repr(self.BlueprintID) )
+                LOG( dialog.." OnStopBeingBuilt for "..repr(self.BlueprintID) )
             end
   
             self.Sync.Abilities = self.RemoteViewingData.Abilities            
@@ -98,7 +103,7 @@ function RemoteViewing(SuperClass)
         TargetLocationThread = function(self)
         
             if RemoteViewingDebug then
-                LOG("*AI DEBUG Target Location Thread for "..repr(self.RemoteViewingData.PendingVisibleLocation))
+                LOG( dialog.." Target Location Thread for "..repr(self.RemoteViewingData.PendingVisibleLocation))
             end
 
             self:RequestRefreshUI()
@@ -113,8 +118,8 @@ function RemoteViewing(SuperClass)
         AntiTeleportBlock = function( self, aiBrain, location )
         
             if RemoteViewingDebug then
-                LOG("*AI DEBUG AntiTeleportBlock location is "..repr(location))
-                LOG("*AI DEBUG RemoteViewingData is "..repr(self.RemoteViewingData))
+                LOG( dialog.." AntiTeleportBlock location is "..repr(location))
+                LOG( dialog.." RemoteViewingData is "..repr(self.RemoteViewingData))
             end
 
 			for num, brain in ArmyBrains do
@@ -140,7 +145,7 @@ function RemoteViewing(SuperClass)
 						FloatingEntityText(self.EntityID,'Remote Viewing Destination Scrambled')
                         
                         if RemoteViewingDebug then
-                            LOG("*AI DEBUG RemoteViewing Location is blocked within ("..noTeleDistance..") at "..repr(self.RemoteViewingData.VisibleLocation).." distance is "..targetdestdistance )
+                            LOG( dialog.." Location is blocked within ("..noTeleDistance..") at "..repr(self.RemoteViewingData.VisibleLocation).." distance is "..targetdestdistance )
                         end
 
                         self.RemoteViewingData.PendingVisibleLocation = false
@@ -171,7 +176,7 @@ function RemoteViewing(SuperClass)
 			local VisibilityEntityWillBeCreated = (self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0)
 
             if RemoteViewingDebug then        
-                LOG("*AI DEBUG CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
+                LOG( dialog.." CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
 			end
             
             -- Only give a visible area if we have a location and intel button enabled
@@ -202,7 +207,7 @@ function RemoteViewing(SuperClass)
                     }
 
                     if RemoteViewingDebug then        
-                        LOG("*AI DEBUG CreateVisibleEntity spec is  "..repr(spec) )
+                        LOG( dialog.." CreateVisibleEntity spec is  "..repr(spec) )
                     end
 
                     self.RemoteViewingData.Satellite = VizMarker(spec)
@@ -221,7 +226,7 @@ function RemoteViewing(SuperClass)
                     if not self.RemoteViewingData.Satellite:BeenDestroyed() and self.RemoteViewingData.VisibleLocation then
                     
                         if RemoteViewingDebug then
-                            LOG("*AI DEBUG Moving Existing RemoteViewing Entity and Enabling Vision")
+                            LOG( dialog.." Moving Existing RemoteViewing Entity and Enabling Vision")
                         end
                         
                         Warp( self.RemoteViewingData.Satellite, self.RemoteViewingData.VisibleLocation )
@@ -242,7 +247,7 @@ function RemoteViewing(SuperClass)
 				if bp.Cooldown and bp.Cooldown > 0 then
    
                     if RemoteViewingDebug then
-                        LOG("*AI DEBUG Cooldown Thread "..repr(self.CooldownThread) )
+                        LOG( dialog.." Cooldown Thread "..repr(self.CooldownThread) )
                     end
                    
                     if self.CooldownThread then
@@ -257,7 +262,7 @@ function RemoteViewing(SuperClass)
                 if bp.Viewtime and bp.Viewtime > 0 then
    
                     if RemoteViewingDebug then
-                        LOG("*AI DEBUG Viewtime Thread "..repr(self.ViewtimeThread) )
+                        LOG( dialog.." Viewtime Thread "..repr(self.ViewtimeThread) )
                     end
 
                     -- kill any existing thread
@@ -273,7 +278,7 @@ function RemoteViewing(SuperClass)
                 if bp.RemoteViewingRadiusFinal and bp.RemoteViewingRadiusFinal > 0 and bp.RemoteViewingRadiusFinal != bp.RemoteViewingRadius then
    
                     if RemoteViewingDebug then
-                        LOG("*AI DEBUG ViewingRadius Thread "..repr(self.ViewingRadiusThread) )
+                        LOG( dialog.." ViewingRadius Thread "..repr(self.ViewingRadiusThread) )
                     end
 				
                     if self.ViewingRadiusThread then
@@ -298,7 +303,7 @@ function RemoteViewing(SuperClass)
         DisableVisibleEntity = function(self)
 
             if RemoteViewingDebug then        
-                LOG("*AI DEBUG DisableVisibleEntity on tick "..GetGameTick() )
+                LOG( dialog.." DisableVisibleEntity on tick "..GetGameTick() )
             end
             
             -- if visible entity already off
@@ -336,7 +341,7 @@ function RemoteViewing(SuperClass)
             self:RequestRefreshUI()
  
             if RemoteViewingDebug then
-                LOG("*AI DEBUG RechargeEmitter for "..repr(self.BlueprintID))
+                LOG( dialog.." RechargeEmitter for "..repr(self.BlueprintID))
             end
   
             self:RequestRefreshUI()
@@ -345,7 +350,7 @@ function RemoteViewing(SuperClass)
             local chargetime    = self.RemoteViewingData.Intel.ReactivateTime or 15
 
             if RemoteViewingDebug then
-                LOG("*AI DEBUG RechargeEmitter for "..repr(self.BlueprintID).." ".. chargetime * 10 )
+                LOG( dialog.." RechargeEmitter for "..repr(self.BlueprintID).." ".. chargetime * 10 )
             end
   
             local Cost = CreateEconomyEvent(self, chargeEcost, 0, chargetime, self.SetWorkProgress)
@@ -366,7 +371,7 @@ function RemoteViewing(SuperClass)
             self.RemoteViewingData.DisableCounter = 0
 
             if RemoteViewingDebug then
-                LOG("*AI DEBUG RechargeEmitter complete "..repr(self.Sync.Abilities) )
+                LOG( dialog.." RechargeEmitter complete "..repr(self.Sync.Abilities) )
             end
         end,
 
