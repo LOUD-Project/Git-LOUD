@@ -235,10 +235,15 @@ end
 -- This routine returns the location of the closest base that has engineers or NON-NAVAL factories
 function AIFindClosestBuilderManagerPosition( aiBrain, position, requiredcat)
 
+    local BM = aiBrain.BuilderManagers or false
+    
+    if not BM then
+        return position
+    end
+    
     local distance = 9999999
 	local closest = false
-    
-    local BM = aiBrain.BuilderManagers
+
     local VDist2Sq = VDist2Sq
 
     for k,v in BM do
@@ -277,6 +282,11 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position, requiredcat)
     
         return AIFindClosestBuilderManagerPosition( aiBrain, position)
         
+    end
+    
+    if not closest then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." cant find closest base from "..repr(position) )
+        return position
     end
 
     return closest
@@ -2217,8 +2227,8 @@ function AirUnitRefitThread( unit, aiBrain )
                     returnpool:KillMoveThread()
                 end
                 
-                --- assign unit to RefuelPool
-                if PlatoonExists(aiBrain, returnpool ) then
+                --- assign unit to RefuelPool (if it exists)
+                if PlatoonExists(aiBrain, returnpool ) and aiBrain.RefuelPool then
 
                     if RefitDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..returnpool.BuilderName.." arrives at airpad - Assigned to RefuelPool on tick "..GetGameTick() )
