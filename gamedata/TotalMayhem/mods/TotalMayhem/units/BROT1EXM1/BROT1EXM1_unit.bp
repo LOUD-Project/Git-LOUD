@@ -236,14 +236,14 @@ UnitBlueprint {
 			
             Label = 'Riotgun',
 			
-            MaxRadius = 28,
+            MaxRadius = 24,
 
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 46,
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',  --'/projectiles/TDFRiot02/TDFRiot02_proj.bp',
+            ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
             ProjectileLifetime = 0.7,
 
             RackBones = {
@@ -261,7 +261,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.05,
 
             TurretBoneDualMuzzle = 'minigunmuzzle01',
             TurretBoneDualPitch = 'minigun',
@@ -301,19 +300,22 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
+            
+            EnergyRequired = 72,        -- each rocket requires 12E for this damage, AOE and range
+            EnergyDrainPerSecond = 12,  -- 6 second recharge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = 1,
+            FiringRandomness = 1.1,
 			
             Label = 'rocket',
 			
             MaxRadius = 33,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 17,
 			
@@ -329,11 +331,11 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 7.5,      -- 10 second cycle 
+            RackSalvoReloadTime = 7,      -- 10 second cycle 
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,	-- 15dps
+            RateOfFire = 0.5,	-- 15dps based on charge cycle, rack reload
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {
