@@ -2379,7 +2379,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." ordered to attach to airpad "..airstage.Sync.id.." on tick "..GetGameTick() )
                 end
 
-                safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
+                safecall("Unable to IssueTransportLoad units are "..unit.Sync.id, IssueTransportLoad, {unit}, airstage )
 
             end
 
@@ -2433,7 +2433,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." ordered 2ND attach to "..airstage.Sync.id.." on tick "..GetGameTick() )
                         end
                 
-                        safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
+                        safecall("Unable to IssueTransportLoad units are "..unit.Sync.id, IssueTransportLoad, {unit}, airstage )
 
                     end
 
