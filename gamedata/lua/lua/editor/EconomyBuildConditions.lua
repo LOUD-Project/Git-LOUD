@@ -203,7 +203,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		local CanBuildStructureAt = CanBuildStructureAt
     
 		for _,v in markerlist do
-            
+
             position = v.Position
             distance = VDist3( position, baseposition )
             
@@ -215,6 +215,9 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
                         counter = counter + 1
                         mlist[counter] = v
                     end
+                else
+                    -- all others will be beyond maxdistance now
+                    break
                 end
             end
 		end
