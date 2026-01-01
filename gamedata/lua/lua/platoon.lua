@@ -1748,7 +1748,7 @@ Platoon = Class(PlatoonMethods) {
                 -- if no transport reply resubmit LAND platoons, others will set a direct path
                 if not usedTransports and PlatoonExists(aiBrain,self) then
 
-                    WaitTicks(31)
+                    WaitTicks(21)
 
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 
@@ -9258,13 +9258,20 @@ Platoon = Class(PlatoonMethods) {
                         end
 
                         targetLocation = false
-                        -- break out and return to target selection process --
+                        
+                        notargetcount = notargetcount + 1
+                        
+                        WaitTicks(3)
+                        
+                        -- break out and return to target selection
                         continue
 					else
 					
                         if LandForceAIDialog then
                             LOG(dialog.." - executing path movement on tick "..GetGameTick() )
                         end
+                        
+                        notargetcount = 0
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance )
 
@@ -9773,15 +9780,22 @@ Platoon = Class(PlatoonMethods) {
                     end
                 end
         
-                -- use path or RTB --
                 if not usedTransports then
 			
                     if not path then
 					
-                        return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                        targetLocation = false
+                        
+                        notargetcount = notargetcount + 1
+                        
+                        WaitTicks(3)
+                        
+                        -- break out and return to target selection
+                        continue
 
-                    -- or begin walking --
                     else
+                        
+                        notargetcount = 0
 
                         self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance)
                     end
@@ -9904,7 +9918,7 @@ Platoon = Class(PlatoonMethods) {
 
             end
 			
-			WaitTicks(46)
+			WaitTicks(41)
             
 		end
 
