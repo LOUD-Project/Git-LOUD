@@ -235,6 +235,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Goliath Missiles',
+            
+            EnergyRequired = 8000,          -- 500E per missile
+            EnergyDrainPerSecond = 800,     -- 10 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -295,9 +298,10 @@ UnitBlueprint {
 			-- and the rack salvo charge time - 1 seconds
 			-- so true firing cycle is 10 seconds or 9600/10
 
-            RateOfFire = 1.2,	---- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
+            RateOfFire = 0.2,	---- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'DEFENSE',
@@ -306,7 +310,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, WALL',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1,
 			
             Turreted = false,
 			
@@ -719,13 +723,13 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 12500,
-            NukeInnerRingRadius = 12,
+            NukeInnerRingDamage = 15000,
+            NukeInnerRingRadius = 18,
             NukeInnerRingTicks = 3,
             NukeInnerRingTotalTime = 1,
 			
-            NukeOuterRingDamage = 650,
-            NukeOuterRingRadius = 28,
+            NukeOuterRingDamage = 1200,
+            NukeOuterRingRadius = 36,
             NukeOuterRingTicks = 3,
             NukeOuterRingTotalTime = 3,
 			
@@ -746,9 +750,9 @@ UnitBlueprint {
     
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
+        EnergyMult = 0.1,
         HealthMult = 0.2,
-        MassMult = 0.3,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

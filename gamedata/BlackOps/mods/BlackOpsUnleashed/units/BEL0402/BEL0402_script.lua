@@ -307,15 +307,15 @@ BEL0402 = Class(TWalkingLandUnit) {
 		CreateDeathExplosion( self, 'Torso', 6)
         CreateAttachedEmitter(self, 'Torso', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):OffsetEmitter( 0, 0, 0 )
 		self:ShakeCamera(20, 2, 1, 1)
-		WaitSeconds(3)
+		WaitSeconds(2)
 		explosion.CreateDefaultHitExplosionAtBone( self, 'Torso', 5.0 )
-		WaitSeconds(1)
+		WaitSeconds(0.8)
 		explosion.CreateDefaultHitExplosionAtBone( self, 'Missile_Hatch_B', 5.0 )
 		self:CreateDamageEffects( 'Missile_Hatch_B', army )
 		self:ShakeCamera(20, 2, 1, 1.5)
-		WaitSeconds(1)
+		WaitSeconds(0.8)
 		CreateDeathExplosion( self, 'Left_Arm_Extra', 1.0 )
-		WaitSeconds(0.5)
+		WaitSeconds(0.4)
 		CreateDeathExplosion( self, 'Left_Arm_Muzzle', 1.0 )
 
 		WaitSeconds(0.2)
@@ -325,19 +325,19 @@ BEL0402 = Class(TWalkingLandUnit) {
 		WaitSeconds(0.2)
 		CreateDeathExplosion( self, 'Left_Leg_B', 1.0 )
 		self:CreateDamageEffects( 'Left_Leg_B', army )
-		WaitSeconds(0.6)
+		WaitSeconds(0.5)
 		CreateDeathExplosion( self, 'Right_Arm_Extra', 1.0 )
 
 		CreateDeathExplosion( self, 'Left_Arm_Yaw', 1.0 )
 		WaitSeconds(0.2)
 		CreateDeathExplosion( self, 'Right_Leg_B', 1.0 )
-		WaitSeconds(1)
+		WaitSeconds(0.8)
 		CreateDeathExplosion( self, 'Pelvis', 1.0 )
 		CreateDeathExplosion( self, 'Beam_Barrel', 1.0 )
 		WaitSeconds(0.2)
 		CreateDeathExplosion( self, 'Head', 1.0 )
 
-		WaitSeconds(0.5)
+		WaitSeconds(0.4)
 		CreateDeathExplosion( self, 'AttachSpecial01', 1.0 )
 		self:CreateDamageEffects( 'AttachSpecial01', army )
 		WaitSeconds(0.3)
@@ -352,12 +352,12 @@ BEL0402 = Class(TWalkingLandUnit) {
 
 		WaitSeconds(0.1)
 		CreateDeathExplosion( self, 'Right_Foot', 1.0 )
-		WaitSeconds(0.7)
+		WaitSeconds(0.6)
 		CreateDeathExplosion( self, 'Beam_Turret', 2.0 )
 		self:CreateDamageEffects( 'Beam_Turret', army )
 		self:CreateDamageEffects( 'Right_Arm_Extra', army )
 
-		WaitSeconds(0.7)
+		WaitSeconds(0.6)
 		CreateDeathExplosion( self, 'Torso', 1.0 )
 		WaitSeconds(0.2)
 		CreateDeathExplosion( self, 'Right_Leg_B', 1.0 )
@@ -366,7 +366,7 @@ BEL0402 = Class(TWalkingLandUnit) {
 		CreateDeathExplosion( self, 'Right_Arm_Pitch', 1.0 )
 
 		self:CreateDamageEffects( 'Right_Arm_Pitch', army )
-		WaitSeconds(2)
+		WaitSeconds(1.2)
 		
 		local x, y, z = unpack(self:GetPosition())
         z = z + 3
@@ -392,14 +392,14 @@ BEL0402 = Class(TWalkingLandUnit) {
         
 		DamageRing(self, position, 0.1, 18, 1, 'Force', true)
         
-        WaitSeconds(0.8)
+        WaitSeconds(0.6)
         
         DamageRing(self, position, 0.1, 18, 1, 'Force', true)
         
 		local bp = __blueprints[self.BlueprintID]
         
         for i, numWeapons in bp.Weapon do
-            if(bp.Weapon[i].Label == 'GoliathDeathNuck') then
+            if(bp.Weapon[i].Label == 'DeathWeapon') then
                 DamageArea(self, self:GetPosition(), bp.Weapon[i].DamageRadius, bp.Weapon[i].Damage, bp.Weapon[i].DamageType, bp.Weapon[i].DamageFriendly)
                 break
             end
@@ -416,7 +416,7 @@ BEL0402 = Class(TWalkingLandUnit) {
 		
 		CreateLightParticle(self, -1, army, 200, 150, 'glow_03', 'ramp_nuke_04')
 
-		WaitSeconds(2)
+		WaitSeconds(1.2)
 
 		self:CreateGroundPlumeConvectionEffects(army)
 		
