@@ -176,7 +176,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0303_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -198,7 +198,7 @@ UnitBlueprint {
                 Land = 'Air',
             },
 			
-            FiringTolerance = 0.5,
+            FiringTolerance = 1,
 			
             Label = 'AntiAirMissiles',
 			
@@ -207,10 +207,10 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 58,
+            MuzzleVelocity = 50,
 			
-            ProjectileId = '/projectiles/CAANanoDart04/CAANanoDart04_proj.bp',
-            ProjectileLifetime = 0.8,
+            ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',			
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {
