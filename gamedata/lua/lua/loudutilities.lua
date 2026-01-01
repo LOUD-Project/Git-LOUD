@@ -3250,7 +3250,8 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	end
 	
 	local rallypointtable = {}
-    local baseposition = LOUDCOPY(aiBrain.BuilderManagers[basename].Position)
+
+    local baseposition = aiBrain.BuilderManagers[basename].Position
 	
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, orientation ) do
 
@@ -3600,7 +3601,7 @@ function PathGeneratorAir( aiBrain )
 				continue
 			end
 			
-			testposition = LOUDCOPY(graph[newnode].position)
+			testposition = graph[newnode].position
 		
 			if data.Testpath and DestinationBetweenPoints( position, testposition ) then
 
@@ -3867,7 +3868,7 @@ function PathGeneratorAmphibious(aiBrain)
 				continue
 			end
 
-			testposition = LOUDCOPY(graph[newnode].position)
+			testposition = graph[newnode].position
 
 			if Testpath and DestinationBetweenPoints( position, testposition ) then
             
@@ -4115,7 +4116,7 @@ function PathGeneratorLand(aiBrain)
 				continue
 			end
 
-			testposition = LOUDCOPY(graph[newnode].position)
+			testposition = graph[newnode].position
 		
 			if Testpath and DestinationBetweenPoints( position, testposition ) then
             
@@ -4356,7 +4357,7 @@ function PathGeneratorWater(aiBrain)
 				continue
 			end
 
-			testposition = LOUDCOPY(graph[newnode].position)
+			testposition = graph[newnode].position
 		
 			if Testpath and DestinationBetweenPoints( position, testposition ) then
             
