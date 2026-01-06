@@ -55,18 +55,20 @@ local MATHMAX                   = math.max
 
 local VectorCached = { 0, 0, 0 }
 
+local STRUCTURE         = categories.STRUCTURE
+
 local COMMAND           = categories.COMMAND
-local DEFENSESTRUCTURES = categories.STRUCTURE * categories.DEFENSE
+local DEFENSESTRUCTURES = STRUCTURE * categories.DEFENSE
 local ENGINEER          = categories.ENGINEER
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
 local MASSSTORAGE       = categories.MASSSTORAGE
-local SHIELDSTRUCTURES  = categories.STRUCTURE * categories.SHIELD - categories.TECH2
+local SHIELDSTRUCTURES  = STRUCTURE * categories.SHIELD - categories.TECH2
 local SUBCOMMANDER      = categories.SUBCOMMANDER
 
-local factory           = categories.FACTORY * categories.STRUCTURE
-local landfactory       = categories.LAND * factory
-local airfactory        = categories.AIR * factory
-local seafactory        = categories.NAVAL * factory
+local factory           = STRUCTURE * categories.FACTORY
+local landfactory       = factory * categories.LAND
+local airfactory        = factory * categories.AIR
+local seafactory        = factory * categories.NAVAL
 local allunits          = categories.ALLUNITS
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )

@@ -4,10 +4,12 @@ local import = import
 
 local AIAddMustScoutArea                                    = import('/lua/ai/aiutilities.lua').AIAddMustScoutArea
 local AIFindTargetInRangeInCategoryWithThreatFromPosition   = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+local AIGetMarkerLocations                                  = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 local AISortScoutingAreas                                   = import('/lua/loudutilities.lua').AISortScoutingAreas
 local CreateUnitDestroyedTrigger                            = import('/lua/scenarioframework.lua').CreateUnitDestroyedTrigger
 local GetBasePerimeterPoints                                = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 local GetDirectionInDegrees                                 = import('/lua/utilities.lua').GetDirectionInDegrees
+local GetEnemyUnitsInRect                                   = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
 local GetHiPriTargetList                                    = import('/lua/loudutilities.lua').GetHiPriTargetList
 local GetOwnUnitsAroundPoint                                = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation                                        = import('/lua/ai/aiutilities.lua').RandomLocation
@@ -2871,6 +2873,10 @@ function AirForceAILOUD( self, aiBrain )
     if AirForceDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." starts")
     end
+    
+    if not GetPlatoonPosition(self) then
+        return
+    end
 
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
@@ -2956,8 +2962,8 @@ function AirForceAILOUD( self, aiBrain )
 	-- force the plan name
 	self.PlanName = 'AirForceAILOUD'
 
-    local AIFindTargetInRangeInCategoryWithThreatFromPosition   = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
-    local GetEnemyUnitsInRect                                   = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+    local AIFindTargetInRangeInCategoryWithThreatFromPosition   = AIFindTargetInRangeInCategoryWithThreatFromPosition
+    local GetEnemyUnitsInRect                                   = GetEnemyUnitsInRect
     local MergeWithNearbyPlatoons                               = self.MergeWithNearbyPlatoons
     local MovePlatoon                                           = self.MovePlatoon
     local PlatoonGenerateSafePathToLOUD                         = self.PlatoonGenerateSafePathToLOUD
@@ -3583,6 +3589,10 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     if AirForceDialog then
         LOG( dialog.." starts on tick "..GetGameTick())
     end
+    
+    if not GetPlatoonPosition(self) then
+        return
+    end
 
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
@@ -3673,8 +3683,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	self.PlanName = 'AirForceAI_Bomber_LOUD'
     
     local SetLoiterPosition             = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
-    local GetDirectionInDegrees         = import('/lua/utilities.lua').GetDirectionInDegrees
-    local GetEnemyUnitsInRect           = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+    local GetDirectionInDegrees         = GetDirectionInDegrees
+    local GetEnemyUnitsInRect           = GetEnemyUnitsInRect
     local MergeWithNearbyPlatoons       = self.MergeWithNearbyPlatoons    
 
 	local anchorposition    = LOUDCOPY( GetPlatoonPosition(self) )
@@ -4355,6 +4365,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     if AirForceDialog then
         LOG( dialog.." starts on tick "..GetGameTick())
     end
+    
+    if not GetPlatoonPosition(self) then
+        return
+    end
 
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
@@ -4445,8 +4459,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 	self.PlanName = 'AirForceAI_Torpedo_LOUD'
     
     local SetLoiterPosition             = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
-    local GetDirectionInDegrees         = import('/lua/utilities.lua').GetDirectionInDegrees
-    local GetEnemyUnitsInRect           = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+    local GetDirectionInDegrees         = GetDirectionInDegrees
+    local GetEnemyUnitsInRect           = GetEnemyUnitsInRect
     local MergeWithNearbyPlatoons       = self.MergeWithNearbyPlatoons    
 
 	local anchorposition    = LOUDCOPY( GetPlatoonPosition(self) )
@@ -5479,7 +5493,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         local midpointy = (squad[2]+targetposition[2])/2
                         local midpointz = (squad[3]+targetposition[3])/2
                     
-                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                        local Direction = GetDirectionInDegrees( squad, targetposition )
 
                         -- this gets them moving to a point halfway to the targetposition - hopefully
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
@@ -5660,9 +5674,9 @@ function NavalForceAILOUD( self, aiBrain )
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
 	local PlatoonExists             = PlatoonExists	
 	
-	local AIGetMarkerLocations  = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+	local AIGetMarkerLocations  = AIGetMarkerLocations
 	local FindTargetInRange     = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
-    local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
+    local GetDirectionInDegrees = GetDirectionInDegrees
 
     local armyIndex = aiBrain.ArmyIndex
 	local bAggroMove = false        -- Dont move flotillas aggressively - use formation
@@ -6350,9 +6364,9 @@ function NavalBombardAILOUD( self, aiBrain )
 
     local armyIndex = aiBrain.ArmyIndex
 
-	local AIGetMarkerLocations      = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+	local AIGetMarkerLocations      = AIGetMarkerLocations
 	local FindTargetInRange         = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
-    local GetDirection              = import('/lua/utilities.lua').GetDirectionInDegrees
+    local GetDirection              = GetDirectionInDegrees
 
     local data = self.PlatoonData
 
@@ -9229,7 +9243,7 @@ function FindLandExperimentalTargetLOUD( self, aiBrain )
 		enemythreattype = 'AntiAir'
 	end
 	
-	local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
+	local mythreat = GetThreatOfUnits(self)
 	
     local bestBase = false
     local bestTotal = 0
@@ -9639,7 +9653,7 @@ function BehemothBehavior(self)
 		
 		local sthreat = Target.Threats.Sur
 		local ethreat = Target.Threats.Eco
-		local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
+		local mythreat = GetThreatOfUnits(self)
 		
 		if sthreat > mythreat then
 			sthreat = mythreat
@@ -9766,7 +9780,7 @@ function FindNavalExperimentalTargetLOUD( self )
 		enemythreattype = 'AntiAir'
 	end
 	
-	local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
+	local mythreat = GetThreatOfUnits(self)
 	
     local bestBase = false
     local bestTotal = 0

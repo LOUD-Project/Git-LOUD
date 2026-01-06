@@ -382,8 +382,10 @@ Weapon = Class(WeaponMethods) {
 		if ScenarioInfo.WeaponDialog then
 			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
 		end
-
-        self:DoWeaponCallbacks('OnWeaponFired', self.unit)
+        
+        if self.EventCallbacks then
+            self:DoWeaponCallbacks('OnWeaponFired', self.unit)
+        end
 	end,
 
     OnDisableWeapon = function(self)

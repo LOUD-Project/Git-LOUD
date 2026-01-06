@@ -5544,7 +5544,7 @@ Unit = Class(UnitMethods) {
 
     InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation, telecostpaid)
     
-        local TeleportDialog = true
+        local TeleportDialog = false
 
         if TeleportDialog then
             LOG("*AI DEBUG Initiate Teleport Thread begins on tick "..GetGameTick() )

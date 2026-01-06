@@ -653,7 +653,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
-            { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
+            { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
         },
 		
         BuilderType = { 'Commander' },

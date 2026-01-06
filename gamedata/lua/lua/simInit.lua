@@ -85,13 +85,15 @@ function trace(event, line)
     counter[source][name] = (counter[source][name] or 0) + 1
 
     -- valar is 22609
+    -- Lord Damage is 121800
+    -- wraph is 55379
 
-    if math.mod(counter[source][name], 250000) == 0 or (GetGameTick() >= 22609) then
+    if math.mod(counter[source][name], 100000) == 0 or (GetGameTick() >= 55379) then
 
-        if (GetGameTick() >= 22609) then
-              LOG(debug.traceback())
+        if (GetGameTick() >= 55379) then
+            LOG(debug.traceback())
         end        
-            
+
         LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
     end
 

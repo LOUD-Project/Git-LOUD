@@ -615,7 +615,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         BuilderConditions = {
             
-            { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
+            { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
 

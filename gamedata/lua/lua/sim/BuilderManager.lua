@@ -521,7 +521,7 @@ BuilderManager = Class {
                 -- record the position of the the goal --
                 self.LastGoalCheck = LOUDCOPY(AttackPlan.Goal)        
 
-                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 + (ScenarioInfo.IMAPSize/4) )
+                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
 
                 if path and not BuilderManager.LandMode then
                 
