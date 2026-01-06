@@ -248,36 +248,49 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
     
 	local checkdistance = radius * radius
     local position, threat
-	
-	LOUDSORT(tempMarkers, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
-
-    for _,v in tempMarkers do
-	
+    
+    for k,v in tempMarkers do
+    
         position = v.Position
         
-        if VDist2Sq( pos[1], pos[3], position[1], position[3] ) <= checkdistance then
+        if VDist2Sq( pos[1], pos[3], position[1], position[3] ) < checkdistance then
+       
+            counter = counter + 1
+            markerlist[counter] = v            
+        end
+    end
+    
+    if counter < 1 then
+        return markerlist   --- which will be empty
+    end
+    
+    tempMarkers = {}        -- reuse tempMarkers
+    counter = 0
+	
+	LOUDSORT(markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
+
+    for _,v in markerlist do
+	
+        position = v.Position
 		
-            if not threatMin then
+        if not threatMin then
             
-				counter = counter + 1			
-                markerlist[counter] = v
-            else
-			
-                threat = GetThreatAtPosition( aiBrain, position, threatRings, true, threatType or 'Overall' )
-				
-                if threat >= threatMin and threat <= threatMax then
-                
-                    counter = counter + 1                
-                    markerlist[counter] = v
-				end
-            end
-			
+            counter = counter + 1			
+            tempMarkers[counter] = v
         else
-			break
-		end
+			
+            threat = GetThreatAtPosition( aiBrain, position, threatRings, true, threatType or 'Overall' )
+
+            if threat >= threatMin and threat <= threatMax then
+               
+                counter = counter + 1                
+                tempMarkers[counter] = v
+            end
+        end
+
     end
 	
-	return markerlist
+	return tempMarkers
 end
 
 -- this function simply filters a list of positions down to those
