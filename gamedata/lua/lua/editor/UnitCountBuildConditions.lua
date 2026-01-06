@@ -985,15 +985,10 @@ function DamagedStructuresInArea(aiBrain, locationtype)
 
 	if aiBrain.BuilderManagers[locationtype] then
 
-		local Structures = GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE, aiBrain.BuilderManagers[locationtype].Position, 80 )
+		local Structures = GetOwnUnitsAroundPoint( aiBrain, STRUCTURE, aiBrain.BuilderManagers[locationtype].Position, 80 )
         
-		LOUDSORT( Structures, function(a,b) return a:GetHealthPercent() < b:GetHealthPercent() end)
-
-		for k,v in Structures do
-			if not v.Dead and v:GetHealthPercent() < .8 and not v.BeingReclaimed then
-				return true
-			end
-		end
+        return table.foreachi( Structures, function(index,v) if (not v.Dead) and v:GetHealthPercent() < .8 and (not v.BeingReclaimed) then return true end end ) != nil
+        
 	end
     
     return false
