@@ -9990,7 +9990,6 @@ Platoon = Class(PlatoonMethods) {
         local MovementLayer = self.MovementLayer
         local Squads        = { 'Unassigned','Attack','Artillery','Guard','Support','Scout' }
 
-		
 		--- loop thru all the platoons
         for _,aPlat in GetPlatoonsList(aiBrain) do  ---AlliedPlatoons do
 	
@@ -10006,21 +10005,11 @@ Platoon = Class(PlatoonMethods) {
   
 			--- must a least have the same plan
             if aPlat.PlanName != planName then
-
-                --if PlatoonMergeDialog then
-                  --  LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." different plan" )
-                --end
-
                 continue
             end
 
 			--- not only the plan must match but the buildername as well
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
-
-                --if PlatoonMergeDialog then
-                  --  LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
-                --end
-
 				continue
 			end
 		
@@ -10031,7 +10020,6 @@ Platoon = Class(PlatoonMethods) {
 
             count = count + 1
             AlliedPlatoons[count] = aPlat
-        
         end
         
         if count == 0 then 
@@ -10044,27 +10032,25 @@ Platoon = Class(PlatoonMethods) {
 
         for _,aPlat in AlliedPlatoons do
         
-            if not aPlat.UsingTransport then
-        
-                -- mark the allied platoon as being busy
-                aPlat.UsingTransport = true
+            --- mark the allied platoon as being busy
+            aPlat.UsingTransport = true
 
-                if PlatoonMergeDialog then
-                    LOG( dialog.." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
-                end
+            if PlatoonMergeDialog then
+                LOG( dialog.." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
+            end
             
-                -- the allied platoons size
-                allyPlatoonSize = 0
+            --- the allied platoons size
+            allyPlatoonSize = 0
             
-                for _, squad in Squads do
+            for _, squad in Squads do
 
-                    validUnits = {}
-                    count = 0
+                validUnits = {}
+                count = 0
 
-                    -- count and check validity of allied units
-                    dataList = GetSquadUnits( aPlat, squad )
+                --- count and check validity of allied units
+                dataList = GetSquadUnits( aPlat, squad )
             
-                    if dataList then
+                if dataList then
             
                         for _,v in dataList do
 			
@@ -10072,47 +10058,44 @@ Platoon = Class(PlatoonMethods) {
 				
                                 allyPlatoonSize = allyPlatoonSize + 1
 
-                                if not IsUnitState(v,'Attached' )then
+                            if not IsUnitState(v,'Attached' )then
 				
-                                    -- if we have space in our platoon --
-                                    if (count + platooncount) <= mergelimit then
-						
-                                        count = count + 1
-                                        validUnits[count] = v
-                                    end
+                                --- if we have space in our platoon --
+                                if (count + platooncount) <= mergelimit then
+                                    count = count + 1
+                                    validUnits[count] = v
+                                end
                                 end
                             end
-                        end
                     end
+                end
 
-                    -- if no valid units or we are smaller than the allied platoon then dont allow
-                    if count < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
-                        continue
-                    end
+                --- if no valid units or we are smaller than the allied platoon then dont allow
+                if count < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
+                    continue
+                end
 
-                    -- otherwise we do the merge
-                    if PlatoonMergeDialog then
-                        LOG( dialog.." takes "..count.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+count.." on tick "..GetGameTick() )
-                    end
+                --- otherwise we do the merge
+                if PlatoonMergeDialog then
+                    LOG( dialog.." takes "..count.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+count.." on tick "..GetGameTick() )
+                end
 
                     IssueClearCommands( validUnits )
                 
-                    IssueMove( validUnits, GetPlatoonPosition(self) )                
+                IssueMove( validUnits, GetPlatoonPosition(self) )                
 
-                    -- assign the valid units to us - this may end the allied platoon --
-                    AssignUnitsToPlatoon( aiBrain, self, validUnits, squad, 'none' )
+                --- assign the valid units to us - this may end the allied platoon --
+                AssignUnitsToPlatoon( aiBrain, self, validUnits, squad, 'none' )
 			
-                    -- add the new units to our count --
-                    platooncount = platooncount + count
+                --- add the new units to our count --
+                platooncount = platooncount + count
 			
-                    -- flag that we did a merge --
-                    mergedunits = true
-                end
-            
-                -- unmark the allied platoon
-                aPlat.UsingTransport = false
-                
+                --- flag that we did a merge --
+                mergedunits = true
             end
+            
+            --- unmark the allied platoon
+            aPlat.UsingTransport = false
 
         end
         
@@ -10161,9 +10144,8 @@ Platoon = Class(PlatoonMethods) {
             end 
         end
 		
-        -- get all the platoons
 		local GetPlatoonsList   = GetPlatoonsList
-        local AlliedPlatoons    = GetPlatoonsList(aiBrain)
+        local AlliedPlatoons    = {}    --GetPlatoonsList(aiBrain)
         
         local count     = 0
         local Squads    = { 'Scout','Attack','Artillery','Guard','Support','Unassigned' }
@@ -10171,7 +10153,41 @@ Platoon = Class(PlatoonMethods) {
         local BuilderName   = self.BuilderName
         local MovementLayer = self.MovementLayer
 
-        local alliedcount, ourunitcount, unitlist
+        local alliedcount, goalposition, gotoposition, ourunitcount, unitlist
+
+        for _,aPlat in GetPlatoonsList(aiBrain) do
+
+            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool then
+                continue
+            end
+			
+            if MovementLayer != aPlat.MovementLayer then
+                continue
+            end
+			
+            if aPlat.UsingTransport then
+                continue
+            end
+			
+			if planmatchrequired and aPlat.BuilderName != BuilderName then
+				continue
+			end
+			
+            if aPlat.PlanName != planName then
+                continue
+            end
+
+			if VDist3( platPos, GetPlatoonPosition(aPlat) ) > radius then
+				continue
+			end
+            
+            count = count + 1
+            AlliedPlatoons[count] = aPlat
+        end
+        
+        if count == 0 then
+            return false
+        end
 
         ourunitcount = 0
 
@@ -10183,65 +10199,24 @@ Platoon = Class(PlatoonMethods) {
                 ourunitcount = ourunitcount + 1
             end
         end
-		
-		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3 = VDist3 return VDist3(GetPlatoonPosition(a), platPos) < VDist3(GetPlatoonPosition(b), platPos) end)
+
+		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3 = VDist3 return VDist3(GetPlatoonPosition(a), platPos) < VDist3(GetPlatoonPosition(b), platPos) end) 
 
         for _,aPlat in AlliedPlatoons do
 
-            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool then
-                continue
-            end
-			
-            if MovementLayer != aPlat.MovementLayer then
-                continue
-            end
-			
-            if aPlat.UsingTransport then
-
-                if PlatoonMergeDialog then
-                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
-                end
-
-                continue
-            end
-			
-			if planmatchrequired and aPlat.BuilderName != BuilderName then
-
-                if PlatoonMergeDialog then
-                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
-                end
-
-				continue
-			end
-			
-            if aPlat.PlanName != planName then
-
-                if PlatoonMergeDialog then
-                    LOG( dialog.." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." incompatible plan" )
-                end
-
-                continue
-            end
-
-			if VDist3( platPos, GetPlatoonPosition(aPlat) ) > radius then
-				break
-			end
- 
             alliedcount = 0
-            
-            -- dont merge with platoons larger than mergelimit
+
+            --- dont merge with platoons larger than mergelimit
             unitlist = GetPlatoonUnits(aPlat)
 
             for _,u in unitlist do
-
                 if not u.Dead then
                     alliedcount = alliedcount + 1
                 end
-
             end
 
-            -- if there is a mergelimit - and the allied platoon already exceeds it
-            -- of if the allied platoon is smaller than us - ignore this platoon
+            --- if there is a mergelimit - and the allied platoon already exceeds it
+            --- or if the allied platoon is smaller than us - ignore this platoon
             if (mergelimit and alliedcount > mergelimit) or (ourunitcount > alliedcount) then
 
                 if PlatoonMergeDialog then
@@ -10250,36 +10225,34 @@ Platoon = Class(PlatoonMethods) {
 
                 continue
             end
-            
+
+            if PlatoonMergeDialog then
+                LOG( dialog.." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
+            end
+
             count = count + 1
 
-			
             ourunitcount = 0
 
 			unitlist = GetPlatoonUnits(self)
 
 			for _,u in unitlist do
-			
                 if (not u.Dead) and (not IsUnitState( u, 'Attached' )) then
-				
 					ourunitcount = ourunitcount + 1
-
                 end
-
             end
 
             if ourunitcount > 0 then
 
-                local goalposition = false
+                goalposition = false
 
                 if not aPlat:GetPlatoonUnits()[1].Dead then
 
-                    -- what I really need here is WHERE the Allied Platoon is going but this is close
+                    --- what I really need here is WHERE the Allied Platoon is going but this is close
                     goalposition = aPlat:GetPlatoonUnits()[1]:GetNavigator():GetGoalPos()
-
                 end
 
-                local gotoposition = GetPlatoonPosition( aPlat )
+                gotoposition = GetPlatoonPosition( aPlat )
 
                 for _, squad in Squads do
 
@@ -10306,13 +10279,11 @@ Platoon = Class(PlatoonMethods) {
                             end
 
                         end
-                        
-                        AssignUnitsToPlatoon( aiBrain, aPlat, unitlist, squad, 'none' )
 
+                        AssignUnitsToPlatoon( aiBrain, aPlat, unitlist, squad, 'none' )
                     end
-                    
                 end
-			
+
 				if PlatoonMergeDialog then
 					LOG( dialog.." with "..ourunitcount.." units MERGED_INTO "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount.." on tick "..GetGameTick() )
 				end		
@@ -10325,9 +10296,7 @@ Platoon = Class(PlatoonMethods) {
                     LOG( dialog.." reviewed "..count.." platoons without merge on tick "..GetGameTick())
                 end
             end
-
         end
-        
 
 		return false
     end,
