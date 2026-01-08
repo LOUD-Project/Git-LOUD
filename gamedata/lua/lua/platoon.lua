@@ -10052,11 +10052,11 @@ Platoon = Class(PlatoonMethods) {
             
                 if dataList then
             
-                        for _,v in dataList do
+                    for _,v in dataList do
 			
-                            if not v.Dead then
+                        if not v.Dead then
 				
-                                allyPlatoonSize = allyPlatoonSize + 1
+                            allyPlatoonSize = allyPlatoonSize + 1
 
                             if not IsUnitState(v,'Attached' )then
 				
@@ -10065,8 +10065,8 @@ Platoon = Class(PlatoonMethods) {
                                     count = count + 1
                                     validUnits[count] = v
                                 end
-                                end
                             end
+                        end
                     end
                 end
 
@@ -10080,7 +10080,7 @@ Platoon = Class(PlatoonMethods) {
                     LOG( dialog.." takes "..count.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+count.." on tick "..GetGameTick() )
                 end
 
-                    IssueClearCommands( validUnits )
+                IssueClearCommands( validUnits )
                 
                 IssueMove( validUnits, GetPlatoonPosition(self) )                
 
