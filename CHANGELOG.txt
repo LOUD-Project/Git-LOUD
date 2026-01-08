@@ -1,3 +1,21 @@
+### Release 01-08-2026
+
+LUA 8.01
+Black Ops for LOUD 7.22
+Total Mayhem for LOUD 7.11
+UNITS 7.23
+
+- optimized sorting for PlatoonGenerateSafePath - see Github for detail
+- optimized sorting for MergeWith and MergeInto - see Github for detail
+- optimzied CanBuildOnMassInRange to reduce iterating over all mass markers every time
+- fixed stall bug in LandForceAI() related to poor map marking
+- patched a function call made thru M28 that was throwing errors, M28 doesn't have required data (transports)
+- TM BROT1EXM1 (Bugbear) requires a small E charge for it's AOE rockets, secondary riot gun range 28 >> 24
+- T2 UEF Gunship was targeting SATELLITE units with it's AA
+- T2 Cybran Ftr/Bomber now uses same missile as T3 ASF with shorter range
+- T4 UEF Goliath tactical missile launcher now consumes 8k E on reload at 800/second, fixed death event damage
+
+
 ### Release 12-12-2025
 
 LUA 7.40
