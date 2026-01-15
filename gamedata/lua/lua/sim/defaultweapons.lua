@@ -1525,6 +1525,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.ElapsedRackReloadTicks = 0
 
             self:PlayFxRackSalvoReloadSequence(bp)
+           
+            -- this just tests counted weapons to see if they have ammo
+            -- all other weapons will return true
+            self.WeaponCanFire = self:CanWeaponFire(bp,unit)
+
+            -- ammo based weapons go directly to Packing State when empty
+            if bp.CountedProjectile and not self.WeaponCanFire then
+                LOUDSTATE(self, self.WeaponPackingState)
+            end
             
             if self.ElapsedRackReloadTicks > 0 and ( not bp.RackSalvoReloadTime or ((bp.RackSalvoReloadTime*10) < self.ElapsedRackReloadTicks )) then
                 LOG("*AI DEBUG DefaultWeapon RackSalvoReloadTime - is either not existant or less than the RackSalvoReloadSequence - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
@@ -1574,10 +1583,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOUDSTATE(self, self.RackSalvoChargeState)
 
             else
-           
-                -- this just tests counted weapons to see if they have ammo
-                -- all other weapons will return true
-                self.WeaponCanFire = self:CanWeaponFire(bp,unit)
 
                 -- if the weapon doesn't have a target but can fire
                 if not WeaponHasTarget(self) and self.WeaponCanFire then
