@@ -2660,10 +2660,6 @@ TeleportUnit = Class(StructureUnit) {
 			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.28)
 		end
 
-        -- these created an undesirable splat crater that I didn't like very much
-		--self:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.1, 0, nil, nil, nil):SetCollision(false)
-		--self.DestinationGateway:CreateProjectile('/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.1, 0, nil, nil, nil):SetCollision(false)
-
 		WaitSeconds(2.15)
 
 		-- flash!
@@ -2961,6 +2957,14 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 		self.UnitStored[unit.EntityID] = true
         
         unit.Attached = true
+        
+        local bp = __blueprints[unit.BlueprintID]
+        
+        LOG("*AI DEBUG bp is "..repr(bp))
+
+        if bp.SizeSphere then
+            unit:SetCollisionShape('Sphere', 0,0,0, 0.1 )
+        end
 
 		StructureUnitOnTransportAttach(self, attachBone, unit)	
 		
@@ -2971,6 +2975,12 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
         if ScenarioInfo.UnitDialog then
             LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." AIRPAD "..self.Sync.id.." detaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
+        end
+        
+        local bp = __blueprints[unit.BlueprintID]
+
+        if bp.SizeSphere then
+            unit:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
         end
   
         unit.Attached = nil
