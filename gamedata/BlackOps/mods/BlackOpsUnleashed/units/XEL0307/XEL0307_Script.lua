@@ -31,11 +31,6 @@ XEL0307 = Class(TLandUnit) {
 		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
 	},
 	
-	ShieldEffects = {
-        '/effects/emitters/terran_shield_generator_t2_01_emit.bp',
-        '/effects/emitters/terran_shield_generator_t2_02_emit.bp',
-    },
-	
     Weapons = {
 	
         MainTurret = Class(RailGunWeapon01) {},
@@ -184,7 +179,7 @@ XEL0307 = Class(TLandUnit) {
 			for _, vE in exeff do
             
 				for _, vB in ambones do
-					LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(0.5) )
+					LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(0.25) )
 				end
 			end
 			
@@ -192,7 +187,7 @@ XEL0307 = Class(TLandUnit) {
             
 			CleanupEffectBag(self,'AmbientExhaustEffectsBag')
             
-			WaitTicks( Random( 11,71 ))
+			WaitTicks( Random( 16,71 ))
 		end		
 	end,
 
