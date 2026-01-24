@@ -1,3 +1,18 @@
+### Release 01-
+
+LUA 8.02
+Black Ops for LOUD 7.23
+BrewLAN for LOUD 0.8.8.9.126
+
+- BL Aeon T3 PD Orbos can no longer target Satellites
+- BO UEF Juggernaut removed odd shield effect graphic
+- fixed ammo based weapons that run out of ammo during a salvo going into 'reload' state rather than 'empty' state
+    -- this addresses the mobile SMD issues
+- air units, when docked at an airpad, will have their collision box reduced to allow targeting of the airpad
+- removed a number of informational AI Debug dialogs in order to cleanup the reporting done by the launcher
+
+
+
 ### Release 01-08-2026
 
 LUA 8.01
