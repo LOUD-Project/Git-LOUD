@@ -5361,10 +5361,10 @@ Unit = Class(UnitMethods) {
         self.teleported = false
 	
         if not self.teleporting then
-            LOG("*AI DEBUG "..mybrain.Nickname.." OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." on tick "..GetGameTick() )
+            --LOG("*AI DEBUG "..mybrain.Nickname.." OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." on tick "..GetGameTick() )
             self.teleporting = true
         else 
-            LOG("*AI DEBUG "..mybrain.Nickname.." OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
+            --LOG("*AI DEBUG "..mybrain.Nickname.." OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
             return
         end
 
@@ -5639,8 +5639,10 @@ Unit = Class(UnitMethods) {
         if TeleportLocationBlocked( self, location ) then
 
             FloatingEntityText(self.EntityID,'Teleport Destination Scrambled')
-
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - blocked ")
+            
+            if TeleportDialog then
+                LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - blocked ")
+            end
 
 		else
 	        

@@ -2539,7 +2539,7 @@ function TeleportLocationBlocked( self, targetPos )
                 targetdist      = VDist2(nextpos[1], nextpos[3], atposition[1], atposition[3])
                 
                 if targetdist < noTeleDistance then
-                    LOG("*AI DEBUG OnTeleportUnit blocked around "..repr(nextpos))
+                    --LOG("*AI DEBUG OnTeleportUnit blocked around "..repr(nextpos))
                     return true
                 end
             end

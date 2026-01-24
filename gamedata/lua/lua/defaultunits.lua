@@ -2959,8 +2959,6 @@ AirStagingPlatformUnit = Class(StructureUnit) {
         unit.Attached = true
         
         local bp = __blueprints[unit.BlueprintID]
-        
-        LOG("*AI DEBUG bp is "..repr(bp))
 
         if bp.SizeSphere then
             unit:SetCollisionShape('Sphere', 0,0,0, 0.1 )

@@ -35,7 +35,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..baseBuilderName.." "..locationType.." Type "..BuildersType.." adding Group "..builderGroupName.." Restriction "..repr(BuildersRestriction) )
 
             if BuildersRestriction and CategoryRestricted(BuildersRestriction) then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..builderGroupName.." restricted due to "..BuildersRestriction )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..builderGroupName.." restricted due to "..BuildersRestriction )
                 return
             end
 
