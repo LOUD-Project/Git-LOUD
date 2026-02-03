@@ -2943,6 +2943,16 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     OnCmdrUpgradeStart = function(self)
     end,
 
+    OnKilled = function(self, instigator, type, overkillRatio)
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..self.EntityID.." AIRPAD OnKilled for "..self.BlueprintID)        
+        end
+       
+        StructureUnitOnKilled(self, instigator, type, overkillRatio)
+    
+    end,
+
 	--- issued by the platform as units attach
     OnTransportAttach = function(self, attachBone, unit)
     
@@ -2957,12 +2967,6 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 		self.UnitStored[unit.EntityID] = true
         
         unit.Attached = true
-        
-        local bp = __blueprints[unit.BlueprintID]
-
-        if bp.SizeSphere then
-            unit:SetCollisionShape('Sphere', 0,0,0, 0.1 )
-        end
 
 		StructureUnitOnTransportAttach(self, attachBone, unit)	
 		
@@ -2973,12 +2977,6 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
         if ScenarioInfo.UnitDialog then
             LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." AIRPAD "..self.Sync.id.." detaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
-        end
-        
-        local bp = __blueprints[unit.BlueprintID]
-
-        if bp.SizeSphere then
-            unit:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
         end
   
         unit.Attached = nil
@@ -4059,7 +4057,8 @@ AirUnit = Class(MobileUnit) {
 		MobileUnitOnLayerChange( self, new, old )
 
         local VDist2Sq = VDist2Sq
-		local vis = __blueprints[self.BlueprintID].Intel.VisionRadius or 2
+        local bp = __blueprints[self.BlueprintID]
+		local vis = bp.Intel.VisionRadius or 2
 
 		if new == 'Land' then
 		
@@ -4070,6 +4069,11 @@ AirUnit = Class(MobileUnit) {
 				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 0.4)
 				
 			end
+
+            -- and reduce collision sphere
+            if bp.SizeSphere then
+                self:SetCollisionShape('Sphere', 0,0,0, 0.6 )
+            end
 
 			self:DisableIntel('Sonar')
 			self:DisableIntel('Radar')
@@ -4110,6 +4114,11 @@ AirUnit = Class(MobileUnit) {
 		end
 
 		if new == 'Air' then
+
+            -- restore collision sphere
+            if bp.SizeSphere then
+                self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
+            end
 		
 			-- if current vision radius is less than standard blueprint value
 			-- then it must have been turned down by this previously - turn it back up
