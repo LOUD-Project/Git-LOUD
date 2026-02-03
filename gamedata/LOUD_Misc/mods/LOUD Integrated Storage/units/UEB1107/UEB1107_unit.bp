@@ -85,9 +85,9 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
 
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        SelectionPriority = 5,
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
 
         UpgradesFrom = 'ueb1104',
     },
