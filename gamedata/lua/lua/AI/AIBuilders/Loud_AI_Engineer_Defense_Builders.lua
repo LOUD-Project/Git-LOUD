@@ -2033,7 +2033,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
@@ -2047,7 +2047,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
         },
 		
         BuilderType = {'T1' },
@@ -2129,7 +2129,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
@@ -2141,7 +2141,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
         },
 		
         BuilderType = {'T1'},
@@ -5373,12 +5373,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
 
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
-
-			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 250 }},            
-        
-			--{ EBC, 'LessThanEnergyTrend', { 45 }},        
-			--{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
-			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
