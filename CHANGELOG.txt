@@ -1,3 +1,18 @@
+### Release 02-06-2026
+
+LUA 8.03
+LOUD_MISC 7.13
+
+- fixed UEF T2 Mass Fab w/Storage being selected with units
+- moved the collision box reduction, of air units, to the act of 'landing' rather than the unreliable airpad detach event
+- AI will reduce priority of air transport building, to 600 (same as other air units), during low Air Ratio (< 0.6)
+- AI T1 Airpad moved to 846 priority, from 850, and increased eco trigger
+- added logic to disable an AI if it's start position cannot fit even the small base layout, warnings posted in LOG file
+- fixed issue with restoring the panel position of the Mass Fab Manager mod, is UI scaling is enabled (Niriak)
+
+
+
+
 ### Release 01-23-2026
 
 LUA 8.02
