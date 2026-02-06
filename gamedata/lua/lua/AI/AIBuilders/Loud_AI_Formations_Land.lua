@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			-- economic targets within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 1000 }},
 
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 200 }},            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},            
         },
 		
         BuilderData = {
@@ -413,7 +413,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 200 }},            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},            
 
 			-- enemy AA structures within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1000 }},
@@ -1827,7 +1827,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'LandStrengthRatioLessThan', { 2 } },
             
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 175, 'Land', 200 }},                        
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},                        
 
 			-- empty mass point within 20km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
