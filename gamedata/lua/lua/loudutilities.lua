@@ -1402,7 +1402,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 pathlength = 0
                 
 				-- here is the distance calculation 
-                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimaryLandAttackPlanner'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimaryLandAttackPlanner'..v.BaseName, 'Amphibious', v.Position, goal, 10000, 250)
                 
                 if path then
 
@@ -1630,7 +1630,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                 end
 			
 				-- here is the distance calculation based on Water movement
-                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimarySeaAttackPlanner'..v.BaseName, 'Water', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimarySeaAttackPlanner'..v.BaseName, 'Water', v.Position, goal, 10000, 200)
 
                 if AttackPlanDialog then
                     LOG( dialog.." using path "..repr(path).." on tick "..GetGameTick())
@@ -6513,7 +6513,7 @@ function CreateAttackPlan( self, enemyPosition )
 
     -- FIRST - see if we can path from start to the goal using LAND --
     pathtype = 'Land'
-    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand', 'Land', CurrentPoint, Goal, 99999, 160)
+    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand', 'Land', CurrentPoint, Goal, 10000, 160)
     
     -- if not - try AMPHIB --
     if not path then
@@ -6523,7 +6523,7 @@ function CreateAttackPlan( self, enemyPosition )
         end
 
         pathtype = 'Amphibious'
-        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250)
+        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 10000, 250)
     end
     
     if not path then
@@ -6636,7 +6636,7 @@ function CreateAttackPlan( self, enemyPosition )
                 -- get the pathlength of this position to the Goal position -- using LAND
                 if (not LocationInWaterCheck(Goal)) and (not LocationInWaterCheck(position)) then
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalLand', 'Land', position, Goal, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalLand', 'Land', position, Goal, 10000, 160)
                 end
                 
                 -- then try AMPHIB --
@@ -6645,7 +6645,7 @@ function CreateAttackPlan( self, enemyPosition )
                     WaitTicks(1)
                     
                     pathtype = "Amphibious"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalAmphib', 'Amphibious', position, Goal, 99999, 250)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalAmphib', 'Amphibious', position, Goal, 10000, 250)
                 end
  
                 -- if we have a path and its closer to goal than the best so far
@@ -6658,13 +6658,13 @@ function CreateAttackPlan( self, enemyPosition )
 
                     if (not LocationInWaterCheck(CurrentPoint)) and (not LocationInWaterCheck(position)) then
                         pathtype = "Land"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionLand', 'Land', CurrentPoint, position, 99999, 160)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionLand', 'Land', CurrentPoint, position, 10000, 160)
                     end
 
                     -- if not try an AMPHIB path --
                     if not path then
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionAmphib', 'Amphibious', CurrentPoint, position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionAmphib', 'Amphibious', CurrentPoint, position, 10000, 250)
                     end
 
                     if path then
@@ -6741,14 +6741,14 @@ function CreateAttackPlan( self, enemyPosition )
                 else
                 
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeLand', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeLand', 'Land', CurrentPoint, landposition[1].Position, 10000, 160)
                     
                     if not path then
                     
                         WaitTicks(1)
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeAmphib', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeAmphib', 'Amphibious', CurrentPoint, landposition[1].Position, 10000, 250)
                     end
 				
                     LOUDINSERT(positions, { Name = "FakeLAND", Position = landposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -6762,14 +6762,14 @@ function CreateAttackPlan( self, enemyPosition )
                     end
                     
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalLand', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalLand', 'Land', CurrentPoint, fakeposition[1].Position, 10000, 160)
                     
                     if not path then
                     
                         WaitTicks(1)
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalAmphib', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalAmphib', 'Amphibious', CurrentPoint, fakeposition[1].Position, 10000, 250)
                     end
 
                     LOUDINSERT(positions, {Name = "FakeNAVAL", Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -6791,10 +6791,10 @@ function CreateAttackPlan( self, enemyPosition )
                 if positions[1].Type == 'Land' then
                 
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalLand', 'Land', CurrentPoint, Goal, 99999, 160 )
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalLand', 'Land', CurrentPoint, Goal, 10000, 160 )
                 else
                     pathtype = "Amphibious"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalAmphib', 'Amphibious', CurrentPoint, Goal, 10000, 250 )
                 end
                 
                 if path then

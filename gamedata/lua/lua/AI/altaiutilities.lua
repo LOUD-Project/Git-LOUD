@@ -877,10 +877,10 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		-- this is the path distance that the current base is from the goal - new bases must be closer than this
 		if aiBrain.PrimarySeaAttackBase then
             test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
-			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Water', test_position, Goal, 99999, 200 )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Water', test_position, Goal, 10000, 250 )
 		else
             test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or false
-			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Amphibious', test_position, Goal, 99999, 185 )
+			path, reason, test_range = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerNavDP', 'Amphibious', test_position, Goal, 10000, 200 )
 		end
         
         --LOG("*AI DEBUG "..aiBrain.Nickname.." path to Goal "..repr(Goal).." from "..repr(test_position).." reason "..reason.." range "..test_range)
