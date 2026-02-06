@@ -174,7 +174,7 @@ BaseBuilderTemplate {
         end
 
         -- If we're playing on a 5k or 10k map we'll want the Small base
-        if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
+        if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
             return 10, 'loud'
 			
         -- If we're playing on a 20k map or low pop - then maybe we'll go Standard

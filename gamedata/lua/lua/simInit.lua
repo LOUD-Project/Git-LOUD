@@ -88,9 +88,9 @@ function trace(event, line)
     -- Lord Damage is 121800
     -- wraph is 55379
 
-    if math.mod(counter[source][name], 100000) == 0 or (GetGameTick() >= 55379) then
+    if math.mod(counter[source][name], 100000) == 0 or (GetGameTick() >= 12979) then
 
-        if (GetGameTick() >= 55379) then
+        if (GetGameTick() >= 12979) then
             LOG(debug.traceback())
         end        
 

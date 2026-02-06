@@ -4,47 +4,63 @@ function ExecutePlan(aiBrain)
     
     WaitTicks(5)	
 
-    SetupMainBase(aiBrain)
+    local base = SetupMainBase(aiBrain)
+    
+    if base then
 
-    -- Get units out of pool and assign them to the managers
-    local mainManagers = aiBrain.BuilderManagers.MAIN
-    local pool = aiBrain:GetPlatoonUniquelyNamed('ArmyPool')
+        -- Get units out of pool and assign them to the managers
+        local mainManagers = aiBrain.BuilderManagers.MAIN
+        local pool = aiBrain:GetPlatoonUniquelyNamed('ArmyPool')
 
-    for _,v in pool:GetPlatoonUnits() do
+        for _,v in pool:GetPlatoonUnits() do
 		
-        if EntityCategoryContains( categories.ENGINEER, v ) then
+            if EntityCategoryContains( categories.ENGINEER, v ) then
 			
-            mainManagers.EngineerManager:AddEngineerUnit(v)
+                mainManagers.EngineerManager:AddEngineerUnit(v)
 
-        elseif EntityCategoryContains( categories.FACTORY * categories.STRUCTURE, v ) then
+            elseif EntityCategoryContains( categories.FACTORY * categories.STRUCTURE, v ) then
 			
-            mainManagers.FactoryManager:AddFactory( v, aiBrain )
+                mainManagers.FactoryManager:AddFactory( v, aiBrain )
+
+            end
 
         end
 
-    end
-
-    if not aiBrain.IgnoreArmyCaps then
+        if not aiBrain.IgnoreArmyCaps then
 		
-		aiBrain:ForkThread(UnitCapWatchThread)
+            aiBrain:ForkThread(UnitCapWatchThread)
 
-	end
+        end
+        
+    end
+    
+    --return base
 
 end
 
 function SetupMainBase(aiBrain)
 
     local base, returnVal, baseType = GetBestBasePlan(aiBrain)
+    
+    if base then
 
-    ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality = baseType
+        ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality = baseType
 	
-    import('/lua/ai/aiaddbuildertable.lua').AddGlobalBaseTemplate(aiBrain, 'MAIN', base)
+        import('/lua/ai/aiaddbuildertable.lua').AddGlobalBaseTemplate(aiBrain, 'MAIN', base)
 
-    for k,v in aiBrain.BuilderManagers do
+        for k,v in aiBrain.BuilderManagers do
 	
-        v.EngineerManager:SortBuilderList('Any')
+            v.EngineerManager:SortBuilderList('Any')
 		
+        end
+        
+    else
+    
+        LOG("*AI DEBUG "..aiBrain.Nickname.." cannot select a base for this start position - AI disabled")
+    
     end
+    
+    return base
     
 end
 
@@ -56,7 +72,7 @@ end
 function GetBestBasePlan(aiBrain)
 
     local base = false
-    local returnVal = 0
+    local returnVal = 10
     local aiType = false
     
     for k,v in BaseBuilderTemplates do
@@ -73,7 +89,7 @@ function GetBestBasePlan(aiBrain)
         end
     end
     
-	LOG("*AI DEBUG "..aiBrain.Nickname.." Selected "..base)
+	LOG("*AI DEBUG "..aiBrain.Nickname.." Selected "..repr(base))
 	
     return base, returnVal, aiType
 end
