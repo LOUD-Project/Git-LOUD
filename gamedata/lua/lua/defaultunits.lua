@@ -4119,6 +4119,10 @@ AirUnit = Class(MobileUnit) {
             if bp.SizeSphere then
                 self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
             end
+            
+            self:SetCanTakeDamage(true)
+            self:SetCanBeKilled(true)
+            self:SetDoNotTarget(false)
 		
 			-- if current vision radius is less than standard blueprint value
 			-- then it must have been turned down by this previously - turn it back up
