@@ -6363,7 +6363,7 @@ function CreateAttackPlan( self, enemyPosition )
 
 	local stagesize     = 300
 	local minstagesize  = 125 * 125
-	local maxstagesize  = 350 * 350
+	local maxstagesize  = 310 * 310
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
     
