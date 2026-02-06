@@ -645,20 +645,46 @@ function RandomLocation(x,z, value)
     
 	local Random = Random
 	local r_value = value or 20
+    
+    local failcount = 0
 
     local finalX = x + Random(-r_value, r_value)
 	
 	-- there is potential here for a hung loop if the random value cannot overcome the map boundary
-    while finalX <= 0 or finalX >= ScenarioInfo.size[1] do
+    while failcount < 10 and (finalX <= 0 or finalX >= ScenarioInfo.size[1]) do
 	
         finalX = x + Random(-r_value, r_value)
+        
+        failcount = failcount + 1
+        
+        if failcount == 10 then 
+
+            if finalX < 0 then
+                return { 0, 0, z }
+            else
+                return { ScenarioInfo.size[1], 0, z }
+            end
+        end
     end
-	
+
+    failcount = 0
+    
     local finalZ = z + Random(-r_value, r_value)
 	
-    while finalZ <= 0 or finalZ >= ScenarioInfo.size[2] do
+    while failcount < 10 and (finalZ <= 0 or finalZ >= ScenarioInfo.size[2]) do
 	
         finalZ = z + Random(-r_value, r_value)
+        
+        failcount = failcount + 1
+        
+        if failcount == 10 then
+        
+            if finalZ < 0 then
+                return { finalX, 0, 0 }
+            else
+                return { finalX, 0, ScenarioInfo.size[2] }
+            end
+        end
     end
 	
     local height = GetTerrainHeight( finalX, finalZ )
