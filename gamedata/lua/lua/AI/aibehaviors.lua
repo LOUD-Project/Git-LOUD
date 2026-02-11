@@ -191,6 +191,11 @@ function LifeThread( aiBrain, cdr )
     local WaitTicks             = WaitTicks
     
     local MATHMIN = LOUDMIN
+    
+    local mcount = 0
+    local mgiven = 0
+    local ecount = 0
+    local egiven = 0
 
     while true do
     
@@ -207,6 +212,8 @@ function LifeThread( aiBrain, cdr )
                 mneeded = MATHMIN(10,((mrequested - mincome ) * 10))
                 
                 GiveResource( aiBrain, 'Mass', mneeded)
+                
+                mgiven = mgiven + mneeded
             end
         end
         
@@ -221,7 +228,19 @@ function LifeThread( aiBrain, cdr )
                 eneeded = MATHMIN(120,((erequested - eincome ) * 10))
                 
                 GiveResource( aiBrain, 'Energy', eneeded)
+                
+                egiven = egiven + eneeded
+                
             end
+        end
+        
+        if mgiven > mcount or egiven > ecount then
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..mgiven.."  E "..egiven )
+            
+            mcount = mgiven
+            ecount = egiven
+            
         end
     end
 end

@@ -61,9 +61,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
-            { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
+            { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
         },
 		
         BuilderType = { 'T1' },
@@ -501,7 +501,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
 		PriorityFunction = First45Minutes,
 
-		InstanceCount = 1,
+		InstanceCount = 2,
 		
         BuilderType = { 'T1' },
 		
@@ -510,7 +510,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
             
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
 
