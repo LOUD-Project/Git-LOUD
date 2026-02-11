@@ -282,7 +282,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
 
             { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 

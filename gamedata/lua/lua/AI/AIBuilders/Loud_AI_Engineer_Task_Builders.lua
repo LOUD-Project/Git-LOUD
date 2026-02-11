@@ -258,7 +258,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 1250 }},
             
