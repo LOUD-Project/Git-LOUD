@@ -280,9 +280,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 10, 0 }}, -- token amount incase mass has totally crashed, otherwise just get power built
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
 
             { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 
@@ -324,9 +324,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }}, -- commander wont build early mass if this is much higher
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 1 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { -5 }}, -- '1' was too high to ever be considered leading the commander to afk for a while
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
