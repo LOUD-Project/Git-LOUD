@@ -11,6 +11,10 @@ local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 -- imbedded into the Builder
 local AboveUnitCap50 = function( self,aiBrain )
 
+    if aiBrain.CycleTime < 130 then    -- delay standard engineers to prevent eco crash
+        return 10, true        
+    end
+
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .5 then
 		return 10, true
 	end
