@@ -2132,6 +2132,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
+            if aiBrain.CycleTime < 300 then -- delayed as its expensive in power and not needed for several minutes
+                return 10, true
+            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
                 return 10, false
@@ -2141,7 +2144,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }}, -- with a delay can be cheaper
         },
 		
         BuilderType = {'T1'},
