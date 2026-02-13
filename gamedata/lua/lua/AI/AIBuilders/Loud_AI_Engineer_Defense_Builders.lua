@@ -170,7 +170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 12, true
                 end
  
-                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 360 then
+                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 600 then
                     return (builder.OldPriority or builder.Priority) + 50, true
                 end
     
@@ -239,8 +239,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 					return 0, false
 				end
                 
-                -- ignore this for first 7 minutes
-                if aiBrain.CycleTime < 420 then
+                -- ignore this for first 10 minutes
+                if aiBrain.CycleTime < 600 then
                     return 10, true
                 end
         
