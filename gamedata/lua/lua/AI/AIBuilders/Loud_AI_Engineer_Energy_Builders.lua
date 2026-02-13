@@ -508,7 +508,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 0 }}, -- higher cost to prevent hurting early economy
             
             { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
