@@ -61,6 +61,7 @@ local COMMAND           = categories.COMMAND
 local DEFENSESTRUCTURES = STRUCTURE * categories.DEFENSE
 local ENGINEER          = categories.ENGINEER
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
+local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local MASSSTORAGE       = categories.MASSSTORAGE
 local SHIELDSTRUCTURES  = STRUCTURE * categories.SHIELD - categories.TECH2
 local SUBCOMMANDER      = categories.SUBCOMMANDER
@@ -1110,7 +1111,7 @@ function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistanc
     local mexposition, distance, STORS
 	
 	-- get your own extractors around the point
-	local Mexs = GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance)
+	local Mexs = GetOwnUnitsAroundPoint(aiBrain, ALLEXTRACTORS, pos, maxdistance)
 	
 	for k,v in Mexs do
     
