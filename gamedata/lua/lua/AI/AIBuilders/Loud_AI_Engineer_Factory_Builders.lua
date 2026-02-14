@@ -47,7 +47,7 @@ end
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 60 then
+    if aiBrain.CycleTime > 300 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
@@ -63,7 +63,7 @@ end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 60 then
+    if aiBrain.CycleTime > 300 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true )) < 1 then
 
