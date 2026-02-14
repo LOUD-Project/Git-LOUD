@@ -495,14 +495,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 756,
+        Priority = 856, -- do this over assisting factory upgrades
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
+			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 0, 5000 }}, -- Ensure energy is adequate          
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, ENGINEER + MASSPRODUCTION, 60 }},
         },
