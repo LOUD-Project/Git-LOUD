@@ -41,7 +41,7 @@ end
 
 local First45Minutes = function( self, aiBrain )
 
-    if aiBrain.CycleTime < 150 then   -- delay scouts to prevent energy crash 
+    if aiBrain.CycleTime < 220 then   -- delay scouts to prevent energy crash 
         return 10, true        
     end
 	
@@ -88,7 +88,7 @@ end
 
 local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
-    if aiBrain.CycleTime < 180 then -- delay air units longer than air scouts
+    if aiBrain.CycleTime < 240 then -- delay air units longer than air scouts
     
         return 10, true
         

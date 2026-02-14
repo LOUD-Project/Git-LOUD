@@ -280,12 +280,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-<<<<<<< HEAD
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
-
-            { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
-=======
-			{ EBC, 'GreaterThanEconStorageCurrent', { 10, 0 }}, -- token amount incase mass has totally crashed, otherwise just get power built
+			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 0 }}, -- token amount incase mass has totally crashed, otherwise just get power built
 
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
 >>>>>>> 5d710eb85 (Prevent idle periods in commander building initial power gens)
