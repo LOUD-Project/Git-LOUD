@@ -17,7 +17,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		
         Priority = 850,
         
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
 		BuilderType = { 'T1','T2','T3' },
 
@@ -26,9 +26,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }}, -- just claim early mass with no delays
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+            --{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
