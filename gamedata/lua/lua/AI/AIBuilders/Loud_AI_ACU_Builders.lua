@@ -628,7 +628,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.3, 1.025 }}, -- favour eco development
         },
 		
         BuilderType = { 'Commander' },
