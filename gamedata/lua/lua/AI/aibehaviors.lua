@@ -8549,6 +8549,18 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local masslimit     = .69   --- if we have 69% of the total mass needed - it's ok to upgrade
     local energylimit   = .75   --- and likewise for energy
 
+    local tech2Mex = {
+        ueb1202 = true,
+        uab1202 = true,
+        urb1202 = true,
+        xsb1202 = true
+    }
+
+    if tech2Mex[upgradeID] then -- rush T2 mass upgrade
+        masslimit = .35
+        energylimit = .5
+    end
+
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
 	local MassNeeded    = (upgradebp.Economy.BuildCostMass * masslimit) / aiBrain.MinorCheatModifier
 	local EnergyNeeded  = (upgradebp.Economy.BuildCostEnergy * energylimit) / aiBrain.MinorCheatModifier
@@ -8576,9 +8588,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	-- check storage values every 10 seconds -- and only advance the delay counter if we have the basic storage requirements
     -- those that bypassecon advance it by 2 seconds 
 	while init_delay < initialdelay do
-		
+        
+        if tech2Mex[upgradeID] and GetFractionComplete(unit) == 1 then -- t2 mass ignores storage requirement
+			init_delay = init_delay + 10
 		-- uses the same values as factories do for units
-		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
+        elseif GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
 		else
             -- units which are permitted to bypass the more stringent eco tests can advance
