@@ -283,7 +283,6 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 0 }}, -- token amount incase mass has totally crashed, otherwise just get power built
 
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
->>>>>>> 5d710eb85 (Prevent idle periods in commander building initial power gens)
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
