@@ -58,6 +58,41 @@ function CreateFactoryBuilderManager(brain, lType, location, basetype)
     return fbm
 end
 
+function MassTrigger(factory, builder, massScale, adjacencyreductionM)
+	local scale = math.pow(massScale, factory.BuildLevel - 1)
+
+	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
+    	return 50 * scale * adjacencyreductionM	
+	end
+
+	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
+    	return 60 * scale * adjacencyreductionM
+	end
+	
+	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
+		return 400 * scale * adjacencyreductionM
+	end
+
+	return 100
+end
+
+function EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)
+	local scale = math.pow(energyScale, factory.BuildLevel - 1)
+
+	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
+    	return 260 * scale * adjacencyreductionE		
+	end
+
+	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
+    	return 3400 * scale * adjacencyreductionE	
+	end
+	
+	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
+    	return 4300 * scale * adjacencyreductionE	
+	end
+
+	return 1000
+end
 
 FactoryBuilderManager = Class(BuilderManager) {
 
@@ -386,6 +421,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local aiBrain       = GetAIBrain(factory)
         local BuildLevel    = factory.BuildLevel
         local Upgrading     = factory.Upgrading
+		local builder = string.sub(repr(self:GetHighestBuilder( factory, aiBrain ).BuilderName), 2, 9) -- find engineer builds
 
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
@@ -411,14 +447,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
-        
-        local masstrig = LOUDMAX(100, 250 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-        local enertrig = LOUDMAX(1000, 3000 - ((3 - BuildLevel) * 300)) * adjacencyreductionE
-        
+	
+		local massScale = math.pow(4.5, factory.BuildLevel - 1) -- exponential increase between tech levels
+		local energyScale = math.pow(4.5, factory.BuildLevel - 1)
+
         local trig = false
         
         --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
-		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
+		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < MassTrigger(factory, builder, massScale, adjacencyreductionM) or GetEconomyStored( aiBrain, 'ENERGY') < EnergyTrigger(factory, builder, energyScale, adjacencyreductionE) ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
 
             -- adjacency reduction is the average of the two reductions
             adjacencyaverage = ((adjacencyreductionE + adjacencyreductionM) / 2)          
@@ -436,18 +472,12 @@ FactoryBuilderManager = Class(BuilderManager) {
                     factory:SetCustomName( message )
                 end
 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f",masstrig).." Enertrig "..string.format("%.1f",enertrig ) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f",MassTrigger(factory, builder, massScale, adjacencyreductionM)).." Enertrig "..string.format("%.1f",EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)))
             end
             
 			WaitTicks( delay )
-
             adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
             adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
-        
-            -- the actual M & E triggers are impacted by new adjacencies each cycle
-            masstrig = LOUDMAX(100, 225 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-            enertrig = LOUDMAX(1000, 2500 - ((3 - BuildLevel) * 250)) * adjacencyreductionE
-
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
