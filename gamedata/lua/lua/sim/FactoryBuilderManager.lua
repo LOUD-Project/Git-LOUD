@@ -73,6 +73,10 @@ function MassTrigger(factory, builder, massScale, adjacencyreductionM)
 		return 400 * scale * adjacencyreductionM
 	end
 
+	if LOUDENTITY(categories.GATE, factory) then
+		return 5000
+	end
+
 	return 100
 end
 
@@ -89,6 +93,10 @@ function EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)
 	
 	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
     	return 4300 * scale * adjacencyreductionE	
+	end
+
+	if LOUDENTITY(categories.GATE, factory) then
+		return 60000
 	end
 
 	return 1000
