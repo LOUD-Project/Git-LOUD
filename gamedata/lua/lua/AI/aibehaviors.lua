@@ -8596,9 +8596,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         xsb1202 = true
     }
 
-    if tech2Mex[upgradeID] then -- rush T2 mass upgrade
-        masslimit = .35
-        energylimit = .5
+    if tech2Mex[upgradeID] then -- aggressively push T2 mass upgrades
+        masslimit = .4
+        energylimit = .6
     end
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
@@ -8679,6 +8679,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                     LOG( body.." fails base storage M "..MassStorage.."  E "..EnergyStorage )
                 end
 
+                continue
+            end
+
+            -- if T2 Mex then either mass efficiency or mass storage can prevent the upgrade to limit the number running concurrently
+            if tech2Mex[upgradeID] and (econ.MassEfficiency < masslowtrigger or MassStorage < MassNeeded) then
                 continue
             end
 
