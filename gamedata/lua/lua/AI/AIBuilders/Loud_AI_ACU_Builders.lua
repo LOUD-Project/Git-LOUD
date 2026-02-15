@@ -280,7 +280,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 0 }}, -- token amount incase mass has totally crashed, otherwise just get power built
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
 
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
 
@@ -324,9 +324,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }}, -- commander wont build early mass if this is much higher
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { -5 }}, -- '1' was too high to ever be considered leading the commander to afk for a while
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 1 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
@@ -489,7 +489,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 856, -- do this over assisting factory upgrades
+        Priority = 756, -- do this over assisting factory upgrades
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
