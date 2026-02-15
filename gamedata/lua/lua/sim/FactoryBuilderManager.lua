@@ -74,7 +74,7 @@ function MassTrigger(factory, builder, massScale, adjacencyreductionM)
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
-		return 5000
+		return 2500
 	end
 
 	return 100
@@ -96,7 +96,7 @@ function EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
-		return 60000
+		return 30000
 	end
 
 	return 1000
@@ -456,8 +456,8 @@ FactoryBuilderManager = Class(BuilderManager) {
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
 	
-		local massScale = math.pow(4.5, factory.BuildLevel - 1) -- exponential increase between tech levels
-		local energyScale = math.pow(4.5, factory.BuildLevel - 1)
+		local massScale = math.pow(2.7, factory.BuildLevel - 1) -- exponential increase between tech levels
+		local energyScale = math.pow(2.7, factory.BuildLevel - 1)
 
         local trig = false
         
