@@ -33,6 +33,56 @@ local ENERGYT3  = ENERGY * categories.TECH3
 
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'EngineerBuilder',
 
+    Builder {BuilderName = 'T1 Power Template - Focus',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        InstanceCount = 1,
+		
+        Priority = 849,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if aiBrain.CycleTime > 3600 then
+                return 0, false
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT3 ) then
+                return 11, true
+            end
+            
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 75, ENERGYT1, 0, 33 ) then
+                return 12, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+		
+        BuilderConditions = {
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},           
+            { EBC, 'LessThanEnergyTrendOverTime', { 20 }},
+        },
+		
+        BuilderType = { 'T1' },
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 35,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'PowerLayout',
+				
+                BuildStructures = {'T1EnergyProduction'},
+            }
+        }
+    },
+
     Builder {BuilderName = 'T1 Power Template',
 	
         PlatoonTemplate = 'EngineerBuilder',
