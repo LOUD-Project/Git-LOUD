@@ -53,7 +53,7 @@ end
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 300 then
+    if aiBrain.CycleTime > 60 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIR, false, true )) < 1 then
 	
@@ -69,7 +69,7 @@ end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 300 then
+    if aiBrain.CycleTime > 60 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * LAND, false, true )) < 1 then
 
@@ -118,7 +118,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, LAND }},            
         },
@@ -151,7 +151,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroAirFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR }},
         },
@@ -195,9 +195,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3600 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.010, 1.010 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+            
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 5, 1.012, 1.012 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -243,7 +243,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3600 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.010, 1.012 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 10, 1.012, 1.015 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
