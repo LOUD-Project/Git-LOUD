@@ -8597,7 +8597,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     }
 
     if tech2Mex[upgradeID] then -- aggressively push T2 mass upgrades
-        masslimit = .4
+        masslimit = .3
         energylimit = .6
     end
 
