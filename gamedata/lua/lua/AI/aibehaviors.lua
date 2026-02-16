@@ -8739,11 +8739,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                                 end
                                 
                                 if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
-                                    LOG( body.." UPGRADING - M Trend "..string.format("%2.f",(econ.MassTrend * 10)).." needed "..string.format("%2.f",(MassTrendNeeded * 10)))
-                                    LOG( body.." UPGRADING - E Trend "..string.format("%2.f",(econ.EnergyTrend * 10)).." needed "..string.format("%2.f",(EnergyTrendNeeded * 10)))
+                                    LOG( body.." UPGRADING - M Trend "..string.format("%.1f",(econ.MassTrend * 10)).." needed "..string.format("%.1f",(MassTrendNeeded * 10)))
+                                    LOG( body.." UPGRADING - E Trend "..string.format("%.1f",(econ.EnergyTrend * 10)).." needed "..string.format("%.1f",(EnergyTrendNeeded * 10)))
                                 else
-                                    LOG( body.." UPGRADING on storage M "..MassStorage.." needed "..string.format("%2.f",MassNeeded) )
-                                    LOG( body.." UPGRADING on storage E "..EnergyStorage.." needed "..string.format("%2.f",EnergyNeeded))
+                                    LOG( body.." UPGRADING on storage M "..MassStorage.." needed "..string.format("%.1f",MassNeeded) )
+                                    LOG( body.." UPGRADING on storage E "..EnergyStorage.." needed "..string.format("%.1f",EnergyNeeded))
                                 end
                             end
 					
@@ -8819,27 +8819,27 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                     local body = "*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description
                 
                     if econ.MassTrend < MassTrendNeeded then
-                        LOG( body.." FAILS Mass Trend needed "..string.format("%2.f",(MassTrendNeeded*10)).." current "..string.format("%2.f",(econ.MassTrend*10)) )
+                        LOG( body.." FAILS Mass Trend needed "..string.format("%.1f",(MassTrendNeeded*10)).." current "..string.format("%.1f",(econ.MassTrend*10)) )
                         continue
                     end
                     
                     if econ.EnergyTrend < EnergyTrendNeeded then
-                        LOG( body.." FAILS ENER Trend trigger "..string.format("%2.f",(econ.EnergyTrend*10)).." needed "..string.format("%2.f",(EnergyTrendNeeded*10)))
+                        LOG( body.." FAILS ENER Trend trigger "..string.format("%.1f",(econ.EnergyTrend*10)).." needed "..string.format("%.1f",(EnergyTrendNeeded*10)))
                         continue
                     end
                     
                     if econ.EnergyTrend < EnergyMaintenance then
-                        LOG( body.." FAILS Maintenance trigger "..string.format("%2.f",econ.EnergyTrend).." needs "..string.format("%2.f",EnergyMaintenance))  
+                        LOG( body.." FAILS Maintenance trigger "..string.format("%.1f",econ.EnergyTrend).." needs "..string.format("%.1f",EnergyMaintenance))  
                         continue
                     end
                     
                     if MassStorage < MassNeeded then
-                        LOG( body.." FAILS MASS storage trigger "..string.format("%2.f",MassStorage).." needed "..string.format("%2.f",MassNeeded))
+                        LOG( body.." FAILS MASS storage trigger "..string.format("%.1f",MassStorage).." needed "..string.format("%.1f",MassNeeded))
                         continue
                     end
                     
                     if EnergyStorage < EnergyNeeded then
-                        LOG( body" FAILS ENER storage trigger "..string.format("%2.f",EnergyStorage).." needed "..string.format("%2.f",EnergyNeeded))
+                        LOG( body" FAILS ENER storage trigger "..string.format("%.1f",EnergyStorage).." needed "..string.format("%.1f",EnergyNeeded))
                         continue
                     end
                 end

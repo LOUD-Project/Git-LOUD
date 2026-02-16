@@ -7651,9 +7651,9 @@ Platoon = Class(PlatoonMethods) {
             end
         end
 
-        if EngineerDialog then
-            LOG( dialog.." did a build "..repr(did_a_build).." with "..repr(builditem).." on tick "..GetGameTick() )
-        end
+        --if EngineerDialog then
+          --  LOG( dialog.." did a build "..repr(did_a_build).." with "..repr(builditem).." on tick "..GetGameTick() )
+        --end
            
         if not eng.Dead then
 		
