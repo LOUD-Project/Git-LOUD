@@ -60,16 +60,18 @@ end
 
 function MassTrigger(factory, builder, scale, adjacencyreduction)
 
-	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
-    	return 50 * scale * adjacencyreduction
-	end
-
-	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
-    	return 60 * scale * adjacencyreduction
-	end
+	if builder ~= "Engineer" then
+		if LOUDENTITY(LAND, factory) then
+    		return 150 * scale * adjacencyreduction
+		end
+		
+		if LOUDENTITY(AIR, factory) then
+    		return 150 * scale * adjacencyreduction
+		end
 	
-	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
-		return 400 * scale * adjacencyreduction
+		if LOUDENTITY(NAVAL, factory) then
+			return 400 * scale * adjacencyreduction
+		end
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
@@ -81,16 +83,18 @@ end
 
 function EnergyTrigger(factory, builder, scale, adjacencyreduction)
 
-	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
-    	return 260 * scale * adjacencyreduction		
-	end
-
-	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
-    	return 3400 * scale * adjacencyreduction	
-	end
+	if builder ~= "Engineer" then
+		if LOUDENTITY(LAND, factory) then
+    		return 500 * scale * adjacencyreduction
+		end
+		
+		if LOUDENTITY(AIR, factory) then
+    		return 3000 * scale * adjacencyreduction
+		end
 	
-	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
-    	return 4300 * scale * adjacencyreduction	
+		if LOUDENTITY(NAVAL, factory) then
+			return 4000 * scale * adjacencyreduction
+		end
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
