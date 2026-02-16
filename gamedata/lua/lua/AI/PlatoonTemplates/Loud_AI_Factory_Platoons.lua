@@ -134,16 +134,16 @@ PlatoonTemplate { Name = 'T3LandSubCommander',
 PlatoonTemplate { Name = 'T1AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 4, 'scout', 'none' }
+            { 'uea0101', 1, 2, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 4, 'scout', 'none' }
+            { 'uaa0101', 1, 2, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 4, 'scout', 'none' }
+            { 'ura0101', 1, 2, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 4, 'scout', 'none' }
+            { 'xsa0101', 1, 2, 'scout', 'none' }
         },
     }
 }
