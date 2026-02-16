@@ -58,19 +58,18 @@ function CreateFactoryBuilderManager(brain, lType, location, basetype)
     return fbm
 end
 
-function MassTrigger(factory, builder, massScale, adjacencyreductionM)
-	local scale = math.pow(massScale, factory.BuildLevel - 1)
+function MassTrigger(factory, builder, scale, adjacencyreduction)
 
 	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
-    	return 50 * scale * adjacencyreductionM	
+    	return 50 * scale * adjacencyreduction
 	end
 
 	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
-    	return 60 * scale * adjacencyreductionM
+    	return 60 * scale * adjacencyreduction
 	end
 	
 	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
-		return 400 * scale * adjacencyreductionM
+		return 400 * scale * adjacencyreduction
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
@@ -80,19 +79,18 @@ function MassTrigger(factory, builder, massScale, adjacencyreductionM)
 	return 100
 end
 
-function EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)
-	local scale = math.pow(energyScale, factory.BuildLevel - 1)
+function EnergyTrigger(factory, builder, scale, adjacencyreduction)
 
 	if LOUDENTITY(LAND, factory) and builder ~= "Engineer" then
-    	return 260 * scale * adjacencyreductionE		
+    	return 260 * scale * adjacencyreduction		
 	end
 
 	if LOUDENTITY(AIR, factory) and builder ~= "Engineer" then
-    	return 3400 * scale * adjacencyreductionE	
+    	return 3400 * scale * adjacencyreduction	
 	end
 	
 	if LOUDENTITY(NAVAL, factory) and builder ~= "Engineer" then
-    	return 4300 * scale * adjacencyreductionE	
+    	return 4300 * scale * adjacencyreduction	
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
