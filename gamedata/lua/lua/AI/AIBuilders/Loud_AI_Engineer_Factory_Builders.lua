@@ -186,9 +186,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 5, 1.012, 1.012 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 5, 1.012, 1.012 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -232,7 +232,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 10, 1.012, 1.015 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.7, 15, 1.012, 1.015 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -274,9 +274,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
  
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 5, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -321,7 +321,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.7, 15, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
