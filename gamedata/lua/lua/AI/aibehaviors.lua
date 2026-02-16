@@ -8565,8 +8565,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     -- these two values control resource requirements versus storage rather than rates
     -- and they act as a bypass whenever the storage holds this % of the total upgrade cost
-    local masslimit     = .69   --- if we have 69% of the total mass needed - it's ok to upgrade
-    local energylimit   = .75   --- and likewise for energy
+    local masslimit     = .675   --- if we have 69% of the total mass needed - it's ok to upgrade
+    local energylimit   = .8   --- and 80% for energy
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
 	local MassNeeded    = (upgradebp.Economy.BuildCostMass * masslimit) / aiBrain.MinorCheatModifier
