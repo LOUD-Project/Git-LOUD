@@ -228,7 +228,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderConditions = {
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 80 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
@@ -254,7 +254,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderConditions = {
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 80 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
@@ -280,7 +280,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderConditions = {
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 80 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
