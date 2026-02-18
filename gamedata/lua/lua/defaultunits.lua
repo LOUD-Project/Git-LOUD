@@ -709,7 +709,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
                 -- notice the additional parameter at the end, tells the threat to post a note, over the unit, each time the thread runs
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.DisplayFactoryBuilds )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 1.0025, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.DisplayFactoryBuilds )
 			end
 		end
 
@@ -723,14 +723,14 @@ StructureUnit = Class(Unit) {
                     checkrate = 15
                     initialdelay = 90
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 0.74, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 0.74, 9999, 1.6, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                     
                 else
                 
                     checkrate = 14
                     initialdelay = 100
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 9999, 1.6, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                 
                 end
 
@@ -781,7 +781,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 13.5
                 initialdelay = 70
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .7, 1.001, 1.8, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .7, 1, 1.6, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
