@@ -8565,8 +8565,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     -- these two values control resource requirements versus storage rather than rates
     -- and they act as a bypass whenever the storage holds this % of the total upgrade cost
-    local masslimit     = .675   --- if we have 69% of the total mass needed - it's ok to upgrade
-    local energylimit   = .8   --- and 80% for energy
+    local masslimit     = .67   --- if we have 67% of the total mass needed - it's ok to upgrade
+    local energylimit   = .78   --- and 78% for energy
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
 	local MassNeeded    = (upgradebp.Economy.BuildCostMass * masslimit) / aiBrain.MinorCheatModifier
@@ -8824,7 +8824,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                     end
                     
                     if econ.EnergyTrend < EnergyTrendNeeded then
-                        LOG( body.." FAILS ENER Trend trigger "..string.format("%.1f",(econ.EnergyTrend*10)).." needed "..string.format("%.1f",(EnergyTrendNeeded*10)))
+                        LOG( body.." FAILS ENER Trend needed "..string.format("%.1f",(EnergyTrendNeeded*10)).." current "..string.format("%.1f",(econ.EnergyTrend*10)))
                         continue
                     end
                     
