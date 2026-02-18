@@ -110,8 +110,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 45 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+			{ EBC, 'LessThanEnergyTrend', { 60 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
@@ -379,8 +379,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
             
-			{ EBC, 'LessThanEnergyTrend', { 45 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+			{ EBC, 'LessThanEnergyTrend', { 60 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
         
