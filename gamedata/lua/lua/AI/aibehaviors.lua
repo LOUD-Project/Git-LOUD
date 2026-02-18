@@ -236,7 +236,7 @@ function LifeThread( aiBrain, cdr )
         
         if mgiven > mcount or egiven > ecount then
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..mgiven.."  E "..egiven )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..mgiven.."  E "..egiven )
             
             mcount = mgiven
             ecount = egiven
