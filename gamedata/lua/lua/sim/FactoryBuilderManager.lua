@@ -58,20 +58,17 @@ function CreateFactoryBuilderManager(brain, lType, location, basetype)
     return fbm
 end
 
-function MassTrigger(factory, builder, scale, adjacencyreduction)
-
-	if builder ~= "Engineer" then
-		if LOUDENTITY(LAND, factory) then
-    		return 150 * scale * adjacencyreduction
-		end
+function MassTrigger(factory, scale, adjacencyReduction)
+	if LOUDENTITY(LAND, factory) then
+    	return 150 * scale * adjacencyReduction
+	end
 		
-		if LOUDENTITY(AIR, factory) then
-    		return 150 * scale * adjacencyreduction
-		end
+	if LOUDENTITY(AIR, factory) then
+    	return 150 * scale * adjacencyReduction
+	end
 	
-		if LOUDENTITY(NAVAL, factory) then
-			return 400 * scale * adjacencyreduction
-		end
+	if LOUDENTITY(NAVAL, factory) then
+		return 400 * scale * adjacencyReduction
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
@@ -81,20 +78,17 @@ function MassTrigger(factory, builder, scale, adjacencyreduction)
 	return 100
 end
 
-function EnergyTrigger(factory, builder, scale, adjacencyreduction)
-
-	if builder ~= "Engineer" then
-		if LOUDENTITY(LAND, factory) then
-    		return 500 * scale * adjacencyreduction
-		end
+function EnergyTrigger(factory, scale, adjacencyReduction)
+	if LOUDENTITY(LAND, factory) then
+    	return 500 * scale * adjacencyReduction
+	end
 		
-		if LOUDENTITY(AIR, factory) then
-    		return 3000 * scale * adjacencyreduction
-		end
+	if LOUDENTITY(AIR, factory) then
+    	return 3000 * scale * adjacencyReduction
+	end
 	
-		if LOUDENTITY(NAVAL, factory) then
-			return 4000 * scale * adjacencyreduction
-		end
+	if LOUDENTITY(NAVAL, factory) then
+		return 4000 * scale * adjacencyReduction
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
@@ -431,7 +425,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local aiBrain       = GetAIBrain(factory)
         local BuildLevel    = factory.BuildLevel
         local Upgrading     = factory.Upgrading
-		local builder = string.sub(repr(self:GetHighestBuilder( factory, aiBrain ).BuilderName), 2, 9) -- find engineer builds
 
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
@@ -461,11 +454,19 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local massScale = math.pow(2.7, factory.BuildLevel - 1) -- exponential increase between tech levels
 		local energyScale = math.pow(2.7, factory.BuildLevel - 1)
 
+		local massTrigger = MassTrigger(factory, massScale, adjacencyreductionM)
+		local energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
+
+		-- initial engineers have a lower cost
+		if aiBrain.CycleTime < 45 then
+			massTrigger = 100
+			energyTrigger = 1000
+		end
+
         local trig = false
         
         --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
-		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < MassTrigger(factory, builder, massScale, adjacencyreductionM) or GetEconomyStored( aiBrain, 'ENERGY') < EnergyTrigger(factory, builder, energyScale, adjacencyreductionE) ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
-
+		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < massTrigger or GetEconomyStored( aiBrain, 'ENERGY') < energyTrigger ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
             -- adjacency reduction is the average of the two reductions
             adjacencyaverage = ((adjacencyreductionE + adjacencyreductionM) / 2)          
 
@@ -482,12 +483,16 @@ FactoryBuilderManager = Class(BuilderManager) {
                     factory:SetCustomName( message )
                 end
 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f",MassTrigger(factory, builder, massScale, adjacencyreductionM)).." Enertrig "..string.format("%.1f",EnergyTrigger(factory, builder, energyScale, adjacencyreductionE)))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f", massTrigger).." Enertrig "..string.format("%.1f", energyTrigger))
             end
             
 			WaitTicks( delay )
             adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
             adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
+
+			-- the actual M & E triggers are impacted by new adjacencies each cycle
+			massTrigger = MassTrigger(factory, massScale, adjacencyreductionM)
+			energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
