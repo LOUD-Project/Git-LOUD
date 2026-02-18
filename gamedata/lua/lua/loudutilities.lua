@@ -5363,7 +5363,14 @@ function ParseIntelThread( aiBrain )
         -- strength ratio is (myvalue versus enemyvalue)
 		-- syntax is --  Brain, Category, IsIdle, IncludeBeingBuilt
         if LOUDMOD(iterationcount,5) == 0 then
-        
+
+            local mapSize = ScenarioInfo.MaxMapDimension
+            local threatSwitchDelay = 600
+            -- larger maps take longer to switch from 0.11 to 10 to give LOUD more time to scout
+            if mapSize == 1024 then threatSwitchDelay = 900 end
+            if mapSize == 2048 then threatSwitchDelay = 1500 end
+            if mapSize == 4096 then threatSwitchDelay = 2400 end
+
             if IntelDialog then
                 LOG( dialog.." Recalc AIR Strength Ratios on tick "..GetGameTick())
             end
@@ -5441,7 +5448,7 @@ function ParseIntelThread( aiBrain )
                     
                 else
                 
-                    if aiBrain.CycleTime < 600 then
+                    if aiBrain.CycleTime < threatSwitchDelay then
                     
                         aiBrain.AirRatio = .011
                         aiBrain.AirBias = 1
@@ -5454,7 +5461,7 @@ function ParseIntelThread( aiBrain )
                 end
                 
             else
-                if aiBrain.CycleTime < 600 then
+                if aiBrain.CycleTime < threatSwitchDelay then
                     
                     aiBrain.AirRatio = 0.01
                     aiBrain.AirBias = 1
@@ -5524,7 +5531,7 @@ function ParseIntelThread( aiBrain )
 
                 else
                 
-                    if aiBrain.CycleTime < 600 then
+                    if aiBrain.CycleTime < threatSwitchDelay then
                     
                         aiBrain.LandRatio = .011
                         
@@ -5537,7 +5544,7 @@ function ParseIntelThread( aiBrain )
                 
             else
                 
-                if aiBrain.CycleTime < 600 then
+                if aiBrain.CycleTime < threatSwitchDelay then
 
                     aiBrain.LandRatio = .011
 
@@ -5600,7 +5607,7 @@ function ParseIntelThread( aiBrain )
 
                 else
                 
-                    if aiBrain.CycleTime < 600 then
+                    if aiBrain.CycleTime < threatSwitchDelay then
                     
                         aiBrain.NavalRatio = .011
                         
@@ -5613,7 +5620,7 @@ function ParseIntelThread( aiBrain )
                 
             else
                 
-                if aiBrain.CycleTime < 600 then
+                if aiBrain.CycleTime < threatSwitchDelay then
                     
                     aiBrain.NavalRatio = .011
 
