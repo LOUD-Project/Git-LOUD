@@ -63,7 +63,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
-            { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
         },
 		
         BuilderType = { 'T1' },
@@ -510,7 +510,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
             
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
 
