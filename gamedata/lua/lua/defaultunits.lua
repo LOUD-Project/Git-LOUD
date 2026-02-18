@@ -698,9 +698,9 @@ StructureUnit = Class(Unit) {
             checkrate = 16.5        
             initialdelay = 132
 
-            -- after 30 minutes factories have NO upgrade delay period
+            -- after 18 minutes factories have NO upgrade delay period
             -- and will check for being able to upgrade at a faster rate
-            if aiBrain.CycleTime > 1800 then
+            if aiBrain.CycleTime > 1080 then
 
                 checkrate = 13.5
                 initialdelay = 1
