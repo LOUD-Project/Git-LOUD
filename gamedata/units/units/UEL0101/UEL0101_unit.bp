@@ -24,8 +24,6 @@ UnitBlueprint {
         'LAND',
         'TECH1',
         'SCOUT',
-        'INTELLIGENCE',
-        'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYRADAR',
