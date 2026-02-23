@@ -140,8 +140,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 10,
-                LoopEnergy = 2500,
+                LoopMass = 75,
+                LoopEnergy = 2000,
 
                 MinRange = 200,
                 MaxRange = 750,
@@ -189,8 +189,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 6,         -- pick from list of up to 6 closest
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 100,
-                LoopEnergy = 3000,
+                LoopMass = 75,
+                LoopEnergy = 2000,
 
                 MinRange = 300,         -- if BuildClose is true then MinRange will be set to zero AFTER first build (so engineer can build groups in same area)
                 MaxRange = 1500,
@@ -245,7 +245,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
                 LoopMass = 75,
-                LoopEnergy = 3000,
+                LoopEnergy = 2000,
                 
                 MinRange = 300,
                 MaxRange = 2500,
@@ -294,7 +294,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
                 LoopMass = 75,
-                LoopEnergy = 3000,
+                LoopEnergy = 2000,
                 
                 MinRange = 200,         -- initial min range - after first build, min becomes zero for groups
                 MaxRange = 750,
@@ -608,7 +608,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType 
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
@@ -659,7 +659,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType 
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
