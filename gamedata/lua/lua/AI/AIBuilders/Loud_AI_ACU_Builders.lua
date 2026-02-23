@@ -280,7 +280,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
 
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
 

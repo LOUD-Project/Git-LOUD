@@ -26,6 +26,7 @@ end
 local ENERGY    = categories.ENERGYPRODUCTION
 local HYDRO     = categories.HYDROCARBON
 local ENERGYT1  = ENERGY * categories.TECH1
+local ENERGYT2  = ENERGY * categories.TECH2 - HYDRO
 local ENERGYT3  = ENERGY * categories.TECH3
 
 
@@ -55,13 +56,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 75, ENERGYT1, 0, 33 ) then
                 return 12, true
             end
+ 
+            -- if T2 power is present - priority is the same as Assist Energy task
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT2 ) then
+                return 745, true
+            end
+
 	
             return (self.OldPriority or self.Priority), true
         end,
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
         },
@@ -109,7 +116,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
         
         BuilderConditions = {
-        
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},        
 			{ EBC, 'LessThanEnergyTrend', { 60 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
@@ -378,7 +386,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
-            
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},            
 			{ EBC, 'LessThanEnergyTrend', { 60 }},
 			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
@@ -508,7 +517,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
             
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
             
