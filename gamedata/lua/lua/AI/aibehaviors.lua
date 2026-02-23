@@ -8608,7 +8608,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     -- those that bypassecon advance it by 2 seconds 
 	while init_delay < initialdelay do
         
-        if tech2Mex[upgradeID] and GetFractionComplete(unit) == 1 then -- t2 mass ignores storage requirement
+        if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) and GetFractionComplete(unit) == 1 then -- t2 mass ignores storage requirement
 			init_delay = init_delay + 10
 		-- uses the same values as factories do for units
 		if GetEconomyStored( aiBrain, 'MASS') >= 225 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
@@ -8641,6 +8641,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." cycles on tick "..GetGameTick() )
         end
 		
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) and aiBrain.MexUpgradeActive >= aiBrain.MexUpgradeLimit then
+            continue
+        end
+
         if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
 
 			EnergyStorage   = GetEconomyStored( aiBrain, 'ENERGY')
@@ -8656,8 +8660,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 continue
             end
 
-            -- if T2 Mex then either mass efficiency or mass storage can prevent the upgrade to limit the number running concurrently
-            if tech2Mex[upgradeID] and (econ.MassEfficiency < masslowtrigger or MassStorage < MassNeeded) then
+            -- if upgrading a T2 Mex then either efficiency or storage can prevent the upgrade to limit the number running concurrently
+            if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) and 
+            ((econ.MassEfficiency < masslowtrigger or MassStorage < MassNeeded) or
+            (econ.EnergyEfficiency < energylowtrigger or EnergyStorage < EnergyNeeded)) then
                 continue
             end
 
@@ -8893,6 +8899,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		end
   
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.EntityID)
+                            
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) then
+            ForkThread(MexUpgradesActive, aiBrain, unitbeingbuilt )
+        end
 
         unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
 
@@ -8933,6 +8943,26 @@ function SelfUpgradeDelay( aiBrain, unit, delay )
     
     if ScenarioInfo.StructureUpgradeDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit)
+    end
+end
+
+-- Limit the amount of simultaneous mex upgrades that can be active
+function MexUpgradesActive( aiBrain, unit )
+
+    aiBrain.MexUpgradeActive = aiBrain.MexUpgradeActive + 1
+
+    if ScenarioInfo.StructureUpgradeDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." mex upgrading up to "..aiBrain.MexUpgradeActive.."/"..aiBrain.MexUpgradeLimit)
+    end
+
+    repeat
+        WaitTicks(20)
+    until moho.entity_methods.GetFractionComplete(unit) == 1 
+
+    aiBrain.MexUpgradeActive = aiBrain.MexUpgradeActive - 1
+
+    if ScenarioInfo.StructureUpgradeDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." mex upgrading down to "..aiBrain.MexUpgradeActive.."/"..aiBrain.MexUpgradeLimit)
     end
 end
 
