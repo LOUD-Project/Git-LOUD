@@ -8586,19 +8586,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     -- these two values control resource requirements versus storage rather than rates
     -- and they act as a bypass whenever the storage holds this % of the total upgrade cost
-    local masslimit     = .67   --- if we have 67% of the total mass needed - it's ok to upgrade
-    local energylimit   = .78   --- and 78% for energy
+    local masslimit     = .67   --- if we have 69% of the total mass needed - it's ok to upgrade
+    local energylimit   = .78   --- and likewise for energy
 
-    local tech2Mex = {
-        ueb1202 = true,
-        uab1202 = true,
-        urb1202 = true,
-        xsb1202 = true
-    }
-
-    if tech2Mex[upgradeID] then -- aggressively push T2 mass upgrades
-        masslimit = .3
-        energylimit = .6
+    if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) then -- aggressively push T" mass upgrades
+        masslimit = .28
+        energylimit = .5
     end
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
