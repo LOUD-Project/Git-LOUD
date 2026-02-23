@@ -8597,7 +8597,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while init_delay < initialdelay do
 		
 		-- uses the same values as factories do for units
-		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 225 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
 		else
             -- units which are permitted to bypass the more stringent eco tests can advance
