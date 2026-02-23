@@ -964,7 +964,9 @@ function InitializeArmies()
                 --- is used to limit the # of self-upgrades that can be issued in a given time
                 --- to avoid having more than X units trying to upgrade at once
                 aiBrain.UpgradeIssued = 0
+                aiBrain.MexUpgradeActive = 0
 
+                aiBrain.MexUpgradeLimit = 4
                 aiBrain.UpgradeIssuedLimit = 1
                 aiBrain.UpgradeIssuedPeriod = 225
 
