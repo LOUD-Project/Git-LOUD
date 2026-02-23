@@ -174,7 +174,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 70,
 
-            ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
+            ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',
             ProjectileLifetime = 1,
 
             RackBones = {
