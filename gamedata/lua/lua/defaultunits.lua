@@ -777,16 +777,26 @@ StructureUnit = Class(Unit) {
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 1.5 )
 
 			if not finishedUnit.UpgradeThread then
-                
-                checkrate = 13.5
-                initialdelay = 70
 
-                if aiBrain.CycleTime < 600 then -- increased delay at early stages to favour upgrading base mex
-                    initialdelay = 160
+                if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH3, finishedUnit ) then -- T3+Storage has a high priority
+
+                    checkrate = 1
+                    initialdelay = 1
+
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.1, 0.1, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+
+                else
+
+                    checkrate = 13.5
+                    initialdelay = 70
+
+                    if aiBrain.CycleTime < 600 then -- increased delay at early stages to favour upgrading base mex
+                        initialdelay = 130
+                    end
+
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.74, 1.0032, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+
                 end
-
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.9, 1.0032, 1.8, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
-
 			end
         end
 
