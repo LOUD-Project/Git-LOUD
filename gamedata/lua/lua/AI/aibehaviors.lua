@@ -8589,9 +8589,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local masslimit     = .67   --- if we have 69% of the total mass needed - it's ok to upgrade
     local energylimit   = .78   --- and likewise for energy
 
-    if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) then -- aggressively push T" mass upgrades
-        masslimit = .28
-        energylimit = .5
+    if EntityCategoryContains( categories.MASSEXTRACTION - categories.TECH2, unit ) then -- aggressively push T2 & T3+Storage mass upgrades
+        masslimit = .22
+        energylimit = .4
     end
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
