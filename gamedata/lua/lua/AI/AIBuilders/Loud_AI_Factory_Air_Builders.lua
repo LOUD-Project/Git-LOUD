@@ -522,7 +522,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
-            { UCBC, 'ArmyNeedsTransports', { true } },
+            --{ UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
