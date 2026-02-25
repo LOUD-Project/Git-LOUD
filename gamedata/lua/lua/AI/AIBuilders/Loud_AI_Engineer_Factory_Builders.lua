@@ -118,7 +118,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2400 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, LAND }},            
         },
@@ -151,7 +151,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroAirFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR }},
         },
