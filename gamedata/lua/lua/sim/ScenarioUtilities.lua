@@ -741,13 +741,19 @@ end
 function MexUpgradeLimitSwitch( aiBrain )
     repeat
         WaitTicks(100)
-    until aiBrain.CycleTime > 420
+    until aiBrain.CycleTime > 420 -- 7 minutes
 
     aiBrain.MexUpgradeLimit = 2
 
     repeat
         WaitTicks(100)
-    until aiBrain.CycleTime > 720
+    until aiBrain.CycleTime > 600 -- 10 minutes
+
+    aiBrain.MexUpgradeLimit = 3
+
+    repeat
+        WaitTicks(100)
+    until aiBrain.CycleTime > 900 -- 15 minutes
 
     aiBrain.MexUpgradeLimit = 4
 end
