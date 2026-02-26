@@ -192,6 +192,7 @@ function LifeThread( aiBrain, cdr )
     
     local MATHMIN = LOUDMIN
     
+    local shortcount = 0
     local mcount = 0
     local mgiven = 0
     local ecount = 0
@@ -235,8 +236,10 @@ function LifeThread( aiBrain, cdr )
         end
         
         if mgiven > mcount or egiven > ecount then
+        
+            shortcount = shortcount + 1
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..mgiven.."  E "..egiven )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..mgiven.."  E "..egiven.." Shortage Count "..shortcount )
             
             mcount = mgiven
             ecount = egiven
@@ -8519,7 +8522,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     if upgradebp and Game.UnitRestricted( false, upgradeID ) then
     
-        LOG("*AI DEBUG Upgrade retricted "..repr(upgradeID) )
+        LOG("*AI DEBUG Upgrade restricted "..repr(upgradeID) )
     
         unit.UpgradeThread = nil
         unit.UpgradeComplete = true
