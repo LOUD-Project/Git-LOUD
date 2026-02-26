@@ -911,7 +911,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND - AMPHIBIOUS, LAND }},
         },
 
-        BuilderType = {'LandT2'},
+        BuilderType = {'LandT2','LandT3'},
     },
 	
 	-- ===================  --
