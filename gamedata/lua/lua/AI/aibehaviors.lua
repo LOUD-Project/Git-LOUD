@@ -8910,13 +8910,59 @@ function SelfUpgradeDelay( aiBrain, unit, delay )
     if ScenarioInfo.StructureUpgradeDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter up to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." - delay period is "..(delay/10).." seconds")
     end
+    
+    local delayleft = delay
 
-    WaitTicks( delay )
-	
+    local normaldelay = 10
+    
+    local saveddelay = 0
+    
+    local reduction = 0
+    
+    WaitTicks(11)
+    
+    delayleft = delayleft - 11
+    
+    while delayleft > 0 do
+    
+        reduction = 0
+    
+        if (GetEconomyStoredRatio( aiBrain, 'ENERGY') *100) > 75 then
+
+            reduction = 3
+            
+        end
+        
+        if (GetEconomyStoredRatio( aiBrain, 'MASS') *100) > 67 then
+        
+            reduction = reduction + 3
+            
+        end
+        
+        if reduction > 0 then
+            
+            if ScenarioInfo.StructureUpgradeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." delay period reduced by "..reduction.." ticks ")
+            end
+            
+            WaitTicks( normaldelay - reduction )
+            
+            saveddelay = saveddelay + reduction
+            
+        else
+
+            WaitTicks( normaldelay )
+
+        end
+        
+        delayleft = delayleft - 10
+
+    end
+
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued - 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit)
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." saved "..saveddelay.." ticks")
     end
 end
 
