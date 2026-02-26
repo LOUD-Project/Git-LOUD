@@ -117,9 +117,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},        
-			{ EBC, 'LessThanEnergyTrend', { 60 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1500 }},        
+			{ EBC, 'LessThanEnergyTrend', { 75 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 75 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
@@ -197,7 +197,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
             
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
 			
@@ -388,8 +388,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},            
-			{ EBC, 'LessThanEnergyTrend', { 60 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
+			{ EBC, 'LessThanEnergyTrend', { 75 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 75 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
         
@@ -519,9 +519,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 75 }},
             
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYT3 }},            
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },
