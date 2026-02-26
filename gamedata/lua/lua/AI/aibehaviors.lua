@@ -8603,6 +8603,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
         if EntityCategoryContains( categories.MASSEXTRACTION, unit ) and GetFractionComplete(unit) == 1 then -- mass extractors ignore storage requirement
 			init_delay = init_delay + 10
+        end
 		-- uses the same values as factories do for units
 		if GetEconomyStored( aiBrain, 'MASS') >= 225 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
