@@ -8600,7 +8600,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while init_delay < initialdelay do
 		
 		-- uses the same values as factories do for units
-		if GetEconomyStored( aiBrain, 'MASS') >= 225 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 250 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
 		else
             -- units which are permitted to bypass the more stringent eco tests can advance
@@ -8636,7 +8636,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			MassStorage     = GetEconomyStored( aiBrain, 'MASS')
 
             --- basic resource requirement for ALL things (except bypassecon things)
-            if (MassStorage < 200 or EnergyStorage < 2500) and not bypassecon then
+            if (MassStorage < 250 or EnergyStorage < 3000) and not bypassecon then
 
                 if StructureUpgradeDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." fails base storage M "..MassStorage.."  E "..EnergyStorage )
