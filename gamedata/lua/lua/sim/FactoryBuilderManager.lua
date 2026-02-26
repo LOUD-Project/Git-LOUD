@@ -412,8 +412,8 @@ FactoryBuilderManager = Class(BuilderManager) {
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
         
-        local masstrig = LOUDMAX(100, 225 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-        local enertrig = LOUDMAX(1000, 2500 - ((3 - BuildLevel) * 250)) * adjacencyreductionE
+        local masstrig = LOUDMAX(100, 250 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
+        local enertrig = LOUDMAX(1000, 3000 - ((3 - BuildLevel) * 300)) * adjacencyreductionE
         
         local trig = false
         
