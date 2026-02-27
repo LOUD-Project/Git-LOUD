@@ -1,3 +1,22 @@
+### Release 02-27-2026
+
+LUA 8.04
+Black Ops for LOUD 7.24
+UNITS 7.24
+
+- rearranged T1 Pgen pattern to reduce early ACU movement (Mofunkles)
+- reduced T1 Air Scout build (4 > 2) to reduce potential eco stall early game (Mofunkles)
+- increased ACU E trigger for building T1 power early game
+- increased eco trigger for T1 airpad early game (Mofunkles)
+- reduced eco requirements for ACU/T1 engineer T1 Pgen build
+- added LOG ability to monitor actual usage of ACU LifeThread both in terms of quantity and frequency
+- UEF T1 Land Scout removed erroneous category INTELLIGENCE, and misleading DIRECTFIRE (Mofunkles)
+- BO Aeon T3 TMD gets a more functional projectile (Frustberry)
+- UNITS T1 Pgens and Hydrocarbons get mild increase to E storage
+- some new work governing AI upgrading increasing early game efficiency 
+
+
+
 ### Release 02-06-2026
 
 LUA 8.03
