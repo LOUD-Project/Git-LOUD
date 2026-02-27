@@ -764,7 +764,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 15
                 initialdelay = 120
   
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1, 0.74, 9999, 1.4, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1, 0.74, 9999, 1.25, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
 		end
@@ -788,7 +788,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 13.5
                 initialdelay = 70
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .72, 1.003, 1.4, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .72, .9, 1.85, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -812,7 +812,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 16
                 initialdelay = 85
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.003, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.003, 1.6, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end

@@ -445,8 +445,8 @@ FactoryBuilderManager = Class(BuilderManager) {
             adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
         
             -- the actual M & E triggers are impacted by new adjacencies each cycle
-            masstrig = LOUDMAX(100, 225 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-            enertrig = LOUDMAX(1000, 2500 - ((3 - BuildLevel) * 250)) * adjacencyreductionE
+            masstrig = LOUDMAX(100, 250 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
+            enertrig = LOUDMAX(1000, 3000 - ((3 - BuildLevel) * 300)) * adjacencyreductionE
 
 		end
 		
