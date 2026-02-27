@@ -84,7 +84,7 @@ end
 
 local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
-    if aiBrain.CycleTime < 120 then
+    if aiBrain.CycleTime < 210 then
     
         return 10, true
         

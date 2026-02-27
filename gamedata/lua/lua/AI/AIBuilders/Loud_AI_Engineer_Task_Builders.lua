@@ -258,9 +258,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
         },
@@ -268,7 +268,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderData = {
             Assist = {
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 150,
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 100,
             
@@ -300,9 +300,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2500 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -313,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 500,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 75,
+                AssistMass = 35,
             
 				AssistRange = 120,
                 AssisteeType = 'Any',

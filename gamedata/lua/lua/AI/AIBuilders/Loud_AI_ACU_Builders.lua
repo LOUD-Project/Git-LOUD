@@ -284,14 +284,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
             -- this should pick up only factory ring T1 Pgens - and not those at extractors
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, ENERGYPRODUCTION * STRUCTURE * TECH1, 0, 33 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -452,9 +452,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },
@@ -467,7 +467,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 100,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 150,
                 
 				AssistRange = 80,
                 AssisteeType = 'Any',
@@ -493,7 +493,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},           
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, ENGINEER + MASSPRODUCTION, 60 }},
         },
@@ -504,7 +504,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 100,
+                AssistEnergy = 500,
                 -- this allows the builder to continue assist until M drops below this
                 AssistMass = 35,
 
@@ -803,8 +803,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},			
             
 			-- dont build if we have built any advanced power -- obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE - TECH1 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 30, 50}},
         },
 		
         BuilderType = { 'Commander' },
@@ -858,10 +858,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, STRUCTURE * categories.DIRECTFIRE * TECH2, 15, 42 }},
 			
             -- stop building if we have more than 10 T3 PD
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},     
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, STRUCTURE * categories.DIRECTFIRE * TECH3, 15, 42 }},     
         },
 		
         BuilderType = {'Commander'},
@@ -912,7 +912,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, STRUCTURE * categories.DIRECTFIRE * TECH3, 15, 42 }},
         },
 		
         BuilderType = { 'Commander'},

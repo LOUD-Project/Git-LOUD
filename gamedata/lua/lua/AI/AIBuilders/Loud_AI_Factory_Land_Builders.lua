@@ -83,6 +83,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            
+            { MIBC, 'GreaterThanGameTime', { 180 }},
 
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
             { UCBC, 'PoolLess', { 4, LAND * categories.SCOUT }},

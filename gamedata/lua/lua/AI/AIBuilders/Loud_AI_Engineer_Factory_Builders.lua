@@ -13,6 +13,12 @@ local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
 
 local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
 
+local FACTORY   = categories.FACTORY
+local GATE      = categories.GATE
+local AIR       = categories.AIR
+local LAND      = categories.LAND
+local NAVAL     = categories.NAVAL
+
 local AboveUnitCap65 = function( self,aiBrain )
 	
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
@@ -49,7 +55,7 @@ local HaveZeroAirFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 60 then
 	
-        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIR, false, true )) < 1 then
 	
             return 990, true
 		
@@ -65,7 +71,7 @@ local HaveZeroLandFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 60 then
 	
-        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * LAND, false, true )) < 1 then
 
             return 990, true
 		
@@ -81,7 +87,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 90 then
 	
-        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.NAVAL, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * NAVAL, false, true )) < 1 then
 	
             return 990, true
 		
@@ -92,6 +98,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
 	return self.OldPriority or self.Priority, true
 
 end
+
 
 -- In LOUD, construction of new factories is controlled by three things
 -- the cap check, which comes from the BaseTemplateFile, controls the max number of factories by type
@@ -113,7 +120,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND }},            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, LAND }},            
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -146,7 +153,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -182,15 +189,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, LAND * categories.TECH1 }},
             
-            { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
+            { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', AIR, LAND } },
 
-			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3600 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.012 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.010, 1.010 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -228,15 +235,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, AIR * categories.TECH1 }},
             
-            { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
+            { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', LAND, AIR } },
 
-			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3600 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.010, 1.012 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -276,13 +283,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             -- this allows it to exceed the cap check by 2
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, LAND * categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
  
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -304,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
     -- this builder comes into play if land strength is decent but air production is not high enough to make bombers/gunships
     -- and can also ignore the count requirement for balance and build beyond the factory cap limit for AIR
-    Builder {BuilderName = 'Air Factory Balance - Land Ratio High',
+    Builder {BuilderName = 'Air Factory - Land Ratio High',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -323,13 +330,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR', 2 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, AIR * categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -399,7 +406,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, LAND * categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
 			
@@ -441,9 +448,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR * categories.TECH1 }},
             
-            { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
+            { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', AIR, LAND } },
 			
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
 
@@ -490,7 +497,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
             -- this allows it to exceed the cap check by 2
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, LAND * categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
 	
@@ -526,7 +533,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
             
                 return 12, true
                 
@@ -544,7 +551,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * GATE }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
@@ -649,7 +656,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
             -- only adding another factory if we had less than 3 T1 already here
             -- in practice - this sometimes just forced the creation of another
             -- naval yard if available
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 3, categories.NAVAL * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 3, NAVAL * categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 60 }},                    
 			
@@ -722,7 +729,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
             
                 return 12, true
                 
@@ -841,7 +848,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
             
                 return 12, true
                 
