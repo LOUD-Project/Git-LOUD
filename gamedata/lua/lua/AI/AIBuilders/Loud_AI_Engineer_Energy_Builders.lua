@@ -70,7 +70,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
         },
 		
         BuilderType = { 'T1' },
@@ -117,7 +117,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 90 }},        
+			{ EBC, 'LessThanEnergyTrend', { 90 }},
 			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
@@ -509,16 +509,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
 		PriorityFunction = First45Minutes,
 
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 500 }}, -- higher cost to prevent hurting early economy
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 400 }}, -- higher cost to prevent hurting early economy
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
             
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
 
