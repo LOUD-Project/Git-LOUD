@@ -778,7 +778,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-                if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH3, finishedUnit ) then -- T3+Storage has a high priority
+                if EntityCategoryContains( categories.TECH3, finishedUnit ) then -- T3+Storage has a high priority
 
                     checkrate = 1
                     initialdelay = 1
