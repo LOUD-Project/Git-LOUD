@@ -280,11 +280,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 200 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
+
+            { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
 
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
