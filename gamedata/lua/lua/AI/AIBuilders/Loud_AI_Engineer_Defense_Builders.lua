@@ -170,7 +170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 12, true
                 end
  
-                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 360 then
+                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 600 then
                     return (builder.OldPriority or builder.Priority) + 50, true
                 end
     
@@ -239,8 +239,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 					return 0, false
 				end
                 
-                -- ignore this for first 7 minutes
-                if aiBrain.CycleTime < 420 then
+                -- ignore this for first 10 minutes
+                if aiBrain.CycleTime < 600 then
                     return 10, true
                 end
         
@@ -2132,6 +2132,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
+            if aiBrain.CycleTime < 300 then -- delayed as its expensive in power and not needed for several minutes
+                return 10, true
+            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
                 return 10, false
@@ -2141,7 +2144,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }}, -- with a delay can be cheaper
         },
 		
         BuilderType = {'T1'},

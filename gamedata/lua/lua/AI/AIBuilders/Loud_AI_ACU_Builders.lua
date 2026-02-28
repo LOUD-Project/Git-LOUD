@@ -280,11 +280,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
 
-            { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }}, -- power demand ramps too hard early on to be gated by this
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
@@ -322,10 +322,13 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		BuilderType = { 'Commander' },
 
         BuilderConditions = {
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
-
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 35, -9999, 35, 0, 'AntiSurface', 1 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 1 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -491,9 +494,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
+			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 500 }},
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, ENGINEER + MASSPRODUCTION, 60 }},
         },
@@ -619,7 +622,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.3, 1.025 }}, -- favour eco development
         },
 		
         BuilderType = { 'Commander' },

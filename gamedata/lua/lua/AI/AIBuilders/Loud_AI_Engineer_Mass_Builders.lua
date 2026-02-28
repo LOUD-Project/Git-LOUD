@@ -26,9 +26,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }}, -- just claim early mass with no delays
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+            --{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
@@ -43,8 +43,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 
 				LoopBuild = true,		-- repeat until none in range, threat or cannot meet M & E
                 
-                LoopMass = 1,
-                LoopEnergy = 500,
+                LoopMass = 0,
+                LoopEnergy = 0,
                 
                 MaxRange = 250,
 
@@ -78,9 +78,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            --{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
@@ -92,8 +92,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 75,
-                LoopEnergy = 2000,
+                LoopMass = 0,
+                LoopEnergy = 0,
 
                 MinRange = 200,
                 MaxRange = 750,

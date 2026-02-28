@@ -69,8 +69,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderConditions = {
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
+            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
         },
 		
         BuilderType = { 'T1' },
@@ -116,11 +116,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
         
         BuilderConditions = {
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1500 }},        
-			{ EBC, 'LessThanEnergyTrend', { 75 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+        
+			{ EBC, 'LessThanEnergyTrend', { 90 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
+			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
         BuilderType = {'T2'},
@@ -517,19 +516,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
 		PriorityFunction = First45Minutes,
 
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 400 }}, -- higher cost to prevent hurting early economy
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},                        
-
+            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
+            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYT3 }},            
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},

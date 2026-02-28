@@ -737,6 +737,27 @@ function CreateResources()
 	
 end
 
+-- Mex upgrade limit increases at set times to avoid early eco issues with upgrading too many at once
+function MexUpgradeLimitSwitch( aiBrain )
+    repeat
+        WaitTicks(100)
+    until aiBrain.CycleTime > 450 -- 7.5 minutes
+
+    aiBrain.MexUpgradeLimit = 2
+
+    repeat
+        WaitTicks(100)
+    until aiBrain.CycleTime > 600 -- 10 minutes
+
+    aiBrain.MexUpgradeLimit = 3
+
+    repeat
+        WaitTicks(100)
+    until aiBrain.CycleTime > 900 -- 15 minutes
+
+    aiBrain.MexUpgradeLimit = 4
+end
+
 function InitializeArmies()
 	
 	--Loop through active mods
@@ -964,6 +985,10 @@ function InitializeArmies()
                 --- is used to limit the # of self-upgrades that can be issued in a given time
                 --- to avoid having more than X units trying to upgrade at once
                 aiBrain.UpgradeIssued = 0
+                aiBrain.MexUpgradeActive = 0
+
+                aiBrain.MexUpgradeLimit = 1
+                ForkThread( MexUpgradeLimitSwitch, aiBrain )
 
                 aiBrain.UpgradeIssuedLimit = 1
                 aiBrain.UpgradeIssuedPeriod = 225
