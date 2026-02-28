@@ -8621,7 +8621,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
     local econ  = aiBrain.EcoData.OverTime
 
-	local EnergyStorage, MassStorage
+	local EnergyStorage, MassStorage, extractorCount
 	
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
         
@@ -8634,9 +8634,20 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         if StructureUpgradeDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." cycles on tick "..GetGameTick() )
         end
-		
-        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) and aiBrain.MexUpgradeActive >= aiBrain.MexUpgradeLimit then
-            continue
+
+        -- Check if maximum number of mex upgrades has been reached
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
+
+            if aiBrain.MexUpgradeActive >= aiBrain.MexUpgradeLimit then
+                continue
+            end
+
+            --extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
+            -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
+            --if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 18 then
+            --    continue
+            --end
+
         end
 
         if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
