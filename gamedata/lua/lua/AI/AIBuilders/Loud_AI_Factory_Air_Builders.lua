@@ -527,7 +527,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 6}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 2, [2048] = 3, [4096] = 4}, TRANSPORTS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1','AirT2'},
