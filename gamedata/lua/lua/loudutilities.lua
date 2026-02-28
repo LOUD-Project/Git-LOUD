@@ -5524,7 +5524,7 @@ function ParseIntelThread( aiBrain )
 
                 else
                 
-                    if aiBrain.CycleTime < 600 then
+                    if aiBrain.CycleTime < 1200 then
                     
                         aiBrain.LandRatio = .011
                         
@@ -5537,7 +5537,7 @@ function ParseIntelThread( aiBrain )
                 
             else
                 
-                if aiBrain.CycleTime < 600 then
+                if aiBrain.CycleTime < 1200 then
 
                     aiBrain.LandRatio = .011
 
