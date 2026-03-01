@@ -20,6 +20,7 @@ local Direction                     = import('/lua/utilities.lua').GetDirectionI
 
 local BuildPlatoon              = moho.aibrain_methods.BuildPlatoon
 local GetEconomyStored          = moho.aibrain_methods.GetEconomyStored
+local GetEconomyIncome			= moho.aibrain_methods.GetEconomyIncome
 
 local GetFractionComplete       = moho.entity_methods.GetFractionComplete
 
@@ -450,9 +451,17 @@ FactoryBuilderManager = Class(BuilderManager) {
 
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
+
+		local levelReduction = 1
+
+		-- for T2 and T3 before their respective power is up use the previous levels triggers
+		if (factory.BuildLevel == 2 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1500) or
+		(factory.BuildLevel == 3 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 8000) then
+			levelReduction = 2
+		end
 	
-		local massScale = math.pow(1.8, factory.BuildLevel - 1) -- exponential increase between tech levels
-		local energyScale = math.pow(3.6, factory.BuildLevel - 1)
+		local massScale = math.pow(1.8, factory.BuildLevel - levelReduction) -- exponential increase between tech levels
+		local energyScale = math.pow(3.6, factory.BuildLevel - levelReduction)
 
 		local massTrigger = MassTrigger(factory, massScale, adjacencyreductionM)
 		local energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
