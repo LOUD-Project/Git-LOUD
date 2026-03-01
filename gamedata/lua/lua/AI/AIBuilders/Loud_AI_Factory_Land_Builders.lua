@@ -122,7 +122,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 55, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 105, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
@@ -145,7 +145,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
 			-- turn off as soon as we have a T2/T3 land factory
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
 		
         BuilderType = {'LandT1'},
@@ -172,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
 
         BuilderType = {'LandT1'},
