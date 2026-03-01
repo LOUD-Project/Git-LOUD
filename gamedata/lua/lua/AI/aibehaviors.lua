@@ -8605,7 +8605,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			init_delay = init_delay + 10
         end
 		-- uses the same values as factories do for units
-		if GetEconomyStored( aiBrain, 'MASS') >= 225 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 250 and GetEconomyStored( aiBrain, 'ENERGY') >= 3000 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
 		else
             -- units which are permitted to bypass the more stringent eco tests can advance
@@ -8642,11 +8642,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 continue
             end
 
-            --extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
+            extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
             -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
-            --if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 18 then
-            --    continue
-            --end
+            if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 18 then
+                continue
+            end
 
         end
 
