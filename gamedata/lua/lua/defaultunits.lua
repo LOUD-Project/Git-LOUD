@@ -698,9 +698,24 @@ StructureUnit = Class(Unit) {
             checkrate = 16.5        
             initialdelay = 132
 
-            -- after 18 minutes factories have NO upgrade delay period
+            -- after 15 minutes T1 factories have no ugprade delay to push those without a job into T2
+            if  aiBrain.CycleTime > 1200 and EntityCategoryContains( categories.TECH1, finishedUnit ) then
+
+                checkrate = 13.5
+                initialdelay = 1
+
+            end
+
+            -- early T2 factories have a long delay to inhibit T3 rushing
+            if aiBrain.CycleTime < 1800 and EntityCategoryContains( categories.TECH2, finishedUnit ) then
+
+                initialdelay = 600
+
+            end
+
+            -- after 30 minutes factories have NO upgrade delay period
             -- and will check for being able to upgrade at a faster rate
-            if aiBrain.CycleTime > 1080 then
+            if aiBrain.CycleTime > 1800 then
 
                 checkrate = 13.5
                 initialdelay = 1
@@ -709,7 +724,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
                 -- notice the additional parameter at the end, tells the threat to post a note, over the unit, each time the thread runs
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0035, 1.002, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.DisplayFactoryBuilds )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0035, 1.002, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.DisplayFactoryBuilds )
 			end
 		end
 

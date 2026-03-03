@@ -10,6 +10,7 @@ local LOUDGETN              = table.getn
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
+local GetEconomyIncome		= moho.aibrain_methods.GetEconomyIncome
 
 local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
 
@@ -111,7 +112,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2400 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 280, 2000 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND }},            
         },
@@ -512,7 +513,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -526,7 +527,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
         },
@@ -702,7 +703,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -716,7 +717,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
         },
@@ -819,7 +820,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -833,7 +834,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
         },
