@@ -8346,6 +8346,11 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	
 		WaitTicks(201)
 
+        -- minimum delay before enhancements can start
+        if aiBrain.CycleTime < 2400 then
+            continue
+        end
+
         CurrentEnhancement = EnhanceList[1]
 
         while (not unit.Dead) and not HasEnhancement(unit, CurrentEnhancement) do
