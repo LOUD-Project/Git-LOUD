@@ -756,6 +756,12 @@ function MexUpgradeLimitSwitch( aiBrain )
     until aiBrain.CycleTime > 900 -- 15 minutes
 
     aiBrain.MexUpgradeLimit = 4
+
+    repeat
+        WaitTicks(100)
+    until aiBrain.CycleTime > 1800 -- 30 minutes
+
+    aiBrain.MexUpgradeLimit = 6
 end
 
 function InitializeArmies()
