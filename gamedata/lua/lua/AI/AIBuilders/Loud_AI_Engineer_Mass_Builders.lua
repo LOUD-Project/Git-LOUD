@@ -5,6 +5,8 @@ local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local GetEconomyIncome		= moho.aibrain_methods.GetEconomyIncome
+
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Mass Extractor T1 - 250',
@@ -360,6 +362,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         
         Priority = 850,
 
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+            
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
 		BuilderType = { 'T3','SubCommander' },
 
         BuilderConditions = {
@@ -369,7 +382,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 200, 0.3, 1.025 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
