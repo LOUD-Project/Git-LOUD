@@ -117,8 +117,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 90 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
+			{ EBC, 'LessThanEnergyTrend', { 60 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
 			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
@@ -159,8 +159,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
     
         BuilderConditions = {
 
-			{ EBC, 'LessThanEnergyTrend', { 300 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+			{ EBC, 'LessThanEnergyTrend', { 900 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
@@ -198,9 +198,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, HYDRO }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 200, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
@@ -211,7 +211,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 
 				LoopBuild = true,
                 
-                MaxRange = 350,
+                MaxRange = 200,
 
 				ThreatMax = 30,
 				ThreatRings = 0,
@@ -250,8 +250,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEnergyTrend', { 300 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+			{ EBC, 'LessThanEnergyTrend', { 900 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
@@ -297,7 +297,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 200, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T2' },
@@ -468,9 +468,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, HYDRO }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 200, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },

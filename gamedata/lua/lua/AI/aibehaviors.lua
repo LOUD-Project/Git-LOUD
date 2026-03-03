@@ -8574,8 +8574,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local energylimit   = .78   --- and likewise for energy
 
     if EntityCategoryContains( categories.MASSEXTRACTION - categories.TECH2, unit ) then -- aggressively push T2 & T3+Storage mass upgrades
-        masslimit = .22
-        energylimit = .4
+        masslimit = .24
+        energylimit = .2
     end
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
@@ -8649,7 +8649,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
             -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
-            if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 18 then
+            if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 20 then
                 continue
             end
 
