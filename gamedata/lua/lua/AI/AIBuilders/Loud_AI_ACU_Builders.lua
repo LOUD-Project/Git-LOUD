@@ -1123,7 +1123,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } }, 
+			{ MIBC, 'GreaterThanGameTime', { 720 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
