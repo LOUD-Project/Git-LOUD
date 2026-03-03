@@ -124,7 +124,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 105, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
 		
         BuilderType = {'LandT1','LandT2'},

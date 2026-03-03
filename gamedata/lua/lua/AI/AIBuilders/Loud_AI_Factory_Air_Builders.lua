@@ -9,6 +9,7 @@ local TUTL  = '/lua/ai/transportutilities.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
+local GetEconomyIncome		= moho.aibrain_methods.GetEconomyIncome
 local LOUDGETN              = table.getn
 
 local AIR               = categories.AIR
@@ -82,36 +83,39 @@ local IsEnemyAirActive = function(self,aiBrain,manager)
 	
 end
 
-local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
+local HaveLessThanT2IncomeRate = function( self, aiBrain )
     
-	-- remove by game time --
-	if aiBrain.CycleTime >  2700 then
-		
-		return 0, false
-		
-	end
-	
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT2UP, false, true )) < 3 then
+	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1500 then
 	
 		return self.OldPriority or self.Priority, true
 		
 	end
-
 	
-	return 0, false
+	return 10, true
 	
 end
 
 local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) < 3 then
+	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 >= 1500 and LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) < 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
 	end
 
-	return 0, false
+	return 10, true
 	
+end
+
+local HaveT3PowerIncomeRate = function ( self, aiBrain )
+
+    if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 >= 8000 then
+
+        return self.OldPriority or self.Priority, true
+    
+    end
+
+    return 10, true
 end
 
 -- The simple idea here is that fighters are always produced if the air ratio is less than 3
@@ -130,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
 	
         PlatoonTemplate = 'T1AirScout',
         
-        Priority = 600,
+        Priority = 601,
         
         PriorityFunction = First45Minutes, 
 
@@ -142,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 26}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 4, [1024] = 8, [2048] = 12, [4096] = 16}, AIRSCOUT }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
 
@@ -158,7 +162,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
 
         Priority = 600,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = HaveLessThanThreeT3AirFactory,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -207,7 +211,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT2AirFactory,
+		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
@@ -218,7 +222,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
 		
-        BuilderType =  {'AirT1'},
+        BuilderType =  {'AirT1','AirT2'},
     },
 	
     --- fighters with no scout supplement made if T2 ANTIAIR is present
@@ -229,7 +233,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT2AirFactory,
+		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
@@ -237,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
         },
 		
-        BuilderType =  {'AirT1'},
+        BuilderType =  {'AirT1','AirT2'},
     },
 	
     Builder {BuilderName = 'Fighters T2 Crossover',
@@ -280,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = IsEnemyAirActive,
+		PriorityFunction = HaveT3PowerIncomeRate,
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
@@ -300,7 +304,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT2AirFactory,
+		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
@@ -309,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
 		
-        BuilderType =  {'AirT1'},
+        BuilderType =  {'AirT1','AirT2'},
     },
 
     Builder {BuilderName = 'Bomber T2',
@@ -332,6 +336,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
         PlatoonTemplate = 'T3Bomber',
 
         Priority = 600,
+
+		PriorityFunction = HaveT3PowerIncomeRate,
         
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
@@ -367,6 +373,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
         PlatoonTemplate = 'T3Gunship',
 
         Priority = 600,
+
+		PriorityFunction = HaveT3PowerIncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
@@ -515,7 +523,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 	
         Priority = 610, 
 		
-		PriorityFunction = HaveLessThanThreeT2AirFactory,
+		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -543,6 +551,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         
         PriorityFunction = function(self, aiBrain)
 	
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1500 then
+                return 10, true
+            end
+
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
                 return 10, true
             end
@@ -577,9 +589,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		FactionIndex = 1,
 		
         Priority = 600,
-        
+
         PriorityFunction = function(self, aiBrain)
-	
+
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1500 then
+                return 10, true
+            end            
+
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .60 then
                 return 10, true
             end
@@ -615,6 +631,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         Priority = 610,
         
         PriorityFunction = function(self, aiBrain)
+
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 8000 then
+                return 10, true
+            end
 	
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
                 return 10, true
