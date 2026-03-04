@@ -698,7 +698,7 @@ StructureUnit = Class(Unit) {
             checkrate = 16.5        
             initialdelay = 132
 
-            -- after 15 minutes T1 factories have no ugprade delay to push those without a job into T2
+            -- after 20 minutes T1 factories have no ugprade delay to push those without a job into T2
             if  aiBrain.CycleTime > 1200 and EntityCategoryContains( categories.TECH1, finishedUnit ) then
 
                 checkrate = 13.5
