@@ -1,6 +1,7 @@
 --  scenarioutilities.lua
 
 local loudUtils = import('/lua/loudutilities.lua')
+local MIBC = import('/lua/editor/MiscBuildConditions.lua')
 
 
 function GetMarkers()
@@ -737,31 +738,41 @@ function CreateResources()
 	
 end
 
+-- Mex upgrade limit timings and next limit step with a small map version with less aggressive ramping
+local MexUpgradeLimitSteps = {
+
+    default = {
+        { time = 450,  limit = 2 },
+        { time = 690,  limit = 3 },
+        { time = 840,  limit = 4 },
+        { time = 1800, limit = 6 },
+    },
+
+    small = {
+        { time = 450,  limit = 2 },
+        { time = 720,  limit = 3 },
+        { time = 1500, limit = 4 },
+        { time = 1800, limit = 6 },
+    }
+
+}
+
 -- Mex upgrade limit increases at set times to avoid early eco issues with upgrading too many at once
-function MexUpgradeLimitSwitch( aiBrain )
-    repeat
-        WaitTicks(100)
-    until aiBrain.CycleTime > 450 -- 7.5 minutes
+function MexUpgradeLimitSwitch(aiBrain)
 
-    aiBrain.MexUpgradeLimit = 2
+    local size = MIBC.MapLessThan( aiBrain, 1028 ) and "small" or "default"
+    local steps = MexUpgradeLimitSteps[size] or MexUpgradeLimitSteps.default
 
-    repeat
-        WaitTicks(100)
-    until aiBrain.CycleTime > 690 -- 11.5 minutes
+    for _, step in steps do
 
-    aiBrain.MexUpgradeLimit = 3
+        repeat
+            WaitTicks(100)
+        until aiBrain.CycleTime > step.time
 
-    repeat
-        WaitTicks(100)
-    until aiBrain.CycleTime > 840 -- 14 minutes
+        aiBrain.MexUpgradeLimit = step.limit
 
-    aiBrain.MexUpgradeLimit = 4
+    end
 
-    repeat
-        WaitTicks(100)
-    until aiBrain.CycleTime > 1800 -- 30 minutes
-
-    aiBrain.MexUpgradeLimit = 6
 end
 
 function InitializeArmies()
