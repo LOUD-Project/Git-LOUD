@@ -775,6 +775,153 @@ function MexUpgradeLimitSwitch(aiBrain)
 
 end
 
+-- check if terrain at the current coord is below water level if below it is not passable by land
+function IsLandPassable(x, z)
+
+    local coordinate = GetTerrainHeight(x, z)
+    local waterLevel = GetSurfaceHeight(x, z)
+
+    -- water check
+    if coordinate < waterLevel - 1 then
+        return false
+    end
+
+    return true
+end
+
+-- build a grid of the map with every node marked as true or false for passable or none passable by land
+function BuildLandGrid(stepsize)
+
+    local size = ScenarioInfo.size[1]
+
+    local grid = {}
+
+    for x = 0, size, stepsize do
+
+        grid[x] = {}
+
+        for z = 0, size, stepsize do
+
+            grid[x][z] = IsLandPassable(x, z)
+
+        end
+
+    end
+
+    return grid
+end
+
+-- put a set of coordinates to the nearest grid position
+function GridPosition(position, stepsize)
+
+    local gridx = math.floor( position[1] / stepsize ) * stepsize
+    local gridz = math.floor( position[3] / stepsize ) * stepsize
+
+    return gridx, gridz
+
+end
+
+-- First get the nearest nodes on the grid for the start and destination
+-- Then create a table for the queue of nodes, using start as the first to test. Then another table for visted nodes that should not be retested
+-- Establish the 8 neighbours a node can have
+-- Loop through the queue until the destination is arrived or all nodes are exhausted
+-- -- The start position is first
+-- -- If it isn't the destination then its neighbouring nodes are checked 
+-- -- Check that they're part of the grid
+-- -- Then check from BuildLandGrid that it is passable by land
+-- -- If so then mark it as visited and add it to the queue
+-- Returns true if was reachable and false if not
+function LandPathExists(start, destination, grid, stepsize)
+
+    local startx, startz = GridPosition( start, stepsize ) -- nearest grid node to starting point
+    local destinationx, destinationz = GridPosition( destination, stepsize ) -- nearest grid node to destination
+
+    local queue = {}
+    local visited = {} -- mark visited nodes so not to retrace steps
+
+    table.insert( queue, { startx, startz } )
+    visited[startx.."_"..startz] = true
+
+    -- the 8 grid nodes around the current
+    local neighbours = {
+        { stepsize, 0        }, {-stepsize, 0        },
+        { 0,        stepsize }, { 0,       -stepsize },
+        { stepsize, stepsize }, {-stepsize,-stepsize },
+        { stepsize,-stepsize }, {-stepsize, stepsize }
+    }
+
+    -- look through coords until I either arrive at the destination or have nowhere left to go so are blocked
+    while table.getn(queue) > 0 do
+
+        local node = table.remove(queue,1)
+
+        local x = node[1]
+        local z = node[2]
+
+        -- have I arrived at the destination so there is a land path
+        if x == destinationx and z == destinationz then
+            return true    
+        end
+
+        -- I am not there yet so keep looking
+        for _,neighbour in neighbours do
+
+            local neighbourx = x + neighbour[1]
+            local neighbourz = z + neighbour[2]
+
+            local key = neighbourx.."_"..neighbourz
+
+            if not visited[key] then
+
+                if grid[neighbourx] and grid[neighbourx][neighbourz] then -- does node exist?
+
+                    if grid[neighbourx][neighbourz] then -- am I passable by land?
+
+                        visited[key] = true
+                        table.insert( queue, {neighbourx,neighbourz} )
+
+                    end
+
+                end
+
+            end
+
+        end
+
+    end
+
+    return false
+
+end
+
+-- Get the start location for the AI and then check the start location of enemies to see if any of them have a land connection
+function AIHasLandEnemy( aiBrain )
+
+    local start = aiBrain:GetStartVector3f() -- this AI's start position
+
+    local stepsize = 32
+    local grid = BuildLandGrid(stepsize)
+
+    for _,brain in ArmyBrains do
+
+        if IsEnemy( aiBrain.ArmyIndex, brain.ArmyIndex ) then
+
+            local destination = brain:GetStartVector3f() -- enemy start position
+
+            if LandPathExists( start, destination, grid, stepsize ) then
+
+                return true
+
+            end
+
+        end
+
+    end
+
+    return false
+
+end
+
 function InitializeArmies()
 	
 	--Loop through active mods
@@ -996,6 +1143,9 @@ function InitializeArmies()
             import('/lua/ai/aiutilities.lua').SetupAICheat( aiBrain )
 
             if aiBrain.Personality == 'loud' then
+
+                -- Does the AI have a land connection to any enemy start position?
+                aiBrain.HasLandEnemy = AIHasLandEnemy( aiBrain )
 
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
