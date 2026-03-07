@@ -170,7 +170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 12, true
                 end
  
-                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 360 then
+                if aiBrain.LandRatio < 1 and aiBrain.LandRatio > .011 and aiBrain.CycleTime > 360 then
                     return (builder.OldPriority or builder.Priority) + 50, true
                 end
     
@@ -193,6 +193,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},                    
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, PD, 30, 50}},
         },
@@ -226,13 +228,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
         Priority = 750,
 		
-		PriorityFunction = function(self, aiBrain, unit, manager)
+		PriorityFunction = function(builder, aiBrain, unit, manager)
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
 		
-			if self.Priority != 0 then
+			if builder.Priority != 0 then
 
 				-- remove after 25 minutes
 				if aiBrain.CycleTime > 1500 then
@@ -244,7 +246,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 10, true
                 end
         
-                if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 400 ) then
+                if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 550 ) then
                     return 11, true
                 end
 
@@ -255,10 +257,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA, 30, 42 ) then
                     return 12, true
                 end
- 
+    
+                local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'Air' )
+
+                if threat > 100 then
+
+                    return (builder.OldPriority or builder.Priority) + 100, true
+        
+                elseif threat < 25 then
+            
+                    return (builder.OldPriority or builder.Priority) - 50, true
+                
+                end		 
+
                 -- if air ratio poor 
-                if aiBrain.AirRatio < 1.5 then
-                    return (self.OldPriority or self.Priority) + 50, true
+                if aiBrain.AirRatio < 1 and aiBrain.AirRatio > 0.011 then
+                    return (builder.OldPriority or builder.Priority) + 50, true
                 end
 				
 			end
@@ -269,6 +283,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = { 'T1' },
@@ -324,7 +340,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 
             end
 
-            if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 360 then
+            if aiBrain.LandRatio <= 1.0 and aiBrain.LandRatio > 0.1 and aiBrain.CycleTime > 360 then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -349,6 +365,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             { LUTL, 'UnitCapCheckLess', { .65 } },        
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -396,8 +414,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 12, true
                 
             end
+    
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'Air' )
 
-            if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 360 then
+            if threat > 125 then
+
+                return (builder.OldPriority or builder.Priority) + 100, true
+        
+            elseif threat < 30 then
+            
+                return (builder.OldPriority or builder.Priority) - 50, true
+                
+            end		 
+
+            if aiBrain.AirRatio <= 1.0 and aiBrain.AirRatio > .011 and  aiBrain.CycleTime > 360 then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -410,6 +440,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             { LUTL, 'UnitCapCheckLess', { .65 } },        
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = {'T2'},
@@ -478,6 +510,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = {'T2'},
@@ -2047,7 +2081,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = {'T1' },
@@ -2095,7 +2131,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -2141,7 +2179,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
 		
         BuilderType = {'T1'},
@@ -2182,7 +2222,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
             end
 	
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
-                return (self.OldPriority or self.Priority) + 50, true
+                return (self.OldPriority or self.Priority) + 25, true
             end
     
             return (self.OldPriority or self.Priority), true
@@ -2190,6 +2230,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
+            
         },
 		
         BuilderType = {'T2','T3'},
@@ -4968,6 +5011,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -5321,6 +5366,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval', BuildersT
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
+
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -5646,6 +5693,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6522,6 +6571,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
+			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
         },
