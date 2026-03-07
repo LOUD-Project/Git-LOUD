@@ -39,7 +39,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         Priority = 761,
         
@@ -68,12 +68,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
         },
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T1','T2' },
 		
         BuilderData = {
 		
@@ -117,10 +117,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1500 }},        
-			{ EBC, 'LessThanEnergyTrend', { 75 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2600 }},        
+
+			{ EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
+
+			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},        
+
+			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
         BuilderType = {'T2'},
@@ -159,8 +162,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
     
         BuilderConditions = {
-
-			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
@@ -250,13 +251,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'LessThanEnergyTrend', { 300 }},
 
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
-            
+
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
         },
 		
@@ -389,7 +388,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3600 }},            
 
 			{ EBC, 'LessThanEnergyTrend', { 75 }},
 
@@ -524,9 +523,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},                        
 
