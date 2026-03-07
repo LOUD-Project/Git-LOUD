@@ -180,7 +180,7 @@ UnitBlueprint {
     SizeY = 1.55,
     SizeZ = 10.8,
 	
-    StrategicIconName = 'icon_ship4_directfire',
+    StrategicIconName = 'icon_ship4_artillery',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
@@ -1207,3 +1207,4 @@ UnitBlueprint {
         },				
     },
 }
+
