@@ -125,9 +125,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 	AddFactory = function( self, factory, aiBrain )
 
         while (not factory.Dead) and GetFractionComplete(factory) < 1 do
-        
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Adding Factory 2 "..factory.EntityID.." at "..GetFractionComplete(factory).." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
-            
             WaitTicks(100)
         end
 
@@ -412,8 +409,8 @@ FactoryBuilderManager = Class(BuilderManager) {
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
         
-        local masstrig = LOUDMAX(100, 250 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-        local enertrig = LOUDMAX(1000, 3000 - ((3 - BuildLevel) * 300)) * adjacencyreductionE
+        local masstrig = LOUDMAX(100, 400 - ((3 - BuildLevel) * 100 )) * adjacencyreductionM     -- base of 200 for T1
+        local enertrig = LOUDMAX(1000, 3500 - ((3 - BuildLevel) * 600)) * adjacencyreductionE   -- base of 2500 for T1
         
         local trig = false
         
@@ -445,8 +442,8 @@ FactoryBuilderManager = Class(BuilderManager) {
             adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
         
             -- the actual M & E triggers are impacted by new adjacencies each cycle
-            masstrig = LOUDMAX(100, 250 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
-            enertrig = LOUDMAX(1000, 3000 - ((3 - BuildLevel) * 300)) * adjacencyreductionE
+            masstrig = LOUDMAX(100, 400 - ((3 - BuildLevel) * 100 )) * adjacencyreductionM
+            enertrig = LOUDMAX(1000, 3500 - ((3 - BuildLevel) * 600)) * adjacencyreductionE
 
 		end
 		
