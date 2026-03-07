@@ -945,6 +945,8 @@ function InitializeArmies()
         ForkThread( function() WaitTicks(70) FlushIntelInRect(place[1]-200,place[3]-200,place[1]+200,place[3]+200) end )
 
         if aiBrain.BrainType == 'AI' and not armyIsCiv then
+        
+            aiBrain.NeedTransports = true
 
             aiBrain.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/aiBrain.TeamSize )
 
@@ -966,7 +968,6 @@ function InitializeArmies()
                 aiBrain.UpgradeIssued = 0
 
                 aiBrain.UpgradeIssuedLimit = 1
-                aiBrain.UpgradeIssuedPeriod = 225
 
                 --- if outnumbered increase the number of simultaneous upgrades allowed
                 --- and/or reduce the waiting period by 1.5 seconds ( about 10% )
@@ -977,28 +978,21 @@ function InitializeArmies()
                     --- if really outnumbered
                     if aiBrain.OutnumberedRatio >= 1.5 then
 
-                        aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
-
                         --- if really badly outnumbered
                         if aiBrain.OutnumberedRatio >= 2.0 then
 
                             aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
-                            aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
                         
                             if aiBrain.OutnumberedRatio >= 4.0 then
 
                                 aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
-                                aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
 
                             end
                         end
                     end
                 end
 
-                aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / aiBrain.MajorCheatModifier ))
-
                 LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." simultaneous upgrades" ) 
-                LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks between upgrades")
             
                 loudUtils.BuildScoutLocations(aiBrain)
 
