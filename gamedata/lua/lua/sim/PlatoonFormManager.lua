@@ -10,6 +10,7 @@ local Behaviors                 = import('/lua/ai/aibehaviors.lua')
 local BuilderManager            = import('/lua/sim/BuilderManager.lua').BuilderManager
 local GetMostRestrictiveLayer   = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer 
 local GetOwnUnitsAroundPoint    = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+local GetOwnUnfinishedUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnfinishedUnitsAroundPoint
 local CreatePlatoonBuilder      = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
 
 local factionnames = { 'UEF','Aeon','Cybran','Seraphim' }
@@ -114,45 +115,21 @@ PlatoonFormManager = Class(BuilderManager) {
     
     GetUnitsBeingBuilt = function( self, aiBrain, buildingCategory, builderCategory)
 		
-        local filterUnits = GetOwnUnitsAroundPoint( aiBrain, builderCategory, self.Location, self.Radius )
+        local filterUnits = GetOwnUnfinishedUnitsAroundPoint( aiBrain, buildingCategory, self.Location, self.Radius )
 		
 		local LOUDENTITY = EntityCategoryContains
 		local IsUnitState = moho.unit_methods.IsUnitState
 
         local retUnits = {}
 		local counter = 1
-        
+
         for _,v in filterUnits do
-		
-			if not v.DesiresAssist or not v.UnitBeingBuilt then
-			
-				continue
-				
-			end
-
-            if (not IsUnitState(v, 'Building') and not IsUnitState(v, 'Upgrading')) then
-			
-                continue
-				
-            end
-
-            if not LOUDENTITY( buildingCategory, v.UnitBeingBuilt ) then
-			
-                continue
-				
-            end
-
-            if v.NumAssistees and LOUDGETN( v:GetGuards() ) >= v.NumAssistees then
-			
-                continue
-				
-            end
 
             retUnits[counter] = v
 			counter = counter + 1
 			
         end
-		
+
 		return retUnits
 		
     end,

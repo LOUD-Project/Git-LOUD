@@ -459,6 +459,32 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
     return mlist
 end
 
+function GetOwnUnfinishedUnitsAroundPoint( aiBrain, category, location, radius )
+	
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetFractionComplete = GetFractionComplete
+
+    local mlist = {}
+	local counter = 0
+    local ArmyIndex = aiBrain.ArmyIndex
+	
+	if category and location and radius then
+	
+		local units = GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) or {}
+	
+		for k,v in units do
+	
+			if (not v.Dead) and GetFractionComplete(v) != 1 and v.Army == ArmyIndex then
+
+				counter = counter + 1            
+				mlist[counter] = v
+			end
+		end
+	end
+	
+    return mlist
+end
+
 -- this will return a list of ALL Allied units (yours and allies)
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
