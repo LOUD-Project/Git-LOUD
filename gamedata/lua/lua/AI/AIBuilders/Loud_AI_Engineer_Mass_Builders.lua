@@ -346,7 +346,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassFabLayout',
                 
-                BuildStructures = {'T1MassCreation'},
+                BuildStructures = {'T2MassCreation'},
             }
         }
     }, 

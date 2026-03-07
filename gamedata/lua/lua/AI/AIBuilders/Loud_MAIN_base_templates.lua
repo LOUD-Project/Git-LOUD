@@ -845,7 +845,7 @@ MassFabLayout = {
 			{-11,-33 },	-- rear left
 			{ 11,-33 }, -- rear right
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
             {  5, 15 }, -- front
             { -5, 15 },
             {-15, 5  }, -- left
@@ -872,7 +872,7 @@ MassFabLayout = {
 			{-11,-33 },	-- rear left
 			{ 11,-33 }, -- rear right
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
             {  5, 15 },
             { -5, 15 },
             {-15, 5  },
@@ -899,7 +899,7 @@ MassFabLayout = {
 			{-11,-33 },	-- rear left
 			{ 11,-33 }, -- rear right
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
             {  5, 15 },
             { -5, 15 },
             {-15, 5  },
@@ -926,7 +926,7 @@ MassFabLayout = {
 			{-11,-33 },	-- rear left
 			{ 11,-33 }, -- rear right
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
             {  5, 15 },
             { -5, 15 },
             {-15, 5  },
@@ -2840,7 +2840,7 @@ MassAdjacencyDefense = {
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -2916,7 +2916,7 @@ MassAdjacencyDefense = {
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -2992,7 +2992,7 @@ MassAdjacencyDefense = {
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -3068,7 +3068,7 @@ MassAdjacencyDefense = {
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{{'T1MassCreation'},
+		{{'T2MassCreation'},
 			{ 0,-6 },
 		},
     },
