@@ -528,6 +528,10 @@ function FactoryGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 	return EntityCategoryCount( testCat, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) > unitCount	
 end
 
+function FactoryRatioEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) == EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
+end
+
 function FactoryRatioGreaterOrEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
     return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) >= EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
