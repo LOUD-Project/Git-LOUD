@@ -28,7 +28,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
@@ -80,7 +80,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
@@ -92,8 +92,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 75,
-                LoopEnergy = 2000,
+                LoopMass = 60,
+                LoopEnergy = 500,
 
                 MinRange = 200,
                 MaxRange = 750,
@@ -128,7 +128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
@@ -140,8 +140,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 75,
-                LoopEnergy = 2000,
+                LoopMass = 60,
+                LoopEnergy = 500,
 
                 MinRange = 200,
                 MaxRange = 750,
@@ -176,7 +176,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
             
@@ -190,7 +190,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
                 LoopMass = 75,
-                LoopEnergy = 2000,
+                LoopEnergy = 500,
 
                 MinRange = 300,         -- if BuildClose is true then MinRange will be set to zero AFTER first build (so engineer can build groups in same area)
                 MaxRange = 1500,
@@ -244,7 +244,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 6,         -- pick from list of up to 6 closest
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 75,
+                LoopMass = 100,
                 LoopEnergy = 2000,
                 
                 MinRange = 300,
@@ -280,7 +280,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 2000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
             
@@ -326,12 +326,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 14, 0.3, 1.005 }},
 
 			-- check base massfabs -- this should pick up only those in the base core - not the T3's on the outer layers
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
-
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 54, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 28 }},
         },
 
         BuilderData = {
