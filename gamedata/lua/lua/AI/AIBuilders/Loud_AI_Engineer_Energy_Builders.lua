@@ -538,8 +538,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderData = {
             Construction = {
 				LoopBuild = true,
-                LoopMass = 125,
-                LoopEnergy = 1250,
+                LoopMass = 100,
+                LoopEnergy = 100,
 				
 				MinRadius = 20,
 				Radius = 180,
@@ -547,6 +547,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 				MinStructureUnits = 4,
                 
                 AdjacencyStructure = ENERGYT1,
+                TargetStructure = categories.MASSEXTRACTION,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'EnergyAdjacency',
