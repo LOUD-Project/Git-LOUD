@@ -229,13 +229,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 140 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 90,
 			ReclaimType = 'Mass',
-            ReclaimRange = 145,
+            ReclaimRange = 75,
         },
     },
 
@@ -373,13 +373,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 110 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 75,
 			ReclaimType = 'Mass',
-            ReclaimRange = 120,
+            ReclaimRange = 75,
         },
     },    
 
@@ -665,10 +665,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
         
         InstanceCount = 1,
 		
-        BuilderType = { 'T1','T2','T3','Commander' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH2 * categories.AIRSTAGINGPLATFORM), 5, false }},
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH1 * categories.AIRSTAGINGPLATFORM), 5, false }},
         },
 		
