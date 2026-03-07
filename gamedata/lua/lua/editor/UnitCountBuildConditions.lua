@@ -60,6 +60,7 @@ local STRUCTURE         = categories.STRUCTURE
 local COMMAND           = categories.COMMAND
 local DEFENSESTRUCTURES = STRUCTURE * categories.DEFENSE
 local ENGINEER          = categories.ENGINEER
+local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
 local MASSSTORAGE       = categories.MASSSTORAGE
 local SHIELDSTRUCTURES  = STRUCTURE * categories.SHIELD - categories.TECH2
@@ -602,7 +603,7 @@ function BuildingGreaterAtLocation( aiBrain, locationType, unitCount, testCat, b
 end
 
 function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, testCat, builderCat, range)
-    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits) > unitCount
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits, range) > unitCount
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
@@ -1114,7 +1115,7 @@ function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistanc
     local mexposition, distance, STORS
 	
 	-- get your own extractors around the point
-	local Mexs = GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance)
+	local Mexs = GetOwnUnitsAroundPoint(aiBrain, ALLEXTRACTORS, pos, maxdistance)
 	
 	for k,v in Mexs do
     
@@ -1148,7 +1149,7 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
     local mexposition, distance, threat
 	
 	-- get your own extractors around the point
-	for k,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION, pos, maxdistance) do
+	for k,v in GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance) do
 	
 		mexposition = v.CachePosition
         
