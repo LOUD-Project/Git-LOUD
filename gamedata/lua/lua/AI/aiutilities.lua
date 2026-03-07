@@ -1054,25 +1054,15 @@ end
 
 function SetArmyPoolBuff(aiBrain, AIMult)
 
-    if not aiBrain.OriginalUpgradeIssuedPeriod then
-        aiBrain.OriginalUpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod
-    end
-
     -- alter the AI's delay between upgrades by an additional amount equal to 25% of the AI Mult
     -- but no reductions (this formula differs from the base calcuation at game start)
     -- it compounds over time but at a more subtle rate
     modifier = math.max( 0, AIMult - 1.0 )
     modifier = 0.25 * modifier
     modifier = 1.0 + modifier
-	
-	-- reduce the waiting period between upgrades
-	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
-    
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks - due to Cheat")
 
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
-
 
     -- Modify Buildrate buff
     local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
