@@ -33,8 +33,7 @@ local AIRGUNSHIP    = categories.AIR * categories.GROUNDATTACK
 local AIRTORPEDO    = categories.HIGHALTAIR * categories.ANTINAVY
 local AIRT4         = categories.AIR * categories.EXPERIMENTAL
 
--- These are the standard air scout patrols around all bases
--- and will consume the first 5/6 scouts
+-- These are the standard air scout patrols around all bases 
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction = 'AIRSCOUTS', BuildersType = 'PlatoonFormBuilder',
 	
     Builder {BuilderName = 'Air Scout - Peri - 200',
@@ -47,7 +46,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		PriorityFunction = function(self, aiBrain, manager)
         
-            if aiBrain.CycleTime < 150 then
+            if aiBrain.CycleTime < 420 then
                 return 10, true
             end
 
@@ -85,7 +84,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		PriorityFunction = function(self, aiBrain, manager)
         
-            if aiBrain.CycleTime < 150 then
+            if aiBrain.CycleTime < 390 then
                 return 10, true
             end
 
@@ -118,7 +117,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		PriorityFunction = function(self, aiBrain, manager)
         
-            if aiBrain.CycleTime < 150 then
+            if aiBrain.CycleTime < 360 then
                 return 10, true
             end
 
@@ -153,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 
 		PriorityFunction = function(self, aiBrain, manager)
         
-            if aiBrain.CycleTime < 150 then
+            if aiBrain.CycleTime < 330 then
                 return 10, true
             end
 
