@@ -280,13 +280,13 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 60, 0 }},
 
             { EBC, 'LessThanEnergyTrendOverTime', { 60 }},
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
+			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - HYDROCARBON - TECH1 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
@@ -411,7 +411,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},			
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 			
 			-- check base massfabs 
@@ -447,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 756,
+        Priority = 780,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -456,7 +456,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
             
-			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
+			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION - TECH1, ENGINEER + ENERGYPRODUCTION - TECH1, 40 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -465,14 +465,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 100,
+                AssistEnergy = 150,
                 -- this allows the builder to continue assist until M drops below this
                 AssistMass = 150,
                 
-				AssistRange = 80,
-                AssisteeType = 'Any',
-				AssisteeCategory = ENGINEER + ENERGYPRODUCTION,
-                BeingBuiltCategories = { ENERGYPRODUCTION },
+				AssistRange = 50,
+                AssisteeType = 'Structure',
+				AssisteeCategory = ENERGYPRODUCTION - TECH1,
+                BeingBuiltCategories = { ENERGYPRODUCTION - TECH1 },
                 Time = 75,
             },
         }
@@ -491,11 +491,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
+			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},            
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},           
             
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, ENGINEER + MASSPRODUCTION, 60 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION - TECH1, ENGINEER + MASSPRODUCTION, 36 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -508,10 +508,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
                 -- this allows the builder to continue assist until M drops below this
                 AssistMass = 35,
 
-				AssistRange = 80,
-				AssisteeType = 'Any',
-				AssisteeCategory = ENGINEER + MASSPRODUCTION,
-                BeingBuiltCategories = { MASSPRODUCTION },
+				AssistRange = 48,
+				AssisteeType = 'Structure',
+				AssisteeCategory = MASSPRODUCTION,
+                BeingBuiltCategories = { MASSPRODUCTION - TECH1 },
                 Time = 60,
             },
         }
@@ -553,10 +553,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
                 AssistMass = 200,
             
 				AssistRange = 75,
-				AssisteeType = 'Any',
-				AssisteeCategory = ENGINEER + FACTORY,
+				AssisteeType = 'Structure',
+				AssisteeCategory = FACTORY,
 				BeingBuiltCategories = { FACTORY },
-                Time = 75,
+                Time = 48,
             },
         }
     },
@@ -577,7 +577,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},             
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},             
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE + EXPERIMENTAL, ENGINEER, 125 }},
         },
@@ -588,11 +589,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 2500,
+                AssistEnergy = 3600,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 200,
+                AssistMass = 250,
 
-				AssistRange = 125,
+				AssistRange = 100,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = ENGINEER,
                 BeingBuiltCategories = {STRUCTURE, EXPERIMENTAL},
@@ -619,7 +620,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }}, 
         },
 		
         BuilderType = { 'Commander' },
@@ -628,9 +629,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 2000,
+                AssistEnergy = 3600,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 200,
+                AssistMass = 250,
                 
 				AssistRange = 80,
 				AssisteeType = 'Factory',
@@ -681,7 +682,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 15 }},
             
-			{ MIBC, 'GreaterThanGameTime', { 210 } },            
+			{ MIBC, 'GreaterThanGameTime', { 420 } },            
             
 			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 45 }},
         },
@@ -957,7 +958,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD', BuildersType = 'EngineerBu
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 420 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
@@ -988,7 +989,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD', BuildersType = 'EngineerBu
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 420 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
@@ -1019,7 +1020,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD', BuildersType = 'EngineerBu
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 420 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
@@ -1050,7 +1051,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD', BuildersType = 'EngineerBu
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
+			{ MIBC, 'GreaterThanGameTime', { 420 } },
             
    			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
@@ -1126,11 +1127,11 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } }, 
+			{ MIBC, 'GreaterThanGameTime', { 420 } }, 
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
         },
 		
         Priority = 850,
@@ -1158,7 +1159,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
@@ -1195,7 +1196,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
@@ -1232,7 +1233,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
@@ -1273,7 +1274,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
@@ -1310,7 +1311,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
@@ -1347,7 +1348,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
@@ -1388,7 +1389,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
@@ -1425,7 +1426,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
@@ -1462,7 +1463,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
@@ -1503,7 +1504,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
@@ -1540,7 +1541,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
@@ -1577,7 +1578,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
