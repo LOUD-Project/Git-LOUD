@@ -5,6 +5,7 @@ local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
+local GreaterThanEnergyIncome = import(LUTL).GreaterThanEnergyIncome
 
 local LOUDGETN              = table.getn
 local GetArmyUnitCap        = GetArmyUnitCap
@@ -25,7 +26,7 @@ end
 
 local AboveUnitCap75 = function( self,aiBrain )
 	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+	if not GreaterThanEnergyIncome( aiBrain, 400) or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
 		return 10, true
 	end
 	
@@ -48,33 +49,36 @@ end
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 60 then
+    local airFactories = LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true ))
+
+    if GreaterThanEnergyIncome( aiBrain, 220 ) and airFactories < 1 then
 	
-        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true )) < 1 then
-	
-            return 990, true
-		
-        end
+        return 990, true
         
     end
 
-	return self.OldPriority or self.Priority, true
+	return 10, true
 
 end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 60 then
-	
-        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true )) < 1 then
+    local landFactories = LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true ))
 
-            return 990, true
-		
-        end
+    if GreaterThanEnergyIncome( aiBrain, 340 ) and landFactories < 1 then
+
+        return 990, true
         
     end
 
-	return self.OldPriority or self.Priority, true
+    -- build a second early land factory if there is a land connection to an enemy
+    if GreaterThanEnergyIncome( aiBrain, 520 ) and landFactories < 2 and aiBrain.HasLandEnemy then
+	
+        return 990, true
+        
+    end
+
+	return 10, true
 
 end
 
@@ -90,7 +94,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
         
     end
 
-	return self.OldPriority or self.Priority, true
+	return 10, true
 
 end
 
@@ -112,9 +116,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroLandFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 280, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND }},            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND }},            
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -145,7 +149,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = HaveZeroAirFactories,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR }},
         },
@@ -179,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
             
@@ -187,9 +191,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
             { UCBC, 'FactoryRatioGreaterOrEqualOffsetAtLocation', { 'LocationType', categories.AIR, categories.LAND, 1 } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1.010, 1.010 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.4, 4, 1.010, 1.010 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -231,7 +235,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
             { UCBC, 'FactoryRatioGreaterOrEqualOffsetAtLocation', { 'LocationType', categories.LAND, categories.AIR, 1 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.010, 1.012 }},
         },
