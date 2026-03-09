@@ -517,7 +517,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 32000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -703,11 +703,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 852,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -719,7 +719,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
@@ -820,11 +820,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 852,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 12000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -836,7 +836,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
