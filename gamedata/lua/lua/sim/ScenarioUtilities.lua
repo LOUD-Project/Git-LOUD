@@ -775,40 +775,93 @@ function MexUpgradeLimitSwitch(aiBrain)
 
 end
 
--- check if terrain at the current coord is below water level if below it is not passable by land
+-- check if terrain at the current coord is below water level, if below it is not passable by land
+-- next check if the terrain at the current coord is a coastline, if so it is not passable to act as a buffer
+-- then check if the slope of nearby terrain, if difference too large it is not passable by land
 function IsLandPassable(x, z)
 
-    local coordinate = GetTerrainHeight(x, z)
-    local waterLevel = GetSurfaceHeight(x, z)
+    local terrainHeight = GetTerrainHeight(x, z)
+    local surfaceHeight = GetSurfaceHeight(x, z)
+    local offset = 10
 
     -- water check
-    if coordinate < waterLevel - 1 then
+    if terrainHeight < surfaceHeight - 1 then
+
+        --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
         return false
+    
     end
 
+    local terrainOffsets = {
+            GetTerrainHeight(x + offset, z),
+            GetTerrainHeight(x - offset, z),
+            GetTerrainHeight(x, z + offset),
+            GetTerrainHeight(x, z - offset)}
+
+    local surfaceOffsets = {
+            GetSurfaceHeight(x + offset, z),
+            GetSurfaceHeight(x - offset, z),
+            GetSurfaceHeight(x, z + offset),
+            GetSurfaceHeight(x, z - offset)}
+
+    -- coastline check
+    for i, terrainOffset in terrainOffsets do
+
+        if terrainOffset < surfaceOffsets[i] - 1 then
+
+            --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
+            return false
+
+        end
+    
+    end
+ 
+    -- slope check
+    local slope =
+        math.max(
+            math.abs(terrainHeight - terrainOffsets[1]),
+            math.abs(terrainHeight - terrainOffsets[3]),
+            math.abs(terrainHeight - terrainOffsets[2]),
+            math.abs(terrainHeight - terrainOffsets[4]))
+
+    if slope > 3.6 then
+
+        --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
+        return false
+
+    end
+
+    --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ff00ff00')
     return true
+
 end
 
 -- build a grid of the map with every node marked as true or false for passable or none passable by land
 function BuildLandGrid(stepsize)
 
-    local size = ScenarioInfo.size[1]
-
+    local sizeX = ScenarioInfo.size[1]
+    local sizeZ = ScenarioInfo.size[2]
     local grid = {}
 
-    for x = 0, size, stepsize do
+    for x = 0, sizeX, stepsize do
 
         grid[x] = {}
 
-        for z = 0, size, stepsize do
+        for z = 0, sizeZ, stepsize do
 
-            grid[x][z] = IsLandPassable(x, z)
+            -- if I'm a node at the edge then I'm not passable
+            if x < stepsize or z < stepsize or x > sizeX - stepsize or z > sizeZ - stepsize then
+                grid[x][z] = false
+            else
+                grid[x][z] = IsLandPassable(x, z)
+            end
 
         end
 
     end
 
     return grid
+
 end
 
 -- put a set of coordinates to the nearest grid position
@@ -919,6 +972,18 @@ function AIHasLandEnemy( aiBrain )
     end
 
     return false
+
+end
+
+function VisualiseGrid(position, colour)
+
+    while true do
+        
+        DrawCircle(position, 3, colour)
+
+    WaitTicks(2)
+
+    end
 
 end
 
