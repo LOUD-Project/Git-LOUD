@@ -548,7 +548,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
             
@@ -570,7 +570,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
             
@@ -592,7 +592,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
@@ -620,7 +620,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 
@@ -642,7 +642,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 
