@@ -364,7 +364,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 32000 then
             
                 return 12, true
                 
