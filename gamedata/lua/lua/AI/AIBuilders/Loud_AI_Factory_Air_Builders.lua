@@ -91,14 +91,20 @@ local HaveLessThanT2IncomeRate = function( self, aiBrain )
 		
 	end
 	
-	return 10, true
+	return 0, false
 	
 end
 
 local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
-	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 >= 1500 and LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) < 3 then
-	
+    if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) >= 3 then
+
+        return 0, false
+
+    end
+
+	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 >= 1500 then
+
 		return self.OldPriority or self.Priority, true
 		
 	end
