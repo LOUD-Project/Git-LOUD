@@ -8354,6 +8354,11 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
             continue
         end
 
+        -- T3 factories wait longer
+        if EntityCategoryContains( categories.FACTORY * categories.TECH3, unit ) and aiBrain.CycleTime < 3600 then
+            continue
+        end
+
         CurrentEnhancement = EnhanceList[1]
 
         while (not unit.Dead) and not HasEnhancement(unit, CurrentEnhancement) do
