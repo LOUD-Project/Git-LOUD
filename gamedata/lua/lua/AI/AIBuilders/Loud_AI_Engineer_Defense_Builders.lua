@@ -916,7 +916,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
          
-            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 40000 ) then
             
                 return 10, true
                
@@ -1269,7 +1269,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 20000 ) then
             
                 return 10, true
                
@@ -1309,7 +1309,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1341,7 +1341,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 24000 ) then
             
                 return 10, true
                
@@ -1381,7 +1381,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1454,7 +1454,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
             
                 return 10, true
                
@@ -1478,7 +1478,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1517,7 +1517,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
                 return 10, true
             end
 
@@ -1539,7 +1539,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1578,7 +1578,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
                 return 10, true
             end
 
@@ -1600,7 +1600,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1639,7 +1639,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 20000 ) then
             
                 return 10, true
                
@@ -1679,7 +1679,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1712,7 +1712,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 24000 ) then
             
                 return 10, true
                
@@ -1752,7 +1752,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1790,7 +1790,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
             
                 return 10, true
                
@@ -1853,7 +1853,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
                 return 10, true
             end
 
@@ -1914,7 +1914,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
                 return 10, true
             end
 
@@ -4142,7 +4142,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 20000 ) then
             
                 return 10, true
                
@@ -4176,7 +4176,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY}},
         },
@@ -4212,7 +4212,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 24000 ) then
             
                 return 10, true
                
@@ -4252,7 +4252,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4287,7 +4287,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 20000 ) then
             
                 return 10, true
                
@@ -4321,7 +4321,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY}},
         },
@@ -4353,7 +4353,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 24000 ) then
             
                 return 10, true
                
@@ -4393,7 +4393,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4875,7 +4875,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 32000 ) then
             
                 return 10, true
                
@@ -5001,7 +5001,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 32000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
@@ -5043,7 +5043,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 40000 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -5703,7 +5703,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
 
 			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},            
         },
@@ -5760,7 +5760,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
 
 			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
