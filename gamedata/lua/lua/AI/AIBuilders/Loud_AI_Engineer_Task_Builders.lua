@@ -274,8 +274,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 				AssistRange = 120,
                 AssisteeType = 'Any',
-				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
-                BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL},
+				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION - categories.HYDROCARBON,
+                BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL - categories.HYDROCARBON},
                 Time = 90,
             },
         },
