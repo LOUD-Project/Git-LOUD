@@ -161,8 +161,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
 			{ EBC, 'LessThanEnergyTrend', { 900 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
+			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -170,6 +169,52 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderData = {
 			DesiresAssist = true,
             NumAssistees = 7,
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 60,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'PowerLayout',
+				
+                BuildStructures = { 'T3EnergyProduction' },
+            }
+        }
+    },
+
+    Builder {BuilderName = 'T3 Power Template - Ramping',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 851,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+           
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 25, ENERGYT3 - HYDRO ) then
+                return 12, true
+            end
+
+            if not GreaterThanEnergyIncome( aiBrain, 14000 ) then
+                return 12, true
+            end            
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+    
+        BuilderConditions = {
+
+			{ EBC, 'LessThanEnergyTrend', { 900 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
+
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 4,
             Construction = {
 			
 				NearBasePerimeterPoints = true,
