@@ -2124,50 +2124,50 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
 --- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Air Staging T1 - Small Base',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 846,
-        
-        PriorityFunction = function( self, aiBrain, unit, manager)
-            if aiBrain.CycleTime < 300 then -- delayed as its expensive in power and not needed for several minutes
-                return 10, true
-            end
+    --Builder {BuilderName = 'Air Staging T1 - Small Base',
+	--
+    --    PlatoonTemplate = 'EngineerBuilder',
+	--	PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+	--	
+    --    Priority = 846,
+    --    
+    --    PriorityFunction = function( self, aiBrain, unit, manager)
+    --        if aiBrain.CycleTime < 300 then -- delayed as its expensive in power and not needed for several minutes
+    --            return 10, true
+    --        end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
-                return 10, false
-            end
-    
-            return (self.OldPriority or self.Priority), true
-        end,
+    --        if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+    --            return 10, false
+    --        end
+    --
+    --        return (self.OldPriority or self.Priority), true
+    --    end,
 
-        BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }}, -- with a delay can be cheaper
-        },
-		
-        BuilderType = {'T1'},
-		
-        BuilderData = {
-			DesiresAssist = false,
-			
-			Construction = {
-				Radius = 26,			
-                NearBasePerimeterPoints = true,
-                
-                ThreatMax = 50,
-				
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 2,
+    --    BuilderConditions = {
+	--		{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }}, -- with a delay can be cheaper
+    --    },
+	--	
+    --    BuilderType = {'T1'},
+	--	
+    --    BuilderData = {
+	--		DesiresAssist = false,
+	--		
+	--		Construction = {
+	--			Radius = 26,			
+    --            NearBasePerimeterPoints = true,
+    --            
+    --            ThreatMax = 50,
+	--			
+	--			BasePerimeterOrientation = 'REAR',
+	--			BasePerimeterSelection = 2,
 
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3AirStagingComplex',
-				
-                BuildStructures = {'T1AirStagingPlatform'},
-            }
-        }
-    },	
+	--			BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+	--			BaseTemplate = 'T3AirStagingComplex',
+	--			
+    --            BuildStructures = {'T1AirStagingPlatform'},
+    --        }
+    --    }
+    --},	
 	
     Builder {BuilderName = 'Air Staging T2 - Small Base',
 	
