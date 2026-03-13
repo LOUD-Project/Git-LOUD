@@ -262,7 +262,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
             
-			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
+			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 105 }},
         },
 		
         BuilderData = {
@@ -272,7 +272,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 100,
             
-				AssistRange = 120,
+				AssistRange = 105,
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
                 BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL},
@@ -544,7 +544,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL - categories.ENERGYPRODUCTION - categories.MASSPRODUCTION, categories.ENGINEER + categories.FACTORY, 90 }},
         },
 		
         BuilderData = {
@@ -555,7 +555,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 				AssistRange = 90,
 				AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.FACTORY,
-                BeingBuiltCategories = {categories.ALLUNITS - categories.EXPERIMENTAL},
+                BeingBuiltCategories = {categories.ALLUNITS - categories.EXPERIMENTAL - categories.ENERGYPRODUCTION - categories.MASSPRODUCTION},
                 Time = 60,
             },
         },

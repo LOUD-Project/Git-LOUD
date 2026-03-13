@@ -26,7 +26,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 90 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
 
@@ -78,7 +78,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
             
@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
             
@@ -174,7 +174,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 90 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
             
@@ -229,7 +229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             -- this is likely the only place where I might use this
 			{ LUTL, 'NeedMassPointShare', { .5 } },
             
-            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 90 }},
             
             { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
@@ -278,7 +278,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 75, 2000 }},
             
@@ -513,8 +513,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions', Builders
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 35, 0, 'AntiSurface', 1 }},
         },
@@ -604,7 +602,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType 
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 90 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
 
@@ -655,7 +653,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType 
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             
-            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
             { EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
             

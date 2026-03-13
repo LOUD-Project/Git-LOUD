@@ -2081,6 +2081,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
+			{ MIBC, 'GreaterThanGameTime', { 240 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
@@ -2179,6 +2181,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
+			{ MIBC, 'GreaterThanGameTime', { 240 } },
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},

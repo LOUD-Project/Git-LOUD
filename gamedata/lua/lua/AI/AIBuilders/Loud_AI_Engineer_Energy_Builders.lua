@@ -53,7 +53,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 return 11, true
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 75, ENERGYT1, 0, 33 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 70, ENERGYT1, 0, 33 ) then
                 return 12, true
             end
  
