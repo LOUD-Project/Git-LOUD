@@ -1,3 +1,19 @@
+### Release 03-13-2026
+
+LUA 8.05
+CIV_UNITS 8.0
+BrewLAN for LOUD 0.8.8.9.127
+Wyvern for LOUD 8.0
+
+- suppressed the LifeThread messages for now
+- fixed an issue with 'assist' tasks not finding valid assist targets
+- fixed issue with BrewLAN accuracy node, using CIV_UNITS assets (MostLostNoob)
+- changed range indication on Wyvern Star Adder (MostLostNoob & Frust)
+- fixed LandForceAI cycling over the same DP choice, and not returning to base
+- numerous continued economic tunings designed to enhance early AI behavior (Mofunkles)
+
+
+
 ### Release 02-27-2026
 
 LUA 8.04
