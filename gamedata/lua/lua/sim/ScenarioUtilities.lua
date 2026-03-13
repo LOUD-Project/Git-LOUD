@@ -741,14 +741,14 @@ end
 -- Mex upgrade limit timings and next limit step with a small map version with less aggressive ramping
 local MexUpgradeLimitSteps = {
 
-    default = {
+    high = {
         { time = 450,  limit = 2 },
-        { time = 690,  limit = 3 },
+        { time = 540,  limit = 3 },
         { time = 840,  limit = 4 },
         { time = 1800, limit = 6 },
     },
 
-    small = {
+    low = {
         { time = 450,  limit = 2 },
         { time = 720,  limit = 3 },
         { time = 1500, limit = 4 },
@@ -760,8 +760,11 @@ local MexUpgradeLimitSteps = {
 -- Mex upgrade limit increases at set times to avoid early eco issues with upgrading too many at once
 function MexUpgradeLimitSwitch(aiBrain)
 
-    local size = MIBC.MapLessThan( aiBrain, 1028 ) and "small" or "default"
-    local steps = MexUpgradeLimitSteps[size] or MexUpgradeLimitSteps.default
+    -- Get the mass split between players with a +1 to account for contested mass points
+    local massPerPlayer = ScenarioInfo.NumMassPoints / (ScenarioInfo.Options.PlayerCount + 1)
+    local massProfile = massPerPlayer < 14 and 'low' or 'high'
+
+    local steps = MexUpgradeLimitSteps[massProfile] or MexUpgradeLimitSteps.high
 
     for _, step in steps do
 
