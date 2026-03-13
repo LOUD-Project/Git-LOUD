@@ -848,12 +848,26 @@ function CDREnhance( self, aiBrain )
 				if not unit:HasEnhancement(v) then
 				
                     if ACUEnhanceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v).." on tick "..GetGameTick() )
                     end
 				
 					repeat
 						WaitTicks(11)
 					until IsIdleState(unit) or unit.Dead
+				
+                    if ACUEnhanceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enters Idle State on tick "..GetGameTick() )
+                    end
+                    
+                    repeat
+				
+                        if ACUEnhanceDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance M Efficiency "..string.format("%.3f",econ.MassEfficiency).." E Efficiency "..string.format("%.3f",econ.EnergyEfficiency).." on tick "..GetGameTick() )
+                        end
+
+                        WaitTicks(31)
+                    
+                    until unit.Dead or ( econ.MassEfficiency > 1 and econ.EnergyEfficiency > 1) 
 					
 					if not unit.Dead then
 
@@ -8359,6 +8373,9 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     
     local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
     local FactoryEnhanceDialog = ScenarioInfo.FactoryEnhanceDialog
+    
+    local econ = aiBrain.EcoData.OverTime
+    local body = "*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." "..__blueprints[unit.BlueprintID].Description
   
     while EBP and (not unit.Dead) and not unit.EnhancementsComplete do
 	
@@ -8393,7 +8410,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 						unit.Upgrading = true
 						
 						if FactoryEnhanceDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." waiting to start "..repr(CurrentEnhancement))
+							LOG( body.." orders "..repr(CurrentEnhancement).." on tick "..GetGameTick() )
 						end
 				
 						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
@@ -8411,7 +8428,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 							SetBlockCommandQueue( unit, true)
 							
 							if FactoryEnhanceDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." starting "..repr(CurrentEnhancement))
+								LOG( body.." begins "..repr(CurrentEnhancement).." on tick "..GetGameTick() )
 							end							
 				
 							while not unit.Dead and IsUnitState(unit,'Enhancing') do
@@ -8426,7 +8443,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 						if HasEnhancement( unit, CurrentEnhancement) and not unit.Dead then
 							
 							if FactoryEnhanceDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." completed "..repr(CurrentEnhancement))
+								LOG( body.." completed "..repr(CurrentEnhancement).." on tick "..GetGameTick() )
 							end							
 							
 							LOUDREMOVE(EnhanceList, 1)

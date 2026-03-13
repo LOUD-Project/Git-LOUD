@@ -3820,9 +3820,9 @@ Unit = Class(UnitMethods) {
 			
         end
         
-        if ScenarioInfo.ACUEnhanceDialog then
-            LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." doing enhancement "..repr(tempEnhanceBp.Name))
-        end
+        --if ScenarioInfo.ACUEnhanceDialog then
+          --  LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." doing enhancement "..repr(tempEnhanceBp.Name))
+        --end
 
         -- seems to support the UI and progress bar
         self.WorkItem = tempEnhanceBp
