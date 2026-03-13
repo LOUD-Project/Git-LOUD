@@ -264,7 +264,7 @@ function LifeThread( aiBrain, cdr )
 
             end
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..string.format("%.1f",mgiven).."  E "..string.format("%.1f",egiven).." Shortage Count "..shortcount )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..string.format("%.1f",mgiven).."  E "..string.format("%.1f",egiven).." Shortage Count "..shortcount )
             
             mcount = mgiven
             ecount = egiven
