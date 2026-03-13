@@ -850,6 +850,8 @@ function CDREnhance( self, aiBrain )
 		
 		local IsIdleState = IsIdleState
 		local IsUnitState = IsUnitState
+        
+        local econ = aiBrain.EcoData.OverTime
 		
 		for _,v in PlatoonData.Enhancement do
 		
@@ -887,7 +889,8 @@ function CDREnhance( self, aiBrain )
                         unit.DesiresAssist = true
                         unit.IssuedBuildCommand = true
                         unit.NumAssistees = 3
-					end
+                    end
+
 				end
 				
 				local stallcount = 0
@@ -8187,6 +8190,8 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
     local NameEngineers = ScenarioInfo.NameEngineers
     local SCUEnhanceDialog = ScenarioInfo.SCUEnhanceDialog
     
+    local econ = aiBrain.EcoData.OverTime
+    
     while (not unit.Dead) and not unit.EnhancementsComplete do
 
         CurrentEnhancement = EnhanceList[1]
@@ -8207,12 +8212,16 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
             
             EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
 			
-            RateNeededE = BuildCostE / EffTime
-            RateNeededM = BuildCostM / EffTime
-            
-            -- if we can meet 85% of the Energy and Mass needs of the upgrade - go ahead with it
-            if ((GetEconomyTrend(aiBrain,'ENERGY') * 10) >= (RateNeededE * .85)) and ((GetEconomyTrend(aiBrain,'MASS') * 10) >= (RateNeededM * .85)) then
-			
+            RateNeededE = (BuildCostE / EffTime) * .1 
+            RateNeededM = (BuildCostM / EffTime) * .1
+
+            --- essentially 
+            if econ.EnergyTrend > RateNeededE and econ.MassTrend > RateNeededM then
+
+				if SCUEnhanceDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.EntityID.." M trend "..econ.MassTrend.." E trend "..econ.EnergyTrend.." on tick "..GetGameTick() )
+				end
+
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
 				if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
@@ -8312,12 +8321,14 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 				
 						manager:ForkThread( manager.ReassignEngineer, unit, aiBrain)
 					end
-				end
+
+                end
+
             end
 
             unit.AssigningTask = false			
             
-            WaitTicks(36)
+            WaitTicks(31)
         end
 		
         WaitTicks(12)
@@ -8340,7 +8351,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 	
 end
 
--- SELF ENHANCE for Other Units
+-- SELF ENHANCE for Other Units (not just factories)
 function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 
     local EBP = __blueprints[unit.BlueprintID].Enhancements or false
@@ -8403,12 +8414,15 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 		
 				EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
 
-				RateNeededE = BuildCostE / EffTime
-				RateNeededM = BuildCostM / EffTime
+				RateNeededE = (BuildCostE / EffTime) * .1
+				RateNeededM = (BuildCostM / EffTime) * .1
 
-				-- if we can meet 95% of the Energy and Mass needs of the enhancement
 				-- also - note - we must actually have that data structure - civilians DO NOT have this 
-				if (aiBrain.EcoData['OverTime']['EnergyTrend']) and ((aiBrain.EcoData['OverTime']['EnergyTrend'] * 10) >= (RateNeededE * .95)) and ((aiBrain.EcoData['OverTime']['MassTrend'] * 10) >= (RateNeededM * .95)) then
+				if econ.EnergyTrend > RateNeededE and econ.MassTrend > RateNeededM then
+
+					if FactoryEnhanceDialog then
+						LOG( body.." M Trend needs "..string.format("%.2f",RateNeededM).." is "..string.format("%.2f",econ.MassTrend).." E Trend needed "..string.format("%.2f",RateNeededE).." is "..string.format("%.2f",econ.EnergyTrend).." on tick "..GetGameTick() )
+					end
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
@@ -8476,22 +8490,22 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 						end
 
 					else
-						WaitTicks(41)
+						WaitTicks(31)
 					end
 					
 				else
-					WaitTicks(41)
+					WaitTicks(61)
 				end
 				
 			end
 			
-	        WaitTicks(26)		
+	        WaitTicks(31)		
         end
         
         if HasEnhancement( unit, final) then
 		
 			if FactoryEnhanceDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." all enhancements complete")
+				LOG( body.." all enhancements complete")
 			end							
 			
 			unit.Upgrading = nil
@@ -8835,7 +8849,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                             end
                             
                             -- we use the MajorCheatModifier(66% of the full cheat) to reduce the longest delays
-							ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(500, buildtime*.66)/aiBrain.MajorCheatModifier, body )  -- delay the next upgrade by upto 66% of the upgrade build time
+							ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(540, buildtime*.66)/aiBrain.MajorCheatModifier, body )  -- delay the next upgrade by upto 66% of the upgrade build time
 
 						else
                             --- if either storage is NOT full -- medium delay - unaffected by cheat
@@ -8845,7 +8859,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                                     LOG( body.." storage not full - buildtime is "..buildtime )
                                 end
 
-                                ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(350, buildtime*.33), body )   -- otherwise only 33% the delay period
+                                ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(360, buildtime*.33), body )   -- otherwise only 33% the delay period
 
                             else
 
