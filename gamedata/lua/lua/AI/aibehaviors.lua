@@ -252,7 +252,17 @@ function LifeThread( aiBrain, cdr )
         
         if mgiven != mcount or egiven != ecount then
         
-            shortcount = shortcount + 1
+            if mgiven > mcount or egiven > ecount then
+        
+                shortcount = shortcount + 1
+                
+            else
+            
+                if shortcount > 0 then
+                    shortcount = shortcount - 1
+                end
+
+            end
 
             LOG("*AI DEBUG "..aiBrain.Nickname.." Lifetime thread M "..string.format("%.1f",mgiven).."  E "..string.format("%.1f",egiven).." Shortage Count "..shortcount )
             
