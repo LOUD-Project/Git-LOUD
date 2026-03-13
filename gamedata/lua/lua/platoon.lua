@@ -9273,7 +9273,7 @@ Platoon = Class(PlatoonMethods) {
                             LOG(dialog.." - executing path movement on tick "..GetGameTick() )
                         end
                         
-                        notargetcount = 0
+                        --notargetcount = 0
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance )
 
