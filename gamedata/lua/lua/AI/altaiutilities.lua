@@ -643,7 +643,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		local Brains = ArmyBrains
 	
 		-- minimum range that a Naval Base can be from ANY existing base
-		local minimum_baserange = 200 + (ScenarioInfo.IMAPSize/8)
+		local minimum_baserange = 175 + (ScenarioInfo.IMAPSize/8)
         
         local distance_from_base = false
         local distance_from_threat = false
