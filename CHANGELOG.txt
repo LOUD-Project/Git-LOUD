@@ -1,3 +1,14 @@
+### Release 03-14-2026
+
+LUA 8.06
+CIV_UNITS 8.01
+
+- hotfix for a civilian asset with misdirected script
+- update to LandForceAILOUD logic for utilizing HiPri target list
+- a minor reduction in the minimum range required to start a naval base
+
+
+
 ### Release 03-13-2026
 
 LUA 8.05
