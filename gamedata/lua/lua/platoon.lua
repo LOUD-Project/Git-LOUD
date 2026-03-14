@@ -7223,7 +7223,7 @@ Platoon = Class(PlatoonMethods) {
         end
     
         local EngineerDialog = ScenarioInfo.EngineerDialog
-        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Eng "..eng.EntityID.." EBAI"
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Eng "..repr(eng.EntityID).." EBAI"
 
         if EngineerDialog then
             LOG( dialog.." starts on tick "..GetGameTick() )
@@ -9044,16 +9044,17 @@ Platoon = Class(PlatoonMethods) {
 				end
 			end
 			
+			
+            if LandForceAIDialog then
+                LOG(dialog.." seeking targets from "..repr(platPos).." on tick "..GetGameTick() )
+            end
+
             -- Find A Local target, HiPri Target or a Defensive Point -- or instead of DP - current Attack Plan goal ?
 			targetLocation = false
 			targetclass = false
 			targettype = false
             targetvalue = 0
 			target = false
-			
-            if LandForceAIDialog then
-                LOG(dialog.." seeks local target from "..repr(platPos).." on tick "..GetGameTick() )
-            end
 
 			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
 			
@@ -9080,18 +9081,22 @@ Platoon = Class(PlatoonMethods) {
 				dataList, dataListcount = GetHiPriTargetList( aiBrain, newposition, targettypes, MaximumAttackRange, true )
 
 				targetvalue = 0
-			
-                if LandForceAIDialog then
-                    LOG(dialog.." seeks HiPri target from "..repr(platPos).." HiPri target list has "..dataListcount.." entries on tick "..GetGameTick() )
-				end
 				
 				for _,Target in dataList do
+                
+                    if LandForceAIDialog then
+                        LOG( dialog.." evaluating target "..repr(Target))
+                    end
 
                     targetLocation = Target.Position
                     targetclass = Target.Type                
 
 					sthreat = Target.Threats.Sur
 					ethreat = Target.Threats.Eco
+                    
+                    if sthreat == 0 and ethreat == 0 then
+                        continue
+                    end
 					
 					if sthreat < 1 then
 						sthreat = 1
@@ -9169,24 +9174,34 @@ Platoon = Class(PlatoonMethods) {
                         distancefactor = 1 / ( LOUDLOG10(distancefactor))
                         
                         distancefactor = distancefactor * (MaximumAttackRange / pathlength)    --- factor in the maximum allowed attack distance
+
+                    else
+                        pathlength = VDist3( platPos, targetLocation ) * 1.5
                     
-                        -- now use distance to modify the value and go after the most valuable
-                        if (value * distancefactor) > targetvalue then
+                        distancefactor = pathlength/(ScenarioInfo.IMAPSize*.5)
+
+                        distancefactor = 1 / ( LOUDLOG10(distancefactor))
                         
-                            if LandForceAIDialog then
-                                LOG( dialog.." storing HiPri position "..repr(Target.Position).." worth "..(value * distancefactor).." on tick "..GetGameTick())
-                            end
-					
-                            target = Target
-                            targetmilvalue = milvalue
-                            targetvalue = value * distancefactor
-                            targetLocation = LOUDCOPY(Target.Position)
+                        distancefactor = distancefactor * (MaximumAttackRange / pathlength)    --- factor in the maximum allowed attack distance
+                    
+                    end
+                    
+                    -- now use distance to modify the value and go after the most valuable
+                    if (value * distancefactor) > targetvalue then
 
-                            targetdistancefactor = distancefactor
-
-                            targettype = 'HiPri'                            
-                            notargetcount = 0
+                        if LandForceAIDialog then
+                            LOG( dialog.." storing HiPri position "..repr(Target.Position).." worth "..(value * distancefactor).." on tick "..GetGameTick())
                         end
+					
+                        target = Target
+                        targetmilvalue = milvalue
+                        targetvalue = value * distancefactor
+                        targetLocation = LOUDCOPY(Target.Position)
+
+                        targetdistancefactor = distancefactor
+
+                        targettype = 'HiPri'                            
+
                     end
 
                     WaitTicks(2)
@@ -9195,10 +9210,6 @@ Platoon = Class(PlatoonMethods) {
 			
 			-- if no target then seek a DP and increase the number of tries by 1
 			if not target then
-
-                if LandForceAIDialog then
-                    LOG(dialog.." seeks DP marker from "..repr(platPos).." on tick "..GetGameTick() )
-                end
                 
                 if aiBrain.AttackPlan then
                     local stagepoints = aiBrain.AttackPlan.StagePoints
@@ -9275,8 +9286,6 @@ Platoon = Class(PlatoonMethods) {
                         if LandForceAIDialog then
                             LOG(dialog.." - executing path movement on tick "..GetGameTick() )
                         end
-                        
-                        notargetcount = 0
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove, Slackdistance )
 

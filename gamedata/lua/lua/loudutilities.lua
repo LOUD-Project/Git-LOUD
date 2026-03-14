@@ -7079,6 +7079,8 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
     local EntityCheck, TPosition, TType
 
 	LOUDSORT( threatlist, function(a,b) local VDist3 = VDist3 return VDist3(a.Position,location) < VDist3(b.Position,location) end )
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri List is "..repr(threatlist))
 
     for _,threat in threatlist do
     
@@ -7180,6 +7182,10 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
 		end
 
     end
+    
+    --if counter > 0 then
+      --  LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri results are "..repr(targetlist))
+    --end
 	
 	return targetlist, counter
 end
