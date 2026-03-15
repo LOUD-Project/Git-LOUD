@@ -393,7 +393,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			
             PrioritizedCategories = {categories.ENGINEER, categories.ECONOMIC, categories.MOBILE - categories.SHIELD - categories.AIR},
 			
-			SearchRadius = 60,	
+			SearchRadius = 100,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -444,7 +444,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			
             PrioritizedCategories = { categories.MASSEXTRACTION, categories.ECONOMIC, categories.ENGINEER },
 			
-			SearchRadius = 60,	
+			SearchRadius = 100,	
 			
             UseFormation = 'GrowthFormation',
         },
@@ -499,7 +499,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			
             PrioritizedCategories = { categories.MOBILE - categories.AIR, categories.ECONOMIC },
 			
-			SearchRadius = 65,
+			SearchRadius = 200,
 			
             UseFormation = 'GrowthFormation',
         },
@@ -549,7 +549,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 			
             PrioritizedCategories = { categories.ECONOMIC, categories.ENGINEER, categories.MASSPRODUCTION },
 			
-			SearchRadius = 100,
+			SearchRadius = 200,
 			
             UseFormation = 'AttackFormation',
         },
@@ -615,7 +615,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
             
             PrioritizedCategories = {categories.COMMAND, categories.ENGINEER, categories.SHIELD, categories.MOBILE - categories.AIR, categories.ECONOMIC - categories.TECH1},
             
-			SearchRadius = 120,
+			SearchRadius = 400,
             
             UseFormation = 'AttackFormation',
         },
@@ -1445,7 +1445,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
 			
             PrioritizedCategories = {categories.ANTIAIR, categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 48,
+			SearchRadius = 70,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1504,7 +1504,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
 			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.LAND * categories.ANTIAIR, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
 			
-			SearchRadius = 55,
+			SearchRadius = 120,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1564,7 +1564,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
 			
             PrioritizedCategories = {categories.ENGINEER, categories.ANTIAIR - categories.AIR, categories.ECONOMIC, categories.MASSEXTRACTION},
 			
-			SearchRadius = 70,
+			SearchRadius = 150,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1621,7 +1621,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
             
             PrioritizedCategories = {categories.MOBILE * categories.SHIELD, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.ANTIAIR, categories.SHIELD, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
             
-			SearchRadius = 85,
+			SearchRadius = 250,
             
             UseFormation = 'AttackFormation',
         },
@@ -1706,7 +1706,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
 			
             PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE},
 			
-			SearchRadius = 60,	
+			SearchRadius = 80,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1749,7 +1749,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderData = {
 			DistressRange = 120,
             DistressReactionTime = 10,            
-			DistressTypes = 'NaVal',
+			DistressTypes = 'Naval',
 			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
@@ -1760,7 +1760,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
-			SearchRadius = 70,
+			SearchRadius = 100,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1803,7 +1803,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderData = {
 			DistressRange = 150,
             DistressReactionTime = 12,            
-			DistressTypes = 'NaVal',
+			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
 			LocationType = 'LocationType',
@@ -1814,7 +1814,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
-			SearchRadius = 90,
+			SearchRadius = 200,
 			
             UseFormation = 'AttackFormation',
         },
