@@ -758,21 +758,48 @@ local MexUpgradeLimitSteps = {
 }
 
 -- Mex upgrade limit increases at set times to avoid early eco issues with upgrading too many at once
+-- Uses either a high or low profile for more aggressive or relaxed ramping of upgrades depending on mass points
+-- By default uses the profile that matches the mass count divided by player count
+-- As the game progresses if an AI on the low profile happens to gain more mass points they will switch to the high profile 
 function MexUpgradeLimitSwitch(aiBrain)
-
     -- Get the mass split between players with a +1 to account for contested mass points
     local massPerPlayer = ScenarioInfo.NumMassPoints / (ScenarioInfo.Options.PlayerCount + 1)
     local massProfile = massPerPlayer < 14 and 'low' or 'high'
+    
+    local i = 1
 
-    local steps = MexUpgradeLimitSteps[massProfile] or MexUpgradeLimitSteps.high
+    while true do
 
-    for _, step in steps do
+        local currentSteps = MexUpgradeLimitSteps[massProfile] or MexUpgradeLimitSteps.high
+        local step = currentSteps[i]
+        local profileSwitched = false
+
+        -- check if the ramping is complete
+        if not step then break end
 
         repeat
+            -- check if the AI on low profile has managed get more mass extractors than expected
+            -- if they have promote the upgrade steps to high
+            if massProfile == 'low' and aiBrain:GetCurrentUnits( categories.MASSEXTRACTION ) >= 14 then
+
+                massProfile = 'high'
+                profileSwitched = true
+
+                break
+
+            end
+
             WaitTicks(100)
+
         until aiBrain.CycleTime > step.time
 
+        -- if the profile was switched we break and restart the loop without incrementing to update to the new profile
+        if profileSwitched then
+            continue
+        end
+
         aiBrain.MexUpgradeLimit = step.limit
+        i = i + 1
 
     end
 
