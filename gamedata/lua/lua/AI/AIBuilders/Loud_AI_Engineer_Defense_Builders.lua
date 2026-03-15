@@ -306,7 +306,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2 then
+            if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.LandRatio >= 2 then
             
                 return 11, true
                
@@ -385,7 +385,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 3 then
+            if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.AirRatio >= 3 then
             
                 return 11, true
                
@@ -441,7 +441,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 then
+            if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.LandRatio >= 2.0 then
             
                 return 11, true
                
@@ -2081,7 +2081,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 1400 ) or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
                 return 12, true
              
@@ -2178,7 +2178,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if not GreaterThanEnergyIncome( aiBrain, 1400 ) or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
                 return 12, true
              
