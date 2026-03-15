@@ -20,6 +20,7 @@ local AIRTORP           = AIR * categories.ANTINAVY
 local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
 local TRANSPORTS        = categories.TRANSPORTFOCUS
 local TRANSPORTST2UP    = TRANSPORTS - categories.TECH1 - categories.GROUNDATTACK
+local TRANSPORTST3      = TRANSPORTS * categories.TECH3
 
 
 local AboveUnitCap75 = function( self,aiBrain )
@@ -61,7 +62,7 @@ local IsEnemyNavalActive = function( self, aiBrain, manager )
     
     end
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
+	if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 > 1400 and aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
 
 		return 600, true
 
@@ -85,7 +86,7 @@ end
 
 local HaveLessThanT2IncomeRate = function( self, aiBrain )
     
-	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1500 then
+	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1400 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -103,7 +104,7 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
     end
 
-	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 >= 1500 then
+	if GetEconomyIncome( aiBrain, 'ENERGY') * 10 >= 1400 then
 
 		return self.OldPriority or self.Priority, true
 		
@@ -176,7 +177,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
             -- don't build T2 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 78}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 4, [512] = 8, [1024] = 16, [2048] = 24, [4096] = 32}, AIRSCOUT }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },			
 
@@ -197,7 +198,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 96}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 12, [1024] = 20, [2048] = 40, [4096] = 60}, AIRSCOUT }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
 
@@ -348,7 +349,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
-			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
         },
 		
         BuilderType =  {'AirT3'},
@@ -385,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 
-			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
         },
 
         BuilderType =  {'AirT3'},
@@ -406,7 +407,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },        
+            { LUTL, 'NavalStrengthRatioLessThan', { 1 } },        
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
@@ -414,7 +415,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 3, AIRTORP }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 2, AIRTORP }},
         },
 
         BuilderType =  {'AirT1'},
@@ -429,7 +430,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },        
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
             
@@ -437,7 +438,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 2, AIRTORP }},
         },
 
         BuilderType =  {'AirT2','SeaT2'},
@@ -452,14 +453,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 2 }},
 
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 2, AIRTORP }},
         },
 
         BuilderType =  {'AirT3','SeaT3'},
@@ -475,7 +476,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 0.75 } },
 
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } }, 
 
@@ -485,7 +486,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 3, AIRTORP }},            
         },
 
         BuilderType =  {'AirT2','SeaT2'},
@@ -500,7 +501,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 0.75 } },
 
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 
@@ -510,7 +511,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 2 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 3, AIRTORP }},            
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -547,6 +548,38 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderType =  {'AirT1','AirT2'},
     },
 
+    Builder {BuilderName = 'Air Transport T2 - Water',
+	
+        PlatoonTemplate = 'T2AirTransport',
+		
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
+		
+        Priority = 610,
+        
+        PriorityFunction = function(self, aiBrain)
+
+            if aiBrain.HasLandEnemy or LOUDGETN( GetListOfUnits( aiBrain, TRANSPORTST2UP, false, true )) >= 12 then
+
+                return 0, false
+
+            end            
+            
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1400 then
+                return 10, true
+            end
+            
+            return self.Priority, true
+        end,
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT2UP }},
+        },
+		
+        BuilderType =  {'AirT2','AirT3'},
+    },    
+
     Builder {BuilderName = 'Air Transport T2',
 	
         PlatoonTemplate = 'T2AirTransport',
@@ -557,7 +590,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         
         PriorityFunction = function(self, aiBrain)
 	
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1500 then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1400 then
                 return 10, true
             end
 
@@ -579,9 +612,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT2UP }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, TRANSPORTS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 20, [2048] = 28, [4096] = 28}, TRANSPORTS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -598,7 +631,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
         PriorityFunction = function(self, aiBrain)
 
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1500 then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1400 then
                 return 10, true
             end            
 
@@ -628,6 +661,38 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderType =  {'AirT2'},
     },
 
+    Builder {BuilderName = 'Air Transport T3 - Water',
+	
+        PlatoonTemplate = 'T3AirTransport',
+
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
+
+        Priority = 610,
+        
+        PriorityFunction = function(self, aiBrain)
+
+            if aiBrain.HasLandEnemy or LOUDGETN( GetListOfUnits( aiBrain, TRANSPORTST3, false, true )) >= 6 then
+
+                return 0, false
+
+            end
+
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 8000 then
+                return 10, true
+            end
+
+            return self.Priority, false            
+        end,
+
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT3 }},
+        },
+
+        BuilderType =  {'AirT3'},
+    },
+
     Builder {BuilderName = 'Air Transport T3',
 	
         PlatoonTemplate = 'T3AirTransport',
@@ -642,7 +707,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
 	
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
                 return 10, true
             end
             
@@ -660,9 +725,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, TRANSPORTS * categories.TECH3}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 12, [2048] = 20, [4096] = 20}, TRANSPORTS * categories.TECH3}},
         },
 
         BuilderType =  {'AirT3'},
