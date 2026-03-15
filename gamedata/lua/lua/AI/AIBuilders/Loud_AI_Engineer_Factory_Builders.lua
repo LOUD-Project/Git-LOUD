@@ -71,8 +71,22 @@ local HaveZeroLandFactories = function( self, aiBrain )
         
     end
 
-    -- build a second early land factory if there is a land connection to an enemy
-    if GreaterThanEnergyIncome( aiBrain, 520 ) and landFactories < 2 and aiBrain.HasLandEnemy then
+    -- Only build one early factory if there no land connection to an enemy
+    if not aiBrain.HasLandEnemy then
+
+        return 10, true
+    
+    end
+
+    -- Build a second early land factory if there is no land connection to an enemy
+    if GreaterThanEnergyIncome( aiBrain, 520 ) and landFactories < 2 then
+	
+        return 990, true
+        
+    end
+
+    -- Build a 3rd and 4th early land factory if there is no land connection to an enemy
+    if GreaterThanEnergyIncome( aiBrain, 1000 ) and landFactories < 4 then
 	
         return 990, true
         
@@ -118,7 +132,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND }},            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 4, categories.LAND }},            
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -193,7 +207,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.4, 4, 1.010, 1.010 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -237,7 +251,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.010, 1.012 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.3, 3, 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -279,9 +293,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
  
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1.010, 1.010 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -324,9 +338,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 4000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.010, 1.012 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.3, 3, 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -723,7 +737,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 5, 1.012, 1.015 }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
@@ -840,7 +854,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 5000, 50000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.015 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 5, 1.012, 1.015 }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
