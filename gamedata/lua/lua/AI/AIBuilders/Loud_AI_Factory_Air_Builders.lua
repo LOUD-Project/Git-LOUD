@@ -551,17 +551,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		
         PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },		
 	
-        Priority = 610, 
-        
-        PriorityFunction = function(self, aiBrain)
-	
-            if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) > 0 then
-                return 0, false
-            end
-       
-            if not GreaterThanEnergyIncome( aiBrain, 150 ) then
-                return 10, true
-            end
+        Priority = 610,
 		
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		

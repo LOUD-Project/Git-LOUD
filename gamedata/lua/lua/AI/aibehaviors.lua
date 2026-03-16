@@ -8878,7 +8878,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                             end
                             
                             -- we use the MajorCheatModifier(66% of the full cheat) to reduce the longest delays
-							ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(540, buildtime*.66)/aiBrain.MajorCheatModifier, body )  -- delay the next upgrade by upto 66% of the upgrade build time
+							ForkThread(SelfUpgradeDelay, aiBrain, unit, 170, body )  -- delay the next upgrade by upto 66% of the upgrade build time
 
 						else
                             --- if either storage is NOT full -- medium delay - unaffected by cheat
@@ -8888,7 +8888,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                                     LOG( body.." storage not full - buildtime is "..buildtime )
                                 end
 
-                                ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(360, buildtime*.33), body )   -- otherwise only 33% the delay period
+                                ForkThread(SelfUpgradeDelay, aiBrain, unit, 120, body )   -- otherwise only 33% the delay period
 
                             else
 
