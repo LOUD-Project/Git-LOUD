@@ -60,6 +60,7 @@ local STRUCTURE         = categories.STRUCTURE
 local COMMAND           = categories.COMMAND
 local DEFENSESTRUCTURES = STRUCTURE * categories.DEFENSE
 local ENGINEER          = categories.ENGINEER
+local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
 local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local MASSSTORAGE       = categories.MASSSTORAGE
@@ -529,6 +530,10 @@ function FactoryGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 	return EntityCategoryCount( testCat, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) > unitCount	
 end
 
+function FactoryRatioEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) == EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
+end
+
 function FactoryRatioGreaterOrEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
     return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) >= EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
@@ -603,7 +608,7 @@ function BuildingGreaterAtLocation( aiBrain, locationType, unitCount, testCat, b
 end
 
 function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, testCat, builderCat, range)
-    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits) > unitCount
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits, range) > unitCount
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
@@ -1149,7 +1154,7 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
     local mexposition, distance, threat
 	
 	-- get your own extractors around the point
-	for k,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION, pos, maxdistance) do
+	for k,v in GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance) do
 	
 		mexposition = v.CachePosition
         

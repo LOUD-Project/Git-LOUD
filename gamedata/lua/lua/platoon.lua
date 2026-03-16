@@ -7916,6 +7916,8 @@ Platoon = Class(PlatoonMethods) {
         local baseTmpl = import(cons.BaseTemplateFile or '/lua/basetemplates.lua')[(cons.BaseTemplate or 'BaseTemplates')][factionIndex]
         
         local adjacencytest = cons.AdjacencyStructure or categories.MASSSTORAGE
+        
+        local target = cons.TargetStructure or categories.MASSEXTRACTION - categories.TECH1
 
         local eng
         local platoonUnits = GetPlatoonUnits(self)
@@ -7955,7 +7957,7 @@ Platoon = Class(PlatoonMethods) {
                 extractors = categories.MASSEXTRACTION
             end
             -- get all T2/T3 mexs within radius of home
-            local Mexs = GetOwnUnitsAroundPoint(aiBrain, extractors, homepos, cons.Radius)
+            local Mexs = GetOwnUnitsAroundPoint(aiBrain, target, homepos, cons.Radius)
             
             if not Mexs or eng.Dead then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." MassAdjacencyAI No Mexs found")

@@ -2711,7 +2711,7 @@ end
 -- added in average Mass and Energy Storage level
 function EconomyMonitor( aiBrain )
 	
-    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassTrend'] = {}, ['Period'] = 270, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
+    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassTrend'] = {}, ['Period'] = 180, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
 
 	-- number of sample points
 	-- local point
@@ -2768,7 +2768,7 @@ function EconomyMonitor( aiBrain )
     -- Economy Monitor is delayed according to ArmyIndex
     -- between 0 and samplerate - 1 ticks, this way - they don't all fall
     -- on the same tick
-    WaitTicks( LOUDMOD( aiBrain.ArmyIndex, samplerate ) + 1)       -- we add one to avoid 0 --
+    WaitTicks( LOUDMOD( aiBrain.ArmyIndex, samplerate ) + 3)       -- we add 3 to avoid 0 and get past the initial resource allocations
 
     while true do
 
@@ -2804,6 +2804,8 @@ function EconomyMonitor( aiBrain )
 			mTrend = mTrend + EcoDataMassTrend[point]
             --eStorage = eStorage + EcoDataEnergyStorage[point]
             --mStorage = mStorage + EcoDataMassStorage[point]
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." point "..point.." ETrend is "..EcoDataEnergyTrend[point].." Total is "..eTrend.." Avg is "..(eTrend * samplefactor).." on tick "..GetGameTick() )
 
             
             -- calculate new OverTime values --

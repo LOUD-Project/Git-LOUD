@@ -480,7 +480,7 @@ UnitBlueprint{
             },
             RackReloadTimeout = 10,
 
-            RangeCategory = "UWRC_AntiNavy",
+            RangeCategory = "UWRC_Countermeasure",
 
             RateOfFire = 0.4,           -- potentially 1000 damage every 2.5 seconds = 400 DPS
 

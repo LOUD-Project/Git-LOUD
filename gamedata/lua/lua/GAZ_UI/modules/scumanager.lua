@@ -142,7 +142,7 @@ function ConfigureUpgrades()
     
 	window:SetTexture('/lua/gaz_ui/textures/scumanager/configwindow.dds')
     
-	LayoutHelpers.AtRightTopIn(window, GetFrame(0), 100, 100)
+	LayoutHelpers.AtCenterIn(window, GetFrame(0))
     
 	window.Depth:Set(1000)
     

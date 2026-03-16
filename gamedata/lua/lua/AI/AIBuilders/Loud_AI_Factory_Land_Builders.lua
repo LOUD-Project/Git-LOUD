@@ -83,6 +83,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            
+            { MIBC, 'GreaterThanGameTime', { 180 }},
 
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
             { UCBC, 'PoolLess', { 4, LAND * categories.SCOUT }},
@@ -596,6 +598,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
+
 			{ LUTL, 'PoolLess', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
@@ -913,7 +918,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, INDIRECTFIRELAND - AMPHIBIOUS, LAND }},
         },
 
-        BuilderType = {'LandT2'},
+        BuilderType = {'LandT2','LandT3'},
     },
 	
 	-- ===================  --

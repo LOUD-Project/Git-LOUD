@@ -690,12 +690,12 @@ StructureUnit = Class(Unit) {
 		local SelfUpgradeThread     = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
         local PlatoonCallForHelpAI  = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
         
-        local checkrate, initialdelay
+        local checkrate, initialdelay, bypasseco
 
 		--- factories --
 		if EntityCategoryContains( FACTORIES, finishedUnit ) then
 
-            checkrate = 16.5        
+            checkrate = 15        
             initialdelay = 90
 
             -- after 15 minutes T1 factories have no ugprade delay to push those without a job into T2
@@ -717,7 +717,7 @@ StructureUnit = Class(Unit) {
             -- and will check for being able to upgrade at a faster rate
             if aiBrain.CycleTime > 1800 then
 
-                checkrate = 13.5
+                checkrate = 12
                 initialdelay = 1
 
             end
@@ -732,6 +732,9 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( ENERGYPRODUCTION, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
+                
+                checkrate = 15
+                initialdelay = 120
             
                 if EntityCategoryContains( categories.TECH2, finishedUnit ) then
                 
@@ -745,7 +748,7 @@ StructureUnit = Class(Unit) {
                     checkrate = 14
                     initialdelay = 90
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.88, 0.75, 9999, 1.6, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.88, 0.75, 9999, 1.4, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                 
                 end
 
@@ -769,10 +772,20 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
                 
-                checkrate = 16
-                initialdelay = 110
+                checkrate = 15
+                initialdelay = 90
+                
+                if EntityCategoryContains( categories.TECH1, finishedUnit ) then
   
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.88, 0.75, 9999, 1.4, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    
+                else
+                
+                    initialdelay = 120
+                
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1, 0.82, 9999, 1.5, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+
+                end
 
 			end
 		end
@@ -798,18 +811,18 @@ StructureUnit = Class(Unit) {
                     checkrate = 1
                     initialdelay = 1
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.1, 0.1, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .1, .1, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 else
 
-                    checkrate = 13.5
-                    initialdelay = 70
+                    checkrate = 14
+                    initialdelay = 90
 
                     if aiBrain.CycleTime < 600 then -- increased delay at early stages to favour upgrading base mex
                         initialdelay = 130
                     end
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.74, 1.0032, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.001, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 end
 			end
@@ -832,9 +845,9 @@ StructureUnit = Class(Unit) {
 			if not finishedUnit.UpgradeThread then
 
                 checkrate = 16
-                initialdelay = 85
+                initialdelay = 75
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.003, 1.6, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -860,7 +873,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 24
                 initialdelay = 150
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.0115, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -871,7 +884,7 @@ StructureUnit = Class(Unit) {
             checkrate = 36
             initialdelay = 300
 
-			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
+			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.01, 1.03, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
 		end
 
 		-- add thread to the units trash

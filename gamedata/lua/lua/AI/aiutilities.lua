@@ -459,6 +459,32 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
     return mlist
 end
 
+function GetOwnUnfinishedUnitsAroundPoint( aiBrain, category, location, radius )
+	
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetFractionComplete = GetFractionComplete
+
+    local mlist = {}
+	local counter = 0
+    local ArmyIndex = aiBrain.ArmyIndex
+	
+	if category and location and radius then
+	
+		local units = GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) or {}
+	
+		for k,v in units do
+	
+			if (not v.Dead) and GetFractionComplete(v) != 1 and v.Army == ArmyIndex then
+
+				counter = counter + 1            
+				mlist[counter] = v
+			end
+		end
+	end
+	
+    return mlist
+end
+
 -- this will return a list of ALL Allied units (yours and allies)
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
@@ -1054,25 +1080,15 @@ end
 
 function SetArmyPoolBuff(aiBrain, AIMult)
 
-    if not aiBrain.OriginalUpgradeIssuedPeriod then
-        aiBrain.OriginalUpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod
-    end
-
     -- alter the AI's delay between upgrades by an additional amount equal to 25% of the AI Mult
     -- but no reductions (this formula differs from the base calcuation at game start)
     -- it compounds over time but at a more subtle rate
     modifier = math.max( 0, AIMult - 1.0 )
     modifier = 0.25 * modifier
     modifier = 1.0 + modifier
-	
-	-- reduce the waiting period between upgrades
-	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
-    
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks - due to Cheat")
 
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
-
 
     -- Modify Buildrate buff
     local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]

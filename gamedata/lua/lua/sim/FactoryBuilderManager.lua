@@ -165,9 +165,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 	AddFactory = function( self, factory, aiBrain )
 
         while (not factory.Dead) and GetFractionComplete(factory) < 1 do
-        
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Adding Factory 2 "..factory.EntityID.." at "..GetFractionComplete(factory).." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
-            
             WaitTicks(100)
         end
 

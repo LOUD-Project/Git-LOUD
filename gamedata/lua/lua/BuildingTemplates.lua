@@ -18,7 +18,7 @@ BuildingTemplates = {
         { 'T1Resource', 'ueb1103' 		  },
         { 'T2Resource', 'ueb1202'         },
         { 'T3Resource', 'ueb1302'         },
-		{ 'T1MassCreation', 'ueb1104'     },
+		{ 'T2MassCreation', 'ueb1104'     },
         { 'T3MassCreation', 'ueb1303'     },
     -- Land Factory Structures
         { 'T1LandFactory', 'ueb0101'      },
@@ -123,7 +123,7 @@ BuildingTemplates = {
         { 'T2EnergyProduction', 'uab1201' },
 	-- Mass Structures
         { 'T1Resource', 'uab1103' 	   },
-        { 'T1MassCreation', 'uab1104'  },
+        { 'T2MassCreation', 'uab1104'  },
         { 'T2Resource', 'uab1202'      },
         { 'T3Resource', 'uab1302'      },
         { 'T3MassCreation', 'uab1303'  },
@@ -230,7 +230,7 @@ BuildingTemplates = {
         { 'T3EnergyProduction', 'urb1301'   },
     -- Mass Structures
         { 'T1Resource', 'urb1103'  			},
-        { 'T1MassCreation', 'urb1104'       },
+        { 'T2MassCreation', 'urb1104'       },
         { 'T2Resource', 'urb1202'			},
         { 'T3Resource', 'urb1302'			},
         { 'T3MassCreation', 'urb1303'		},
@@ -332,7 +332,7 @@ BuildingTemplates = {
         {'T3EnergyProduction','xsb1301'		},
 	-- Mass Structures
         {'T1Resource','xsb1103'		},
-        {'T1MassCreation','xsb1104' },
+        {'T2MassCreation','xsb1104' },
         {'T2Resource','xsb1202'		},
         {'T3Resource','xsb1302'		},
         {'T3MassCreation','xsb1303' },

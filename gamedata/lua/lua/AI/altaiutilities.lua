@@ -82,10 +82,14 @@ function AssistBody(self, eng, aiBrain)
 		elseif assisteeType == 'Any' then
 		
 			local list = {}
-	
-			list = LOUDCONCAT( list, BuilderManager.PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
 		
 			list = LOUDCONCAT( list, BuilderManager.EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
+            
+            if table.empty(list) then
+	
+                list = LOUDCONCAT( list, BuilderManager.PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
+            
+            end
 
 			return list
 		end
@@ -119,7 +123,7 @@ function AssistBody(self, eng, aiBrain)
 						
                     else
 					
-						--LOG("*AI DEBUG Assistee at "..repr(v:GetPosition()).." beyond eng from "..eng.LocationType.." at "..repr(platoonPos).." assist range of "..assistRange)
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Assistee at "..repr(v:GetPosition()).." beyond eng from "..eng.LocationType.." at "..repr(platoonPos).." assist range of "..assistRange)
 						break
 					end
                 end
@@ -639,7 +643,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		local Brains = ArmyBrains
 	
 		-- minimum range that a Naval Base can be from ANY existing base
-		local minimum_baserange = 200 + (ScenarioInfo.IMAPSize/8)
+		local minimum_baserange = 175 + (ScenarioInfo.IMAPSize/8)
         
         local distance_from_base = false
         local distance_from_threat = false

@@ -160,7 +160,7 @@ DefensivePointStandard = {
             { 0, 0 },
         },
         
-        {{ 'T1MassCreation'	},
+        {{ 'T2MassCreation' },
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
@@ -383,7 +383,7 @@ DefensivePointStandard = {
             { 0, 0 },
         },
         
-        {{ 'T1MassCreation' },
+        {{ 'T2MassCreation' },
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
@@ -604,7 +604,7 @@ DefensivePointStandard = {
             { 0, 0 },
         },
         
-        {{ 'T1MassCreation'	},
+        {{ 'T2MassCreation'	},
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
@@ -825,7 +825,7 @@ DefensivePointStandard = {
             { 0, 0 },
         },
         
-        {{ 'T1MassCreation'		},
+        {{ 'T2MassCreation' },
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },

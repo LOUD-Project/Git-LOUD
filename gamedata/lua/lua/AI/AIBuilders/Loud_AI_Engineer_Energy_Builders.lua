@@ -39,7 +39,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         Priority = 761,
         
@@ -53,7 +53,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 return 11, true
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 75, ENERGYT1, 0, 33 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 70, ENERGYT1, 0, 33 ) then
                 return 12, true
             end
  
@@ -73,7 +73,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
         },
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T1','T2' },
 		
         BuilderData = {
 		
@@ -241,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
             
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, HYDRO }},
 			
@@ -431,10 +431,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (ENERGY - categories.TECH1) - HYDRO }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},            
-			{ EBC, 'LessThanEnergyTrend', { 60 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3600 }},            
+
+			{ EBC, 'LessThanEnergyTrend', { 75 }},
+
 			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
         },
         
         BuilderData = {
@@ -476,8 +479,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, ENERGYT3 - HYDRO }},
             
 			{ EBC, 'LessThanEnergyTrend', { 300 }},            
+
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
+
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
         },
         
         BuilderData = {
@@ -565,7 +570,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
             
             { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
             
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYT3 }},            
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },
@@ -573,8 +578,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderData = {
             Construction = {
 				LoopBuild = true,
-                LoopMass = 125,
-                LoopEnergy = 1250,
+                LoopMass = 100,
+                LoopEnergy = 100,
 				
 				MinRadius = 20,
 				Radius = 180,
@@ -582,6 +587,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 				MinStructureUnits = 4,
                 
                 AdjacencyStructure = ENERGYT1,
+                TargetStructure = categories.MASSEXTRACTION,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'EnergyAdjacency',

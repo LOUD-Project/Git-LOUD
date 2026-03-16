@@ -6,6 +6,8 @@ local LUTL  = '/lua/loudutilities.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local TUTL  = '/lua/ai/transportutilities.lua'
 
+local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
+
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
@@ -17,6 +19,7 @@ local AIRSCOUT          = AIR * categories.SCOUT
 local AIRT2UP           = AIR - categories.TECH1
 local AIRT3             = AIR * categories.TECH3
 local AIRTORP           = AIR * categories.ANTINAVY
+local FACTORY           = categories.FACTORY
 local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
 local TRANSPORTS        = categories.TRANSPORTFOCUS
 local TRANSPORTST2UP    = TRANSPORTS - categories.TECH1 - categories.GROUNDATTACK
@@ -143,12 +146,25 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         
         Priority = 601,
         
-        PriorityFunction = First45Minutes, 
+        PriorityFunction = function(self, aiBrain)
+	
+            if aiBrain.CycleTime < 180 then
+                return 10, true
+            end
+	
+            if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) > 0 then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .60 then
+                return 10, true
+            end
+            
+            return self.Priority, false
+        end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .65 } },
 
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
@@ -173,9 +189,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            -- don't build T2 air scouts if we can build better ones
-            { UCBC, 'FactoriesLessThan', { 1, AIRT3 }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 4, [512] = 8, [1024] = 16, [2048] = 24, [4096] = 32}, AIRSCOUT }},
 
@@ -261,6 +274,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
+            
+            { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
 
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, AIRT2UP }},
         },
@@ -278,6 +293,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            
+            { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
         },
@@ -333,6 +350,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            
+            { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -368,6 +387,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
+            
+            { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
         },
@@ -433,6 +454,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
             { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            
+            { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
             
 			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
@@ -529,23 +552,26 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },		
 	
         Priority = 610, 
+        
+        PriorityFunction = function(self, aiBrain)
+	
+            if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) > 0 then
+                return 0, false
+            end
+       
+            if not GreaterThanEnergyIncome( aiBrain, 150 ) then
+                return 10, true
+            end
 		
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .6 } },
-
-            --{ UCBC, 'ArmyNeedsTransports', { true } },
-			
-			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
-            { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
-
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 2, [2048] = 3, [4096] = 4}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 3, [4096] = 4}, TRANSPORTS * categories.TECH1}},
         },
 
-        BuilderType =  {'AirT1','AirT2'},
+        BuilderType =  {'AirT1'},
     },
 
     Builder {BuilderName = 'Air Transport T2 - Water',
@@ -589,6 +615,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         Priority = 610,
         
         PriorityFunction = function(self, aiBrain)
+       
+            if not GreaterThanEnergyIncome( aiBrain, 1800 ) then
+                return 10, true
+            end
 	
             if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1400 then
                 return 10, true
@@ -630,11 +660,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         Priority = 600,
 
         PriorityFunction = function(self, aiBrain)
-
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 1400 then
+       
+            if not GreaterThanEnergyIncome( aiBrain, 1800 ) then
                 return 10, true
-            end            
-
+            end
+		
             if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .60 then
                 return 10, true
             end

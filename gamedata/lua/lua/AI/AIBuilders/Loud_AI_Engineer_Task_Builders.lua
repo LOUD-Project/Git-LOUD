@@ -59,9 +59,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
               
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
@@ -94,7 +94,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY}},
         },
@@ -229,13 +229,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 140 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 90,
 			ReclaimType = 'Mass',
-            ReclaimRange = 145,
+            ReclaimRange = 75,
         },
     },
 
@@ -258,21 +258,21 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
             
-			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
+			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 105 }},
         },
 		
         BuilderData = {
             Assist = {
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 150,
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 100,
             
-				AssistRange = 120,
+				AssistRange = 105,
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION - categories.HYDROCARBON,
                 BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL - categories.HYDROCARBON},
@@ -300,9 +300,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -313,7 +311,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
                 -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 500,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 75,
+                AssistMass = 35,
             
 				AssistRange = 120,
                 AssisteeType = 'Any',
@@ -375,13 +373,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 110 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 75,
 			ReclaimType = 'Mass',
-            ReclaimRange = 120,
+            ReclaimRange = 75,
         },
     },    
 
@@ -438,9 +436,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.AIR }},
         },
@@ -474,9 +472,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
             { LUTL, 'LandStrengthRatioLessThan', { 2 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.LAND }},
         },
@@ -512,7 +510,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.NAVAL }},
         },
@@ -546,7 +544,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL - categories.ENERGYPRODUCTION - categories.MASSPRODUCTION, categories.ENGINEER + categories.FACTORY, 90 }},
         },
 		
         BuilderData = {
@@ -557,7 +555,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 				AssistRange = 90,
 				AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.FACTORY,
-                BeingBuiltCategories = {categories.ALLUNITS - categories.EXPERIMENTAL},
+                BeingBuiltCategories = {categories.ALLUNITS - categories.EXPERIMENTAL - categories.ENERGYPRODUCTION - categories.MASSPRODUCTION},
                 Time = 60,
             },
         },
@@ -579,7 +577,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		BuilderType = { 'T2','T3' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
 
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER + categories.FACTORY, 120 }},
         },
@@ -617,7 +615,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
             { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
         },
 		
@@ -667,10 +665,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
         
         InstanceCount = 1,
 		
-        BuilderType = { 'T1','T2','T3','Commander' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH2 * categories.AIRSTAGINGPLATFORM), 5, false }},
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH1 * categories.AIRSTAGINGPLATFORM), 5, false }},
         },
 		
@@ -986,7 +984,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
         Priority = 650,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
         },
