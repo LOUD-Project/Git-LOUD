@@ -1748,7 +1748,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderData = {
 			DistressRange = 120,
             DistressReactionTime = 10,            
-			DistressTypes = 'NaVal',
+			DistressTypes = 'Naval',
 			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
@@ -1802,7 +1802,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map', BuildersType = 'P
         BuilderData = {
 			DistressRange = 150,
             DistressReactionTime = 12,            
-			DistressTypes = 'NaVal',
+			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
 			LocationType = 'LocationType',
