@@ -8686,6 +8686,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
         mstored = false
         estored = false
+
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) and GetFractionComplete(unit) == 1 then -- mass extractors ignore storage requirement
+			init_delay = init_delay + 10
+        end        
 		
 		--- uses the same base values as factories do for units
 		if GetEconomyStored( aiBrain, 'MASS') >= baseM and GetEconomyStored( aiBrain, 'ENERGY') >= baseE and GetFractionComplete(unit) == 1 then
@@ -8843,7 +8847,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             
             
             --- third check: MASS & ENERGY TRENDS & MAINTENANCE - must support building the item without going negative and any maintenance
-            if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
+            if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) or
+             ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
 
                 --- TRENDS PASSED
 
@@ -9006,75 +9011,20 @@ end
 -- counter is increased by one -- for a period of time - in operation this prevents
 -- more than a certain number of self-upgrades in a short time period
 -- and the delays are related to the buildtime of the upgrade itself
--- no matter what the value passed to this function is, there will always be a delay of at least 1 second
-function SelfUpgradeDelay( aiBrain, unit, delay, body )
+function SelfUpgradeDelay( aiBrain, unit, delay )
 
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued + 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG( body.." counter up to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." - delay period is "..(delay/10).." seconds on tick "..GetGameTick() )
-    end
-    
-    local delayleft = delay
-
-    local normaldelay = 11
-    
-    local saveddelay = 0
-    
-    local reduction = 0
-    
-    local mreduction, ereduction
-    
-    WaitTicks(11)
-    
-    delayleft = delayleft - 11
-    
-    while delayleft > 0 do
-    
-        reduction = 0
-        ereduction = false
-        mreduction = false
-    
-        if (GetEconomyStoredRatio( aiBrain, 'ENERGY') *100) > 75 then
-
-            reduction = 1
-            ereduction = true
-            
-        end
-        
-        if (GetEconomyStoredRatio( aiBrain, 'MASS') *100) > 67 then
-        
-            reduction = reduction + 1
-            mreduction = true
-            
-        end
-        
-        if mreduction and ereduction then
-        
-            reduction = reduction + 1
-            
-        end
-        
-        if reduction > 0 then
-            
-            --if ScenarioInfo.StructureUpgradeDialog then
-              --  LOG( body.." delay period reduced by "..reduction.." ticks ")
-            --end
-
-            saveddelay = saveddelay + reduction
-
-        end
-
-        WaitTicks( normaldelay )
-        
-        delayleft = delayleft - (10 + reduction)
-
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter up to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." - delay period is "..(delay/10).." seconds")
     end
 
+    WaitTicks( delay )
+	
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued - 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG( body.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." saved "..saveddelay.." ticks on tick "..GetGameTick() )
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit)
     end
 end
 
