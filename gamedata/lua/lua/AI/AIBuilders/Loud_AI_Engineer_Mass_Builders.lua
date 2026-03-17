@@ -367,7 +367,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 30, 0.3, 1.025 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
