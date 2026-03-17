@@ -749,7 +749,7 @@ local MexUpgradeLimitSteps = {
     },
 
     low = {
-        { time = 450,  limit = 2 },
+        { time = 510,  limit = 2 },
         { time = 720,  limit = 3 },
         { time = 1500, limit = 4 },
         { time = 1800, limit = 6 },
@@ -764,13 +764,13 @@ local MexUpgradeLimitSteps = {
 function MexUpgradeLimitSwitch(aiBrain)
     -- Get the mass split between players with a +1 to account for contested mass points
     local massPerPlayer = ScenarioInfo.NumMassPoints / (ScenarioInfo.Options.PlayerCount + 1)
-    local massProfile = massPerPlayer < 14 and 'low' or 'high'
+    aiBrain.MassProfile = massPerPlayer < 14 and 'low' or 'high'
     
     local i = 1
 
     while true do
 
-        local currentSteps = MexUpgradeLimitSteps[massProfile] or MexUpgradeLimitSteps.high
+        local currentSteps = MexUpgradeLimitSteps[aiBrain.MassProfile] or MexUpgradeLimitSteps.high
         local step = currentSteps[i]
         local profileSwitched = false
 
@@ -780,9 +780,9 @@ function MexUpgradeLimitSwitch(aiBrain)
         repeat
             -- check if the AI on low profile has managed get more mass extractors than expected
             -- if they have promote the upgrade steps to high
-            if massProfile == 'low' and aiBrain:GetCurrentUnits( categories.MASSEXTRACTION ) >= 14 then
+            if aiBrain.MassProfile == 'low' and aiBrain:GetCurrentUnits( categories.MASSEXTRACTION ) >= 14 then
 
-                massProfile = 'high'
+                aiBrain.MassProfile = 'high'
                 profileSwitched = true
 
                 break

@@ -69,7 +69,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 846,
+        Priority = 847,
         
         InstanceCount = 1,
 		

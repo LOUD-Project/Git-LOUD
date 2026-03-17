@@ -557,7 +557,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
         Priority = 762,
 		
-		PriorityFunction = First45Minutes,
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if aiBrain.Cycletime > 2700 then
+                return 0, false
+            end
+
+            -- prioritise building this early on if the mass is available
+            if aiBrain.CycleTime < 600 and aiBrain.MassProfile == 'high' then
+                return 846, true
+            end
+
+            return (self.OldPriority or self.Priority), true
+        end,
 
 		InstanceCount = 1,
 		
@@ -566,9 +578,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 400 }}, -- higher cost to prevent hurting early economy
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 16 }},
             
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYT3 }},            
 
