@@ -248,7 +248,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
     
         local VDist3 = VDist3
 
-        local position, name
+        local name, position
 		local positions = {}
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
@@ -270,19 +270,22 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		-- loop thru all the positions
 		for m,marker in positions do
         
-            position    = marker.Position
             name        = marker.Name
+            position    = marker.Position
 	
 			removed = false
 		
 			-- check all the other brains to see if they own it already
 			for index,brain in Brains do
             
+                if brain.Nickname == 'civilian' then
+                    continue
+                end
+            
                 local Manager = brain.BuilderManagers
                 
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if Manager[name] or ( position[1] == Manager['MAIN'].Position[1] and position[3] == Manager['MAIN'].Position[3] ) then
-					
+				if Manager[name] or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
 					removed = true
 					break
 				end
@@ -335,7 +338,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
         local VDist3 = VDist3
 
-        local position
+        local name, position
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
@@ -351,14 +354,20 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 		for m,marker in positions do
 	
-            position = marker.Position
-			removed = false
+            name        = marker.Name
+            position    = marker.Position
+			removed     = false
 
 			for index,brain in Brains do
-        
+            
+                if brain.Nickname == 'civilian' then
+                    continue
+                end
+                
+                local Manager = brain.BuilderManagers
+                
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if brain.BuilderManagers[marker.Name] or ( position[1] == brain.BuilderManagers['MAIN'].Position[1] and position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
-			
+				if Manager[name] or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
 					removed = true
 					break
 				end
@@ -377,7 +386,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 				end
 			
 				if not removed then
-					return position, marker.Name
+					return position, name
 				end
 			end
 		end
@@ -413,7 +422,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
-        local position
+        local name, position
 		local positions = {}
 
         -- first, we'll try to fill positions with those in the attack plan
@@ -456,20 +465,27 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Primary Land base is "..repr(aiBrain.PrimaryLandAttackBase).." distance to goal is "..test_range)
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." checking positions "..repr(positions))
        
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
 	
-            position = marker.Position
-			removed = false
+            name        = marker.Name
+            position    = marker.Position
+			removed     = false
 
 			for index,brain in Brains do
-
-				if brain.BuilderManagers[marker.Name] then
-                    
-					removed = true
+            
+                if brain.Nickname == 'civilian' then
+                    continue
+                end
+                
+                local Manager = brain.BuilderManagers
+                
+				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
+				if Manager[name] or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
 					break
-				end
+                end
 			end
 		
 			-- if it's still valid
@@ -498,7 +514,10 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
                 -- this is the closest unused position
 				if not removed then
-					return position, marker.Name
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Says "..repr(marker.Name).." at "..repr(position).." is valid")
+
+					return position, name
 				end	
 			end
 		end
@@ -532,7 +551,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
-        local position
+        local name, position
 		local positions = {}
 
         -- first, we'll try to fill positions with those in the attack plan
@@ -573,14 +592,18 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
         -- or that aren't closer to the Goal position
 		for m,marker in positions do
 	
-            position = marker.Position
-			removed = false
+            name        = marker.Name
+            position    = marker.Position
+			removed     = false
 
 			for _,brain in Brains do
 		
+                if brain.Nickname == 'civilian' then
+                    continue
+                end
+                
 				-- if in use by another brain --
-				if (not removed) and brain.BuilderManagers[marker.Name] then
-
+				if (not removed) and brain.BuilderManagers[name] then
 					removed = true
 					break
 				end
@@ -611,7 +634,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		
 				if not removed then
 		
-					return position, marker.Name
+					return position, name
 				end	
 			end
 		end
