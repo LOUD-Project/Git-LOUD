@@ -909,6 +909,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
         BuilderConditions = {
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
+            
+            { LUTL, 'NavalStrengthRatioGreaterThan', { .25 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
