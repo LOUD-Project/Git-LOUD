@@ -298,7 +298,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 				
 					-- ignore position if too close to existing counted bases (non-Sea)
 					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, position ) < minimum_baserange then
-					
+
 						removed = true
 						break
 					end

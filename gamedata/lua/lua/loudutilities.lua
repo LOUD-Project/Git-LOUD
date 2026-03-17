@@ -514,6 +514,10 @@ function AirToGroundBiasGreaterThan( aiBrain, value )
     return aiBrain.AirBias >= value
 end
 
+function SurfaceToSubBiasGreaterThan( aiBrain, value )
+    return aiBrain.SubBias >= value
+end
+
 function LandProductionRatioGreaterThan( aiBrain, value )
 	return aiBrain.LandProdRatio >= value
 end
@@ -4780,7 +4784,7 @@ function ParseIntelThread( aiBrain )
     end
 
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
-	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatSurface
+	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatSub, totalThreatSurface
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
     local aircount, airidle, landcount, landidle, navcount, navidle, myaircount, myairidle, mylandcount, mylandidle, mynavalcount, mynavalidle
     
@@ -5373,10 +5377,9 @@ function ParseIntelThread( aiBrain )
             --- AIR UNITS ---
             -----------------
             totalThreat = 0
+            oldthreat = 0
             totalThreatAir = 0
             totalThreatSurface = 0
-
-            oldthreat = 0
 
             if EnemyData['Air']['Total'] > 0 or airtot > 0 then
 
@@ -5554,6 +5557,10 @@ function ParseIntelThread( aiBrain )
             -------------------
             totalThreat = 0
             oldthreat = 0
+            totalThreatSub = 0
+            totalThreatSurface = 0
+
+            oldthreat = 0
         
             if IntelDialog then
                 LOG( dialog.." Recalc NAVAL Strength Ratios on tick "..GetGameTick())
@@ -5570,6 +5577,9 @@ function ParseIntelThread( aiBrain )
                         for _,v in units do
                     
                             bp = ALLBPS[v.BlueprintID].Defense
+                            
+                            totalThreatSub      = totalThreatSub + bp.SubThreatLevel
+                            totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
                         
                             oldthreat = oldthreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
 
@@ -5585,7 +5595,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            totalThreat         = totalThreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
                         end                
 
                     end
@@ -5593,22 +5603,27 @@ function ParseIntelThread( aiBrain )
                 end
             
                 if oldthreat > 0 then
-
-                    totalThreat = totalThreat * aiBrain.TeamSize
+                    -- the relationship of Surface and Sub in the enemy threat
+                    -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
+                    aiBrain.SubBias = LOUDMIN( 2, LOUDMAX( 0.02, (totalThreatSub/totalThreatSurface) ) )
                     
-                    aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                    totalThreat         = totalThreat * aiBrain.TeamSize
+                    
+                    aiBrain.NavalRatio  = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
 
-                    aiBrain.NavalRatio = aiBrain.NavalRatio * OutnumberedFactor
+                    aiBrain.NavalRatio  = aiBrain.NavalRatio * OutnumberedFactor
 
                 else
                 
                     if aiBrain.CycleTime < 600 then
                     
                         aiBrain.NavalRatio = .011
+                        aiBrain.SubBias = 1
                         
                     else
                     
                         aiBrain.NavalRatio = 10
+                        aiBrain.SubBias = 1
                     end                
 
                 end
@@ -5618,10 +5633,12 @@ function ParseIntelThread( aiBrain )
                 if aiBrain.CycleTime < 600 then
                     
                     aiBrain.NavalRatio = .011
+                    aiBrain.SubBias = 1
 
                 else
 
                     aiBrain.NavalRatio = 10
+                    aiBrain.SubBias = 1
 
                 end            
 
@@ -5853,7 +5870,7 @@ function ParseIntelThread( aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
-                LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..aiBrain.AirBias  )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..string.format("%.3f",aiBrain.AirBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
                 LOG("*AI DEBUG ===============================")
             end
 
