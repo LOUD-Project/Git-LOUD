@@ -282,11 +282,50 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
 
+            { EBC, 'LessThanEnergyTrendOverTime', { 12 }},
+
+            { EBC, 'MassProfile', { 'high' }},
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
+            
+            -- this should pick up only factory ring T1 Pgens - and not those at extractors
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, ENERGYPRODUCTION * STRUCTURE * TECH1, 0, 33 }},
+        },
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'PowerLayout',
+				
+                BuildStructures = {'T1EnergyProduction'},
+            }
+        }
+    },
+
+    Builder {BuilderName = 'CDR - T1 Power - low mass',
+	
+        PlatoonTemplate = 'CommanderBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerBuildAI',
+		
+        Priority = 780,
+		
+		PriorityFunction = First40Minutes,
+		
+        BuilderConditions = { 
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
+
             { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
 
-			--{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }}, -- power demand ramps too hard early on to be gated by this
-
-			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - HYDROCARBON - TECH1 }},
+            { EBC, 'MassProfile', { 'low' }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
