@@ -558,7 +558,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 3, [4096] = 4}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 4, [4096] = 4}, TRANSPORTS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1'},
