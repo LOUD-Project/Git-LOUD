@@ -323,6 +323,10 @@ end
 -- MASS FUNCTIONS --
 --------------------
 
+function MassProfile(aiBrain, profile)
+	return aiBrain.MassProfile == profile
+end
+
 -- modified to be altered by AI Cheat --
 function LessThanEconMassStorageCurrent(aiBrain, mStorage)
 	return GetEconomyStored( aiBrain, 'MASS' ) < (mStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))

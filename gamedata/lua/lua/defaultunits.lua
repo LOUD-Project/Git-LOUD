@@ -695,8 +695,8 @@ StructureUnit = Class(Unit) {
 		--- factories --
 		if EntityCategoryContains( FACTORIES, finishedUnit ) then
 
-            checkrate = 15        
-            initialdelay = 90
+            checkrate = 10        
+            initialdelay = 145
 
             -- after 15 minutes T1 factories have no ugprade delay to push those without a job into T2
             if  aiBrain.CycleTime > 900 and EntityCategoryContains( categories.TECH1, finishedUnit ) then
@@ -818,11 +818,17 @@ StructureUnit = Class(Unit) {
                     checkrate = 14
                     initialdelay = 90
 
-                    if aiBrain.CycleTime < 600 then -- increased delay at early stages to favour upgrading base mex
-                        initialdelay = 130
+                    -- increase delay at early stages
+                    -- if mass is low increase further
+                    if aiBrain.CycleTime < 600 then
+                        if aiBrain.MassProfile == 'high' then
+                            initialdelay = 140
+                        else
+                            initialdelay = 220
+                        end
                     end
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.001, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .5, .8, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 end
 			end
