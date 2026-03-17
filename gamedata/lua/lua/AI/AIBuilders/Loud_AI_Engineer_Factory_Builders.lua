@@ -57,7 +57,7 @@ local HaveZeroAirFactories = function( self, aiBrain )
 
     local airFactories = LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIR, false, true ))
 
-    if GreaterThanEnergyIncome( aiBrain, 220 ) and airFactories < 1 then
+    if GreaterThanEnergyIncome( aiBrain, 200 ) and airFactories < 1 then
 	
         return 990, true
         
@@ -71,7 +71,7 @@ local HaveZeroLandFactories = function( self, aiBrain )
 
     local landFactories = LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true ))
 
-    if GreaterThanEnergyIncome( aiBrain, 340 ) and landFactories < 1 then
+    if GreaterThanEnergyIncome( aiBrain, 320 ) and landFactories < 1 then
 
         return 990, true
         
@@ -84,14 +84,13 @@ local HaveZeroLandFactories = function( self, aiBrain )
     
     end
 
-    -- Build a second early land factory if there is no land connection to an enemy
+    -- Build more land factories if there is a land connection to an enemy
     if GreaterThanEnergyIncome( aiBrain, 520 ) and landFactories < 2 then
 	
         return 990, true
         
     end
 
-    -- Build a 3rd and 4th early land factory if there is no land connection to an enemy
     if GreaterThanEnergyIncome( aiBrain, 1000 ) and landFactories < 4 then
 	
         return 990, true
@@ -254,13 +253,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, AIR * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR * categories.TECH1 }},
             
-            { UCBC, 'FactoryRatioGreaterOrEqualOffsetAtLocation', { 'LocationType', LAND, AIR, 1 } },
+            { UCBC, 'FactoryRatioEqualAtLocation', { 'LocationType', LAND, AIR } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
+
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, FACTORY }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.3, 3, 1.002, 1.002 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.5, 10, 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
