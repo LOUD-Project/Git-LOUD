@@ -727,7 +727,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.DRAGBUILD - categories.TECH3 - categories.EXPERIMENTAL - categories.HYDROCARBON, 5, false }},
         },
