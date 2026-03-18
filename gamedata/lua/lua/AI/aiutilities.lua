@@ -45,7 +45,7 @@ function AIAddMustScoutArea( aiBrain, location )
 		for k,v in MustScoutList do
         
             -- if the report is old - or someone took that job and died - remove it
-            if gametime > (v.Created + 180) or v.TaggedBy.Dead then
+            if gametime > (v.Created + 210) or v.TaggedBy.Dead then
 
                 MustScoutList[k] = nil
                 
