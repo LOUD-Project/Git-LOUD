@@ -65,6 +65,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 			if aiBrain.CycleTime > 2100 then
 				return 0, false
 			end
+            
+            if aiBrain.SubBias > 1 then
+                return self.Priority + 10, true
+            end
 			
 			return self.Priority,true
 			
@@ -272,8 +276,20 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 		FactionIndex = 1,
 		
         Priority = 600,
-        
-        PriorityFunction = AboveUnitCap95,
+
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.SubBias > 1 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -295,8 +311,20 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 		FactionIndex = 2,
 		
         Priority = 600,
-        
-        PriorityFunction = AboveUnitCap95,
+
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.SubBias > 1 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -321,8 +349,20 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 		FactionIndex = 3,
 		
         Priority = 600,
-        
-        PriorityFunction = AboveUnitCap85,
+
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.SubBias > 1 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
@@ -344,8 +384,20 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 		FactionIndex = 4,
 		
         Priority = 600,
-        
-        PriorityFunction = AboveUnitCap85,
+
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.SubBias > 1 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
 
         BuilderType = {'SeaT2','SeaT3'},
 		
