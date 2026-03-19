@@ -5580,6 +5580,15 @@ function ParseIntelThread( aiBrain )
                             
                             totalThreatSub      = totalThreatSub + bp.SubThreatLevel
                             totalThreatSurface  = totalThreatSurface + bp.SurfaceThreatLevel
+                            
+                            --- any vessel with high sub threat discounts surface threat 
+                            if bp.SubThreatLevel > bp.SurfaceThreatLevel then
+                                totalThreatSurface = totalThreatSurface - (bp.SurfaceThreatLevel * .5)
+                            end
+                            
+                            if bp.SurfaceThreatLevel >= bp.SubThreatLevel then
+                                totalThreatSub  = totalThreatSub - (bp.SubThreatLevel * .5)
+                            end
                         
                             oldthreat = oldthreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
 
