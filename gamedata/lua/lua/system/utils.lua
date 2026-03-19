@@ -65,14 +65,21 @@ end
 
 -- table.subset(t1,t2) returns true if every key/value pair in t1 is also in t2
 function table.subset(t1,t2)
+    
     for k,v in t1 do
         if t2[k] != v then return false end
     end
+
     return true
 end
 
 -- table.equal(t1,t2) returns true if t1 and t2 contain the same key/value pairs.
 function table.equal(t1,t2)
+
+    if type(t1) != 'table' or type(t2) != 'table' then 
+        return false
+    end
+
     return table.subset(t1,t2) and table.subset(t2,t1)
 end
 
