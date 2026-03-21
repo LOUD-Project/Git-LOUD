@@ -1001,7 +1001,7 @@ function AirScoutingAI( self, aiBrain )
 
     self.UsingTransport = true      -- airscouting is never considered for merge operations
 
-    local datalist, dest, dir, IL, length, mustScoutArea, mustScoutIndex, norm, orthogonal, path, reason, targetArea, threatbasis, threatlevel, vec, visradius
+    local datalist, dest, dir, IL, length, mustScoutArea, mustScoutIndex, norm, orthogonal, path, reason, targetArea, threatbasis, threatlevel, vec, visradius, offsetRadius
 
 	local function AIGetMustScoutArea()
 	
@@ -1046,11 +1046,12 @@ function AirScoutingAI( self, aiBrain )
 		
 			vec = {targetposition[1] - scoutposition[1], 0, targetposition[3] - scoutposition[3]}
             
-			length  = VDist3( targetposition, scoutposition )
-			norm    = {vec[1]/length, 0, vec[3]/length}
-			dir     = LOUDPOW(-1, Random(1,2))
+			length       = VDist3( targetposition, scoutposition )
+			norm         = {vec[1]/length, 0, vec[3]/length}
+			dir          = LOUDPOW(-1, Random(1,2))
+            offsetRadius = visradius * 0.65
 
-			orthogonal = { norm[3] * visradius * dir, 0, -norm[1] * visradius * dir }
+			orthogonal = { norm[3] * offsetRadius * dir, 0, -norm[1] * offsetRadius * dir }
 
 			dest    = {targetposition[1] + orthogonal[1], 0, targetposition[3] + orthogonal[3]}
 		
