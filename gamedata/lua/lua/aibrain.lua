@@ -873,6 +873,7 @@ AIBrain = Class(moho.aibrain_methods) {
         self.LandProdRatio = 1
         self.NavalRatio = 0.01
         self.NavalProdRatio = 1
+        self.SubBias = 1
 		
 		-- store the faction index (1 = UEF, 2 = Aeon, 3 = Cybran, 4 = Seraphim)
 		self.FactionIndex = self:GetFactionIndex()

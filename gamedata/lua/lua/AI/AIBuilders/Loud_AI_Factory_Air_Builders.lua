@@ -618,12 +618,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
+            if aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
             
             if aiBrain.AirRatio < 0.6 then 
-                return self.Priority - 10, true
+                return 600, true
+            end
+            
+            if (not aiBrain.NeedTransports) then
+                return 600, true
             end
             
             return self.Priority, false
@@ -659,12 +663,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
+            if aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
             
             if aiBrain.AirRatio < 0.6 then
-                return self.Priority - 10, true
+                return 10, true
+            end
+            
+            if (not aiBrain.NeedTransports) then
+                return 10, true
             end
 
             return self.Priority, false
@@ -731,12 +739,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if (not aiBrain.NeedTransports) or aiBrain.LandRatio <= 0.7 then
+            if aiBrain.LandRatio <= 0.7 then
                 return 10, true
             end
             
             if aiBrain.AirRatio < 0.6 then
-                return self.Priority - 10, true
+                return 600, true
+            end
+            
+            if (not aiBrain.NeedTransports) then
+                return 600, true
             end
 
             return self.Priority, false            

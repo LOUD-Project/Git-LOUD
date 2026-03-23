@@ -1,3 +1,22 @@
+### Release 03-20-2026
+
+LUA 8.07
+UNITS 8.0
+
+- fixed typo 'NaVal' in two torpedo platoon builders (Mofunkles)
+- incorporated a number of economic trigger concepts proposed by Mofunkles
+    - increased E income triggers for Paragon, Quantum Gate, T3 Mass Fab and T1 Pgen reclaim
+    - increased T1 & T2 transport limits, while requiring demand to reach them
+- refined the early air scouting process to insure that LOUD will execute the critical early scouting pass
+- developed and refined the 'SubBias' metric, which much like the A2G metric, better defines the nature of naval threat
+    - added new functions for SubBias, to be used as build conditions
+    - modified submarine production to be sensitive to SubBias
+- modified a number of Naval base routines to better restrict expansion into threatened waters
+- fixed a bug in identifying allied start positions as 'invalid' for expansion and DP development
+- the standard ACU now has 5k E to start, and 2M generation (same as BO ACU)
+
+
+
 ### Release 03-14-2026
 
 LUA 8.06

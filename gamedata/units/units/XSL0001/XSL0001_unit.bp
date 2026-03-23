@@ -151,9 +151,9 @@ UnitBlueprint {
         NaturalProducer = true,
 		
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 1,
+        ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 4500,
+        StorageEnergy = 5500,
         StorageMass = 715,
 		
         -- for teleporter
