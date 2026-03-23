@@ -8739,7 +8739,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
     local econ  = aiBrain.EcoData.OverTime
 
-	local EnergyStorage, MassStorage, extractorCount
+	local EnergyStorage, MassStorage, extractorCount, skipTrendCheck
 	
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
         
@@ -8753,6 +8753,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             if aiBrain.MexUpgradeActive >= aiBrain.MexUpgradeLimit then
                 continue
+            end
+
+            -- T1 and T3 mass extractors should upgrade as much as the mex upgrade limit will allow
+            if EntityCategoryContains( categories.TECH1, unit) or EntityCategoryContains( categories.TECH3, unit ) then
+                skipTrendCheck = true
             end
 
             extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
@@ -8845,11 +8850,30 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             MassTrendNeeded     = LOUDMAX(( (MassNeeded / buildtime) * buildrate) - massmade, 0) * .1
             EnergyTrendNeeded   = LOUDMAX(( (EnergyNeeded / buildtime) * buildrate) - enermade, 0) * .1
+
+            -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
+            if EntityCategoryContains( categories.FACTORY, unit ) then
+
+                if (aiBrain.CycleTime > 600 and EntityCategoryContains( categories.TECH1, unit )) or
+                (aiBrain.CycleTime > 1800 and EntityCategoryContains( categories.TECH2, unit )) then
+
+                    MassTrendNeeded   = MassTrendNeeded * 0.4
+                    EnergyTrendNeeded = EnergyTrendNeeded * 0.3
+
+                end
+
+            end      
             
+            -- reduce required trends if T2 mex
+            if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH2, unit ) then
+
+                MassTrendNeeded   = MassTrendNeeded * 0.8
+                EnergyTrendNeeded = EnergyTrendNeeded * 0.4
+
+            end
             
             --- third check: MASS & ENERGY TRENDS & MAINTENANCE - must support building the item without going negative and any maintenance
-            if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH1, unit ) or
-             ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
+            if skipTrendCheck or ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
 
                 --- TRENDS PASSED
 
