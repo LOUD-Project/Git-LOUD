@@ -2779,6 +2779,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = { 
+            { LUTL, 'LandStrengthRatioLessThan', { 8 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 75, 'Land' }},
         },
