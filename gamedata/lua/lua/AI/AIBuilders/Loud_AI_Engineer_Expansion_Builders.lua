@@ -284,9 +284,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         BuilderConditions = {
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+			{ EBC, 'NeedFactory', { 'LAND' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -637,7 +637,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
       
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
 			
@@ -693,11 +695,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ MIBC, 'MapLessThan', { 1028 } },            
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
 
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
 
 			-- can't be a major enemy base within 7km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
@@ -745,9 +747,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 		
         BuilderConditions = {
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -854,7 +856,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.025, 1.02 } },
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
 			
             -- must be 5 T3 yards before we expand
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},

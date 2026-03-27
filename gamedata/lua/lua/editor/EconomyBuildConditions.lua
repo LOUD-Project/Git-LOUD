@@ -9,6 +9,7 @@ local BrainMethods = moho.aibrain_methods
 
 local CanBuildStructureAt   = BrainMethods.CanBuildStructureAt
 local GetCurrentUnits       = BrainMethods.GetCurrentUnits
+local GetListOfUnits        = BrainMethods.GetListOfUnits
 local GetEconomyTrend       = BrainMethods.GetEconomyTrend
 local GetEconomyStoredRatio = BrainMethods.GetEconomyStoredRatio
 local GetEconomyIncome      = BrainMethods.GetEconomyIncome
@@ -30,6 +31,7 @@ local IsUnitState = moho.unit_methods.IsUnitState
 local LOUDLOG10 = math.log10
 local LOUDMAX   = math.max
 local LOUDSORT  = table.sort
+local LOUDGETN  = table.getn
 
 local ENGINEER      = categories.ENGINEER
 local FACTORY       = categories.FACTORY
@@ -277,6 +279,126 @@ function GreaterThanEconStorageCurrent(aiBrain, mStorage, eStorage)
     return false
 end
 
+-- general factory consumption rates
+FactoryConsumption = {
+    LAND = {
+        T1 = { mass = 10, energy = 50 },
+        T2 = { mass = 17, energy = 100 },
+        T3 = { mass = 25, energy = 250 },
+    },
+    AIR = {
+        T1 = { mass = 3, energy = 199 },
+        T2 = { mass = 10, energy = 524 },
+        T3 = { mass = 20, energy = 1125 },
+    },
+    NAVAL = {
+        T1 = { mass = 10, energy = 100 },
+        T2 = { mass = 17, energy = 150 },
+        T3 = { mass = 25, energy = 200 },
+    },
+}
+
+-- A bias generated to control how many of each type of factory should be built
+-- Land and air are clamped to 9 so they're always able to be built to the max the eco will allow
+-- Naval is zeroed when it is not a water map to prevent its early low ratio intefering with land and air
+function StrengthBias(aiBrain)
+	local landRatio = 10 - math.min(aiBrain.LandRatio, 9)
+	local airRatio = 10 - math.min(aiBrain.AirRatio, 9)
+	local navalRatio = 10 - math.min(aiBrain.NavalRatio, 10)
+
+	if not aiBrain.IsWaterMap then
+		navalRatio = 0
+	end
+
+	-- favour a strong land opening
+	if aiBrain.CycleTime < 720 then
+		landRatio = 9.989
+	end
+
+	local ratioSum = math.max(0.01, landRatio + airRatio + navalRatio)
+
+	return {
+		LAND = landRatio / ratioSum,
+		AIR = airRatio / ratioSum,
+		NAVAL = navalRatio / ratioSum
+	}
+end
+
+-- Determine which tech level LOUD is currently in
+-- Find the limit of how many factories the economy can support in both mass and energy for that tech level
+-- That limit is multiplied by an income ratio to reserve a portion of the income for other activities
+-- It is then also multiplied by the strengthBias to determine the proportion of each type of factory
+-- The minimum of the two limits is taken as it is the bottleneck
+-- If the maximum supported is greater than the current number of this type then LOUD can build more
+function MaxFactoriesFromIncome(aiBrain, factoryType)
+	local incomeRatio = .8
+
+	local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
+	local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
+
+	local strengthBias = StrengthBias(aiBrain)
+	local rate, massLimit, energyLimit, maxFactories
+
+	local factories = GetListOfUnits(aiBrain, FACTORY * categories.STRUCTURE - categories.GATE - categories.EXPERIMENTAL, false, false)
+
+	local typeCount, T2Count, T3Count = 0, 0, 0
+	local techLevel = 'T1'
+
+	-- build the first factory
+	if LOUDGETN(factories) == 0 then
+		return true
+	end
+
+	for _, factory in factories do
+		if EntityCategoryContains(categories[factoryType], factory) and not factory.Upgrading then
+
+			typeCount = typeCount + 1
+
+			if EntityCategoryContains(categories.TECH2, factory) then
+				T2Count = T2Count + 1
+			end
+
+			if EntityCategoryContains(categories.TECH3, factory) then
+				T3Count = T3Count + 1
+			end
+
+		end
+	end
+
+	-- bias towards early land factory production with an offset
+	if factoryType == "LAND" then
+		if T3Count > 0 then
+			techLevel = 'T3'
+		elseif T2Count > 1 then
+			techLevel = 'T2'
+		end
+	else
+		if T3Count > 0 then
+			techLevel = 'T3'
+		elseif T2Count > 0 then
+			techLevel = 'T2'
+		end
+	end		
+
+	rate = FactoryConsumption[factoryType][techLevel]
+
+	massLimit = (massIncome / rate.mass) * incomeRatio * strengthBias[factoryType]
+	energyLimit = (energyIncome / rate.energy) * incomeRatio * strengthBias[factoryType]
+
+	maxFactories = math.floor(math.min(massLimit, energyLimit) + 0.5)
+
+	if factoryType == 'NAVAL' and not aiBrain.IsWaterMap then
+		maxFactories = 0
+	end
+
+	--LOG("RAWR: "..aiBrain.Nickname.." "..techLevel..factoryType.." factory - "..typeCount.."/"..maxFactories..
+	--" | "..massIncome.." mass "..energyIncome.." energy | "
+	--..math.min(aiBrain.LandRatio, 10).." - "..math.min(aiBrain.AirRatio, 10).." - "..math.min(aiBrain.NavalRatio, 10))
+
+	return maxFactories > typeCount
+
+end
+
 ----------------------
 -- ENERGY FUNCTIONS --
 ----------------------
@@ -391,6 +513,9 @@ function LessThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
     return (aiBrain.EcoData['OverTime']['MassEfficiency'] <= mEfficiency and aiBrain.EcoData['OverTime']['EnergyEfficiency'] <= eEfficiency)
 end
 
+function NeedFactory(aiBrain, factoryType)
+	return MaxFactoriesFromIncome(aiBrain, factoryType)
+end
 
 -- this now includes a basic eco check to insure we are positive flow
 -- allows us to remove other eco checks in the builder conditions

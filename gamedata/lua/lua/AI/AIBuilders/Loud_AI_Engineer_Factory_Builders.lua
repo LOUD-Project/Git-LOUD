@@ -5,7 +5,6 @@ local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
-local GreaterThanEnergyIncome = import(LUTL).GreaterThanEnergyIncome
 
 local LOUDGETN              = table.getn
 local GetArmyUnitCap        = GetArmyUnitCap
@@ -13,7 +12,9 @@ local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
 local GetEconomyIncome		= moho.aibrain_methods.GetEconomyIncome
 
-local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
+local UnitsGreaterAtLocation   = import(UCBC).UnitsGreaterAtLocation
+local GreaterThanEnergyIncome  = import(LUTL).GreaterThanEnergyIncome
+local MapLessThan              = import(MIBC).MapLessThan
 
 local FACTORY   = categories.FACTORY
 local GATE      = categories.GATE
@@ -31,8 +32,12 @@ local AboveUnitCap65 = function( self,aiBrain )
 end
 
 local AboveUnitCap75 = function( self,aiBrain )
-	
-	if not GreaterThanEnergyIncome( aiBrain, 400) or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+
+    if self.BuilderName == "Land Factory" and not MapLessThan(2048) then
+        return (self.OldPriority or self.Priority) + 2, true
+    end
+
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
 		return 10, true
 	end
 	
@@ -42,7 +47,8 @@ end
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
+	if (aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10)) and
+    GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) < .75 then
 
 		return 800, true
 
@@ -50,71 +56,6 @@ local IsEnemyNavalActive = function( self, aiBrain, manager )
 
 	return 10, true
 	
-end
-
--- this function will turn a builder on if there are no factories
-local HaveZeroAirFactories = function( self, aiBrain )
-
-    local airFactories = LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIR, false, true ))
-
-    if GreaterThanEnergyIncome( aiBrain, 200 ) and airFactories < 1 then
-	
-        return 990, true
-        
-    end
-
-	return 10, true
-
-end
-
-local HaveZeroLandFactories = function( self, aiBrain )
-
-    local landFactories = LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true ))
-
-    if GreaterThanEnergyIncome( aiBrain, 320 ) and landFactories < 1 then
-
-        return 990, true
-        
-    end
-
-    -- Only build one early factory if there no land connection to an enemy
-    if not aiBrain.HasLandEnemy then
-
-        return 10, true
-    
-    end
-
-    -- Build more land factories if there is a land connection to an enemy
-    if GreaterThanEnergyIncome( aiBrain, 520 ) and landFactories < 2 then
-	
-        return 990, true
-        
-    end
-
-    if GreaterThanEnergyIncome( aiBrain, 1000 ) and landFactories < 4 then
-	
-        return 990, true
-        
-    end
-
-	return 10, true
-
-end
-
-local HaveZeroNavalFactories = function( self, aiBrain )
-
-    if aiBrain.CycleTime > 90 then
-	
-        if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * NAVAL, false, true )) < 1 then
-	
-            return 990, true
-		
-        end
-        
-    end
-
-	return 10, true
-
 end
 
 
@@ -125,74 +66,7 @@ end
 -- we have overrides for high production ratios (useful when enemy is trying to specialize and AI needs to compensate)
 BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType = 'EngineerBuilder',
 
-    Builder {BuilderName = 'Land Factory Rebuild',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 10,
-        
-        PriorityFunction = HaveZeroLandFactories,
-		
-        BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 4, categories.LAND }},            
-        },
-		
-        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'FactoryLayout',
-				
-				ThreatMax = 50,
-				
-                BuildStructures = {'T1LandFactory'},
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'Air Factory Rebuild',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 10,
-        
-        PriorityFunction = HaveZeroAirFactories,
-		
-        BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR }},
-        },
-		
-        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'FactoryLayout',
-				
-				ThreatMax = 50,
-				
-                BuildStructures = {'T1AirFactory'},
-            }
-        }
-    },	
-
-    -- land factories are added only if there are more air factories and land strength isn't excessively high
-    Builder {BuilderName = 'Land Factory Balance',
+    Builder {BuilderName = 'Land Factory',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -203,17 +77,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
-
-            { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, LAND * categories.TECH1 }},
-            
-            { UCBC, 'FactoryRatioGreaterOrEqualOffsetAtLocation', { 'LocationType', AIR, LAND, 1 } },
+			{ EBC, 'NeedFactory', { 'LAND' }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -233,8 +99,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         }
     },
 
-	-- when count & eco conditions are met - Air factories get built ahead of Land
-    Builder {BuilderName = 'Air Factory Balance',
+    Builder {BuilderName = 'Air Factory',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -245,118 +110,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ MIBC, 'GreaterThanGameTime', { 240 } },            
-            
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
-
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
-
-			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR * categories.TECH1 }},
-            
-            { UCBC, 'FactoryRatioEqualAtLocation', { 'LocationType', LAND, AIR } },
+			{ EBC, 'NeedFactory', { 'AIR' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, FACTORY }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.5, 10, 1.002, 1.002 }},
-        },
-		
-        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'FactoryLayout',
-				
-				ThreatMax = 30,
-				
-                BuildStructures = {'T1AirFactory' },
-            }
-        }
-    },
-
-    -- this builder permits the AI to ignore the count requirement for balance between Air and Land factories
-    -- triggered by a high AirProductionRatio (usually indicates opponent isn't playing Air)
-    Builder {BuilderName = 'Land Factory - High Air Production Ratio',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 801,
-        
-        PriorityFunction = AboveUnitCap75,
-		
-        BuilderConditions = {
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-
-            { LUTL, 'AirProductionRatioGreaterThan', { 3 } },
-
-			{ LUTL, 'LandProductionRatioLessThan', { 3 } },
-
-            -- this allows it to exceed the cap check by 2
-            { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
- 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 3000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.002, 1.002 }},
-        },
-		
-        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'FactoryLayout',
-				
-				ThreatMax = 30,
-				
-                BuildStructures = {'T1LandFactory' },
-            }
-        }
-    },
-
-    -- this builder comes into play if land strength is decent but air production is not high enough to make bombers/gunships
-    -- and can also ignore the count requirement for balance and build beyond the factory cap limit for AIR
-    Builder {BuilderName = 'Air Factory - Land Ratio High',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 801,
-        
-        PriorityFunction = AboveUnitCap75,
-		
-        BuilderConditions = {
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
-
-            { LUTL, 'LandProductionRatioGreaterThan', { 3 } },
-            
-            { LUTL, 'AirStrengthRatioLessThan', { 6 }},
-            
-			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR', 2 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 4000 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.3, 3, 1.002, 1.002 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -380,38 +136,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
 BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', BuildersType = 'EngineerBuilder',
 
-    Builder {BuilderName = 'Land Factory Rebuild - Expansion',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 10,
-        
-        PriorityFunction = HaveZeroLandFactories,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-        },
-		
-        BuilderType = {'T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
-				BaseTemplate = 'ExpansionLayout_II',
-				
-				ThreatMax = 50,
-				
-                BuildStructures = {'T1LandFactory' },
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'Land Factory Balance - Expansion',
+    Builder {BuilderName = 'Land Factory - Expansion',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -419,20 +144,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         Priority = 755,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
         
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 
-            { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, LAND * categories.TECH1 }},
+			{ EBC, 'NeedFactory', { 'LAND' }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, FACTORY }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -452,7 +171,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         }
     },
 
-    Builder {BuilderName = 'Air Factory Balance - Expansion',
+    Builder {BuilderName = 'Air Factory - Expansion',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -460,23 +179,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         Priority = 760,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
 
-			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, AIR * categories.TECH1 }},
-            
-            { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', AIR, LAND } },
+			{ EBC, 'NeedFactory', { 'AIR' }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, FACTORY }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -492,53 +202,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 				ThreatMax = 50,
 				
                 BuildStructures = { 'T1AirFactory' },
-            }
-        }
-    },
-
-    -- this builder allows the AI to ignore the count requirement for balance between Air and Land factories
-    -- triggered by the AirProductionRatio being higher than 3 to 1 (typical of GroundPound configurations)
-    Builder {BuilderName = 'Land Factory - High Air Production Ratio - Expansion',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 760,
-        
-        PriorityFunction = AboveUnitCap65,
-		
-        BuilderConditions = {
-            
-            { LUTL, 'AirProductionRatioGreaterThan', { 3 } },
-
-			{ LUTL, 'LandProductionRatioLessThan', { 6 } },
-
-            -- this allows it to exceed the cap check by 2
-            { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND', 2 }},
-            
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, LAND * categories.TECH1 }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, FACTORY }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-        },
-		
-        BuilderType = { 'T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-				NearBasePerimeterPoints = true,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
-				BaseTemplate = 'ExpansionLayout_II',
-				
-				ThreatMax = 50,
-				
-                BuildStructures = {'T1LandFactory' },
             }
         }
     },
@@ -662,23 +325,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
         PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { LUTL, 'NavalProductionRatioLessThan', { 3 } },
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
 
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-
-            { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},
-            
-            -- this was intended to minimize naval factory spam by
-            -- only adding another factory if we had less than 3 T1 already here
-            -- in practice - this sometimes just forced the creation of another
-            -- naval yard if available
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 3, NAVAL * categories.TECH1 }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.001, 1.002 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -696,37 +345,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
                 BuildStructures = {'T1SeaFactory' },
             },
         },
-    },
-
-    Builder {BuilderName = 'Naval Factory Rebuild',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 10,
-        
-        PriorityFunction = HaveZeroNavalFactories,
-
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },        
-        },
-		
-        BuilderType = { 'T1','T2','T3','SubCommander' },
-
-        BuilderData = {
-		
-            Construction = {
-                NearBasePerimeterPoints = true,
-			
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
-				BaseTemplate = 'NavalExpansionBase',
-				
-				ThreatMax = 50,
-				
-                BuildStructures = {'T1SeaFactory' },
-            }
-        }
     },
 	
 }
