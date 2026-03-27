@@ -896,6 +896,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.DESTROYER * categories.NAVAL }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.DESTROYER }},
@@ -915,6 +917,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.CRUISER * categories.NAVAL }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.CRUISER } },
@@ -1071,6 +1075,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, categories.NAVAL * categories.TECH3 }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.BATTLESHIP }},
