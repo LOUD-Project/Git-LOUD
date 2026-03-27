@@ -550,8 +550,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
-
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
@@ -572,8 +570,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
-
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, DIRECTFIRELAND * categories.TECH2, categories.LAND - categories.TECH1, LAND }},
@@ -593,8 +589,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
@@ -623,9 +617,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 
@@ -645,9 +637,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 
@@ -669,7 +659,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
@@ -936,7 +926,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 
@@ -978,7 +968,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 
@@ -1003,7 +993,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 
@@ -1030,7 +1020,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },			
+            { LUTL, 'UnitCapCheckLess', { .85 } },			
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 
@@ -1056,7 +1046,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 8 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
 
