@@ -3,6 +3,7 @@
 local loudUtils = import('/lua/loudutilities.lua')
 local MIBC = import('/lua/editor/MiscBuildConditions.lua')
 
+local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
 
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
@@ -738,68 +739,35 @@ function CreateResources()
 	
 end
 
--- Mex upgrade limit timings and next limit step with a small map version with less aggressive ramping
-local MexUpgradeLimitSteps = {
-
-    high = {
-        { time = 450,  limit = 2 },
-        { time = 540,  limit = 3 },
-        { time = 840,  limit = 4 },
-        { time = 1800, limit = 6 },
+local MexUpgradeConsumption = {
+    T2 = {
+        mass = 8, energy = 48
     },
-
-    low = {
-        { time = 510,  limit = 2 },
-        { time = 720,  limit = 3 },
-        { time = 1500, limit = 4 },
-        { time = 1800, limit = 6 },
-    }
-
+    T3 = {
+        mass = 16, energy = 110
+    },  
 }
 
--- Mex upgrade limit increases at set times to avoid early eco issues with upgrading too many at once
--- Uses either a high or low profile for more aggressive or relaxed ramping of upgrades depending on mass points
--- By default uses the profile that matches the mass count divided by player count
--- As the game progresses if an AI on the low profile happens to gain more mass points they will switch to the high profile 
-function MexUpgradeLimitSwitch(aiBrain)
-    -- Get the mass split between players with a +1 to account for contested mass points
-    local massPerPlayer = ScenarioInfo.NumMassPoints / (ScenarioInfo.Options.PlayerCount + 1)
-    aiBrain.MassProfile = massPerPlayer < 14 and 'low' or 'high'
-    
-    local i = 1
+function MexUpgradeLimit(aiBrain)
+    local incomeRatio = .35
 
-    while true do
+	local massIncome, energyIncome, massLimit, energyLimit
 
-        local currentSteps = MexUpgradeLimitSteps[aiBrain.MassProfile] or MexUpgradeLimitSteps.high
-        local step = currentSteps[i]
-        local profileSwitched = false
+    while aiBrain.CycleTime < 2700 do
 
-        -- check if the ramping is complete
-        if not step then break end
+        massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
+        energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
 
-        repeat
-            -- check if the AI on low profile has managed get more mass extractors than expected
-            -- if they have promote the upgrade steps to high
-            if aiBrain.MassProfile == 'low' and aiBrain:GetCurrentUnits( categories.MASSEXTRACTION ) >= 14 then
+        for techLevel, rate in MexUpgradeConsumption do
+            massLimit = (massIncome / rate.mass) * incomeRatio
+            energyLimit = (energyIncome / rate.energy) * incomeRatio
 
-                aiBrain.MassProfile = 'high'
-                profileSwitched = true
-
-                break
-
-            end
-
-            WaitTicks(100)
-
-        until aiBrain.CycleTime > step.time
-
-        -- if the profile was switched we break and restart the loop without incrementing to update to the new profile
-        if profileSwitched then
-            continue
+            aiBrain.MexUpgrade[techLevel .. "Limit"] = math.floor(math.min(massLimit, energyLimit) + 0.5)
         end
 
-        aiBrain.MexUpgradeLimit = step.limit
-        i = i + 1
+        --LOG(aiBrain.Nickname.." T2 "..aiBrain.MexUpgrade.T2Active.."/"..aiBrain.MexUpgrade.T2Limit.." T3 "..aiBrain.MexUpgrade.T3Active.."/"..aiBrain.MexUpgrade.T3Limit.." from income "..massIncome.."/"..energyIncome)
+
+        WaitTicks(100)
 
     end
 
@@ -1244,15 +1212,21 @@ function InitializeArmies()
                 -- Does the AI have a land connection to any enemy start position?
                 aiBrain.HasLandEnemy = AIHasLandEnemy( aiBrain )
 
+                -- Initialize mex upgrade limits
+                aiBrain.MexUpgrade = {
+                    T2Active = 0,
+                    T3Active = 0,
+                    T2Limit = 0,
+                    T3Limit = 0
+                }
+
+                ForkThread( MexUpgradeLimit, aiBrain )
+
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
                 --- is used to limit the # of self-upgrades that can be issued in a given time
                 --- to avoid having more than X units trying to upgrade at once
                 aiBrain.UpgradeIssued = 0
-                aiBrain.MexUpgradeActive = 0
-
-                aiBrain.MexUpgradeLimit = 1
-                ForkThread( MexUpgradeLimitSwitch, aiBrain )
 
                 aiBrain.UpgradeIssuedLimit = 1
 

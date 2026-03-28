@@ -8748,22 +8748,36 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         end
  	
 		WaitTicks(checkperiod * 10)
-        -- Check if maximum number of mex upgrades has been reached
+
         if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
 
-            if aiBrain.MexUpgradeActive >= aiBrain.MexUpgradeLimit then
-                continue
-            end
+            -- Check if maximum number of mex upgrades has been reached
+            if EntityCategoryContains( categories.TECH1, unit ) then
 
-            -- T1 and T3 mass extractors should upgrade as much as the mex upgrade limit will allow
-            if EntityCategoryContains( categories.TECH1, unit) or EntityCategoryContains( categories.TECH3, unit ) then
+                if aiBrain.MexUpgrade.T2Active >= aiBrain.MexUpgrade.T2Limit then
+                    continue
+                end
+
+                -- Highly prioritise T1 mass extractors upgrading to T2
                 skipTrendCheck = true
-            end
 
-            extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
-            -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
-            if EntityCategoryContains( categories.TECH1, unit ) and EntityCategoryCount( categories.TECH2, extractorCount ) > 20 then
-                continue
+                extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
+                -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
+                if EntityCategoryCount( categories.TECH2, extractorCount ) > 20 then
+                    continue
+                end
+
+            elseif EntityCategoryContains( categories.TECH2, unit ) then
+
+                if aiBrain.MexUpgrade.T3Active >= aiBrain.MexUpgrade.T3Limit then
+                    continue
+                end
+
+            elseif EntityCategoryContains( categories.TECH3, unit ) then
+
+                -- Highly prioritise T3 mass extractors upgrading to T3+
+                skipTrendCheck = true
+
             end
 
         end
@@ -9111,21 +9125,33 @@ end
 -- Limit the amount of simultaneous mex upgrades that can be active
 function MexUpgradesActive( aiBrain, unit )
 
-    aiBrain.MexUpgradeActive = aiBrain.MexUpgradeActive + 1
+    local upgradeType = nil
 
-    if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." mex upgrading up to "..aiBrain.MexUpgradeActive.."/"..aiBrain.MexUpgradeLimit)
+    if EntityCategoryContains(categories.TECH2, unit) then
+        upgradeType = "T2"
+    elseif EntityCategoryContains(categories.TECH3, unit) then
+        upgradeType = "T3"
+    else
+        return
     end
+
+    local weights = {
+        T2 = { T2 = 1, T3 = 0.5 },
+        T3 = { T2 = 2, T3 = 1 }
+    }
+
+    local weight = weights[upgradeType]
+
+    aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active + weight.T2
+    aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active + weight.T3
 
     repeat
         WaitTicks(20)
-    until not unit.Dead and moho.entity_methods.GetFractionComplete(unit) == 1 
+    until unit.Dead or moho.entity_methods.GetFractionComplete(unit) >= 1
 
-    aiBrain.MexUpgradeActive = aiBrain.MexUpgradeActive - 1
+    aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active - weight.T2
+    aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active - weight.T3
 
-    if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." mex upgrading down to "..aiBrain.MexUpgradeActive.."/"..aiBrain.MexUpgradeLimit)
-    end
 end
 
 -- this function identifies units in a platoon that may have air/land toggle weapons

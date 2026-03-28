@@ -557,19 +557,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
         Priority = 762,
 		
-        PriorityFunction = function( self, aiBrain, unit, manager )
-            
-            if aiBrain.Cycletime > 2700 then
-                return 0, false
-            end
-
-            -- prioritise building this early on if the mass is available
-            if aiBrain.CycleTime < 600 and aiBrain.MassProfile == 'high' then
-                return 846, true
-            end
-
-            return (self.OldPriority or self.Priority), true
-        end,
+        PriorityFunction = First45Minutes,
 
 		InstanceCount = 1,
 		

@@ -822,16 +822,6 @@ StructureUnit = Class(Unit) {
                     checkrate = 14
                     initialdelay = 90
 
-                    -- increase delay at early stages
-                    -- if mass is low increase further
-                    if aiBrain.CycleTime < 600 then
-                        if aiBrain.MassProfile == 'high' then
-                            initialdelay = 140
-                        else
-                            initialdelay = 220
-                        end
-                    end
-
                     finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .5, .8, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 end

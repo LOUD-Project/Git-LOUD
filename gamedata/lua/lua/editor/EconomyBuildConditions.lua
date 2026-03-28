@@ -331,7 +331,7 @@ end
 -- The minimum of the two limits is taken as it is the bottleneck
 -- If the maximum supported is greater than the current number of this type then LOUD can build more
 function MaxFactoriesFromIncome(aiBrain, factoryType)
-	local incomeRatio = .8
+	local incomeRatio = .6
 
 	local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
 	local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
@@ -444,10 +444,6 @@ end
 --------------------
 -- MASS FUNCTIONS --
 --------------------
-
-function MassProfile(aiBrain, profile)
-	return aiBrain.MassProfile == profile
-end
 
 -- modified to be altered by AI Cheat --
 function LessThanEconMassStorageCurrent(aiBrain, mStorage)
