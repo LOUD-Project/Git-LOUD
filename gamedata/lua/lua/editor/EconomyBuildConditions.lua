@@ -280,7 +280,7 @@ function GreaterThanEconStorageCurrent(aiBrain, mStorage, eStorage)
 end
 
 -- general factory consumption rates
-FactoryConsumption = {
+local FactoryConsumption = {
     LAND = {
         T1 = { mass = 10, energy = 50 },
         T2 = { mass = 17, energy = 100 },
@@ -295,7 +295,7 @@ FactoryConsumption = {
         T1 = { mass = 10, energy = 100 },
         T2 = { mass = 17, energy = 150 },
         T3 = { mass = 25, energy = 200 },
-    },
+    }
 }
 
 -- A bias generated to control how many of each type of factory should be built
@@ -391,7 +391,7 @@ function MaxFactoriesFromIncome(aiBrain, factoryType)
 		maxFactories = 0
 	end
 
-	--LOG("RAWR: "..aiBrain.Nickname.." "..techLevel..factoryType.." factory - "..typeCount.."/"..maxFactories..
+	--LOG(aiBrain.Nickname.." "..techLevel..factoryType.." factory - "..typeCount.."/"..maxFactories..
 	--" | "..massIncome.." mass "..energyIncome.." energy | "
 	--..math.min(aiBrain.LandRatio, 10).." - "..math.min(aiBrain.AirRatio, 10).." - "..math.min(aiBrain.NavalRatio, 10))
 
