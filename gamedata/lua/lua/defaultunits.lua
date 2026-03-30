@@ -820,7 +820,7 @@ StructureUnit = Class(Unit) {
                 else
 
                     checkrate = 14
-                    initialdelay = 90
+                    initialdelay = 110
 
                     finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .5, .8, 1.95, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 

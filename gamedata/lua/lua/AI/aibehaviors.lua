@@ -8751,19 +8751,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
         if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
 
+            skipTrendCheck = true
+
             -- Check if maximum number of mex upgrades has been reached
             if EntityCategoryContains( categories.TECH1, unit ) then
 
                 if aiBrain.MexUpgrade.T2Active >= aiBrain.MexUpgrade.T2Limit then
-                    continue
-                end
-
-                -- Highly prioritise T1 mass extractors upgrading to T2
-                skipTrendCheck = true
-
-                extractorCount = moho.aibrain_methods.GetListOfUnits( aiBrain, categories.MASSEXTRACTION, false, true)
-                -- cease T1->T2 mex upgrades to favour T3 when there is a large quantity of T2 mex
-                if EntityCategoryCount( categories.TECH2, extractorCount ) > 20 then
                     continue
                 end
 
@@ -8772,11 +8765,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 if aiBrain.MexUpgrade.T3Active >= aiBrain.MexUpgrade.T3Limit then
                     continue
                 end
-
-            elseif EntityCategoryContains( categories.TECH3, unit ) then
-
-                -- Highly prioritise T3 mass extractors upgrading to T3+
-                skipTrendCheck = true
 
             end
 
@@ -9125,12 +9113,12 @@ end
 -- Limit the amount of simultaneous mex upgrades that can be active
 function MexUpgradesActive( aiBrain, unit )
 
-    local upgradeType = nil
+    local tech = nil
 
     if EntityCategoryContains(categories.TECH2, unit) then
-        upgradeType = "T2"
+        tech = "T2"
     elseif EntityCategoryContains(categories.TECH3, unit) then
-        upgradeType = "T3"
+        tech = "T3"
     else
         return
     end
@@ -9140,7 +9128,7 @@ function MexUpgradesActive( aiBrain, unit )
         T3 = { T2 = 2, T3 = 1 }
     }
 
-    local weight = weights[upgradeType]
+    local weight = weights[tech]
 
     aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active + weight.T2
     aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active + weight.T3

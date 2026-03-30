@@ -3,7 +3,10 @@
 local loudUtils = import('/lua/loudutilities.lua')
 local MIBC = import('/lua/editor/MiscBuildConditions.lua')
 
-local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+local BrainMethods     = moho.aibrain_methods
+
+local GetEconomyIncome = BrainMethods.GetEconomyIncome
+local GetListOfUnits   = BrainMethods.GetListOfUnits
 
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
@@ -749,7 +752,7 @@ local MexUpgradeConsumption = {
 }
 
 function MexUpgradeLimit(aiBrain)
-    local incomeRatio = .35
+    local incomeRatio = .4
 
 	local massIncome, energyIncome, massLimit, energyLimit
 
@@ -759,10 +762,23 @@ function MexUpgradeLimit(aiBrain)
         energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
 
         for techLevel, rate in MexUpgradeConsumption do
+
             massLimit = (massIncome / rate.mass) * incomeRatio
             energyLimit = (energyIncome / rate.energy) * incomeRatio
 
             aiBrain.MexUpgrade[techLevel .. "Limit"] = math.floor(math.min(massLimit, energyLimit) + 0.5)
+
+            -- If the mass income is still developing and there are still T1 mex then prevent T2->T3 upgrades
+            if techLevel == 'T3' then
+
+                local T1Mex = table.getn(GetListOfUnits(aiBrain, categories.MASSEXTRACTION * categories.TECH1, false, true))
+
+                if T1Mex > 0 and massIncome < 48 then
+                    aiBrain.MexUpgrade.T3Limit = 0
+                end
+
+            end
+
         end
 
         --LOG(aiBrain.Nickname.." T2 "..aiBrain.MexUpgrade.T2Active.."/"..aiBrain.MexUpgrade.T2Limit.." T3 "..aiBrain.MexUpgrade.T3Active.."/"..aiBrain.MexUpgrade.T3Limit.." from income "..massIncome.."/"..energyIncome)
@@ -1214,10 +1230,8 @@ function InitializeArmies()
 
                 -- Initialize mex upgrade limits
                 aiBrain.MexUpgrade = {
-                    T2Active = 0,
-                    T3Active = 0,
-                    T2Limit = 0,
-                    T3Limit = 0
+                    T2Active = 0, T3Active = 0,
+                    T2Limit  = 0, T3Limit  = 0
                 }
 
                 ForkThread( MexUpgradeLimit, aiBrain )
