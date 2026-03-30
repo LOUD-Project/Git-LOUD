@@ -8856,6 +8856,31 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
             if EntityCategoryContains( categories.FACTORY, unit ) then
 
+                local landOrNaval = EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit)
+
+                -- Land and Naval have similar mass consumption so can be treated the same
+                local factoryType = landOrNaval and "LAND" or "AIR"
+
+                -- Check if maximum number of T2 factory upgrades has been reached
+                if EntityCategoryContains( categories.TECH1, unit ) then
+                    local active = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Active"]
+                    local limit  = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Limit"]
+
+                    if active >= limit then
+                        continue
+                    end
+                end
+
+                -- Check if maximum number of T3 factory upgrades has been reached
+                if EntityCategoryContains( categories.TECH2, unit ) then
+                    local active = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Active"]
+                    local limit  = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Limit"]
+
+                    if active >= limit then
+                        continue
+                    end
+                end                
+
                 if (aiBrain.CycleTime > 600 and EntityCategoryContains( categories.TECH1, unit )) or
                 (aiBrain.CycleTime > 1800 and EntityCategoryContains( categories.TECH2, unit )) then
 
@@ -9014,6 +9039,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                             
         if EntityCategoryContains( categories.MASSEXTRACTION, unit ) then
             ForkThread(MexUpgradesActive, aiBrain, unitbeingbuilt )
+        elseif EntityCategoryContains( categories.FACTORY, unit ) then
+            ForkThread(FactoryUpgradesActive, aiBrain, unitbeingbuilt )        
         end
 
         unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
@@ -9139,6 +9166,52 @@ function MexUpgradesActive( aiBrain, unit )
 
     aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active - weight.T2
     aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active - weight.T3
+
+end
+
+-- Limit the amount of simultaneous factory upgrades that can be active
+function FactoryUpgradesActive( aiBrain, unit )
+
+    local factoryType = nil
+    local tech = nil
+
+    if EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit) then
+        factoryType = "LAND"
+    elseif EntityCategoryContains(categories.AIR, unit) then
+        factoryType = "AIR"
+    end
+
+    if not factoryType then
+        return
+    end
+
+    if EntityCategoryContains(categories.TECH2, unit) then
+        tech = "T2"
+    elseif EntityCategoryContains(categories.TECH3, unit) then
+        tech = "T3"
+    else
+        return
+    end
+
+    local weights = {
+        LAND = { LAND = 1, AIR = 2 },
+        AIR  = { LAND = 1, AIR = 1 },
+    }
+
+    local landKey = tech .. "LANDActive"
+    local airKey  = tech .. "AIRActive"    
+
+    local weight = weights[factoryType]
+
+    aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] + weight.LAND
+    aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] + weight.AIR
+
+    repeat
+        WaitTicks(20)
+    until unit.Dead or moho.entity_methods.GetFractionComplete(unit) >= 1
+
+    aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] - weight.LAND
+    aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] - weight.AIR
 
 end
 

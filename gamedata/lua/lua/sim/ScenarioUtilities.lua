@@ -789,6 +789,54 @@ function MexUpgradeLimit(aiBrain)
 
 end
 
+-- factory upgrade consumption rates
+local FactoryUpgradeConsumption = {
+    LAND = {
+        T2 = { mass = 13, energy = 145 },
+        T3 = { mass = 25, energy = 229 },
+    },
+    AIR = {
+        T2 = { mass = 7, energy = 145 },
+        T3 = { mass = 12, energy = 254 },
+    },
+    NAVAL = {
+        T2 = { mass = 14, energy = 81 },
+        T3 = { mass = 25, energy = 108 },
+    }
+}
+
+function FactoryUpgradeLimit(aiBrain)
+    local incomeRatio = .1
+
+	local massIncome, energyIncome, massLimit, energyLimit
+
+    while aiBrain.CycleTime < 3600 do
+
+        massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
+        energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
+
+        for factoryType, techLevels in FactoryUpgradeConsumption do
+
+            for techLevel, rate in techLevels do
+
+                massLimit = (massIncome / rate.mass) * incomeRatio
+                energyLimit = (energyIncome / rate.energy) * incomeRatio
+
+                aiBrain.FactoryUpgrade[techLevel..factoryType.."Limit"] = math.floor(math.min(massLimit, energyLimit) + 0.5)
+
+            end
+
+        end
+
+        --LOG(aiBrain.Nickname.." T2 Land "..aiBrain.FactoryUpgrade.T2LANDActive.."/"..aiBrain.FactoryUpgrade.T2LANDLimit.." - T2 Air "..aiBrain.FactoryUpgrade.T2AIRActive.."/"..aiBrain.FactoryUpgrade.T2AIRLimit)
+        --LOG(aiBrain.Nickname.." T3 Land "..aiBrain.FactoryUpgrade.T3LANDActive.."/"..aiBrain.FactoryUpgrade.T3LANDLimit.." - T3 Air "..aiBrain.FactoryUpgrade.T3AIRActive.."/"..aiBrain.FactoryUpgrade.T3AIRLimit.." | from income "..massIncome.."/"..energyIncome)
+
+        WaitTicks(150)
+
+    end
+
+end
+
 -- check if terrain at the current coord is below water level, if below it is not passable by land
 -- next check if the terrain at the current coord is a coastline, if so it is not passable to act as a buffer
 -- then check if the slope of nearby terrain, if difference too large it is not passable by land
@@ -1236,6 +1284,16 @@ function InitializeArmies()
 
                 ForkThread( MexUpgradeLimit, aiBrain )
 
+                -- Initialize factory upgrade limits
+                aiBrain.FactoryUpgrade = {
+                    T2LANDActive = 0, T2AIRActive = 0,
+                    T3LANDActive = 0, T3AIRActive = 0,
+                    T2LANDLimit  = 0, T2AIRLimit  = 0,
+                    T3LANDLimit  = 0, T3AIRLimit  = 0
+                }
+
+                ForkThread( FactoryUpgradeLimit, aiBrain )
+                
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
                 --- is used to limit the # of self-upgrades that can be issued in a given time

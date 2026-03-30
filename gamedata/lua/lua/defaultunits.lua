@@ -698,13 +698,8 @@ StructureUnit = Class(Unit) {
             checkrate = 10        
             initialdelay = 160
 
-            -- give the first factory a longer delay to inhibit T2 rushing
-            if aiBrain.CycleTime < 180 then
-                initialdelay = 200
-            end
-
-            -- after 15 minutes T1 factories have no ugprade delay to push those without a job into T2
-            if  aiBrain.CycleTime > 900 and EntityCategoryContains( categories.TECH1, finishedUnit ) then
+            -- after 12 minutes T1 factories have no ugprade delay to push those without a job into T2
+            if  aiBrain.CycleTime > 720 and EntityCategoryContains( categories.TECH1, finishedUnit ) then
 
                 checkrate = 10
                 initialdelay = 1
