@@ -68,9 +68,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
-            { EBC, 'LessThanEnergyTrendOverTime', { 16 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
         },
 		
         BuilderType = { 'T1','T2' },
@@ -557,7 +557,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
         Priority = 762,
 		
-        PriorityFunction = First45Minutes,
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if aiBrain.Cycletime > 2700 then
+                return 0, false
+            end
+
+            -- prioritise building this early
+            if aiBrain.CycleTime < 600 then
+                return 846, true
+            end
+
+            return (self.OldPriority or self.Priority), true
+        end,
 
 		InstanceCount = 1,
 		
