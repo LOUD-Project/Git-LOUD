@@ -301,17 +301,19 @@ local FactoryConsumption = {
 -- A bias generated to control how many of each type of factory should be built
 -- Land and air are clamped to 9 so they're always able to be built to the max the eco will allow
 -- Naval is zeroed when it is not a water map to prevent its early low ratio intefering with land and air
+-- Naval is also zeroed when it is a water map but early on to encourage the 2nd factory build on land
 function StrengthBias(aiBrain)
 	local landRatio = 10 - math.min(aiBrain.LandRatio, 9)
 	local airRatio = 10 - math.min(aiBrain.AirRatio, 9)
 	local navalRatio = 10 - math.min(aiBrain.NavalRatio, 10)
 
-	if not aiBrain.IsWaterMap then
+	if not aiBrain.IsWaterMap or
+	(aiBrain.IsWaterMap and aiBrain.CycleTime < 360) then
 		navalRatio = 0
 	end
 
-	-- favour a strong land opening
-	if aiBrain.CycleTime < 720 then
+	-- favour a strong land opening when there is a land connection to the enemy
+	if aiBrain.CycleTime < 720 and aiBrain.HasLandEnemy then
 		landRatio = 9.989
 	end
 
