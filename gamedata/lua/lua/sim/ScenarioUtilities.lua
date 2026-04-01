@@ -752,7 +752,7 @@ local MexUpgradeConsumption = {
 }
 
 function MexUpgradeLimit(aiBrain)
-    local incomeRatio = .4
+    local incomeRatio = .45
 
 	local massIncome, energyIncome, massLimit, energyLimit
 
