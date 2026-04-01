@@ -638,10 +638,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ EBC, 'NeedFactory', { 'NAVAL' }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
-      
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
 			
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
@@ -650,7 +646,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
-        BuilderType = { 'T2','T3' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderData = {
             Construction = {
@@ -671,7 +667,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {'T1SeaFactory','T2AirStagingPlatform','T1SeaFactory','T1Sonar'}
+                BuildStructures = {'T1SeaFactory'}
             }
         }
     },
@@ -697,10 +693,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ EBC, 'NeedFactory', { 'NAVAL' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
-
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
-
 			-- can't be a major enemy base within 7km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
 
@@ -708,7 +700,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
-        BuilderType = { 'T1','T2' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderData = {
             Construction = {
@@ -748,8 +740,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         BuilderConditions = {
 
 			{ EBC, 'NeedFactory', { 'NAVAL' }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
