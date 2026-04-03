@@ -119,11 +119,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2600 }},        
 
-			{ EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
-
 			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},        
-
-			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
         },
 		
         BuilderType = {'T2'},
