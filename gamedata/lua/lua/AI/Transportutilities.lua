@@ -693,7 +693,7 @@ function GetTransports( platoon, aiBrain)
 
 						-- limit to 12 km range if air ratio is low - 16 km if normal
                         -- this insures that transport wont expire before loading takes place as loading has a 120 second time limit --
-						if range < 600 + ( 200 * (math.min( 0.5, aiBrain.AirRatio ))) then
+						if range < 600 + ( 300 * (math.max( 1, aiBrain.AirRatio ))) then
                             
                             -- mark the transport as being assigned 
                             -- to prevent it from being picked up in another transport collection
@@ -725,7 +725,7 @@ function GetTransports( platoon, aiBrain)
 						else
                         
                             if TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(600 + ( 200 * (math.min( 1, aiBrain.AirRatio )))) )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(600 + ( 300 * (math.max( 1, aiBrain.AirRatio )))) )
                             end
                             
 							out_of_range = true
