@@ -1,3 +1,17 @@
+### Release
+
+LUA 8.08
+
+- fixed an error with transport range being limited to 700 ogrids, rather than being dynamic with AirRatio (minimum should be 800)
+- increased emphasis on early MEX upgrades
+- revised LOG for the Guardpoint behavior
+- moved behavior specs into the platoon builder, and out of the platoon formation template
+- small increases to the number of air transports permitted 
+- AI ACU will now favor 'Assist Energy' over building additional T1 power gens, once any advanced power is underway
+- AI Self Upgrade tasks now gain a small random amount to thier initial delay, to reduce tasks being checked on the same tick
+
+
+
 ### Release 03-20-2026
 
 LUA 8.07
