@@ -2680,8 +2680,10 @@ Platoon = Class(PlatoonMethods) {
             return
         end
         
+        local body = "*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..repr(self.BuilderInstance)
+        
         if GuardpointDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..repr(self.BuilderInstance).." begins on tick "..GetGameTick() )
+            LOG( body.." begins on tick "..GetGameTick() )
         end
 
         -- other platoon functions 
@@ -2849,7 +2851,7 @@ Platoon = Class(PlatoonMethods) {
                     dataList = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." datalist is "..repr(dataList) )
+                        LOG( body.." datalist is "..repr(dataList) )
                     end
 
                 end
@@ -2872,7 +2874,7 @@ Platoon = Class(PlatoonMethods) {
 						marker = {dataList[choice][1], dataList[choice][2], dataList[choice][3]}
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(choice).." from list "..repr(dataList) )
+                            LOG( body.." selects "..repr(choice).." from list "..repr(dataList) )
                         end
 						
 						-- and remove the marker from the list so it cant be picked again
@@ -2882,7 +2884,7 @@ Platoon = Class(PlatoonMethods) {
 						if lastmarker and LOUDEQUAL( marker, lastmarker ) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." trying to select same point "..repr(marker))
+                                LOG( body.." trying to select same point "..repr(marker))
                             end
 						
 							marker = false
@@ -2902,10 +2904,11 @@ Platoon = Class(PlatoonMethods) {
                 if position then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
+                        LOG( body.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
                     end
                     
-                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    break
+
                 else
                     return
                 end
@@ -2918,7 +2921,7 @@ Platoon = Class(PlatoonMethods) {
 			if marker and PlatoonExists(aiBrain, self) then
         
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." Picked "..repr(PCat).." marker at "..repr(marker))
+                    LOG( body.." Picked "..repr(PCat).." marker at "..repr(marker))
                 end
 
                 path, reason, pathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 160)
@@ -2928,7 +2931,7 @@ Platoon = Class(PlatoonMethods) {
 				if path then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." "..MovementLayer.." path to "..repr(marker).." pathlength is "..string.format("%.1f",pathlength).." reason is "..repr(reason).." Path is "..repr(path) )
+                        LOG( body.." "..MovementLayer.." path to "..repr(marker).." pathlength is "..string.format("%.1f",pathlength).." reason is "..repr(reason).." Path is "..repr(path) )
                     end
 
                     self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -2936,7 +2939,7 @@ Platoon = Class(PlatoonMethods) {
                 else
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." "..MovementLayer.." NO path to "..repr(marker).." calling for transport - reason is "..repr(reason) )
+                        LOG( body.." "..MovementLayer.." NO path to "..repr(marker).." calling for transport - reason is "..repr(reason) )
                     end
 
 					-- try 3 transport calls -- if they fail - record this marker so it doesn't get
@@ -2946,7 +2949,7 @@ Platoon = Class(PlatoonMethods) {
 					if not choice then
 
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." no response to transport call" )
+                            LOG( body.." no response to transport call" )
                         end
 				
 						lastmarker = LOUDCOPY(marker)
@@ -2957,7 +2960,7 @@ Platoon = Class(PlatoonMethods) {
 					else
 
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." used transports" )
+                            LOG( body.." used transports" )
                         end
                         
                     end
@@ -2973,7 +2976,7 @@ Platoon = Class(PlatoonMethods) {
 			counter = 0
            
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(PCat).." marker "..repr(marker).." proximity trigger is "..UntRadius )
+                LOG( body.." moving to "..repr(PCat).." marker "..repr(marker).." proximity trigger is "..UntRadius )
             end
 
 			while PlatoonExists(aiBrain,self) and marker and guardtime < guardTimer do
@@ -2990,7 +2993,7 @@ Platoon = Class(PlatoonMethods) {
                 if distance <= LOUDMAX(UntRadius,StrRadius) then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." at "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(marker).." - end movement")
+                        LOG( body.." at "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(marker).." - end movement")
                     end
 
                     break
@@ -2999,7 +3002,7 @@ Platoon = Class(PlatoonMethods) {
                     if not self.MoveThread then
 
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." at "..string.format("%.1f",distance).." but I don't see a MoveThread to "..repr(marker) )
+                            LOG( body.." at "..string.format("%.1f",distance).." but I don't see a MoveThread to "..repr(marker) )
                         end
                         
                         self.MoveThread = self:ForkThread( self.MovePlatoon, {marker}, PlatoonFormation, bAggroMove, 25 )
@@ -3015,7 +3018,7 @@ Platoon = Class(PlatoonMethods) {
 						if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG( body.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3030,7 +3033,7 @@ Platoon = Class(PlatoonMethods) {
 						if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG( body.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3053,7 +3056,7 @@ Platoon = Class(PlatoonMethods) {
 							else
         
                                 if GuardpointDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." STUCK during travel "..counter.." - seeking new point")
+                                    LOG( body.." STUCK during travel "..counter.." - seeking new point")
                                 end
 
                                 lastmarker = LOUDCOPY(marker)
@@ -3081,7 +3084,7 @@ Platoon = Class(PlatoonMethods) {
                         if GetThreatBetweenPositions( aiBrain, position, path[1], false, 'AntiSurface' ) > OriginalThreat then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." sees more than my "..OriginalThreat.." between here and current waypoint")
+                                LOG( body.." sees more than my "..OriginalThreat.." between here and current waypoint")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3109,18 +3112,18 @@ Platoon = Class(PlatoonMethods) {
                                     distance    = VDist3( position, marker )
 
                                     if GuardpointDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." used transports for "..repr(PCat).." marker "..repr(marker))
+                                        LOG( body.." used transports for "..repr(PCat).." marker "..repr(marker))
                                         
-                                        if path then
+                                        --if path then
                                             --for _,v in path do
                                                 --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." path is "..repr(v).." distance "..VDist3(GetPlatoonPosition(self),v) ) 
                                             --end
-                                        end
+                                        --end
                                     end
 
                                 else
                                     if GuardpointDialog then
-                                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." failed transport call at "..repr(distance).." from marker "..repr(marker))
+                                        LOG( body.." failed transport call at "..repr(distance).." from marker "..repr(marker))
                                     end
                                 end
                             else
@@ -3136,18 +3139,13 @@ Platoon = Class(PlatoonMethods) {
                         if delay > 0 then
 
                             if GuardpointDialog then
-
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(string.format("%.1f",distance)).." from "..repr(marker).." delay "..LOUDFLOOR(delay).." ticks" )
-
+                                LOG( body.." still "..repr(string.format("%.1f",distance)).." from "..repr(marker).." delay "..LOUDFLOOR(delay).." ticks" )
                             end                    
 
                             WaitTicks(LOUDFLOOR(delay))
                         end
-
                     end
-                    
                 end
-
 			end
             
 			if PlatoonExists(aiBrain,self) and self.MoveThread then
@@ -3167,7 +3165,7 @@ Platoon = Class(PlatoonMethods) {
 			guardtime = 0
             
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." starts guard cycle - Radius is "..repr(guardRadius))
+                LOG( body.." starts guard cycle - Radius is "..repr(guardRadius))
             end
             
             local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS, scoutradius
@@ -3175,7 +3173,7 @@ Platoon = Class(PlatoonMethods) {
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
 
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." cycles on station - guardtime "..guardtime.." - timer is "..guardTimer.." on tick "..GetGameTick() )
+                    LOG( body.." cycles on station - guardtime "..guardtime.." - timer is "..guardTimer.." on tick "..GetGameTick() )
                 end
                 
                 -- this will prevent things like DistressResponse from running
@@ -3188,7 +3186,7 @@ Platoon = Class(PlatoonMethods) {
                 if target then
                   
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." had a target ")
+                        LOG( body.." had a target ")
                     end
 
                     guarding = false
@@ -3222,7 +3220,7 @@ Platoon = Class(PlatoonMethods) {
 				if (not guarding) and PlatoonExists(aiBrain, self) then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." setting up guard at "..repr(PCat).." marker "..repr(marker).." on tick "..GetGameTick() )
+                        LOG( body.." setting up guard at "..repr(PCat).." marker "..repr(marker).." on tick "..GetGameTick() )
                     end
 
 					if NumberOfUnitsInPlatoon > 0 then
@@ -3337,13 +3335,13 @@ Platoon = Class(PlatoonMethods) {
 				if StrCat and StrTrigger then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checks Structure Triggers on tick "..GetGameTick() )
+                        LOG( body.." checks Structure Triggers on tick "..GetGameTick() )
                     end
                 
 					if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." structure trigger during guard")
+                            LOG( body.." structure trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -3354,13 +3352,13 @@ Platoon = Class(PlatoonMethods) {
 				if UntCat and UntTrigger then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checks Unit Triggers on tick "..GetGameTick() )
+                        LOG( body.." checks Unit Triggers on tick "..GetGameTick() )
                     end
                 
 					if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." unit trigger during guard")
+                            LOG( body.." unit trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -3377,7 +3375,7 @@ Platoon = Class(PlatoonMethods) {
                 if choice and distance < PMin then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." finds base "..repr(choice).." at "..distance)
+                        LOG( body.." finds base "..repr(choice).." at "..distance)
                     end
 
                     lastmarker = LOUDCOPY(marker)
@@ -3394,7 +3392,7 @@ Platoon = Class(PlatoonMethods) {
                     if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
 
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checking to merge "..NumberOfUnitsInPlatoon.." on tick "..GetGameTick() )
+                            LOG( body.." checking to merge "..NumberOfUnitsInPlatoon.." on tick "..GetGameTick() )
                         end
                        
 						if MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, MergePlanMatch or false, MergeLimit) then
@@ -3411,7 +3409,7 @@ Platoon = Class(PlatoonMethods) {
 							end
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
+                                LOG( body.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
                             end
 
                             OldNumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon
@@ -3435,7 +3433,7 @@ Platoon = Class(PlatoonMethods) {
 				if MissionTimer == 'Abort' then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." ABORT (Disband) in the field")
+                        LOG( body.." ABORT (Disband) in the field")
                     end
 
 					-- assign them to the structure pool so they dont interfere with normal unit pools
@@ -3455,7 +3453,7 @@ Platoon = Class(PlatoonMethods) {
 			end
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point - resetting PSource to my current location "..repr(position) )
+                LOG( body.." guard complete - seeking new point - resetting PSource to my current location "..repr(position) )
             end
             
             PSource = LOUDCOPY(position)
@@ -3465,8 +3463,17 @@ Platoon = Class(PlatoonMethods) {
         if PlatoonExists(aiBrain, self) then
         
             -- when about to RTB try to merge into nearby platoons
-            self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false )
+            choice = self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false )
+        
+            if GuardpointDialog then
 
+                if choice then
+                    LOG( body.." merged into prior to RTB on tick "..GetGameTick() )
+                end
+ 
+                LOG( body.." RTB on tick "..GetGameTick() )
+            end
+ 
             return self:SetAIPlan('ReturnToBaseAI',aiBrain)
         end
         
