@@ -588,7 +588,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 6}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 6, [4096] = 6}, TRANSPORTS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1'},
@@ -632,7 +632,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 15, [2048] = 20, [4096] = 28}, TRANSPORTS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 18, [2048] = 24, [4096] = 32}, TRANSPORTS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -717,7 +717,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 24}, TRANSPORTS * categories.TECH3}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 26}, TRANSPORTS * categories.TECH3}},
         },
 
         BuilderType =  {'AirT3'},
