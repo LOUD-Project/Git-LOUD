@@ -702,7 +702,7 @@ StructureUnit = Class(Unit) {
             if EntityCategoryContains( categories.TECH2, finishedUnit ) then
                 
                 checkrate = 14
-                initialdelay = 120
+                initialdelay = 110
                 
             end
 
@@ -797,18 +797,18 @@ StructureUnit = Class(Unit) {
 			if not finishedUnit.UpgradeThread then
                 
                 checkrate = 13.5
-                initialdelay = 65
+                initialdelay = 40
                 
                 if EntityCategoryContains( categories.TECH1, finishedUnit) then
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .72, 1, 1.99, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .66, 1.007, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 else
                 
                     checkrate = 14
-                    initialdelay = 90
+                    initialdelay = 75
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.001, 1.8, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .7, 1.008, 1.8, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
                 end
                 
@@ -834,7 +834,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 16
                 initialdelay = 75
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.003, 1.6, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .75, 1.007, 1.6, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
