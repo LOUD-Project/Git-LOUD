@@ -326,7 +326,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEnergyIncome', { 4000 }},
+            { EBC, 'GreaterThanEnergyIncome', { 8000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 14, 0.3, 1.005 }},
 
