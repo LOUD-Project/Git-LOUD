@@ -773,7 +773,7 @@ function MexUpgradeLimit(aiBrain)
 
                 local T1Mex = table.getn(GetListOfUnits(aiBrain, categories.MASSEXTRACTION * categories.TECH1, false, true))
 
-                if T1Mex > 0 and massIncome < 48 then
+                if T1Mex > 0 and massIncome < 60 then
                     aiBrain.MexUpgrade.T3Limit = 0
                 end
 
