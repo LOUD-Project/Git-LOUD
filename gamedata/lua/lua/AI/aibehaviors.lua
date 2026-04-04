@@ -8740,7 +8740,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
     local econ  = aiBrain.EcoData.OverTime
 
-	local EnergyStorage, MassStorage, extractorCount, skipTrendCheck
+	local EnergyStorage, MassStorage, extractorCount, skipTrendCheck, skipUpgradeLimitCheck
 	
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
         
@@ -8749,6 +8749,44 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         end
  	
 		WaitTicks(checkperiod * 10)
+
+        -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
+        if EntityCategoryContains( categories.FACTORY, unit ) then
+
+            local landOrNaval = EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit)
+
+            -- Land and Naval have similar mass consumption so can be treated the same
+            local factoryType = landOrNaval and "LAND" or "AIR"
+
+            -- Check if maximum number of T2 factory upgrades has been reached
+            if EntityCategoryContains( categories.TECH1, unit ) then
+                local active = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Active"]
+                local limit  = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Limit"]
+
+                if active >= limit then
+                    continue
+                end
+            end
+
+            -- Check if maximum number of T3 factory upgrades has been reached
+            if EntityCategoryContains( categories.TECH2, unit ) then
+                local active = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Active"]
+                local limit  = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Limit"]
+
+                if active >= limit then
+                    continue
+                end
+            end                
+
+            if (aiBrain.CycleTime > 600 and EntityCategoryContains( categories.TECH1, unit )) or
+            (aiBrain.CycleTime > 1800 and EntityCategoryContains( categories.TECH2, unit )) then
+
+                skipTrendCheck = true
+                skipUpgradeLimitCheck = true
+
+            end
+
+        end        
 
         if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
 
@@ -8771,7 +8809,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
         end
 
-        if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
+        if (aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit or skipUpgradeLimitCheck) and (not unit.BeingReclaimed) then
 
 			EnergyStorage   = GetEconomyStored( aiBrain, 'ENERGY')
 			MassStorage     = GetEconomyStored( aiBrain, 'MASS')
@@ -8853,52 +8891,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             MassTrendNeeded     = LOUDMAX(( (MassNeeded / buildtime) * buildrate) - massmade, 0) * .1
             EnergyTrendNeeded   = LOUDMAX(( (EnergyNeeded / buildtime) * buildrate) - enermade, 0) * .1
-
-            -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
-            if EntityCategoryContains( categories.FACTORY, unit ) then
-
-                local landOrNaval = EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit)
-
-                -- Land and Naval have similar mass consumption so can be treated the same
-                local factoryType = landOrNaval and "LAND" or "AIR"
-
-                -- Check if maximum number of T2 factory upgrades has been reached
-                if EntityCategoryContains( categories.TECH1, unit ) then
-                    local active = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Active"]
-                    local limit  = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Limit"]
-
-                    if active >= limit then
-                        continue
-                    end
-                end
-
-                -- Check if maximum number of T3 factory upgrades has been reached
-                if EntityCategoryContains( categories.TECH2, unit ) then
-                    local active = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Active"]
-                    local limit  = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Limit"]
-
-                    if active >= limit then
-                        continue
-                    end
-                end                
-
-                if (aiBrain.CycleTime > 600 and EntityCategoryContains( categories.TECH1, unit )) or
-                (aiBrain.CycleTime > 1800 and EntityCategoryContains( categories.TECH2, unit )) then
-
-                    MassTrendNeeded   = MassTrendNeeded * 0.4
-                    EnergyTrendNeeded = EnergyTrendNeeded * 0.3
-
-                end
-
-            end      
-            
-            -- reduce required trends if T2 mex
-            if EntityCategoryContains( categories.MASSEXTRACTION * categories.TECH2, unit ) then
-
-                MassTrendNeeded   = MassTrendNeeded * 0.8
-                EnergyTrendNeeded = EnergyTrendNeeded * 0.4
-
-            end
             
             --- third check: MASS & ENERGY TRENDS & MAINTENANCE - must support building the item without going negative and any maintenance
             if skipTrendCheck or ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
