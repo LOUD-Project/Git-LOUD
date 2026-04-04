@@ -97,6 +97,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 900,
+
+        InstanceCount = 2,
         
         PriorityFunction = function( self, aiBrain, unit, manager )
 	
@@ -104,7 +106,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 return 0, false
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT3 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, ENERGYT3 ) then
                 return 12, true
             end
             
@@ -116,10 +118,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
         
         BuilderConditions = {
-        
-			{ EBC, 'LessThanEnergyTrend', { 90 }},
+
 			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
-			--{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+
         },
 		
         BuilderType = {'T2'},
@@ -147,6 +148,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 851,
+
+        InstanceCount = 2,
         
         PriorityFunction = function( self, aiBrain, unit, manager )
             
@@ -158,10 +161,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
     
         BuilderConditions = {
+      
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
 
-			{ EBC, 'LessThanEnergyTrend', { 900 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
-			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -169,52 +171,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderData = {
 			DesiresAssist = true,
             NumAssistees = 7,
-            Construction = {
-			
-				NearBasePerimeterPoints = true,
-				ThreatMax = 60,				
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'PowerLayout',
-				
-                BuildStructures = { 'T3EnergyProduction' },
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T3 Power Template - Ramping',
-    
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-        Priority = 851,
-        
-        PriorityFunction = function( self, aiBrain, unit, manager )
-           
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 25, ENERGYT3 - HYDRO ) then
-                return 12, true
-            end
-
-            if not GreaterThanEnergyIncome( aiBrain, 14000 ) then
-                return 12, true
-            end            
-	
-            return (self.OldPriority or self.Priority), true
-        end,
-    
-        BuilderConditions = {
-
-			{ EBC, 'LessThanEnergyTrend', { 900 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
-
-        },
-		
-		BuilderType = { 'T3','SubCommander' },
-		
-        BuilderData = {
-			DesiresAssist = true,
-            NumAssistees = 4,
             Construction = {
 			
 				NearBasePerimeterPoints = true,
@@ -294,12 +250,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'LessThanEnergyTrend', { 900 }},
-			{ EBC, 'LessThanEnergyTrendOverTime', { 800 }},
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
-            
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
+
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
+
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -381,9 +334,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 
 			{ EBC, 'LessThanEnergyTrend', { 300 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-            
-			-- don't build T3 power if one is already being built somewhere else
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, ENERGYT3 - HYDRO }},
         },
