@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 32000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 22000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -228,7 +228,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 2500, 25000 }},
 
@@ -363,7 +363,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 18000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
@@ -480,7 +480,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 20000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 18000 or UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * categories.GATE ) then
             
                 return 12, true
                 
