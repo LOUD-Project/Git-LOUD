@@ -709,7 +709,7 @@ StructureUnit = Class(Unit) {
             -- early T2 factories have a long delay to inhibit T3 rushing
             if aiBrain.CycleTime < 1800 and EntityCategoryContains( categories.TECH2, finishedUnit ) then
 
-                initialdelay = 720
+                initialdelay = 840
 
             end
 
