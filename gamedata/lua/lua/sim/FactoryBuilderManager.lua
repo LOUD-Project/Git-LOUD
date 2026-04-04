@@ -452,7 +452,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local levelReduction = 1
 
 		-- for T2 and T3 before their respective power is up use the previous levels triggers
-		if (factory.BuildLevel == 2 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1500) or
+		if (factory.BuildLevel == 2 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1400) or
 		(factory.BuildLevel == 3 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 8000) then
 			levelReduction = 2
 		end
