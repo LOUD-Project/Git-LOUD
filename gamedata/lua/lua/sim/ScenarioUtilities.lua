@@ -756,7 +756,9 @@ function MexUpgradeLimit(aiBrain)
 
 	local massIncome, energyIncome, massLimit, energyLimit
 
-    while aiBrain.CycleTime < 2700 do
+    while not aiBrain:IsDefeated() do
+
+        local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog or false        
 
         massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
         energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
@@ -781,7 +783,9 @@ function MexUpgradeLimit(aiBrain)
 
         end
 
-        --LOG(aiBrain.Nickname.." T2 "..aiBrain.MexUpgrade.T2Active.."/"..aiBrain.MexUpgrade.T2Limit.." T3 "..aiBrain.MexUpgrade.T3Active.."/"..aiBrain.MexUpgrade.T3Limit.." from income "..massIncome.."/"..energyIncome)
+        if StructureUpgradeDialog then
+            LOG(aiBrain.Nickname.." MexUpgradeLimit T2 "..aiBrain.MexUpgrade.T2Active.."/"..aiBrain.MexUpgrade.T2Limit.." T3 "..aiBrain.MexUpgrade.T3Active.."/"..aiBrain.MexUpgrade.T3Limit.." from income "..massIncome.."/"..energyIncome)
+        end
 
         WaitTicks(100)
 
@@ -812,8 +816,12 @@ function FactoryUpgradeLimit(aiBrain)
 
     while aiBrain.CycleTime < 3600 do
 
-        massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
-        energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
+    while not aiBrain:IsDefeated() do
+
+        local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog or false
+
+        local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
+        local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
 
         for factoryType, techLevels in FactoryUpgradeConsumption do
 
@@ -828,8 +836,10 @@ function FactoryUpgradeLimit(aiBrain)
 
         end
 
-        --LOG(aiBrain.Nickname.." T2 Land "..aiBrain.FactoryUpgrade.T2LANDActive.."/"..aiBrain.FactoryUpgrade.T2LANDLimit.." - T2 Air "..aiBrain.FactoryUpgrade.T2AIRActive.."/"..aiBrain.FactoryUpgrade.T2AIRLimit)
-        --LOG(aiBrain.Nickname.." T3 Land "..aiBrain.FactoryUpgrade.T3LANDActive.."/"..aiBrain.FactoryUpgrade.T3LANDLimit.." - T3 Air "..aiBrain.FactoryUpgrade.T3AIRActive.."/"..aiBrain.FactoryUpgrade.T3AIRLimit.." | from income "..massIncome.."/"..energyIncome)
+        if StructureUpgradeDialog then
+            LOG(aiBrain.Nickname.." FactoryUpgradeLimit T2 Land "..factoryUpgrade.T2LANDActive.."/"..factoryUpgrade.T2LANDLimit.." - T2 Air "..factoryUpgrade.T2AIRActive.."/"..factoryUpgrade.T2AIRLimit
+            .." T3 Land "..factoryUpgrade.T3LANDActive.."/"..factoryUpgrade.T3LANDLimit.." - T3 Air "..factoryUpgrade.T3AIRActive.."/"..factoryUpgrade.T3AIRLimit.." | from income "..massIncome.."/"..energyIncome)
+        end
 
         WaitTicks(150)
 

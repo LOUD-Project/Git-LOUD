@@ -30,6 +30,8 @@ local IsUnitState = moho.unit_methods.IsUnitState
 
 local LOUDLOG10 = math.log10
 local LOUDMAX   = math.max
+local LOUDMIN   = math.min
+local LOUDFLOOR = math.floor
 local LOUDSORT  = table.sort
 local LOUDGETN  = table.getn
 
@@ -333,7 +335,9 @@ end
 -- The minimum of the two limits is taken as it is the bottleneck
 -- If the maximum supported is greater than the current number of this type then LOUD can build more
 function MaxFactoriesFromIncome(aiBrain, factoryType)
-	local incomeRatio = .55
+    local engineerDialog = ScenarioInfo.EngineerDialog or false
+
+	local incomeRatio = .6
 
 	local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
 	local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
@@ -393,9 +397,11 @@ function MaxFactoriesFromIncome(aiBrain, factoryType)
 		maxFactories = 0
 	end
 
-	--LOG(aiBrain.Nickname.." "..techLevel..factoryType.." factory - "..typeCount.."/"..maxFactories..
-	--" | "..massIncome.." mass "..energyIncome.." energy | "
-	--..math.min(aiBrain.LandRatio, 10).." - "..math.min(aiBrain.AirRatio, 10).." - "..math.min(aiBrain.NavalRatio, 10))
+	if engineerDialog then
+		LOG(aiBrain.Nickname.." MaxFactoriesFromIncome "..techLevel..factoryType.." factory - "..typeCount.."/"..maxFactories..
+		" | "..massIncome.." mass "..energyIncome.." energy | "
+		..LOUDMIN(aiBrain.LandRatio, 10).." - "..LOUDMIN(aiBrain.AirRatio, 10).." - "..LOUDMIN(aiBrain.NavalRatio, 10))
+	end
 
 	return maxFactories > typeCount
 
