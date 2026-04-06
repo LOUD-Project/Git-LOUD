@@ -8642,8 +8642,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local masslimit     = .67   --- if we have 67% of the total mass needed - it's ok to upgrade
     local energylimit   = .77   --- and 77% for energy
 
-    if EntityCategoryContains( categories.MASSEXTRACTION - categories.TECH2, unit ) then -- aggressively push T2 & T3+Storage mass upgrades
-        masslimit = .24
+    -- aggressively push mex and factory upgrades to instead rely on limits
+    if EntityCategoryContains( categories.MASSEXTRACTION, unit ) or EntityCategoryContains( categories.FACTORY, unit ) then
+        masslimit = .5
         energylimit = .2
     end
 
@@ -8753,6 +8754,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
         if EntityCategoryContains( categories.FACTORY, unit ) then
 
+            skipTrendCheck = true
+            skipUpgradeLimitCheck = true
+
             local landOrNaval = EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit)
 
             -- Land and Naval have similar mass consumption so can be treated the same
@@ -8776,14 +8780,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 if active >= limit then
                     continue
                 end
-            end                
-
-            if (aiBrain.CycleTime > 600 and EntityCategoryContains( categories.TECH1, unit )) or
-            (aiBrain.CycleTime > 1800 and EntityCategoryContains( categories.TECH2, unit )) then
-
-                skipTrendCheck = true
-                skipUpgradeLimitCheck = true
-
             end
 
         end        
@@ -8791,6 +8787,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
 
             skipTrendCheck = true
+            skipUpgradeLimitCheck = true
 
             -- Check if maximum number of mex upgrades has been reached
             if EntityCategoryContains( categories.TECH1, unit ) then
@@ -8960,6 +8957,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 						IssueUpgrade({unit}, upgradeID)
 
+                        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) then
+                            ForkThread(MexUpgradesActive, aiBrain, unit )
+                        elseif EntityCategoryContains( categories.FACTORY, unit ) then
+                            ForkThread(FactoryUpgradesActive, aiBrain, unit )        
+                        end
+
 						if StructureUpgradeDialog then
 							LOG( body.." UPGRADING TO "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." on tick "..GetGameTick() )
 						end
@@ -9029,12 +9032,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		end
   
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.EntityID)
-                            
-        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) then
-            ForkThread(MexUpgradesActive, aiBrain, unitbeingbuilt )
-        elseif EntityCategoryContains( categories.FACTORY, unit ) then
-            ForkThread(FactoryUpgradesActive, aiBrain, unitbeingbuilt )        
-        end
 
         unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
 
@@ -9135,9 +9132,9 @@ function MexUpgradesActive( aiBrain, unit )
 
     local tech = nil
 
-    if EntityCategoryContains(categories.TECH2, unit) then
+    if EntityCategoryContains(categories.TECH1, unit) then
         tech = "T2"
-    elseif EntityCategoryContains(categories.TECH3, unit) then
+    elseif EntityCategoryContains(categories.TECH2, unit) or EntityCategoryContains(categories.TECH3, unit) then
         tech = "T3"
     else
         return
@@ -9155,7 +9152,7 @@ function MexUpgradesActive( aiBrain, unit )
 
     repeat
         WaitTicks(20)
-    until unit.Dead or moho.entity_methods.GetFractionComplete(unit) >= 1
+    until unit.Dead
 
     aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active - weight.T2
     aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active - weight.T3
@@ -9178,9 +9175,9 @@ function FactoryUpgradesActive( aiBrain, unit )
         return
     end
 
-    if EntityCategoryContains(categories.TECH2, unit) then
+    if EntityCategoryContains(categories.TECH1, unit) then
         tech = "T2"
-    elseif EntityCategoryContains(categories.TECH3, unit) then
+    elseif EntityCategoryContains(categories.TECH2, unit) then
         tech = "T3"
     else
         return
@@ -9201,7 +9198,7 @@ function FactoryUpgradesActive( aiBrain, unit )
 
     repeat
         WaitTicks(20)
-    until unit.Dead or moho.entity_methods.GetFractionComplete(unit) >= 1
+    until unit.Dead
 
     aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] - weight.LAND
     aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] - weight.AIR

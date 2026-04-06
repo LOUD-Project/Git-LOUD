@@ -301,13 +301,14 @@ local FactoryConsumption = {
 }
 
 -- A bias generated to control how many of each type of factory should be built
--- Land and air are clamped to 9 so they're always able to be built to the max the eco will allow
+-- Land and air are clamped so they're always able to be built to the max the eco will allow
+-- Air is clamped lower to maintain a better overall balance
 -- Naval is zeroed when it is not a water map to prevent its early low ratio intefering with land and air
 -- Naval is also zeroed when it is a water map but early on to encourage the 2nd factory build on land
 function StrengthBias(aiBrain)
-	local landRatio = 10 - math.min(aiBrain.LandRatio, 9)
-	local airRatio = 10 - math.min(aiBrain.AirRatio, 9)
-	local navalRatio = 10 - math.min(aiBrain.NavalRatio, 10)
+	local landRatio = 10 - LOUDMIN(aiBrain.LandRatio, 9)
+	local airRatio = 10 - LOUDMIN(aiBrain.AirRatio, 8)
+	local navalRatio = 10 - LOUDMIN(aiBrain.NavalRatio, 10)
 
 	if not aiBrain.IsWaterMap or
 	(aiBrain.IsWaterMap and aiBrain.CycleTime < 360) then
@@ -319,7 +320,7 @@ function StrengthBias(aiBrain)
 		landRatio = 9.989
 	end
 
-	local ratioSum = math.max(0.01, landRatio + airRatio + navalRatio)
+	local ratioSum = LOUDMAX(0.01, landRatio + airRatio + navalRatio)
 
 	return {
 		LAND = landRatio / ratioSum,
@@ -391,7 +392,7 @@ function MaxFactoriesFromIncome(aiBrain, factoryType)
 	massLimit = (massIncome / rate.mass) * incomeRatio * strengthBias[factoryType]
 	energyLimit = (energyIncome / rate.energy) * incomeRatio * strengthBias[factoryType]
 
-	maxFactories = math.floor(math.min(massLimit, energyLimit) + 0.5)
+	maxFactories = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
 
 	if factoryType == 'NAVAL' and not aiBrain.IsWaterMap then
 		maxFactories = 0

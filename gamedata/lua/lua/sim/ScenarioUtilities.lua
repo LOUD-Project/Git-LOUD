@@ -8,6 +8,9 @@ local BrainMethods     = moho.aibrain_methods
 local GetEconomyIncome = BrainMethods.GetEconomyIncome
 local GetListOfUnits   = BrainMethods.GetListOfUnits
 
+local LOUDFLOOR = math.floor
+local LOUDMIN = math.min
+
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 end
@@ -747,7 +750,7 @@ local MexUpgradeConsumption = {
         mass = 8, energy = 48
     },
     T3 = {
-        mass = 16, energy = 110
+        mass = 20, energy = 150 -- using T3+ consumption to provide buffer and slow the power requirement
     },  
 }
 
@@ -768,7 +771,7 @@ function MexUpgradeLimit(aiBrain)
             massLimit = (massIncome / rate.mass) * incomeRatio
             energyLimit = (energyIncome / rate.energy) * incomeRatio
 
-            aiBrain.MexUpgrade[techLevel .. "Limit"] = math.floor(math.min(massLimit, energyLimit) + 0.5)
+            aiBrain.MexUpgrade[techLevel .. "Limit"] = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
 
             -- If the mass income is still developing and there are still T1 mex then prevent T2->T3 upgrades
             if techLevel == 'T3' then
@@ -810,11 +813,13 @@ local FactoryUpgradeConsumption = {
 }
 
 function FactoryUpgradeLimit(aiBrain)
-    local incomeRatio = .1
+    local incomeRatio = .08
 
-	local massIncome, energyIncome, massLimit, energyLimit
+    local cheatValue = aiBrain.CheatValue
+    local T2Threshold = 600 * (1 / cheatValue)
+    local T3Threshold = 1800 * (1 / cheatValue)
 
-    while aiBrain.CycleTime < 3600 do
+    local factoryUpgrade = aiBrain.FactoryUpgrade
 
     while not aiBrain:IsDefeated() do
 
@@ -827,10 +832,22 @@ function FactoryUpgradeLimit(aiBrain)
 
             for techLevel, rate in techLevels do
 
-                massLimit = (massIncome / rate.mass) * incomeRatio
-                energyLimit = (energyIncome / rate.energy) * incomeRatio
+                if techLevel == "T2" and aiBrain.CycleTime < T2Threshold then
 
-                aiBrain.FactoryUpgrade[techLevel..factoryType.."Limit"] = math.floor(math.min(massLimit, energyLimit) + 0.5)
+                    factoryUpgrade[techLevel..factoryType.."Limit"] = 0
+
+                elseif techLevel == "T3" and aiBrain.CycleTime < T3Threshold then
+
+                    factoryUpgrade[techLevel..factoryType.."Limit"] = 0
+
+                else
+
+                    local massLimit = (massIncome / rate.mass) * incomeRatio
+                    local energyLimit = (energyIncome / rate.energy) * incomeRatio                    
+                    
+                    factoryUpgrade[techLevel..factoryType.."Limit"] = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
+
+                end
 
             end
 
