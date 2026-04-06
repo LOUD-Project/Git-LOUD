@@ -9200,6 +9200,9 @@ function FactoryUpgradesActive( aiBrain, unit )
         WaitTicks(20)
     until unit.Dead
 
+    -- A decent sized delay to recover storage levels
+    WaitTicks(450)
+
     aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] - weight.LAND
     aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] - weight.AIR
 
