@@ -229,7 +229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ MIBC, 'GreaterThanGameTime', { 240 } },            
             
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
+            { LUTL, 'AirProductionRatioLessThan', { 4 } },
 
             { LUTL, 'AirStrengthRatioLessThan', { 6 } },
 
@@ -328,7 +328,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
+            { LUTL, 'AirProductionRatioLessThan', { 4 } },
 
             { LUTL, 'LandProductionRatioGreaterThan', { 3 } },
             
@@ -450,7 +450,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         BuilderConditions = {
             
-            { LUTL, 'AirProductionRatioLessThan', { 6 } },
+            { LUTL, 'AirProductionRatioLessThan', { 4 } },
 
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             

@@ -5796,6 +5796,11 @@ function ParseIntelThread( aiBrain )
             -- my air production value divided by (enemy air production value/Number of Opponents)
             aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
             
+            -- if the enemy is not playing AIR then multiply air prod ratio by number of opponents
+            if grandairtot < 1 then
+                aiBrain.AirProdRatio = aiBrain.AirProdRatio * (NumOpponents+1)
+            end
+            
             mylandcount = 0
             mylandidle  = 0
             mylandtot   = 0
@@ -5861,6 +5866,10 @@ function ParseIntelThread( aiBrain )
             mynavaltot = mynavaltot * aiBrain.BuildRateModifier
 
             aiBrain.NavalProdRatio = mynavaltot/(LOUDMAX(NumOpponents,grandnavaltot)/NumOpponents)
+            
+            if grandnavaltot < 1 then
+                aiBrain.NavalProdRatio = aiBrain.NavalProdRatio * (NumOpponents+1)
+            end
 
             -- I have navy production but the enemy is undetected
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
@@ -5875,10 +5884,10 @@ function ParseIntelThread( aiBrain )
             if ReportRatios then
                 LOG("*AI DEBUG ===============================")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
-                LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.3f", myairtot).." -- LAND "..string.format("%.3f",mylandtot).." -- NAVAL "..string.format("%.3f",mynavaltot) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.3f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.3f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.3f",grandnavaltot/NumOpponents) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.3f", aiBrain.AirProdRatio).." - LAND "..string.format("%.3f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalProdRatio) ) 
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.3f", aiBrain.AirRatio).." -- LAND "..string.format("%.3f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..string.format("%.3f",aiBrain.AirBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
                 LOG("*AI DEBUG ===============================")
             end
