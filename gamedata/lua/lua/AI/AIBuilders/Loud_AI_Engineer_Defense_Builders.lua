@@ -2133,9 +2133,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 1000 }},               
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -2232,7 +2230,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 1000 }},
         },
 		
         BuilderType = {'T2','T3'},
