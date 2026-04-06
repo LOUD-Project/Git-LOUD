@@ -1167,7 +1167,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
             end
         end,
 		
-        InstanceCount = 4,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
