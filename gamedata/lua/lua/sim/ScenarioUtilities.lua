@@ -9,7 +9,9 @@ local GetEconomyIncome = BrainMethods.GetEconomyIncome
 local GetListOfUnits   = BrainMethods.GetListOfUnits
 
 local LOUDFLOOR = math.floor
-local LOUDMIN = math.min
+local LOUDMAX   = math.max
+local LOUDMIN   = math.min
+local LOUDGETN  = table.getn
 
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
@@ -755,13 +757,16 @@ local MexUpgradeConsumption = {
 }
 
 function MexUpgradeLimit(aiBrain)
-    local incomeRatio = .45
 
-	local massIncome, energyIncome, massLimit, energyLimit
+    local baseIncomeRatio = aiBrain.IncomeRatio.BaseMexUpgrade
+
+	local incomeRatio, massIncome, energyIncome, massLimit, energyLimit, T1Mex
 
     while not aiBrain:IsDefeated() do
 
         local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog or false        
+
+        incomeRatio  = aiBrain.IncomeRatio.MexUpgrade
 
         massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
         energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
@@ -776,7 +781,12 @@ function MexUpgradeLimit(aiBrain)
             -- If the mass income is still developing and there are still T1 mex then prevent T2->T3 upgrades
             if techLevel == 'T3' then
 
-                local T1Mex = table.getn(GetListOfUnits(aiBrain, categories.MASSEXTRACTION * categories.TECH1, false, true))
+                massLimit = (massIncome / rate.mass) * baseIncomeRatio
+                energyLimit = (energyIncome / rate.energy) * baseIncomeRatio                
+
+                aiBrain.MexUpgrade.T3BaseLimit = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
+
+                T1Mex = LOUDGETN(GetListOfUnits(aiBrain, categories.MASSEXTRACTION * categories.TECH1, false, true))
 
                 if T1Mex > 0 and massIncome < 60 then
                     aiBrain.MexUpgrade.T3Limit = 0
@@ -813,13 +823,13 @@ local FactoryUpgradeConsumption = {
 }
 
 function FactoryUpgradeLimit(aiBrain)
-    local incomeRatio = .08
 
     local cheatValue = aiBrain.CheatValue
     local T2Threshold = 600 * (1 / cheatValue)
     local T3Threshold = 1800 * (1 / cheatValue)
 
     local factoryUpgrade = aiBrain.FactoryUpgrade
+    local incomeRatio
 
     while not aiBrain:IsDefeated() do
 
@@ -832,15 +842,14 @@ function FactoryUpgradeLimit(aiBrain)
 
             for techLevel, rate in techLevels do
 
-                if techLevel == "T2" and aiBrain.CycleTime < T2Threshold then
-
-                    factoryUpgrade[techLevel..factoryType.."Limit"] = 0
-
-                elseif techLevel == "T3" and aiBrain.CycleTime < T3Threshold then
+                if (techLevel == "T2" and aiBrain.CycleTime < T2Threshold)
+                or (techLevel == "T3" and aiBrain.CycleTime < T2Threshold) then
 
                     factoryUpgrade[techLevel..factoryType.."Limit"] = 0
 
                 else
+
+                    incomeRatio = aiBrain.IncomeRatio.FactoryUpgrade
 
                     local massLimit = (massIncome / rate.mass) * incomeRatio
                     local energyLimit = (energyIncome / rate.energy) * incomeRatio                    
@@ -859,6 +868,47 @@ function FactoryUpgradeLimit(aiBrain)
         end
 
         WaitTicks(150)
+
+    end
+
+end
+
+function IncomeRatioBudget(aiBrain)
+
+    local incomeRatio = aiBrain.IncomeRatio
+    local mexUpgrade  = aiBrain.MexUpgrade
+
+    local baseMexUpgrade     = incomeRatio.BaseMexUpgrade
+    local baseFactoryUpgrade = incomeRatio.BaseFactoryUpgrade
+    local baseMaxFactory     = incomeRatio.BaseMaxFactory
+
+    local lowTierMex, surplusRatio
+
+    while not aiBrain:IsDefeated() do
+
+        local ReportRatios = ScenarioInfo.ReportRatios or false
+ 
+        local mexUpgradeSaturation = 1
+
+        lowTierMex = LOUDGETN(GetListOfUnits(aiBrain, categories.MASSEXTRACTION - categories.TECH3, false, true))
+
+        if mexUpgrade.T3BaseLimit ~= 0 then
+            mexUpgradeSaturation = lowTierMex / mexUpgrade.T3BaseLimit
+        end
+
+        incomeRatio.MexUpgrade = LOUDMAX(0.1, LOUDMIN(baseMexUpgrade, baseMexUpgrade * mexUpgradeSaturation))
+
+        surplusRatio = baseMexUpgrade - incomeRatio.MexUpgrade
+
+        incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.8)
+        incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
+
+        if ReportRatios then
+            LOG(aiBrain.Nickname.." IncomeRatioBudget T1+T2/T3 mex: "..lowTierMex.."/"..mexUpgrade.T3BaseLimit.." gives an upgrade saturation: "..mexUpgradeSaturation
+            .." with a surplus ratio of: "..surplusRatio.. " | ratios for maxfac/facup/mexup are now "..incomeRatio.MaxFactory.." / "..incomeRatio.FactoryUpgrade.." / "..incomeRatio.MexUpgrade)
+        end
+
+        WaitTicks(170)
 
     end
 
@@ -1303,10 +1353,23 @@ function InitializeArmies()
                 -- Does the AI have a land connection to any enemy start position?
                 aiBrain.HasLandEnemy = AIHasLandEnemy( aiBrain )
 
+                -- Initialize income ratios
+                local baseMexUpgrade     = .45
+                local baseFactoryUpgrade = .08
+                local baseMaxFactory     = .6
+
+                aiBrain.IncomeRatio = {
+                    BaseMexUpgrade = baseMexUpgrade, MexUpgrade = baseMexUpgrade,
+                    BaseFactoryUpgrade = baseFactoryUpgrade, FactoryUpgrade = baseFactoryUpgrade,
+                    BaseMaxFactory = baseMaxFactory, MaxFactory = baseMaxFactory
+                }
+
+                ForkThread( IncomeRatioBudget, aiBrain )
+
                 -- Initialize mex upgrade limits
                 aiBrain.MexUpgrade = {
                     T2Active = 0, T3Active = 0,
-                    T2Limit  = 0, T3Limit  = 0
+                    T2Limit  = 0, T3Limit  = 0, T3BaseLimit = 0
                 }
 
                 ForkThread( MexUpgradeLimit, aiBrain )

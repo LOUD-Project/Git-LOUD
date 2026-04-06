@@ -338,7 +338,7 @@ end
 function MaxFactoriesFromIncome(aiBrain, factoryType)
     local engineerDialog = ScenarioInfo.EngineerDialog or false
 
-	local incomeRatio = .6
+	local incomeRatio = aiBrain.IncomeRatio.MaxFactory
 
 	local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
 	local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
