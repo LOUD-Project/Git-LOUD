@@ -1366,12 +1366,12 @@ Platoon = Class(PlatoonMethods) {
 	
 	-- Finds a base to return to & disband
 	ReturnToBaseAI = function( self, aiBrain )
-    
-        local RTBDialog = false
-        local dialog = "* AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance)
 
         local EngineerDialog    = ScenarioInfo.EngineerDialog    
         local NameEngineers     = ScenarioInfo.NameEngineers
+    
+        local RTBDialog = false
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance)
 	
 		-- since RTB always deals with MOBILE units we use the Entity based GetPosition
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
@@ -1528,7 +1528,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 		
 		if RTBDialog then
-			LOG( dialog.." RTBAI to "..repr(RTBLocation).." at tick "..GetGameTick() )
+			LOG( dialog.." to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
 		local lastpos = { 0, 0, 0 }
@@ -1592,7 +1592,7 @@ Platoon = Class(PlatoonMethods) {
             
 				if (not bestBase) and aiBrain.BuilderManagers['MAIN'] then
 			
-					LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." Couldn't find base "..repr(RTBLocation).." - using MAIN")
+					LOG( dialog.." Couldn't find base "..repr(RTBLocation).." - using MAIN")
 				
 					bestBase = aiBrain.BuilderManagers['MAIN']
 					bestBaseName = 'MAIN'
@@ -1629,7 +1629,7 @@ Platoon = Class(PlatoonMethods) {
             RTBLocation[2] = GetTerrainHeight( RTBLocation[1], RTBLocation[3] )
 			transportLocation[2] = GetTerrainHeight(transportLocation[1],transportLocation[3])
 		else
-            LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI reports no platoon position or no bases")
+            LOG( dialog.." reports no platoon position or no bases")
 			
             IssueClearCommands( GetPlatoonUnits(self) )
 
@@ -1639,7 +1639,7 @@ Platoon = Class(PlatoonMethods) {
 		distance = VDist3( platPos, RTBLocation )
 		
 		if RTBDialog then
-			LOG( dialog.." RTBAI distance is "..string.format("%.1f",distance) )
+			LOG( dialog.." distance is "..string.format("%.1f",distance) )
 		end
 
         UseFormation = 'GrowthFormation'
@@ -1676,6 +1676,7 @@ Platoon = Class(PlatoonMethods) {
             
             -- markers might be quite a bit further away on larger maps
             -- this adds some extra distance for larger maps
+            -- just a note - PlatoonGenerateSafePath adds even more to the basic markerradius
             markerradius = markerradius + (ScenarioInfo.IMAPSize/4)
 
             IssueClearCommands( GetPlatoonUnits(self) )
@@ -1686,7 +1687,7 @@ Platoon = Class(PlatoonMethods) {
                 reason = 'Direct'
 
                 if RTBDialog then
-                    LOG( dialog.." RTBAI gets direct path "..repr(path) )
+                    LOG( dialog.." gets direct path "..repr(path) )
                 end
 
             else 
@@ -1729,7 +1730,7 @@ Platoon = Class(PlatoonMethods) {
 			if path then
 
                 if RTBDialog then
-                    LOG( dialog.." RTBAI executes path movement "..repr(path) )
+                    LOG( dialog.." executes path movement "..repr(path) )
                 end
 
 				if PlatoonExists(aiBrain, self) then
@@ -1745,7 +1746,7 @@ Platoon = Class(PlatoonMethods) {
 				usedTransports = false
 
                 if RTBDialog then				
-                    LOG( dialog.." RTBAI gets NO path "..repr(path))
+                    LOG( dialog.." gets NO "..MovementLayer.." path from "..repr(platPos).." using "..markerradius.." radius - path result is "..repr(path))
                 end
 
 				-- try to use transports --
@@ -1795,7 +1796,7 @@ Platoon = Class(PlatoonMethods) {
         while (not count) and PlatoonExists(aiBrain, self) and distance > rtbdistance do
 
             if RTBDialog then
-                LOG( dialog.." RTBAI cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
+                LOG( dialog.." cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
             end
 
             merged = false
@@ -1916,7 +1917,7 @@ Platoon = Class(PlatoonMethods) {
 					StuckCount = StuckCount + 1
 
                     if RTBDialog then                    
-                        LOG( dialog.." RTBAI appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
+                        LOG( dialog.." appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
                     end
 				else
 					lastpos[1] = platPos[1]
@@ -1924,7 +1925,7 @@ Platoon = Class(PlatoonMethods) {
                     lastpos[3] = platPos[3]
                     
                     if StuckCount > 0 and RTBDialog then
-                        LOG( dialog.." RTBAI appears to have moved "..VDist3Sq( lastpos, platPos) )
+                        LOG( dialog.." appears to have moved "..VDist3Sq( lastpos, platPos) )
                     end
 
 					StuckCount = 0
@@ -2024,8 +2025,8 @@ Platoon = Class(PlatoonMethods) {
 
             if bases[bestBase.BaseName].EngineerManager.Active then
 
-                if RTBDialog then
-                    LOG( dialog.." RTBAI cycle "..cyclecount.."  appears to have arrived on tick "..GetGameTick() )		
+                if RTBDialog and cyclecount > 0 then
+                    LOG( dialog.." cycle "..cyclecount.."  appears to arrive on tick "..GetGameTick() )		
                 end
 
                 if self.MoveThread then
@@ -7240,7 +7241,7 @@ Platoon = Class(PlatoonMethods) {
         end
     
         local EngineerDialog = ScenarioInfo.EngineerDialog
-        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Eng "..repr(eng.EntityID).." EBAI"
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..repr(eng.EntityID).." EBAI "..self.BuilderName
 
         if EngineerDialog then
             LOG( dialog.." starts on tick "..GetGameTick() )
@@ -8069,7 +8070,7 @@ Platoon = Class(PlatoonMethods) {
 		local aiBrain = GetAIBrain(eng)
 
         local EngineerDialog = ScenarioInfo.EngineerDialog or false
-        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Eng "..eng.EntityID
+        local dialog = "*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." Eng "..eng.EntityID.." "..self.BuilderName
 
         if EngineerDialog then
             LOG( dialog.." enters ProcessBuildCommand on tick "..GetGameTick() )
@@ -8261,7 +8262,7 @@ Platoon = Class(PlatoonMethods) {
 			local function EngineerTryReclaimCaptureArea( test )
 
                 if EngineerDialog then
-                    LOG( dialog.." trys reclaiming"..repr(test).." for buildPosition "..repr(buildPosition).." on tick "..GetGameTick() )
+                    LOG( dialog.." trys reclaiming "..repr(test).." for buildPosition "..repr(buildPosition).." on tick "..GetGameTick() )
                 end                
 
 				buildPosition[2] = GetTerrainHeight(buildLocation[1],buildLocation[2])
@@ -8358,6 +8359,10 @@ Platoon = Class(PlatoonMethods) {
 
 			local function EngineerTryRepair()
 
+                if EngineerDialog then
+                    LOG( dialog.." trys repair for buildPosition "..repr(buildPosition).." on tick "..GetGameTick() )
+                end                
+
 				for _,v in GetUnitsAroundPoint( aiBrain, STRUCTURES, buildPosition, 1, 'Ally' ) do
 			
 					if not v.Dead and GetFractionComplete(v) < 1 then
@@ -8378,6 +8383,8 @@ Platoon = Class(PlatoonMethods) {
 				if not eng.IssuedBuildCommand then
 					return false
 				end
+                
+                return true
 			end
 
 			-- this is a bit different than the MovePlatoon function 
@@ -8742,17 +8749,17 @@ Platoon = Class(PlatoonMethods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, NewBaseName, NewBasePos, eng, eng.NewExpansion[3] ) then
                                 
-                               		if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
+                               		--if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
                                         LOG( dialog.." creates new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
                                         LOG( dialog.." presently at "..repr(eng:GetPosition()))
-                                    end
+                                    --end
 									
 									self.LocationType = NewBaseName
 									self.RTBLocation = NewBasePos
                                     
 								else
 									
-									WARN( dialog.." failed to start new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
+									LOG( dialog.." failed to start new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
 
 									-- clear the expansion data
 									eng.NewExpansion = nil
