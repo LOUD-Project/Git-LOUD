@@ -1,7 +1,7 @@
 --  scenarioutilities.lua
 
-local loudUtils = import('/lua/loudutilities.lua')
-local MIBC = import('/lua/editor/MiscBuildConditions.lua')
+local loudUtils  = import('/lua/loudutilities.lua')
+local ECOM = import('/lua/AI/EcoManager.lua')
 
 local BrainMethods     = moho.aibrain_methods
 
@@ -747,173 +747,6 @@ function CreateResources()
 	
 end
 
-local MexUpgradeConsumption = {
-    T2 = {
-        mass = 8, energy = 48
-    },
-    T3 = {
-        mass = 20, energy = 150 -- using T3+ consumption to provide buffer and slow the power requirement
-    },  
-}
-
-function MexUpgradeLimit(aiBrain)
-
-    local baseIncomeRatio = aiBrain.IncomeRatio.BaseMexUpgrade
-
-	local incomeRatio, massIncome, energyIncome, massLimit, energyLimit, T1Mex
-
-    while not aiBrain:IsDefeated() do
-
-        local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog or false        
-
-        incomeRatio  = aiBrain.IncomeRatio.MexUpgrade
-
-        massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
-        energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
-
-        for techLevel, rate in MexUpgradeConsumption do
-
-            massLimit = (massIncome / rate.mass) * incomeRatio
-            energyLimit = (energyIncome / rate.energy) * incomeRatio
-
-            aiBrain.MexUpgrade[techLevel .. "Limit"] = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
-
-            -- If the mass income is still developing and there are still T1 mex then prevent T2->T3 upgrades
-            if techLevel == 'T3' then
-
-                massLimit = (massIncome / rate.mass) * baseIncomeRatio
-                energyLimit = (energyIncome / rate.energy) * baseIncomeRatio                
-
-                aiBrain.MexUpgrade.T3BaseLimit = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
-
-                T1Mex = LOUDGETN(GetListOfUnits(aiBrain, categories.MASSEXTRACTION * categories.TECH1, false, true))
-
-                if T1Mex > 0 and massIncome < 60 then
-                    aiBrain.MexUpgrade.T3Limit = 0
-                end
-
-            end
-
-        end
-
-        if StructureUpgradeDialog then
-            LOG(aiBrain.Nickname.." MexUpgradeLimit T2 "..aiBrain.MexUpgrade.T2Active.."/"..aiBrain.MexUpgrade.T2Limit.." T3 "..aiBrain.MexUpgrade.T3Active.."/"..aiBrain.MexUpgrade.T3Limit.." from income "..massIncome.."/"..energyIncome)
-        end
-
-        WaitTicks(100)
-
-    end
-
-end
-
--- factory upgrade consumption rates
-local FactoryUpgradeConsumption = {
-    LAND = {
-        T2 = { mass = 13, energy = 145 },
-        T3 = { mass = 25, energy = 229 },
-    },
-    AIR = {
-        T2 = { mass = 7, energy = 145 },
-        T3 = { mass = 12, energy = 254 },
-    },
-    NAVAL = {
-        T2 = { mass = 14, energy = 81 },
-        T3 = { mass = 25, energy = 108 },
-    }
-}
-
-function FactoryUpgradeLimit(aiBrain)
-
-    local cheatValue = aiBrain.CheatValue
-    local T2Threshold = 600 * (1 / cheatValue)
-    local T3Threshold = 1800 * (1 / cheatValue)
-
-    local factoryUpgrade = aiBrain.FactoryUpgrade
-    local incomeRatio
-
-    while not aiBrain:IsDefeated() do
-
-        local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog or false
-
-        local massIncome   = GetEconomyIncome( aiBrain, 'MASS') * 10
-        local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY') * 10
-
-        for factoryType, techLevels in FactoryUpgradeConsumption do
-
-            for techLevel, rate in techLevels do
-
-                if (techLevel == "T2" and aiBrain.CycleTime < T2Threshold)
-                or (techLevel == "T3" and aiBrain.CycleTime < T2Threshold) then
-
-                    factoryUpgrade[techLevel..factoryType.."Limit"] = 0
-
-                else
-
-                    incomeRatio = aiBrain.IncomeRatio.FactoryUpgrade
-
-                    local massLimit = (massIncome / rate.mass) * incomeRatio
-                    local energyLimit = (energyIncome / rate.energy) * incomeRatio                    
-                    
-                    factoryUpgrade[techLevel..factoryType.."Limit"] = LOUDFLOOR(LOUDMIN(massLimit, energyLimit) + 0.5)
-
-                end
-
-            end
-
-        end
-
-        if StructureUpgradeDialog then
-            LOG(aiBrain.Nickname.." FactoryUpgradeLimit T2 Land "..factoryUpgrade.T2LANDActive.."/"..factoryUpgrade.T2LANDLimit.." - T2 Air "..factoryUpgrade.T2AIRActive.."/"..factoryUpgrade.T2AIRLimit
-            .." T3 Land "..factoryUpgrade.T3LANDActive.."/"..factoryUpgrade.T3LANDLimit.." - T3 Air "..factoryUpgrade.T3AIRActive.."/"..factoryUpgrade.T3AIRLimit.." | from income "..massIncome.."/"..energyIncome)
-        end
-
-        WaitTicks(150)
-
-    end
-
-end
-
-function IncomeRatioBudget(aiBrain)
-
-    local incomeRatio = aiBrain.IncomeRatio
-    local mexUpgrade  = aiBrain.MexUpgrade
-
-    local baseMexUpgrade     = incomeRatio.BaseMexUpgrade
-    local baseFactoryUpgrade = incomeRatio.BaseFactoryUpgrade
-    local baseMaxFactory     = incomeRatio.BaseMaxFactory
-
-    local lowTierMex, surplusRatio
-
-    while not aiBrain:IsDefeated() do
-
-        local ReportRatios = ScenarioInfo.ReportRatios or false
- 
-        local mexUpgradeSaturation = 1
-
-        lowTierMex = LOUDGETN(GetListOfUnits(aiBrain, categories.MASSEXTRACTION - categories.TECH3, false, true))
-
-        if mexUpgrade.T3BaseLimit ~= 0 then
-            mexUpgradeSaturation = lowTierMex / mexUpgrade.T3BaseLimit
-        end
-
-        incomeRatio.MexUpgrade = LOUDMAX(0.1, LOUDMIN(baseMexUpgrade, baseMexUpgrade * mexUpgradeSaturation))
-
-        surplusRatio = baseMexUpgrade - incomeRatio.MexUpgrade
-
-        incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.8)
-        incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
-
-        if ReportRatios then
-            LOG(aiBrain.Nickname.." IncomeRatioBudget T1+T2/T3 mex: "..lowTierMex.."/"..mexUpgrade.T3BaseLimit.." gives an upgrade saturation: "..mexUpgradeSaturation
-            .." with a surplus ratio of: "..surplusRatio.. " | ratios for maxfac/facup/mexup are now "..incomeRatio.MaxFactory.." / "..incomeRatio.FactoryUpgrade.." / "..incomeRatio.MexUpgrade)
-        end
-
-        WaitTicks(170)
-
-    end
-
-end
-
 -- check if terrain at the current coord is below water level, if below it is not passable by land
 -- next check if the terrain at the current coord is a coastline, if so it is not passable to act as a buffer
 -- then check if the slope of nearby terrain, if difference too large it is not passable by land
@@ -1364,7 +1197,7 @@ function InitializeArmies()
                     BaseMaxFactory = baseMaxFactory, MaxFactory = baseMaxFactory
                 }
 
-                ForkThread( IncomeRatioBudget, aiBrain )
+                ForkThread( ECOM.IncomeRatioBudget, aiBrain )
 
                 -- Initialize mex upgrade limits
                 aiBrain.MexUpgrade = {
@@ -1372,7 +1205,7 @@ function InitializeArmies()
                     T2Limit  = 0, T3Limit  = 0, T3BaseLimit = 0
                 }
 
-                ForkThread( MexUpgradeLimit, aiBrain )
+                ForkThread( ECOM.MexUpgradeLimit, aiBrain )
 
                 -- Initialize factory upgrade limits
                 aiBrain.FactoryUpgrade = {
@@ -1382,7 +1215,16 @@ function InitializeArmies()
                     T3LANDLimit  = 0, T3AIRLimit  = 0
                 }
 
-                ForkThread( FactoryUpgradeLimit, aiBrain )
+                ForkThread( ECOM.FactoryUpgradeLimit, aiBrain )
+
+                -- Initialize factory build limits
+                aiBrain.MaxFactory = {
+                    LANDCount  = 0, LANDLimit  = 0,
+                    AIRCount   = 0, AIRLimit   = 0,
+                    NAVALCount = 0, NAVALLimit = 0,
+                }
+
+                ForkThread( ECOM.MaxFactoryLimit, aiBrain )
                 
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
