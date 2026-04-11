@@ -147,7 +147,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         PriorityFunction = AboveUnitCap75,
         
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
 
 			{ EBC, 'NeedFactory', { 'LAND' }},
 
@@ -182,7 +182,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 3 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 2 } },
 
 			{ EBC, 'NeedFactory', { 'AIR' }},
 
