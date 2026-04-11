@@ -1519,11 +1519,22 @@ function SetPrimaryLandAttackBase( aiBrain )
         
             if aiBrain.PrimaryLandAttackBase then
             
-                if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                local base = aiBrain.PrimaryLandAttackBase
+                
+                if aiBrain.BuilderManagers[base].LandMode != currentlandbasemode then
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(base).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                
+                    if aiBrain.BuilderManagers[base].MarkerID then
+
+                        ForkThread( RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[base].MarkerID)
+
+                        aiBrain.BuilderManagers[base].MarkerID = nil
+                    end
+   
                 end
             
-                aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
+                aiBrain.BuilderManagers[base].LandMode = currentlandbasemode
             end
 
         end
@@ -3452,6 +3463,8 @@ function DeadBaseMonitor( aiBrain )
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or BM[k].MarkerID then
 						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
+                        
+                        BM[k].MarkerID = nil
 					end
 
 					-- remove base from table
