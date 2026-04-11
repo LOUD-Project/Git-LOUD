@@ -6105,6 +6105,11 @@ Platoon = Class(PlatoonMethods) {
             local terrainfunction = GetTerrainHeight
             local deviation = 3.6
             
+            if MovementLayer == 'Amphibious' then
+                terrainfunction = GetSurfaceHeight
+                deviation = 4.0
+            end
+              
             if MovementLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight
                 deviation = 0.5
