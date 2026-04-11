@@ -703,19 +703,19 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
     elseif techLevel == 'Tech2' then
 	
         catCheck = T2
-        capmult = 300
+        capmult = 400
         caplimit = 3
 		
     elseif techLevel == 'Tech3' then
 	
         catCheck = T3
-        capmult = 250
+        capmult = 350
         caplimit = 5
 		
     elseif techLevel == 'SCU' then
 	
         catCheck = SUBCOMMANDER
-        capmult = 200
+        capmult = 300
         caplimit = 10
 		
     else
