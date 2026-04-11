@@ -1313,7 +1313,11 @@ ExpansionLayout_II = {
         },
         {{'T4TeleportNode'},
             { -1,-2 },
-        },        
+        },
+        {{'T2EnergyProduction'},
+            {-15,-15 },
+            { 15,-15 },
+        },		        
 		{{'T3EnergyProduction'},
 			{  0,-16 }, # inner cardinals
 			{ 16,  0 },

@@ -187,7 +187,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
-                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T2Radar',
+                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T2EnergyProduction','T2Radar',
 					'T1GroundDefense',
 					'T1GroundDefense',
 					'T1GroundDefense',
@@ -541,6 +541,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				
                 BuildStructures = { 'T2GroundDefense', 'T2AADefense',
                     'T2AirStagingPlatform',
+                    'T2EnergyProduction',
                     'T2Radar',
                     'T2GroundDefense',
                     'T2AADefense',

@@ -314,7 +314,50 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
             }
         }
     },    
+
+    Builder {BuilderName = 'T2 Power Template - Expansion',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 750,
+
+        InstanceCount = 1,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
 	
+            if HaveGreaterThanUnitsWithCategory( aiBrain, 0, ENERGYT3 ) then
+                return 0, false
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+        
+        BuilderConditions = {
+
+			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
+
+        },
+		
+        BuilderType = {'T2'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 3,
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 75,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+                BuildStructures = { 'T2EnergyProduction' },
+            }
+        }
+    },    
+
     Builder {BuilderName = 'T3 Power Template - Expansion',
     
         PlatoonTemplate = 'EngineerBuilder',
