@@ -1,4 +1,21 @@
-### Release
+### Release 04-11-2026
+
+LUA 8.09
+
+- refined the production ratios to respond more effectively when the opponent ignores a certain arm (AIR or NAVAL)
+    -- AIR & NAVAL production ratios are multiplied by the number of opponents when no production is detected in that arm
+    -- addition of new air factories is now restricted when the air production ratio > 4 (previously 6)
+- a minor cheat buff to movement speed (.3) for engineers when outnumbered
+- better recognition of an amphibious presentation allows me to limit or entirely stop standard land unit production
+    -- this responds better in conditions where airtransports have been restricted
+    -- takes advantage of 'land mode' indication to control production focus of amphibious units, reducing build up of non-amphib units at rear positions
+- a fix for amphibious pathfinding that was having trouble with steep coastal slopes
+- improved AI Debug base naming function to indicate 'land mode' and switch the display if the mode changes
+
+
+
+
+### Release 04-04-2026
 
 LUA 8.08
 
