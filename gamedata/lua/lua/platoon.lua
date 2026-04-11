@@ -980,6 +980,11 @@ Platoon = Class(PlatoonMethods) {
             local terrainfunction = GetTerrainHeight
             local deviation = 3.6
             
+            if platoonLayer == 'Amphibious' then
+                terrainfunction = GetSurfaceHeight
+                deviation = 4.0
+            end
+            
             if platoonLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight
                 deviation = 0.5
@@ -1002,6 +1007,7 @@ Platoon = Class(PlatoonMethods) {
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
 
+                -- only true Water layer platoons can be marked as 'InWater'
                 InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) -1 )
 
                 nextpos[1] = pos[1] - (xstep * i)
@@ -1010,13 +1016,17 @@ Platoon = Class(PlatoonMethods) {
 
                 -- if more than deviation ogrids change in height over 8 ogrids distance
 				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
+
+                    if PathFindingDialog then
+                        LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(lastpos).." and "..repr(nextpos) )
+                    end
                     
                     badstepcount = badstepcount + 1
                     
                     if badstepcount > 1 then
 
                         if PathFindingDialog then
-                            LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos) )
+                            LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos).." using deviation of "..deviation.." layer is "..platoonLayer )
                         end
 
                         return true
