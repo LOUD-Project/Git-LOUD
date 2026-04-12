@@ -256,11 +256,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 1000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 105 }},
         },
@@ -291,16 +287,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 740,
+        Priority = 744,
 		
 		InstanceCount = 4,
 		
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 5000 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -392,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 740,
+        Priority = 746,
 		
 		InstanceCount = 4,
 		
