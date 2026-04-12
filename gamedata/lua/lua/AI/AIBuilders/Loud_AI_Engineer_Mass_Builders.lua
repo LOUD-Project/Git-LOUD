@@ -326,7 +326,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEnergyIncome', { 8000 }},
+            { EBC, 'GreaterThanEnergyIncome', { 6000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 14, 0.3, 1.005 }},
 
@@ -362,7 +362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
             
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 32000 then
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 24000 and aiBrain.IncomeRatio.MexUpgrade > 0.2 then
             
                 return 12, true
                 
@@ -374,11 +374,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		BuilderType = { 'T3','SubCommander' },
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .9 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 30, 0.3, 1.025 }},
 
@@ -392,7 +390,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         BuilderData = {
         
 			DesiresAssist = true,
-            NumAssistees = 2,
+            NumAssistees = 4,
 
             Construction = {
 				NearBasePerimeterPoints = true,

@@ -93,7 +93,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         
         BuilderConditions = {
 
-            { LUTL, 'UnitCapCheckLess', { .9 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},
             { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.SUBCOMMANDER }},
