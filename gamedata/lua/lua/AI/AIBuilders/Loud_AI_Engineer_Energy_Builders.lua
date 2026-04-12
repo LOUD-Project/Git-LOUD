@@ -162,7 +162,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
     
         BuilderConditions = {
       
-			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 5000 }},
 
         },
 		
@@ -369,14 +369,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .9 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
-
-			{ EBC, 'LessThanEnergyTrend', { 300 }},			
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+		
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, ENERGYT3 - HYDRO }},
         },
