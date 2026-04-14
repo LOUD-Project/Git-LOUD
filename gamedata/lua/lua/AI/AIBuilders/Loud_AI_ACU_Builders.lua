@@ -492,7 +492,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 1000 }},
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION - TECH1, ENGINEER + MASSPRODUCTION, 36 }},
         },

@@ -119,7 +119,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		
         Priority = 845,
 
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderType = { 'T1' },
 		
