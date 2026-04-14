@@ -119,6 +119,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+
 			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
 
         },
@@ -335,6 +337,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
         end,
         
         BuilderConditions = {
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
 
 			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
 
