@@ -37,8 +37,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 }, 	-- back middle last to prevent blocking small base quantum gateway
         },
 
         {{'T1AirFactory'},
@@ -70,8 +68,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },     -- back middle 
         },
 		{{'T3QuantumGate','T4TeleportNode'},
 			{ 0, 0 },
@@ -111,8 +107,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 
         {{'T1AirFactory'},
@@ -144,8 +138,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 		{{'T3QuantumGate','T4TeleportNode'},
 			{ 0, 0 },
@@ -182,8 +174,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 
         {{'T1AirFactory'},
@@ -215,8 +205,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 		{{'T3QuantumGate','T4TeleportNode'},
 			{ 0, 0 },
@@ -253,8 +241,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 
         {{'T1AirFactory'},
@@ -286,8 +272,6 @@ FactoryLayout = {
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
-
-			{  0,-18 },
         },
 		{{'T3QuantumGate','T4TeleportNode'},
 			{ 0, 0 },
