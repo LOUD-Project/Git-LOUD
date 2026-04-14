@@ -8408,9 +8408,9 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
             continue
         end
 
-        -- T3 factories will wait until soft unit cap reached before enhancing
+        -- T3 factories will wait until 1hr before enhancing, but will start earlier if soft unit cap reached
         if EntityCategoryContains( categories.FACTORY * categories.TECH3, unit ) and
-        GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) < .85 then
+        (aiBrain.CycleTime < 3600 and GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) < .85) then
             continue
         end
 
