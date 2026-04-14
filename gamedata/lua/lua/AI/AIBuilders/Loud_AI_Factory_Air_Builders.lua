@@ -99,9 +99,9 @@ local HaveLessThanT2IncomeRate = function( self, aiBrain )
 	
 end
 
-local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
+local HaveLessThanFourT3AirFactory = function( self, aiBrain )
 
-    if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) >= 3 then
+    if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) >= 4 then
 
         return 0, false
 
@@ -185,7 +185,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
 
         Priority = 600,
         
-        PriorityFunction = HaveLessThanThreeT3AirFactory,
+        PriorityFunction = HaveLessThanFourT3AirFactory,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -270,7 +270,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
@@ -289,7 +289,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
@@ -346,7 +346,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
@@ -383,7 +383,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		PriorityFunction = HaveLessThanFourT3AirFactory,
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
