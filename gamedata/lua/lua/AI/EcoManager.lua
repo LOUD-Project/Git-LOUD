@@ -88,8 +88,11 @@ function IncomeRatioBudget(aiBrain)
 
         surplusRatio = baseMexUpgrade - incomeRatio.MexUpgrade
 
-        incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.8)
-        incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
+        -- only rebudget in T3 when mass is high
+        if aiBrain.TechLevel == 'T3' and GetEconomyIncome(aiBrain, 'MASS') * 10 >= 600 then
+            incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.8)
+            incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
+        end
 
         if ReportRatios then
             LOG(aiBrain.Nickname.." IncomeRatioBudget T1+T2/T3 mex: "..lowTierMex.."/"..mexUpgrade.T3BaseLimit.." gives an upgrade saturation: "..mexUpgradeSaturation
@@ -251,8 +254,6 @@ function MaxFactoryLimit(aiBrain)
 
     local maxFactory = aiBrain.MaxFactory
 
-	local currentTechLevel
-
     while not aiBrain:IsDefeated() do 
 
         local engineerDialog = ScenarioInfo.EngineerDialog or false
@@ -282,9 +283,9 @@ function MaxFactoryLimit(aiBrain)
                     count.NAVAL = count.NAVAL + 1
                 end
 
-                if EntityCategoryContains(categories.TECH2, factory) then
+                if aiBrain.TechLevel == 'T1' and EntityCategoryContains(categories.TECH2, factory) then
                     count.T2 = count.T2 + 1                
-                elseif EntityCategoryContains(categories.TECH3, factory) then
+                elseif aiBrain.TechLevel == 'T2' and EntityCategoryContains(categories.TECH3, factory) then
                     count.T3 = count.T3 + 1
                 end
 
@@ -293,17 +294,19 @@ function MaxFactoryLimit(aiBrain)
         end
 
         -- Determine current tech level based upon T2 & T3 count
-        if count.T3 > 0 then
-            currentTechLevel = 'T3'
-        elseif count.T2 > 0 then
-            currentTechLevel = 'T2'
-        else
-            currentTechLevel = 'T1'
+        if aiBrain.TechLevel ~= 'T3' then
+
+            if aiBrain.TechLevel == 'T1' and count.T2 > 1 then
+                aiBrain.TechLevel = 'T2'
+            elseif aiBrain.TechLevel == 'T2' and count.T3 > 0 then
+                aiBrain.TechLevel = 'T3'
+            end
+
         end
 
         for factoryType, techLevels in FactoryBuildConsumption do
 
-            local rate = techLevels[currentTechLevel]
+            local rate = techLevels[aiBrain.TechLevel]
 
             local massLimit = (massIncome / rate.mass) * incomeRatio * strengthBias[factoryType]
             local energyLimit = (energyIncome / rate.energy) * incomeRatio * strengthBias[factoryType]                   
@@ -317,16 +320,10 @@ function MaxFactoryLimit(aiBrain)
         if count.LAND + count.AIR == 0 then
             maxFactory.LANDLimit = 1
             maxFactory.AIRLimit  = 1
-        end
-
-        local result = 0
-
-        for k,v in aiBrain.BuilderManagers do
-            result = result + EntityCategoryCount( categories.AIR, v.FactoryManager.FactoryList )
         end  
 
         if engineerDialog then
-            LOG(aiBrain.Nickname.." MaxFactoryLimit - In "..currentTechLevel.." - Land "..maxFactory.LANDCount.."/"..maxFactory.LANDLimit..
+            LOG(aiBrain.Nickname.." MaxFactoryLimit - In "..aiBrain.TechLevel.." - Land "..maxFactory.LANDCount.."/"..maxFactory.LANDLimit..
             " Air "..maxFactory.AIRCount.."/"..maxFactory.AIRLimit.." Naval "..maxFactory.NAVALCount.."/"..maxFactory.NAVALLimit..
             " | "..string.format("%.0f", massIncome).." mass "..string.format("%.0f", energyIncome).." energy | "
             ..string.format("%.2f", LOUDMIN(aiBrain.LandRatio, 10)).." - "..string.format("%.2f", LOUDMIN(aiBrain.AirRatio, 10)).." - "..string.format("%.2f", LOUDMIN(aiBrain.NavalRatio, 10)))

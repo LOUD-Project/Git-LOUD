@@ -1191,6 +1191,8 @@ function InitializeArmies()
                 local baseFactoryUpgrade = .08
                 local baseMaxFactory     = .6
 
+                aiBrain.TechLevel = 'T1'
+
                 aiBrain.IncomeRatio = {
                     BaseMexUpgrade = baseMexUpgrade, MexUpgrade = baseMexUpgrade,
                     BaseFactoryUpgrade = baseFactoryUpgrade, FactoryUpgrade = baseFactoryUpgrade,
