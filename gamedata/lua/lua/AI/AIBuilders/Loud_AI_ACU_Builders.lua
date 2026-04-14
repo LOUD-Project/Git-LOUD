@@ -778,8 +778,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 			if self.Priority != 0 then
 
-				-- remove after 30 minutes
-				if aiBrain.CycleTime > 1800 then
+				-- remove after 15 minutes
+				if aiBrain.CycleTime > 900 then
 					return 0, false
 				end
 				
@@ -844,6 +844,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end            
 		
             return CDRbuildsT2(self, aiBrain, unit)
             

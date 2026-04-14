@@ -153,8 +153,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
 			if builder.Priority != 0 then
 
-				-- remove after 25 minutes
-				if aiBrain.CycleTime > 1500 then
+				-- remove after 15 minutes
+				if aiBrain.CycleTime > 900 then
 					return 0, false
 				end
         
@@ -236,8 +236,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
 			if builder.Priority != 0 then
 
-				-- remove after 25 minutes
-				if aiBrain.CycleTime > 1500 then
+				-- remove after 15 minutes
+				if aiBrain.CycleTime > 900 then
 					return 0, false
 				end
                 
@@ -321,6 +321,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end
         
             if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.LandRatio >= 2 then
             
@@ -402,6 +407,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end            
         
             if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.AirRatio >= 3 then
             
@@ -543,7 +553,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 2.0 then
             
                 return 10, true
                
@@ -743,8 +753,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end
         
-            if aiBrain.LandRatio >= 3.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3.0 then
             
                 return 11, true
                
@@ -815,8 +830,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end
         
-            if aiBrain.LandRatio >= 3.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3.0 then
             
                 return 11, true
                
@@ -2279,16 +2299,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			
 				if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
 					return 0, false
-				end
+				end   				
+                -- remove after 15 minutes
+                if aiBrain.CycleTime > 900 then
+                    return 0, false
+                end
         
                 if not GreaterThanEnergyIncome( aiBrain, 550 ) then
                     return 10, true
                 end
-   				
-				-- remove after 25 minutes
-				if aiBrain.CycleTime > 1500 then
-					return 0, false
-				end
                 
                 if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 300 then
                     return (self.OldPriority or self.Priority) + 100, true
@@ -2352,8 +2371,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 					return 0, false
 				end
 				
-				-- remove after 25 minutes
-				if aiBrain.CycleTime > 1500 then
+				-- remove after 15 minutes
+				if aiBrain.CycleTime > 900 then
 					return 0, false
 				end
         
@@ -2416,13 +2435,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 return 0, false
             end
 		
-			-- remove after 25 minutes
-			if aiBrain.CycleTime > 1500 then
+			-- remove after 15 minutes
+			if aiBrain.CycleTime > 900 then
 				return 0, false
 			end
 			
-			-- turn on after 6 minutes
-			if aiBrain.CycleTime > 360 then
+			-- turn on after 10 minutes
+			if aiBrain.CycleTime > 600 then
 				return 800, false
 			end
 
@@ -2540,6 +2559,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
+                return 0, false
+            end   				
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
                 return 0, false
             end
         
@@ -3293,8 +3316,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
-            end
-        
+            end 
+            -- remove after 15 minutes
+            if aiBrain.CycleTime > 900 then
+                return 0, false
+            end            
+            
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 or not GreaterThanEnergyIncome( aiBrain, 550 ) then
             
                 return 10, true
@@ -3389,7 +3416,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
+                return 0, false
+            end            
+            
             if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 3000 ) then
             
                 return 10, true
@@ -3512,7 +3543,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         Priority = 760,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
-        
+
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
+                return 0, false
+            end
+            
             if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
@@ -3579,7 +3615,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         Priority = 760,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
-        
+
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
+                return 0, false
+            end
+            
             if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
@@ -4533,7 +4574,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         Priority = 710,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
-        
+
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
+                return 0, false
+            end
+            
             if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
@@ -4595,7 +4641,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         Priority = 710,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
-        
+
+            -- remove after 35 minutes
+            if aiBrain.CycleTime > 2100 then
+                return 0, false
+            end
+            
             if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
@@ -4913,7 +4964,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 32000 ) then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 24000 ) then
             
                 return 10, true
                
@@ -5008,9 +5059,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},                   
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
