@@ -79,7 +79,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ EBC, 'NeedFactory', { 'LAND' }},
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -112,7 +112,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
         BuilderConditions = {
 			{ EBC, 'NeedFactory', { 'AIR' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1500 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -151,7 +151,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
 			{ EBC, 'NeedFactory', { 'LAND' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -186,7 +186,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
 			{ EBC, 'NeedFactory', { 'AIR' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1500 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
