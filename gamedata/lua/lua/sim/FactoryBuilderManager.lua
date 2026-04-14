@@ -61,15 +61,15 @@ end
 
 function MassTrigger(factory, scale, adjacencyReduction)
 	if LOUDENTITY(LAND, factory) then
-    	return 300 * scale * adjacencyReduction
+    	return 200 * scale * adjacencyReduction
 	end
 		
 	if LOUDENTITY(AIR, factory) then
-    	return 200 * scale * adjacencyReduction
+    	return 225 * scale * adjacencyReduction
 	end
 	
 	if LOUDENTITY(NAVAL, factory) then
-		return 400 * scale * adjacencyReduction
+		return 300 * scale * adjacencyReduction
 	end
 
 	if LOUDENTITY(categories.GATE, factory) then
