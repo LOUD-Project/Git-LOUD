@@ -1,3 +1,15 @@
+### Release 04-17-2026
+
+LUA 8.10
+
+- revised the mass requirements for T1 Pgen building, was causing factory stalling by being too aggressive
+- revised the mass requirements for Assist Mass, was likewise causing factory stalling by being a bit too aggressive
+- production ratios for AIR & NAVAL are now a minimum of 4 when the enemy doesn't participate in those arms, reducing overbuilding of factorys and defenses
+- production value of upgrading factories is now treated as 'idle' rather than full output (this should cover factory enhancements as well)
+- removal of unit state functions for units which are upgrading, this is now just a simple lookup
+
+
+
 ### Release 04-11-2026
 
 LUA 8.09
