@@ -5809,9 +5809,10 @@ function ParseIntelThread( aiBrain )
             -- my air production value divided by (enemy air production value/Number of Opponents)
             aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
             
-            -- if the enemy is not playing AIR then multiply air prod ratio by number of opponents
+            -- if the enemy is not playing AIR then multiply air prod ratio by 4
+            -- this should greatly inhibit the building of additional factories of this type
             if grandairtot < 1 then
-                aiBrain.AirProdRatio = aiBrain.AirProdRatio * (NumOpponents+1)
+                aiBrain.AirProdRatio = aiBrain.AirProdRatio * 4
             end
             
             mylandcount = 0
@@ -5881,7 +5882,7 @@ function ParseIntelThread( aiBrain )
             aiBrain.NavalProdRatio = mynavaltot/(LOUDMAX(NumOpponents,grandnavaltot)/NumOpponents)
             
             if grandnavaltot < 1 then
-                aiBrain.NavalProdRatio = aiBrain.NavalProdRatio * (NumOpponents+1)
+                aiBrain.NavalProdRatio = aiBrain.NavalProdRatio * 4
             end
 
             -- I have navy production but the enemy is undetected
