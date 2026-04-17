@@ -5787,7 +5787,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         myairidle = myairidle + 1
                         myairtot = myairtot + .3
                     else
@@ -5828,7 +5828,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         mylandidle = mylandidle + 1
                         mylandtot = mylandtot + .3
                     else
@@ -5861,7 +5861,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         mynavalidle = mynavalidle + 1
                         mynavaltot = mynavaltot + .3
                     else
