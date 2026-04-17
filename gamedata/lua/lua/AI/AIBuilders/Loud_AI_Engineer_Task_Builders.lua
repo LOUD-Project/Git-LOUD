@@ -300,7 +300,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2500 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
