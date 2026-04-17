@@ -66,7 +66,7 @@ TAirFactoryUnit = Class(FactoryUnit) {
 
         FactoryUnit.OnUnpaused(self)
 
-        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self:IsUnitState('Upgrading') then
+        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self.Upgrading then
             self:StartArmsMoving()
         end
     end,

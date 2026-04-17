@@ -114,7 +114,7 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 			continue
 		end
 
-		if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+		if not v.Upgrading and not IsUnitState( v, 'Building' ) then
 			continue
 		end
 
@@ -566,7 +566,7 @@ local function GetNumberOfUnitsBeingBuilt( aiBrain, location, buildingCategory, 
 
 		end
 
-        if (not IsUnitState(v, 'Building') and not IsUnitState(v, 'Upgrading')) then
+        if (not IsUnitState(v, 'Building')) and not v.Upgrading then
 			
             continue
 

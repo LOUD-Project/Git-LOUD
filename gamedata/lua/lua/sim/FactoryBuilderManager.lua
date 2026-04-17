@@ -415,7 +415,7 @@ FactoryBuilderManager = Class(BuilderManager) {
         local trig = false
         
         --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
-		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
+		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not ( factory.Upgrading or IsUnitState(factory,'Enhancing') ) do
 
             -- adjacency reduction is the average of the two reductions
             adjacencyaverage = ((adjacencyreductionE + adjacencyreductionM) / 2)          
@@ -463,7 +463,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                 factory:SetCustomName("")
             end
 		
-			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not Upgrading) then
+			if not factory.Dead and (not factory.Upgrading) and (not Upgrading) then
 
                 --- go and get a build task --
 				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
@@ -515,7 +515,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				continue
 			end
             
-			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+			if not v.Upgrading and not IsUnitState( v, 'Building' ) then
 				continue
 			end
             
@@ -781,7 +781,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- since we control the jobs presented to the factories in advance 
     BuilderParamCheck = function( self, builder, factory )
 		
-		if factory.Upgrading or IsUnitState( factory, 'Upgrading' ) then
+		if factory.Upgrading then
 		
 			return false
 		end
