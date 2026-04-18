@@ -351,10 +351,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXAdvancedEngineering',
 
-            RemoveEnhancements = {
-                'EXAdvancedEngineering',
-                'EXAdvancedEngineeringRemove',
-            },
+            RemoveEnhancements = {'EXAdvancedEngineering','EXAdvancedEngineeringRemove'},
 
             Slot = 'LCH',
         },
@@ -625,7 +622,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoRapidLoader',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
+            RemoveEnhancements = {'EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
 
             Slot = 'RCH',
         },
@@ -664,7 +661,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoClusterLauncher',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
+            RemoveEnhancements = {'EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
 
             Slot = 'RCH',
         },
@@ -701,9 +698,9 @@ UnitBlueprint {
 
             Name = 'Remove Storm Cannon',
 
-            Prerequisite = 'EXCannonBigBall',
+            Prerequisite = 'EXStormCannon',
 
-            RemoveEnhancements = { 'EXCannonBigBall','EXCannonBigBallRemove' },
+            RemoveEnhancements = {'EXStormCannon','EXStormCannonRemove'},
             Slot = 'RCH',
         },
 
@@ -742,7 +739,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXStormCannonII',
 
-            RemoveEnhancements = {'EXStormCannon','EXStormCannonII','EXStormCannonIIRemove'},
+            RemoveEnhancements = {'EXStormCannonII','EXStormCannonIIRemove'},
             Slot = 'RCH',
         },
 
@@ -782,7 +779,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXStormCannonIII',
 
-            RemoveEnhancements = {'EXStormCannon','EXStormCannonII','EXStormCannonIII','EXStormCannonIIIRemove'},
+            RemoveEnhancements = {'EXStormCannonIII','EXStormCannonIIIRemove'},
             Slot = 'RCH',
         },
 
@@ -856,7 +853,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXRapidCannonII',
 
-            RemoveEnhancements = {'EXRapidCannon','EXRapidCannonII','EXRapidCannonIIRemove'},
+            RemoveEnhancements = {'EXRapidCannonII','EXRapidCannonIIRemove'},
             Slot = 'RCH',
         },
 
@@ -894,7 +891,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXRapidCannonIII',
 
-            RemoveEnhancements = {'EXRapidCannon','EXRapidCannonII','EXRapidCannonIII','EXRapidCannonIIIRemove'},
+            RemoveEnhancements = {'EXRapidCannonIII','EXRapidCannonIIIRemove'},
             Slot = 'RCH',
         },
 		
@@ -930,7 +927,7 @@ UnitBlueprint {
 
             Name = 'Remove Intel Package',
 
-            Prerequisite = 'EXIntelEnhancement',
+            Prerequisite = 'EXIntelEnhancementT2',
 
             RemoveEnhancements = {'EXIntelEnhancementT2','EXIntelEnhancementT2Remove'},
 
@@ -1080,7 +1077,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXL2Lambda',
 
-            RemoveEnhancements = {'EXL1Lambda','EXL2Lambda','EXL2LambdaRemove'},
+            RemoveEnhancements = {'EXL2Lambda','EXL2LambdaRemove'},
 
             Slot = 'Back',
         },
@@ -1199,7 +1196,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXCloakingSubsystems',
 
-            RemoveEnhancements = {'EXBasicDefense','EXStealthField','EXCloakingSubsystems','EXCloakingSubsystemsRemove'},
+            RemoveEnhancements = {'EXCloakingSubsystems','EXCloakingSubsystemsRemove'},
 
             Slot = 'Back',
         },
