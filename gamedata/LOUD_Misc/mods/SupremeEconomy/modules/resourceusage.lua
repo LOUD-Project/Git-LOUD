@@ -42,6 +42,7 @@ local maxImages = 5
 local grid = {}
 
 local unitClasses = {
+	{name="Paragon", category = categories.seb1401 + categories.xab1401 + categories.srb1401 + categories.ssb1401},
 	{name="T1 Land Units",  category = categories.LAND * categories.BUILTBYTIER1FACTORY * categories.MOBILE - categories.ENGINEER },
 	{name="T2 Land Units",  category = categories.LAND * categories.BUILTBYTIER2FACTORY * categories.MOBILE - categories.ENGINEER },
 	{name="T3 Land Units",  category = categories.LAND * categories.BUILTBYTIER3FACTORY * categories.MOBILE - categories.ENGINEER },
