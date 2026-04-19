@@ -389,6 +389,7 @@ UnitBlueprint {
                 'SUBMARINE',
                 'SUBMERSIBLE',
                 'MOBILE',
+                'STRUCTURE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HOVER',
         },		
