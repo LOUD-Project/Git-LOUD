@@ -378,7 +378,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXExperimentalEngineering',
 
-            RemoveEnhancements = {'EXExperimentalEngineering','EXExperimentalEngineeringRemove' },
+            RemoveEnhancements = {'EXExperimentalEngineering','EXExperimentalEngineeringRemove'},
 
             Slot = 'LCH',
         },
@@ -417,7 +417,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXCombatEngineering',
 
-            RemoveEnhancements = {'EXCombatEngineering','EXCombatEngineeringRemove' },
+            RemoveEnhancements = {'EXCombatEngineering','EXCombatEngineeringRemove'},
 
             Slot = 'LCH',
         },
@@ -458,7 +458,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXAssaultEngineering',
 
-            RemoveEnhancements = {'EXAssaultEngineering','EXAssaultEngineeringRemove' },
+            RemoveEnhancements = {'EXAssaultEngineering','EXAssaultEngineeringRemove'},
 
             Slot = 'LCH',
         },
@@ -499,7 +499,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXApocalypticEngineering',
 
-            RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove' },
+            RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
 
             Slot = 'LCH',
         },
@@ -533,7 +533,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXRipperBooster',
 
-            RemoveEnhancements = {'EXRipperBooster','EXRipperBoosterRemove' },
+            RemoveEnhancements = {'EXRipperBooster','EXRipperBoosterRemove'},
 
             Slot = 'RCH',
         },
@@ -609,7 +609,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoRapidLoader',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
+            RemoveEnhancements = {'EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
 
             Slot = 'RCH',
         },
@@ -648,7 +648,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoClusterLauncher',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
+            RemoveEnhancements = {'EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
 
             Slot = 'RCH',
         },
@@ -724,7 +724,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXImprovedCapacitors',
 
-            RemoveEnhancements = {'EXEMPArray','EXImprovedCapacitors','EXImprovedCapacitorsRemove'},
+            RemoveEnhancements = {'EXImprovedCapacitors','EXImprovedCapacitorsRemove'},
 
             Slot = 'RCH',
         },
@@ -763,7 +763,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXPowerBooster',
 
-            RemoveEnhancements = {'EXEMPArray','EXImprovedCapacitors','EXPowerBooster','EXPowerBoosterRemove'},
+            RemoveEnhancements = {'EXPowerBooster','EXPowerBoosterRemove'},
 
             Slot = 'RCH',
         },
@@ -847,7 +847,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXImprovedCoolingSystem',
 
-            RemoveEnhancements = {'EXMasor','EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
+            RemoveEnhancements = {'EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
 
             Slot = 'RCH',
         },
@@ -890,7 +890,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXAdvancedEmitterArray',
 
-            RemoveEnhancements = {'EXMasor','EXImprovedCoolingSystem','EXAdvancedEmitterArray','EXAdvancedEmitterArrayRemove'},
+            RemoveEnhancements = {'EXAdvancedEmitterArray','EXAdvancedEmitterArrayRemove'},
 
             Slot = 'RCH',
         },
@@ -923,7 +923,7 @@ UnitBlueprint {
 
             Name = 'Remove Intel Package',
 
-            Prerequisite = 'EXIntelEnhancement',
+            Prerequisite = 'EXIntelEnhancementT2',
 
             RemoveEnhancements = {'EXIntelEnhancementT2','EXIntelEnhancementT2Remove'},
 
@@ -999,7 +999,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXPerimeterOptics',
 
-            RemoveEnhancements = {'EXIntelEnhancementT2','EXIntelEnhancementT3','EXPerimeterOptics','EXPerimeterOpticsRemove'},
+            RemoveEnhancements = {'EXPerimeterOptics','EXPerimeterOpticsRemove'},
 
             Slot = 'Command',
         },
@@ -1112,7 +1112,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXArmorPlating',
 
-            RemoveEnhancements = {'EXArmorPlating','EXArmorPlatingRemove','EXAgilityPackage','EXAgilityPackageRemove'},
+            RemoveEnhancements = {'EXArmorPlating','EXArmorPlatingRemove'},
 
             Slot = 'Back',
         },
@@ -1231,7 +1231,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXCloakingSubsystems',
 
-            RemoveEnhancements = {'EXCloakingSubsystems','EXCloakingSubsystemsRemove','EXStealthField',},
+            RemoveEnhancements = {'EXCloakingSubsystems','EXCloakingSubsystemsRemove'},
 
             Slot = 'Back',
         },
@@ -1272,7 +1272,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXDeviatorField',
 
-            RemoveEnhancements = {'EXStealthField','EXcloakingSubsystems','EXDeviatorField','EXDeviatorFieldRemove'},
+            RemoveEnhancements = {'EXDeviatorField','EXDeviatorFieldRemove'},
 
             Slot = 'Back',
         },
