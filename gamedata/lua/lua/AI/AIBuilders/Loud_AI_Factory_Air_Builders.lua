@@ -603,7 +603,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         Priority = 610,
         
         PriorityFunction = function(self, aiBrain)
-       
+	
+            if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) < 2 then
+                return 10, false
+            end
+          
             if not GreaterThanEnergyIncome( aiBrain, 1800 ) then
                 return 10, true
             end
@@ -616,7 +620,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.6 then 
+            if aiBrain.AirRatio < 0.7 then 
                 return 600, true
             end
             
@@ -632,7 +636,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 18, [2048] = 24, [4096] = 32}, TRANSPORTS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 18, [2048] = 24, [4096] = 30}, TRANSPORTS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -648,7 +652,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         Priority = 600,
         
         PriorityFunction = function(self, aiBrain)
-       
+	
+            if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) < 2 then
+                return 10, false
+            end
+        
             if not GreaterThanEnergyIncome( aiBrain, 1800 ) then
                 return 10, true
             end
@@ -661,7 +669,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.6 then
+            if aiBrain.AirRatio < 0.7 then
                 return 10, true
             end
             
@@ -701,7 +709,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.6 then
+            if aiBrain.AirRatio < 0.7 then
                 return 600, true
             end
             
@@ -714,6 +722,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT3 }},
 
