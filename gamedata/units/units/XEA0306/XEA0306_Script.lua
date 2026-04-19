@@ -72,7 +72,7 @@ XEA0306 = Class(TAirUnit) {
 	
 		TAirUnit.OnTransportAttach(self, attachBone, unit)
 		
-        unit:SetCanTakeDamage(not self.ShieldIsOn) #-- make transported unit invulnerable if transport is too
+        unit:SetCanTakeDamage(not self.ShieldOn) #-- make transported unit invulnerable if transport is too
 	end,
 	
     OnTransportDetach = function(self, attachBone, unit)
@@ -84,7 +84,7 @@ XEA0306 = Class(TAirUnit) {
 	
     OnShieldIsUp = function (self)
 	
-		self.ShieldIsOn = true
+		self.ShieldOn = true
 		
         TAirUnit.OnShieldIsUp(self)
 		
@@ -93,7 +93,7 @@ XEA0306 = Class(TAirUnit) {
 	
     OnShieldIsDown = function (self)
 	
-		self.ShieldIsOn = false
+		self.ShieldOn = false
 		
 		TAirUnit.OnShieldIsDown(self)
 		
@@ -104,7 +104,7 @@ XEA0306 = Class(TAirUnit) {
     ShieldStatusChanged = function( self )
 
 		-- toggles invulnerability of transport according to shield statue
-        self:SetCanTakeDamage(not self.ShieldIsOn)
+        self:SetCanTakeDamage(not self.ShieldOn)
 		
 		if not self.Dead then
 		
@@ -114,7 +114,7 @@ XEA0306 = Class(TAirUnit) {
 			
 				if not v.Dead then
 				
-		            v:SetCanTakeDamage(not self.ShieldIsOn)
+		            v:SetCanTakeDamage(not self.ShieldOn)
 					
 				end
 				
