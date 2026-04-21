@@ -31,13 +31,9 @@ local AboveUnitCap65 = function( self,aiBrain )
 	return (self.OldPriority or self.Priority), true
 end
 
-local AboveUnitCap75 = function( self,aiBrain )
+local AboveUnitCap85 = function( self,aiBrain )
 
-    if self.BuilderName == "Land Factory" and not MapLessThan(2048) then
-        return (self.OldPriority or self.Priority) + 2, true
-    end
-
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
 		return 10, true
 	end
 	
@@ -74,7 +70,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 		
         Priority = 800,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
 			{ EBC, 'NeedFactory', { 'LAND' }},
@@ -107,7 +103,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction', BuildersType =
 		
         Priority = 801,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
 			{ EBC, 'NeedFactory', { 'AIR' }},
@@ -144,10 +140,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         Priority = 755,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = AboveUnitCap85,
         
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ EBC, 'NeedFactory', { 'LAND' }},
 
@@ -179,10 +175,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 		
         Priority = 760,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 2 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ EBC, 'NeedFactory', { 'AIR' }},
 
