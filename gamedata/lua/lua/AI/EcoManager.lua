@@ -30,10 +30,6 @@ local FactoryUpgradeConsumption = {
     AIR = {
         T2 = { mass = 7, energy = 145 },
         T3 = { mass = 12, energy = 254 },
-    },
-    NAVAL = {
-        T2 = { mass = 14, energy = 81 },
-        T3 = { mass = 25, energy = 108 },
     }
 }
 

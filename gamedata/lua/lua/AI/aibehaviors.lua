@@ -8638,8 +8638,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
     -- aggressively push mex and factory upgrades to instead rely on limits
     if EntityCategoryContains( categories.MASSEXTRACTION, unit ) or EntityCategoryContains( categories.FACTORY, unit ) then
-        masslimit = .5
-        energylimit = .2
+        masslimit = .1
+        energylimit = .1
     end
 
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
