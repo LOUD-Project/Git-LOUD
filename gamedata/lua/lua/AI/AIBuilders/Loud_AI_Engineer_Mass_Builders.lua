@@ -119,7 +119,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		
         Priority = 845,
 
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
@@ -326,9 +326,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEnergyIncome', { 6000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 14, 0.3, 1.005 }},
+            { EBC, 'GreaterThanEnergyIncome', { 3000 }},
 
 			-- check base massfabs -- this should pick up only those in the base core - not the T3's on the outer layers
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
@@ -377,8 +375,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             { LUTL, 'UnitCapCheckLess', { .9 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 30, 0.3, 1.025 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},

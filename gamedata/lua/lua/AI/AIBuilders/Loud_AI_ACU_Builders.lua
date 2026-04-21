@@ -401,18 +401,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderType = { 'Commander' },
 		
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 32000 }},			
+			{ LUTL, 'GreaterThanEnergyIncome', { 20000 }},			
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},			
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 			
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, MASSFABRICATION * TECH3, 10, 42 }},
             
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 		
         BuilderType = { 'Commander' },
