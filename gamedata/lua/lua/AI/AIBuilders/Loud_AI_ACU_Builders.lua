@@ -282,7 +282,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
 
-            { EBC, 'LessThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
@@ -363,15 +363,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrendOverTime', { 600 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, ENERGYPRODUCTION * TECH3 }},
-
-			--{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (ENERGYPRODUCTION * TECH3) - HYDROCARBON }},
         },

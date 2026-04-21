@@ -45,7 +45,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         PriorityFunction = function( self, aiBrain, unit, manager )
 	
-            if aiBrain.CycleTime > 3600 then
+            if aiBrain.CycleTime > 1800 then
                 return 0, false
             end
             
@@ -201,9 +201,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, HYDRO }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 250, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
@@ -214,7 +214,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 
 				LoopBuild = true,
                 
-                MaxRange = 200,
+                MaxRange = 350,
 
 				ThreatMax = 30,
 				ThreatRings = 0,
@@ -297,7 +297,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 250, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T2' },
@@ -368,7 +368,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 750,
+        Priority = 850,
 
         BuilderType = { 'T3','SubCommander' },
 		
@@ -514,9 +514,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval', BuildersTyp
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
             
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 2, HYDRO }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, HYDRO }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 200, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
