@@ -8403,14 +8403,8 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	
 		WaitTicks(201)
 
-        -- minimum delay before enhancements can start
-        if aiBrain.CycleTime < 2400 then
-            continue
-        end
-
-        -- T3 factories will wait until 1hr before enhancing, but will start earlier if soft unit cap reached
-        if EntityCategoryContains( categories.FACTORY * categories.TECH3, unit ) and
-        (aiBrain.CycleTime < 3600 and GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) < .85) then
+        -- 45 minute delay before enhancements can start
+        if aiBrain.CycleTime < 2700 then
             continue
         end
 
@@ -8438,7 +8432,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
-					if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
+					if GetEconomyStored( aiBrain, 'MASS') >= 2000 and GetEconomyStored( aiBrain, 'ENERGY') >= 8000 then
 				
 						IssueStop({unit})
 						IssueClearCommands({unit})
