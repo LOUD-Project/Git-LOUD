@@ -60,6 +60,11 @@ function CreateFactoryBuilderManager(brain, lType, location, basetype)
 end
 
 function MassTrigger(factory, scale, adjacencyReduction)
+
+	if LOUDENTITY(categories.GATE, factory) then
+		return 4000
+	end
+
 	if LOUDENTITY(LAND, factory) then
     	return 200 * scale * adjacencyReduction
 	end
@@ -72,14 +77,15 @@ function MassTrigger(factory, scale, adjacencyReduction)
 		return 300 * scale * adjacencyReduction
 	end
 
-	if LOUDENTITY(categories.GATE, factory) then
-		return 2500
-	end
-
 	return 100
 end
 
 function EnergyTrigger(factory, scale, adjacencyReduction)
+
+	if LOUDENTITY(categories.GATE, factory) then
+		return 16000
+	end
+
 	if LOUDENTITY(LAND, factory) then
     	return 500 * scale * adjacencyReduction
 	end
@@ -90,10 +96,6 @@ function EnergyTrigger(factory, scale, adjacencyReduction)
 	
 	if LOUDENTITY(NAVAL, factory) then
 		return 2500 * scale * adjacencyReduction
-	end
-
-	if LOUDENTITY(categories.GATE, factory) then
-		return 30000
 	end
 
 	return 1000
