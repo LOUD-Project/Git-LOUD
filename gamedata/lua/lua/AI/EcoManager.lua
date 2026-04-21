@@ -2,6 +2,8 @@ local BrainMethods     = moho.aibrain_methods
 local GetEconomyIncome = BrainMethods.GetEconomyIncome
 local GetListOfUnits   = BrainMethods.GetListOfUnits
 
+local IsUnitState = moho.unit_methods.IsUnitState
+
 local LOUDFLOOR = math.floor
 local LOUDMAX   = math.max
 local LOUDMIN   = math.min
@@ -88,9 +90,9 @@ function IncomeRatioBudget(aiBrain)
 
         surplusRatio = baseMexUpgrade - incomeRatio.MexUpgrade
 
-        -- only rebudget in T3 when mass is high
-        if aiBrain.TechLevel == 'T3' and GetEconomyIncome(aiBrain, 'MASS') * 10 >= 600 then
-            incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.8)
+        -- only rebudget in T2 or T3
+        if aiBrain.TechLevel ~= 'T1' then
+            incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.58)
             incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
         end
 
@@ -217,13 +219,12 @@ function FactoryUpgradeLimit(aiBrain)
 end
 
 -- A bias generated to control how many of each type of factory should be built
--- Land and air are clamped so they're always able to be built to the max the eco will allow
--- Air is clamped lower to maintain a better overall balance
+-- Land and air are clamped to 6 so they're always able to be built to the max the eco will allow and maintain a good balance
 -- Naval is zeroed when it is not a water map to prevent its early low ratio intefering with land and air
 -- Naval is also zeroed when it is a water map but early on to encourage the 2nd factory build on land
 function StrengthBias(aiBrain)
-	local landRatio = 10 - LOUDMIN(aiBrain.LandRatio, 9)
-	local airRatio = 10 - LOUDMIN(aiBrain.AirRatio, 7)
+	local landRatio = 10 - LOUDMIN(aiBrain.LandRatio, 6)
+	local airRatio = 10 - LOUDMIN(aiBrain.AirRatio, 6)
 	local navalRatio = 10 - LOUDMIN(aiBrain.NavalRatio, 10)
 
 	if not aiBrain.IsWaterMap or
@@ -273,7 +274,7 @@ function MaxFactoryLimit(aiBrain)
         -- Count number of factories by type as well as how many T2 & T3 factories there are
         for _, factory in factories do
 
-            if not factory:IsUnitState('Upgrading') then
+            if IsUnitState(factory, 'Enhancing') or not IsUnitState(factory, 'Upgrading') then
 
                 if EntityCategoryContains(categories.LAND, factory) then
                     count.LAND = count.LAND + 1
@@ -296,12 +297,17 @@ function MaxFactoryLimit(aiBrain)
         -- Determine current tech level based upon T2 & T3 count
         if aiBrain.TechLevel ~= 'T3' then
 
-            if aiBrain.TechLevel == 'T1' and count.T2 > 1 then
+            if aiBrain.TechLevel == 'T1' and count.T2 > 2 then
                 aiBrain.TechLevel = 'T2'
-            elseif aiBrain.TechLevel == 'T2' and count.T3 > 0 then
+            elseif aiBrain.TechLevel == 'T2' and count.T3 > 2 then
                 aiBrain.TechLevel = 'T3'
             end
 
+        end
+
+        -- more aggressive early factory building
+        if aiBrain.CycleTime < 720 then
+            incomeRatio = 0.6
         end
 
         for factoryType, techLevels in FactoryBuildConsumption do

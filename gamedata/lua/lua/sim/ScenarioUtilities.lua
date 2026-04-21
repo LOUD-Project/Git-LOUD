@@ -1189,7 +1189,7 @@ function InitializeArmies()
                 -- Initialize income ratios
                 local baseMexUpgrade     = .45
                 local baseFactoryUpgrade = .08
-                local baseMaxFactory     = .6
+                local baseMaxFactory     = .4
 
                 aiBrain.TechLevel = 'T1'
 
