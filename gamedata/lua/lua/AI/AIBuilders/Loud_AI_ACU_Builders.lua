@@ -443,7 +443,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 100 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION - TECH1, ENGINEER + ENERGYPRODUCTION - TECH1, 40 }},
         },
@@ -454,9 +454,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 150,
+                AssistEnergy = 100,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 150,
+                AssistMass = 500,
                 
 				AssistRange = 50,
                 AssisteeType = 'Structure',
@@ -482,7 +482,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 1000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 4000 }},
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION - TECH1, ENGINEER + MASSPRODUCTION, 36 }},
         },
@@ -493,9 +493,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 500,
+                AssistEnergy = 1000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 500,
 
 				AssistRange = 48,
 				AssisteeType = 'Structure',
@@ -524,7 +524,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
@@ -537,9 +537,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 2500,
+                AssistEnergy = 2000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 200,
+                AssistMass = 500,
             
 				AssistRange = 75,
 				AssisteeType = 'Structure',
@@ -565,9 +565,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},             
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},          
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE + EXPERIMENTAL, ENGINEER, 125 }},
         },
@@ -578,9 +576,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 3600,
+                AssistEnergy = 4000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 250,
+                AssistMass = 500,
 
 				AssistRange = 100,
                 AssisteeType = 'Engineer',
@@ -607,7 +605,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.3, 1.025 }}, -- favour eco development
         },
