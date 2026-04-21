@@ -736,7 +736,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
             
@@ -798,7 +798,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},			
             
@@ -859,7 +859,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
 
@@ -875,7 +875,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -915,7 +915,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, STRUCTURE * categories.DIRECTFIRE * TECH3, 15, 42 }},
         },
@@ -926,7 +926,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',

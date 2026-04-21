@@ -192,7 +192,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},                    
 
@@ -282,7 +282,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
         },
@@ -369,9 +369,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },        
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -382,7 +380,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 50,
+				ThreatMax = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -449,9 +447,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },        
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2'},
@@ -459,7 +455,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderData = {
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 50,				
+				ThreatMax = 100,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -483,7 +479,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.LandRatio >= 2.0 then
+            if not GreaterThanEnergyIncome( aiBrain, 1500) or aiBrain.LandRatio >= 2 then
             
                 return 11, true
                
@@ -519,9 +515,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2'},
@@ -530,7 +524,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 50,				
+				ThreatMax = 20000,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -547,13 +541,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
         Priority = 751,
 
+		InstanceCount = 2,
+
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 then
+            if aiBrain.LandRatio >= 3 then
             
                 return 10, true
                
@@ -585,9 +581,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },        
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
         BuilderType = { 'T3','SubCommander'},
@@ -599,7 +593,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 100,
+				ThreatMax = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -614,7 +608,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750, 
+        Priority = 750,
+
+		InstanceCount = 4,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -622,7 +618,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2.5 then
+            if aiBrain.AirRatio >= 3 then
             
                 return 11, true
                
@@ -646,9 +642,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -660,7 +654,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 75,
+				ThreatMax = 5000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -684,7 +678,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 11, true
                
@@ -716,9 +710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -729,7 +721,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 50,				
+				ThreatMax = 20000,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -795,9 +787,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -806,7 +796,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 75,
+				ThreatMax = 1000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -868,9 +858,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -878,7 +866,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderData = {
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 1000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'SupportLayout',
@@ -902,7 +890,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
          
-            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 11, true
                
@@ -934,9 +922,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -947,7 +933,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             Construction = {
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 100,
+				ThreatMax = 1000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'SupportLayout',
@@ -1016,13 +1002,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 		
         Priority = 745,
 
+        InstanceCount = 2,
+
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
          
-            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -1048,9 +1036,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -1066,7 +1052,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
 			Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,				
+				ThreatMax = 20000,				
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -1181,7 +1167,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.LandRatio >= 2.0 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if aiBrain.LandRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 11, true
                
@@ -1211,9 +1197,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -1227,7 +1211,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 20000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -1250,7 +1234,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 11, true
                
@@ -1280,13 +1264,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         end,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .80 } },            
 
-			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},		
         },
 		
         BuilderType = {'SubCommander'},
@@ -1297,7 +1277,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 75,
+				ThreatMax = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -1373,7 +1353,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             
             Construction = {
 				NearBasePerimeterPoints = true,
-                
+ 				MaxThreat = 20000,
+               
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
                 
@@ -1447,7 +1428,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1545,7 +1526,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1606,7 +1587,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1667,7 +1648,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1743,7 +1724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 90,
+				MaxThreat = 20000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
@@ -1818,7 +1799,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1881,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -1942,7 +1923,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -2003,7 +1984,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
@@ -2050,7 +2031,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
         Priority = 745,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -2067,7 +2048,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
 
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 100,
+				MaxThreat = 20000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
@@ -2081,54 +2062,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
 
 --- AIRSTAGING, etc. --
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'EngineerBuilder',
-	
-    Builder {BuilderName = 'Air Staging T1',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 846,
-        
-        PriorityFunction = function( self, aiBrain, unit, manager)
-
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
-            
-                return 12, true
-             
-            end
-    
-            return (self.OldPriority or self.Priority), true
-        end,
-
-        BuilderConditions = {
-			{ MIBC, 'GreaterThanGameTime', { 240 } },
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
-        },
-		
-        BuilderType = {'T1' },
-		
-        BuilderData = {
-			DesiresAssist = false,
-			
-			Construction = {
-				Radius = 50,			
-                NearBasePerimeterPoints = true,
-				
-				ThreatMax = 50,
-				
-				BasePerimeterOrientation = 'REAR',
-				BasePerimeterSelection = 2,
-
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'T3AirStagingComplex',
-				
-                BuildStructures = {'T1AirStagingPlatform'},
-            }
-        }
-    },		
 
     Builder {BuilderName = 'Air Staging T2',
 	
@@ -2181,51 +2114,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
 
 --- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersType = 'EngineerBuilder',
-	
-    --Builder {BuilderName = 'Air Staging T1 - Small Base',
-	--
-    --    PlatoonTemplate = 'EngineerBuilder',
-	--	PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-	--	
-    --    Priority = 846,
-    --    
-    --    PriorityFunction = function( self, aiBrain, unit, manager)
-    --        if aiBrain.CycleTime < 300 then -- delayed as its expensive in power and not needed for several minutes
-    --            return 10, true
-    --        end
-
-    --        if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
-    --            return 10, false
-    --        end
-    --
-    --        return (self.OldPriority or self.Priority), true
-    --    end,
-
-    --    BuilderConditions = {
-	--		{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }}, -- with a delay can be cheaper
-    --    },
-	--	
-    --    BuilderType = {'T1'},
-	--	
-    --    BuilderData = {
-	--		DesiresAssist = false,
-	--		
-	--		Construction = {
-	--			Radius = 26,			
-    --            NearBasePerimeterPoints = true,
-    --            
-    --            ThreatMax = 50,
-	--			
-	--			BasePerimeterOrientation = 'REAR',
-	--			BasePerimeterSelection = 2,
-
-	--			BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-	--			BaseTemplate = 'T3AirStagingComplex',
-	--			
-    --            BuildStructures = {'T1AirStagingPlatform'},
-    --        }
-    --    }
-    --},	
 	
     Builder {BuilderName = 'Air Staging T2 - Small Base',
 	
@@ -2320,7 +2208,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -2391,7 +2279,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -2452,7 +2340,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
@@ -2523,7 +2411,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -2592,9 +2480,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -2664,9 +2550,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
         
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -2679,7 +2563,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				Radius = 68,
                 NearBasePerimeterPoints = true,
                 
-				ThreatMax = 100,	
+				ThreatMax = 2000,	
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -2726,9 +2610,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -2738,7 +2620,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				Radius = 68,
                 NearBasePerimeterPoints = true,
                 
-				ThreatMax = 60,	
+				ThreatMax = 2000,	
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -2793,7 +2675,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -2880,7 +2762,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				Radius = 68,
                 NearBasePerimeterPoints = true,
                 
-                ThreatMax = 75,
+                ThreatMax = 2000,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -2931,13 +2813,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },           
 
-			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -2950,7 +2828,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				Radius = 68,
                 NearBasePerimeterPoints = true,
                 
-                ThreatMax = 75,
+                ThreatMax = 2000,
 
 				BasePerimeterOrientation = 'FRONT',				
 				BasePerimeterSelection = true,
@@ -3009,13 +2887,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },           
 
-			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},            
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -3028,7 +2902,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				Radius = 68,
                 NearBasePerimeterPoints = true,
                 
-                ThreatMax = 100,
+                ThreatMax = 2000,
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -3256,7 +3130,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
                 return 0, false
             end
         
-            if aiBrain.AirRatio >= 2 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 3 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -3274,9 +3148,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }}, 
         },
 		
 		BuilderType = { 'T3' },
@@ -3333,9 +3205,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 100, 600, 2, 2, categories.STRUCTURE * categories.DEFENSE }},
         },
@@ -3431,9 +3301,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
         end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 2, 4, categories.STRUCTURE * categories.DEFENSE * categories.TECH2 }},
         },
@@ -3491,9 +3359,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
         },
@@ -3544,12 +3410,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
 
-            -- remove after 35 minutes
-            if aiBrain.CycleTime > 2100 then
+            -- remove after 45 minutes
+            if aiBrain.CycleTime > 2700 then
                 return 0, false
             end
             
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
                
@@ -3585,9 +3451,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -3596,7 +3460,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 75,
+				ThreatMax = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3616,12 +3480,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
 
-            -- remove after 35 minutes
-            if aiBrain.CycleTime > 2100 then
+            -- remove after 45 minutes
+            if aiBrain.CycleTime > 2700 then
                 return 0, false
             end
             
-            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
                
@@ -3643,9 +3507,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2'},
@@ -3654,7 +3516,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,				
+				ThreatMax = 100,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3674,7 +3536,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
                
@@ -3696,9 +3558,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
         BuilderType = {'T2'},
@@ -3707,7 +3567,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 75,				
+				ThreatMax = 2000,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3725,9 +3585,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         Priority = 755,
 
+        InstanceCount = 2,
+
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 18900 ) then
             
                 return 10, true
                
@@ -3757,9 +3619,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},,
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -3774,7 +3634,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 				Radius = 1,			
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 100,
+				ThreatMax = 2000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3790,11 +3650,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 755, 
+        Priority = 755,
+
+        InstanceCount = 4,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
             
                 return 10, true
                
@@ -3816,9 +3678,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -3830,7 +3690,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 75,
+				ThreatMax = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3850,7 +3710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -3880,9 +3740,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }}, 
         },
 		
         BuilderType = {'T3'},
@@ -3891,7 +3749,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 75,				
+				ThreatMax = 2000,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3911,7 +3769,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
          
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -3943,7 +3801,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 30, 1.012, 1.025 }}, 
         },
@@ -3954,7 +3812,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 1000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -3972,9 +3830,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         Priority = 750,
 
+        InstanceCount = 2,
+
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -4004,9 +3864,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4021,7 +3879,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 				Radius = 1,			
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 90,
+				ThreatMax = 2000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4120,9 +3978,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
         BuilderType = {'SubCommander'},
@@ -4133,7 +3989,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 100,
+				ThreatMax = 2000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4153,7 +4009,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -4183,9 +4039,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
         BuilderType = {'SubCommander'},
@@ -4197,7 +4051,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 90,
+				ThreatMax = 500,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4267,7 +4121,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 75,
+				MaxThreat = 2000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4343,7 +4197,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 45,
+				MaxThreat = 500,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4412,7 +4266,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 75,
+				MaxThreat = 2000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4484,7 +4338,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 60,
+				MaxThreat = 1000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4549,7 +4403,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 60,
+				MaxThreat = 2000,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -4575,12 +4429,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
 
-            -- remove after 35 minutes
-            if aiBrain.CycleTime > 2100 then
+            -- remove after 45 minutes
+            if aiBrain.CycleTime > 2700 then
                 return 0, false
             end
             
-            if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 16800 ) then
             
                 return 10, true
                
@@ -4604,9 +4458,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }}, 
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },		
@@ -4620,7 +4472,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 60,
+				MaxThreat = 500,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -4643,7 +4495,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = function( builder, aiBrain, unit, manager )
 
             -- remove after 35 minutes
-            if aiBrain.CycleTime > 2100 then
+            if aiBrain.CycleTime > 2700 then
                 return 0, false
             end
             
@@ -4665,9 +4517,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -4681,7 +4531,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 45,
+				MaxThreat = 100,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -4703,7 +4553,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -4733,9 +4583,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }}, 
         },
 		
 		BuilderType = { 'T2' },
@@ -4749,7 +4597,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 50,
+				MaxThreat = 2000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -4769,7 +4617,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 1.2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.LandRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -4797,9 +4645,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -4815,7 +4661,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 100,
+                MaxThreat = 2000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -4855,9 +4701,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 35, 'Air' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -4873,7 +4717,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 75,
+                MaxThreat = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -4925,7 +4769,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
 
@@ -4944,7 +4788,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 50,
+				MaxThreat = 2000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -5016,7 +4860,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 75,
+                MaxThreat = 1000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -5183,11 +5027,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY }},
 
-			{ LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 2 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},
         },
@@ -5207,7 +5049,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
                 
-				ThreatMax = 90,
+				ThreatMax = 2000,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'NavalPerimeterDefenseTemplate',
@@ -5234,11 +5076,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
             
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, AA * categories.TECH2, 50, 85 }},
         },
@@ -5256,7 +5098,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
                 
-				ThreatMax = 60,
+				ThreatMax = 500,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'NavalPerimeterDefenseTemplate',
@@ -5283,9 +5125,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 50, 85 }},
         },
@@ -5302,7 +5142,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
 				AddRotations = 1,
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 100,
+				ThreatMax = 2000,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -5332,9 +5172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, AA * categories.TECH3, 1, 40 }},
         },
@@ -5346,7 +5184,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             Construction = {
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 75,
+				ThreatMax = 500,
 
 				BasePerimeterSelection = true,
 
@@ -5413,8 +5251,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval', BuildersT
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
-			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
-
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -5468,7 +5304,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+
+			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5515,13 +5353,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
         },
@@ -5558,9 +5392,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, PD * categories.TECH2 }},
         },
@@ -5624,9 +5456,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5693,7 +5523,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
         },
@@ -5739,9 +5569,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-			{ EBC, 'GreaterThanEnergyTrend', { 30 }},                    
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},                    
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5890,9 +5718,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * categories.TECH3 }},
         },
@@ -5945,9 +5771,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -6020,9 +5844,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
         
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, TMD }},
         },
@@ -6126,7 +5948,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
         },
@@ -6157,9 +5979,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
         
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, TMD }},
         },
@@ -6194,7 +6014,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},
 
@@ -6227,13 +6047,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         Priority = 751,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
         },
@@ -6335,9 +6153,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -6391,9 +6207,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -6489,7 +6303,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
         },
@@ -6542,7 +6356,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
         },
@@ -6653,7 +6467,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -6690,9 +6504,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * categories.TECH2, 0, 24 }},
         },
@@ -6724,11 +6536,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 0, 24 }},
         },
@@ -6766,11 +6576,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
             
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 0, 24 }},
         },
@@ -6806,9 +6614,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * categories.TECH3, 0, 24 }},
         },
@@ -6846,11 +6652,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
             
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 0, 24 }},
             
