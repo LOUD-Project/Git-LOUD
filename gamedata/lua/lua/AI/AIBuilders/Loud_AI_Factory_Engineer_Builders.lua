@@ -134,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.MOBILE * categories.ENGINEER }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
@@ -191,53 +191,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         },
         
         BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
-    },
-
-	
-	-- this builder will add T3 engies above the cap when resources are very high
-    -- and only if there are no idle T3 engineers (including SACU)
-    Builder {BuilderName = 'Engineer T3 - Extra',
-    
-        PlatoonTemplate = 'T3BuildEngineer',
-        
-        Priority = 650,
-        
-        PriorityFunction = AboveUnitCap70,
-
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
-            
-            { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        
-        BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
-    },
-
-	
-	-- this builder will add SACU above the cap when resources are very high
-    -- and only if there are no idle SACU
-    Builder {BuilderName = 'Sub Commander - Extra',
-    
-        PlatoonTemplate = 'T3LandSubCommander',
-        
-        Priority = 650,
-        
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.SUBCOMMANDER }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
-            
-            { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'SCU' } },
-        },
-        
-        BuilderType = {'Gate'},
     },
 
 }
