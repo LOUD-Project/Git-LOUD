@@ -10,9 +10,9 @@ local LUTL  = '/lua/loudutilities.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
-local AboveUnitCap65 = function( self,aiBrain )
+local AboveUnitCap75 = function( self,aiBrain )
 	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
 		return 10, true
 	end
 	
@@ -132,20 +132,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
+			{ EBC, 'NeedFactory', { 'LAND' }},
             
 			-- this base must have 3+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- all other 'counted' land bases must have at least 3 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-            
-			-- must have enough mass input to sustain existing factories and surplus
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
 			-- there must be a vacant start/expansion area with no allied structures within ExpansionRadius range (115)
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 60, 0, 'AntiSurface' } },
@@ -207,16 +206,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
+			{ EBC, 'NeedFactory', { 'LAND' }},
             
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
-
+			-- this base must have 3+ T2/T3 factories
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            
+			-- all other 'counted' land bases must have at least 3 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 75, 0, 'AntiSurface' } },
         },
@@ -286,7 +287,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 
 			{ EBC, 'NeedFactory', { 'LAND' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
