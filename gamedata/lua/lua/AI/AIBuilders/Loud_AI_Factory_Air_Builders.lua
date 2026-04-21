@@ -169,7 +169,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 4, [1024] = 8, [2048] = 12, [4096] = 16}, AIRSCOUT }},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 4, [1024] = 8, [2048] = 8, [4096] = 12}, AIRSCOUT }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
 
@@ -558,7 +558,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 4, [4096] = 4}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 5, [4096] = 5}, TRANSPORTS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1'},
