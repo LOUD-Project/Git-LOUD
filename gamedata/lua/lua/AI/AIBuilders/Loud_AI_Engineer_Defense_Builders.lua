@@ -3619,7 +3619,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},,
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },

@@ -695,7 +695,6 @@ StructureUnit = Class(Unit) {
 		--- factories --
 		if EntityCategoryContains( FACTORIES, finishedUnit ) then
 
-<<<<<<< HEAD
             checkrate = 10        
             initialdelay = 160
 
@@ -712,17 +711,6 @@ StructureUnit = Class(Unit) {
 
                 initialdelay = 840
 
-=======
-            checkrate = 15        
-            initialdelay = 90
-            bypasseco = true
-            
-            if EntityCategoryContains( categories.TECH2, finishedUnit ) then
-                
-                checkrate = 14
-                initialdelay = 110
-                
->>>>>>> origin/master
             end
 
             -- after 30 minutes factories have NO upgrade delay period
