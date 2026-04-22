@@ -7974,6 +7974,11 @@ Platoon = Class(PlatoonMethods) {
 			local baseTmplList = {}
 			local counter = 0
             
+            local extractors = categories.MASSEXTRACTION - categories.TECH1
+
+            if self.BuilderName == 'Mass Energy Adjacency' then -- allow energy around t1 mex
+                extractors = categories.MASSEXTRACTION
+            end
             -- get all T2/T3 mexs within radius of home
             local Mexs = GetOwnUnitsAroundPoint(aiBrain, target, homepos, cons.Radius)
             

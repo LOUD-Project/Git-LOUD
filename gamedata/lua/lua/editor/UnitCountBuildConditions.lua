@@ -62,6 +62,7 @@ local DEFENSESTRUCTURES = STRUCTURE * categories.DEFENSE
 local ENGINEER          = categories.ENGINEER
 local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
+local ALLEXTRACTORS     = categories.MASSEXTRACTION
 local MASSSTORAGE       = categories.MASSSTORAGE
 local SHIELDSTRUCTURES  = STRUCTURE * categories.SHIELD - categories.TECH2
 local SUBCOMMANDER      = categories.SUBCOMMANDER
@@ -535,6 +536,10 @@ end
 
 function FactoryRatioGreaterOrEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
     return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) >= EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
+end
+
+function FactoryRatioGreaterOrEqualOffsetAtLocation( aiBrain, locationType, unitCategory, unitCategory2, offset)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) + offset >= EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
 
 function FactoryRatioLessAtLocation( aiBrain, locationType, unitCategory, unitCategory2)

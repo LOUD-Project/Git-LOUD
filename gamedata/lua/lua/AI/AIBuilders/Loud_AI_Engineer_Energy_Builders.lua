@@ -45,7 +45,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         PriorityFunction = function( self, aiBrain, unit, manager )
 	
-            if aiBrain.CycleTime > 3600 then
+            if aiBrain.CycleTime > 1800 then
                 return 0, false
             end
             
@@ -68,8 +68,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
         },
 		
@@ -97,6 +97,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 900,
+
+        InstanceCount = 2,
         
         PriorityFunction = function( self, aiBrain, unit, manager )
 	
@@ -104,7 +106,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 return 0, false
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT3 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, ENERGYT3 ) then
                 return 12, true
             end
             
@@ -117,9 +119,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2600 }},        
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
 
-			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
+
         },
 		
         BuilderType = {'T2'},
@@ -147,6 +150,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 851,
+
+        InstanceCount = 2,
         
         PriorityFunction = function( self, aiBrain, unit, manager )
             
@@ -158,9 +163,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         end,
     
         BuilderConditions = {
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+      
+			{ EBC, 'LessThanEnergyTrendOverTime', { 5000 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -248,11 +253,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
 
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
-
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -314,8 +316,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
             }
         }
     },    
-	
-    Builder {BuilderName = 'T3 Power Template - Expansion',
+
+    Builder {BuilderName = 'T2 Power Template - Expansion',
     
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -323,20 +325,61 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions', Builde
         
         Priority = 750,
 
+        InstanceCount = 1,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if HaveGreaterThanUnitsWithCategory( aiBrain, 0, ENERGYT3 ) then
+                return 0, false
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+        
+        BuilderConditions = {
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+
+			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
+
+        },
+		
+        BuilderType = {'T2'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 3,
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 75,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+                BuildStructures = { 'T2EnergyProduction' },
+            }
+        }
+    },    
+
+    Builder {BuilderName = 'T3 Power Template - Expansion',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 850,
+
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .9 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
-
-			{ EBC, 'LessThanEnergyTrend', { 300 }},			
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-            
-			-- don't build T3 power if one is already being built somewhere else
-			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, ENERGYT3 }},
+		
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, ENERGYT3 - HYDRO }},
         },
@@ -510,21 +553,31 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction', BuildersTy
 		
         Priority = 762,
 		
-		PriorityFunction = First45Minutes,
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if aiBrain.Cycletime > 2700 then
+                return 0, false
+            end
 
-		InstanceCount = 2,
+            -- prioritise building this early
+            if aiBrain.CycleTime < 600 then
+                return 846, true
+            end
+
+            return (self.OldPriority or self.Priority), true
+        end,
+
+		InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},                        
-
+            { EBC, 'LessThanEnergyTrendOverTime', { 16 }},
+            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYT3 }},            
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},

@@ -994,13 +994,11 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction', BuildersTyp
         Priority = 845,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.0125, 1.025 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 32000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
         },
@@ -1063,9 +1061,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base'
             
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.0125, 1.025 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 32000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
         },
@@ -1122,13 +1118,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
         Priority = 740,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 40000 }},
 
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 7, categories.FACTORY - categories.TECH1 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.0125, 1.025 }},
 
@@ -1169,13 +1165,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval', Bui
         Priority = 740,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 40000 }},
 
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},			
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 7, categories.FACTORY - categories.TECH1 }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.0125, 1.025 }},
 
@@ -1215,9 +1211,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction', Bui
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -1309,9 +1303,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }}, 
         },
 		
         BuilderType = { 'SubCommander' },
@@ -1361,9 +1353,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -1455,9 +1445,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
         BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }}, 
         },
 		
         BuilderType = { 'SubCommander' },

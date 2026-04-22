@@ -256,11 +256,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 1000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 105 }},
         },
@@ -274,8 +270,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
 				AssistRange = 105,
                 AssisteeType = 'Any',
-				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
-                BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL},
+				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION - categories.HYDROCARBON,
+                BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL - categories.HYDROCARBON},
                 Time = 90,
             },
         },
@@ -291,16 +287,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 740,
+        Priority = 744,
 		
 		InstanceCount = 4,
 		
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2500 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 5000 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -392,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 740,
+        Priority = 746,
 		
 		InstanceCount = 4,
 		
@@ -727,7 +721,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 32000 }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.DRAGBUILD - categories.TECH3 - categories.EXPERIMENTAL - categories.HYDROCARBON, 5, false }},
         },

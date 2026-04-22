@@ -5,6 +5,8 @@ local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local GetEconomyIncome		= moho.aibrain_methods.GetEconomyIncome
+
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'Mass Extractor T1 - 250',
@@ -26,9 +28,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'LessThanEconMassStorageRatio', { 90 }},
+            --{ EBC, 'LessThanEconMassStorageRatio', { 90 }}, -- just claim early mass with no delays
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
+            --{ EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
@@ -43,8 +45,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 
 				LoopBuild = true,		-- repeat until none in range, threat or cannot meet M & E
                 
-                LoopMass = 1,
-                LoopEnergy = 500,
+                LoopMass = 0,
+                LoopEnergy = 0,
                 
                 MaxRange = 250,
 
@@ -67,7 +69,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 846,
+        Priority = 847,
         
         InstanceCount = 1,
 		
@@ -80,7 +82,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
             
             --{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
+            --{ EBC, 'GreaterThanEconStorageCurrent', { 60, 500 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
@@ -92,8 +94,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 60,
-                LoopEnergy = 500,
+                LoopMass = 0,
+                LoopEnergy = 0,
 
                 MinRange = 200,
                 MaxRange = 750,
@@ -324,9 +326,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 14, 0.3, 1.005 }},
+            { EBC, 'GreaterThanEnergyIncome', { 3000 }},
 
 			-- check base massfabs -- this should pick up only those in the base core - not the T3's on the outer layers
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
@@ -358,16 +358,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         
         Priority = 850,
 
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+            
+            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 24000 and aiBrain.IncomeRatio.MexUpgrade > 0.2 then
+            
+                return 12, true
+                
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
+
 		BuilderType = { 'T3','SubCommander' },
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .9 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 30, 0.3, 1.025 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
@@ -379,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         BuilderData = {
         
 			DesiresAssist = true,
-            NumAssistees = 2,
+            NumAssistees = 4,
 
             Construction = {
 				NearBasePerimeterPoints = true,

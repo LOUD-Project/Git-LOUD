@@ -267,7 +267,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 
 				for _,v in GetUnitsAroundPoint( aiBrain, categories.STRUCTURE, buildlocation, 1, 'Ally' ) do
 			
-					if not v.Dead and GetFractionComplete(v) < 1 then
+					if not v.Dead and GetFractionComplete(v) < 1 and not EntityCategoryContains(categories.FACTORY, v) then
 					
 						IssueRepair( {eng}, v )
 

@@ -20,6 +20,7 @@ local Direction                     = import('/lua/utilities.lua').GetDirectionI
 
 local BuildPlatoon              = moho.aibrain_methods.BuildPlatoon
 local GetEconomyStored          = moho.aibrain_methods.GetEconomyStored
+local GetEconomyIncome			= moho.aibrain_methods.GetEconomyIncome
 
 local GetFractionComplete       = moho.entity_methods.GetFractionComplete
 
@@ -58,6 +59,47 @@ function CreateFactoryBuilderManager(brain, lType, location, basetype)
     return fbm
 end
 
+function MassTrigger(factory, scale, adjacencyReduction)
+
+	if LOUDENTITY(categories.GATE, factory) then
+		return 4000
+	end
+
+	if LOUDENTITY(LAND, factory) then
+    	return 200 * scale * adjacencyReduction
+	end
+		
+	if LOUDENTITY(AIR, factory) then
+    	return 225 * scale * adjacencyReduction
+	end
+	
+	if LOUDENTITY(NAVAL, factory) then
+		return 300 * scale * adjacencyReduction
+	end
+
+	return 100
+end
+
+function EnergyTrigger(factory, scale, adjacencyReduction)
+
+	if LOUDENTITY(categories.GATE, factory) then
+		return 16000
+	end
+
+	if LOUDENTITY(LAND, factory) then
+    	return 500 * scale * adjacencyReduction
+	end
+		
+	if LOUDENTITY(AIR, factory) then
+    	return 2800 * scale * adjacencyReduction
+	end
+	
+	if LOUDENTITY(NAVAL, factory) then
+		return 2500 * scale * adjacencyReduction
+	end
+
+	return 1000
+end
 
 FactoryBuilderManager = Class(BuilderManager) {
 
@@ -408,15 +450,31 @@ FactoryBuilderManager = Class(BuilderManager) {
 
         adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
         adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
-        
-        local masstrig = LOUDMAX(100, 400 - ((3 - BuildLevel) * 100 )) * adjacencyreductionM     -- base of 200 for T1
-        local enertrig = LOUDMAX(1000, 3500 - ((3 - BuildLevel) * 600)) * adjacencyreductionE   -- base of 2500 for T1
-        
+
+		local levelReduction = 1
+
+		-- for T2 and T3 before their respective power is up use the previous levels triggers
+		if (factory.BuildLevel == 2 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 1400) or
+		(factory.BuildLevel == 3 and GetEconomyIncome( aiBrain, 'ENERGY') * 10 < 8000) then
+			levelReduction = 2
+		end
+	
+		local massScale = math.pow(1.8, factory.BuildLevel - levelReduction) -- exponential increase between tech levels
+		local energyScale = math.pow(3.6, factory.BuildLevel - levelReduction)
+
+		local massTrigger = MassTrigger(factory, massScale, adjacencyreductionM)
+		local energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
+
+		-- initial engineers have a lower cost
+		if aiBrain.CycleTime < 45 then
+			massTrigger = 100
+			energyTrigger = 1000
+		end
+
         local trig = false
         
         --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
-		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not ( factory.Upgrading or IsUnitState(factory,'Enhancing') ) do
-
+		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < massTrigger or GetEconomyStored( aiBrain, 'ENERGY') < energyTrigger ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
             -- adjacency reduction is the average of the two reductions
             adjacencyaverage = ((adjacencyreductionE + adjacencyreductionM) / 2)          
 
@@ -433,18 +491,16 @@ FactoryBuilderManager = Class(BuilderManager) {
                     factory:SetCustomName( message )
                 end
 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f",masstrig).." Enertrig "..string.format("%.1f",enertrig ) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f", massTrigger).." Enertrig "..string.format("%.1f", energyTrigger))
             end
             
 			WaitTicks( delay )
-
             adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
             adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
-        
-            -- the actual M & E triggers are impacted by new adjacencies each cycle
-            masstrig = LOUDMAX(100, 400 - ((3 - BuildLevel) * 100 )) * adjacencyreductionM
-            enertrig = LOUDMAX(1000, 3500 - ((3 - BuildLevel) * 600)) * adjacencyreductionE
 
+			-- the actual M & E triggers are impacted by new adjacencies each cycle
+			massTrigger = MassTrigger(factory, massScale, adjacencyreductionM)
+			energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then

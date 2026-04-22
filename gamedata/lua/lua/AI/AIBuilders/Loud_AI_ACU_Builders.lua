@@ -276,9 +276,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
 
-            { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
@@ -314,9 +314,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		BuilderType = { 'Commander' },
 
         BuilderConditions = {
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
-
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 1 }},
+            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 35, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
@@ -356,15 +359,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
-
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
-            
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGYPRODUCTION * TECH3 }},
-
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, ENERGYPRODUCTION * TECH3 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (ENERGYPRODUCTION * TECH3) - HYDROCARBON }},
         },
@@ -400,18 +397,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderType = { 'Commander' },
 		
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},			
+			{ LUTL, 'GreaterThanEnergyIncome', { 20000 }},			
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},			
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 			
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, MASSFABRICATION * TECH3, 10, 42 }},
             
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -446,7 +439,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 100 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION - TECH1, ENGINEER + ENERGYPRODUCTION - TECH1, 40 }},
         },
@@ -457,9 +450,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 150,
+                AssistEnergy = 100,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 150,
+                AssistMass = 500,
                 
 				AssistRange = 50,
                 AssisteeType = 'Structure',
@@ -483,9 +476,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 75 }},            
+			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2500 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 4000 }},
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION - TECH1, ENGINEER + MASSPRODUCTION, 36 }},
         },
@@ -496,9 +489,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 500,
+                AssistEnergy = 1000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 500,
 
 				AssistRange = 48,
 				AssisteeType = 'Structure',
@@ -527,7 +520,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
@@ -540,9 +533,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 2500,
+                AssistEnergy = 2000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 200,
+                AssistMass = 500,
             
 				AssistRange = 75,
 				AssisteeType = 'Structure',
@@ -568,9 +561,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
-
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},             
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},          
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE + EXPERIMENTAL, ENGINEER, 125 }},
         },
@@ -581,9 +572,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 3600,
+                AssistEnergy = 4000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 250,
+                AssistMass = 500,
 
 				AssistRange = 100,
                 AssisteeType = 'Engineer',
@@ -610,9 +601,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.3, 1.025 }}, -- favour eco development
         },
 		
         BuilderType = { 'Commander' },
@@ -729,7 +720,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
             
@@ -771,8 +762,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		
 			if self.Priority != 0 then
 
-				-- remove after 30 minutes
-				if aiBrain.CycleTime > 1800 then
+				-- remove after 15 minutes
+				if aiBrain.CycleTime > 900 then
 					return 0, false
 				end
 				
@@ -791,7 +782,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},			
             
@@ -837,6 +828,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
+
+			-- remove after 35 minutes
+			if aiBrain.CycleTime > 2100 then
+				return 0, false
+			end            
 		
             return CDRbuildsT2(self, aiBrain, unit)
             
@@ -847,7 +843,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
 
@@ -863,7 +859,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 500,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -903,7 +899,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, STRUCTURE * categories.DIRECTFIRE * TECH3, 15, 42 }},
         },
@@ -914,7 +910,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 100,
+				ThreatMax = 20000,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -1119,7 +1115,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD', BuildersType = 'Engineer
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ MIBC, 'GreaterThanGameTime', { 420 } }, 
+			{ MIBC, 'GreaterThanGameTime', { 720 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 

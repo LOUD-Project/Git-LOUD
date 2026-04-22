@@ -1001,7 +1001,7 @@ function AirScoutingAI( self, aiBrain )
 
     self.UsingTransport = true      -- airscouting is never considered for merge operations
 
-    local datalist, dest, dir, IL, length, mustScoutArea, mustScoutIndex, norm, orthogonal, path, reason, targetArea, threatbasis, threatlevel, vec, visradius
+    local datalist, dest, dir, IL, length, mustScoutArea, mustScoutIndex, norm, orthogonal, path, reason, targetArea, threatbasis, threatlevel, vec, visradius, offsetRadius
 
 	local function AIGetMustScoutArea()
 	
@@ -1046,11 +1046,12 @@ function AirScoutingAI( self, aiBrain )
 		
 			vec = {targetposition[1] - scoutposition[1], 0, targetposition[3] - scoutposition[3]}
             
-			length  = VDist3( targetposition, scoutposition )
-			norm    = {vec[1]/length, 0, vec[3]/length}
-			dir     = LOUDPOW(-1, Random(1,2))
+			length       = VDist3( targetposition, scoutposition )
+			norm         = {vec[1]/length, 0, vec[3]/length}
+			dir          = LOUDPOW(-1, Random(1,2))
+            offsetRadius = visradius * 0.65
 
-			orthogonal = { norm[3] * visradius * dir, 0, -norm[1] * visradius * dir }
+			orthogonal = { norm[3] * offsetRadius * dir, 0, -norm[1] * offsetRadius * dir }
 
 			dest    = {targetposition[1] + orthogonal[1], 0, targetposition[3] + orthogonal[3]}
 		
@@ -8402,6 +8403,11 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	
 		WaitTicks(201)
 
+        -- 45 minute delay before enhancements can start
+        if aiBrain.CycleTime < 2700 then
+            continue
+        end
+
         CurrentEnhancement = EnhanceList[1]
 
         while (not unit.Dead) and not HasEnhancement(unit, CurrentEnhancement) do
@@ -8426,7 +8432,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
-					if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
+					if GetEconomyStored( aiBrain, 'MASS') >= 2000 and GetEconomyStored( aiBrain, 'ENERGY') >= 8000 then
 				
 						IssueStop({unit})
 						IssueClearCommands({unit})
@@ -8630,6 +8636,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local masslimit     = .67   --- if we have 67% of the total mass needed - it's ok to upgrade
     local energylimit   = .77   --- and 77% for energy
 
+    -- aggressively push mex and factory upgrades to instead rely on limits
+    if EntityCategoryContains( categories.MASSEXTRACTION, unit ) or EntityCategoryContains( categories.FACTORY, unit ) then
+        masslimit = .1
+        energylimit = .1
+    end
+
     -- basic costs of upgraded unit -- affected both by the limits above AND the cheat values
 	local MassBasis     = (upgradebp.Economy.BuildCostMass * masslimit) / aiBrain.MinorCheatModifier
 	local EnergyBasis   = (upgradebp.Economy.BuildCostEnergy * energylimit) / aiBrain.MinorCheatModifier
@@ -8671,6 +8683,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
         mstored = false
         estored = false
+
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) and GetFractionComplete(unit) == 1 then -- mass extractors ignore storage requirement
+			init_delay = init_delay + 10
+        end        
 		
 		--- uses the same base values as factories do for units
 		if GetEconomyStored( aiBrain, 'MASS') >= baseM and GetEconomyStored( aiBrain, 'ENERGY') >= baseE and GetFractionComplete(unit) == 1 then
@@ -8719,7 +8735,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
     local econ  = aiBrain.EcoData.OverTime
 
-	local EnergyStorage, MassStorage
+	local EnergyStorage, MassStorage, extractorCount, skipTrendCheck, skipUpgradeLimitCheck
 	
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
         
@@ -8728,8 +8744,63 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         end
  	
 		WaitTicks(checkperiod * 10)
-		
-        if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
+
+        -- reduce required trends if T1 factory after 15 mintues or T2 factory after 45 minutes
+        if EntityCategoryContains( categories.FACTORY, unit ) then
+
+            skipTrendCheck = true
+            skipUpgradeLimitCheck = true
+
+            local landOrNaval = EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit)
+
+            -- Land and Naval have similar mass consumption so can be treated the same
+            local factoryType = landOrNaval and "LAND" or "AIR"
+
+            -- Check if maximum number of T2 factory upgrades has been reached
+            if EntityCategoryContains( categories.TECH1, unit ) then
+                local active = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Active"]
+                local limit  = aiBrain.FactoryUpgrade["T2" .. factoryType .. "Limit"]
+
+                if active >= limit then
+                    continue
+                end
+            end
+
+            -- Check if maximum number of T3 factory upgrades has been reached
+            if EntityCategoryContains( categories.TECH2, unit ) then
+                local active = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Active"]
+                local limit  = aiBrain.FactoryUpgrade["T3" .. factoryType .. "Limit"]
+
+                if active >= limit then
+                    continue
+                end
+            end
+
+        end        
+
+        if EntityCategoryContains( categories.MASSEXTRACTION, unit) then
+
+            skipTrendCheck = true
+            skipUpgradeLimitCheck = true
+
+            -- Check if maximum number of mex upgrades has been reached
+            if EntityCategoryContains( categories.TECH1, unit ) then
+
+                if aiBrain.MexUpgrade.T2Active >= aiBrain.MexUpgrade.T2Limit then
+                    continue
+                end
+
+            elseif EntityCategoryContains( categories.TECH2, unit ) then
+
+                if aiBrain.MexUpgrade.T3Active >= aiBrain.MexUpgrade.T3Limit then
+                    continue
+                end
+
+            end
+
+        end
+
+        if (aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit or skipUpgradeLimitCheck) and (not unit.BeingReclaimed) then
 
 			EnergyStorage   = GetEconomyStored( aiBrain, 'ENERGY')
 			MassStorage     = GetEconomyStored( aiBrain, 'MASS')
@@ -8812,9 +8883,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             MassTrendNeeded     = LOUDMAX(( (MassNeeded / buildtime) * buildrate) - massmade, 0) * .1
             EnergyTrendNeeded   = LOUDMAX(( (EnergyNeeded / buildtime) * buildrate) - enermade, 0) * .1
             
-            
             --- third check: MASS & ENERGY TRENDS & MAINTENANCE - must support building the item without going negative and any maintenance
-            if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
+            if skipTrendCheck or ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
 
                 --- TRENDS PASSED
 
@@ -8849,7 +8919,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                             end
                             
                             -- we use the MajorCheatModifier(66% of the full cheat) to reduce the longest delays
-							ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(540, buildtime*.66)/aiBrain.MajorCheatModifier, body )  -- delay the next upgrade by upto 66% of the upgrade build time
+							ForkThread(SelfUpgradeDelay, aiBrain, unit, 170, body )  -- delay the next upgrade by upto 66% of the upgrade build time
 
 						else
                             --- if either storage is NOT full -- medium delay - unaffected by cheat
@@ -8859,7 +8929,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                                     LOG( body.." storage not full - buildtime is "..buildtime )
                                 end
 
-                                ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(360, buildtime*.33), body )   -- otherwise only 33% the delay period
+                                ForkThread(SelfUpgradeDelay, aiBrain, unit, 120, body )   -- otherwise only 33% the delay period
 
                             else
 
@@ -8880,6 +8950,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                         end
 
 						IssueUpgrade({unit}, upgradeID)
+
+                        if EntityCategoryContains( categories.MASSEXTRACTION, unit ) then
+                            ForkThread(MexUpgradesActive, aiBrain, unit )
+                        elseif EntityCategoryContains( categories.FACTORY, unit ) then
+                            ForkThread(FactoryUpgradesActive, aiBrain, unit )        
+                        end
 
 						if StructureUpgradeDialog then
 							LOG( body.." UPGRADING TO "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." on tick "..GetGameTick() )
@@ -9043,6 +9119,87 @@ function SelfUpgradeDelay( aiBrain, unit, delay, body )
     if ScenarioInfo.StructureUpgradeDialog then
         LOG( body.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." saved "..saveddelay.." ticks on tick "..GetGameTick() )
     end
+end
+
+-- Limit the amount of simultaneous mex upgrades that can be active
+function MexUpgradesActive( aiBrain, unit )
+
+    local tech = nil
+
+    if EntityCategoryContains(categories.TECH1, unit) then
+        tech = "T2"
+    elseif EntityCategoryContains(categories.TECH2, unit) or EntityCategoryContains(categories.TECH3, unit) then
+        tech = "T3"
+    else
+        return
+    end
+
+    local weights = {
+        T2 = { T2 = 1, T3 = 0.5 },
+        T3 = { T2 = 2, T3 = 1 }
+    }
+
+    local weight = weights[tech]
+
+    aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active + weight.T2
+    aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active + weight.T3
+
+    repeat
+        WaitTicks(20)
+    until unit.Dead
+
+    aiBrain.MexUpgrade.T2Active = aiBrain.MexUpgrade.T2Active - weight.T2
+    aiBrain.MexUpgrade.T3Active = aiBrain.MexUpgrade.T3Active - weight.T3
+
+end
+
+-- Limit the amount of simultaneous factory upgrades that can be active
+function FactoryUpgradesActive( aiBrain, unit )
+
+    local factoryType = nil
+    local tech = nil
+
+    if EntityCategoryContains(categories.LAND, unit) or EntityCategoryContains(categories.NAVAL, unit) then
+        factoryType = "LAND"
+    elseif EntityCategoryContains(categories.AIR, unit) then
+        factoryType = "AIR"
+    end
+
+    if not factoryType then
+        return
+    end
+
+    if EntityCategoryContains(categories.TECH1, unit) then
+        tech = "T2"
+    elseif EntityCategoryContains(categories.TECH2, unit) then
+        tech = "T3"
+    else
+        return
+    end
+
+    local weights = {
+        LAND = { LAND = 1, AIR = 2 },
+        AIR  = { LAND = 1, AIR = 1 },
+    }
+
+    local landKey = tech .. "LANDActive"
+    local airKey  = tech .. "AIRActive"    
+
+    local weight = weights[factoryType]
+
+    aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] + weight.LAND
+    aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] + weight.AIR
+
+    repeat
+        WaitTicks(20)
+    until unit.Dead
+
+    -- A decent sized delay to recover storage levels
+    WaitTicks(450)
+
+    aiBrain.FactoryUpgrade[landKey] = aiBrain.FactoryUpgrade[landKey] - weight.LAND
+    aiBrain.FactoryUpgrade[airKey] = aiBrain.FactoryUpgrade[airKey] - weight.AIR
+
 end
 
 -- this function identifies units in a platoon that may have air/land toggle weapons

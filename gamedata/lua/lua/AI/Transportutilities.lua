@@ -53,6 +53,7 @@ local IsUnitState       = moho.unit_methods.IsUnitState
 local AIRPADS           = categories.AIRSTAGINGPLATFORM - categories.MOBILE
 local AIRTRANSPORTS     = categories.AIR * categories.TRANSPORTFOCUS
 local ENGINEERS         = categories.ENGINEER
+local LANDSCOUTS		= categories.LAND * categories.TECH1 * categories.SCOUT
 
 -- this function will create the TransportPool platoon and put the reference to it in the brain
 function CreateTransportPool( aiBrain )
@@ -335,6 +336,8 @@ function GetTransports( platoon, aiBrain)
 
     -- this is a table of 'slots' required
 	local neededTable = { Small = 0, Medium = 0, Large = 0, Total = 0 }
+	local platoonSize = table.getn(GetPlatoonUnits(platoon))
+	local singleScout
 	
     -- loop thru the unit platoon and summarize the number of slots required 
     -- take into account the flex of slots required - so larger units add extra Small/Medium requirements
@@ -342,6 +345,10 @@ function GetTransports( platoon, aiBrain)
 	for _, v in GetPlatoonUnits(platoon) do
 	
 		if v and not v.Dead then
+
+			if platoonSize == 1 and EntityCategoryContains( LANDSCOUTS, v ) then
+				singleScout = true
+			end
 			
 			if v.TransportClass == 1 then
 				CanUseTransports = true
@@ -679,6 +686,11 @@ function GetTransports( platoon, aiBrain)
             
 				-- use only those which are not already busy or are not loading already
 				if (not IsUnitState( transport, 'Busy')) and (not IsUnitState( transport, 'TransportLoading')) then
+
+					-- single land scouts can only use excess transports
+					if singleScout == true and transportcount < 5 then
+						continue
+					end
 
 					-- deny use of T1 transport to platoons needing more than 1 large transport
 					if (not IsEngineer) and LOUDENTITY( categories.TECH1, transport ) and neededTable.Large > 1 then

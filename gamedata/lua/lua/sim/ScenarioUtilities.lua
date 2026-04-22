@@ -1,7 +1,17 @@
 --  scenarioutilities.lua
 
-local loudUtils = import('/lua/loudutilities.lua')
+local loudUtils  = import('/lua/loudutilities.lua')
+local ECOM = import('/lua/AI/EcoManager.lua')
 
+local BrainMethods     = moho.aibrain_methods
+
+local GetEconomyIncome = BrainMethods.GetEconomyIncome
+local GetListOfUnits   = BrainMethods.GetListOfUnits
+
+local LOUDFLOOR = math.floor
+local LOUDMAX   = math.max
+local LOUDMIN   = math.min
+local LOUDGETN  = table.getn
 
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
@@ -737,6 +747,218 @@ function CreateResources()
 	
 end
 
+-- check if terrain at the current coord is below water level, if below it is not passable by land
+-- next check if the terrain at the current coord is a coastline, if so it is not passable to act as a buffer
+-- then check if the slope of nearby terrain, if difference too large it is not passable by land
+function IsLandPassable(x, z)
+
+    local terrainHeight = GetTerrainHeight(x, z)
+    local surfaceHeight = GetSurfaceHeight(x, z)
+    local offset = 10
+
+    -- water check
+    if terrainHeight < surfaceHeight - 1 then
+
+        --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
+        return false
+    
+    end
+
+    local terrainOffsets = {
+            GetTerrainHeight(x + offset, z),
+            GetTerrainHeight(x - offset, z),
+            GetTerrainHeight(x, z + offset),
+            GetTerrainHeight(x, z - offset)}
+
+    local surfaceOffsets = {
+            GetSurfaceHeight(x + offset, z),
+            GetSurfaceHeight(x - offset, z),
+            GetSurfaceHeight(x, z + offset),
+            GetSurfaceHeight(x, z - offset)}
+
+    -- coastline check
+    for i, terrainOffset in terrainOffsets do
+
+        if terrainOffset < surfaceOffsets[i] - 1 then
+
+            --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
+            return false
+
+        end
+    
+    end
+ 
+    -- slope check
+    local slope =
+        math.max(
+            math.abs(terrainHeight - terrainOffsets[1]),
+            math.abs(terrainHeight - terrainOffsets[3]),
+            math.abs(terrainHeight - terrainOffsets[2]),
+            math.abs(terrainHeight - terrainOffsets[4]))
+
+    if slope > 3.6 then
+
+        --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ffff0000')
+        return false
+
+    end
+
+    --ForkThread(VisualiseGrid, {x, terrainHeight, z}, 'ff00ff00')
+    return true
+
+end
+
+-- build a grid of the map with every node marked as true or false for passable or none passable by land
+function BuildLandGrid(stepsize)
+
+    local sizeX = ScenarioInfo.size[1]
+    local sizeZ = ScenarioInfo.size[2]
+    local grid = {}
+
+    for x = 0, sizeX, stepsize do
+
+        grid[x] = {}
+
+        for z = 0, sizeZ, stepsize do
+
+            -- if I'm a node at the edge then I'm not passable
+            if x < stepsize or z < stepsize or x > sizeX - stepsize or z > sizeZ - stepsize then
+                grid[x][z] = false
+            else
+                grid[x][z] = IsLandPassable(x, z)
+            end
+
+        end
+
+    end
+
+    return grid
+
+end
+
+-- put a set of coordinates to the nearest grid position
+function GridPosition(position, stepsize)
+
+    local gridx = math.floor( position[1] / stepsize ) * stepsize
+    local gridz = math.floor( position[3] / stepsize ) * stepsize
+
+    return gridx, gridz
+
+end
+
+-- First get the nearest nodes on the grid for the start and destination
+-- Then create a table for the queue of nodes, using start as the first to test. Then another table for visted nodes that should not be retested
+-- Establish the 8 neighbours a node can have
+-- Loop through the queue until the destination is arrived or all nodes are exhausted
+-- -- The start position is first
+-- -- If it isn't the destination then its neighbouring nodes are checked 
+-- -- Check that they're part of the grid
+-- -- Then check from BuildLandGrid that it is passable by land
+-- -- If so then mark it as visited and add it to the queue
+-- Returns true if was reachable and false if not
+function LandPathExists(start, destination, grid, stepsize)
+
+    local startx, startz = GridPosition( start, stepsize ) -- nearest grid node to starting point
+    local destinationx, destinationz = GridPosition( destination, stepsize ) -- nearest grid node to destination
+
+    local queue = {}
+    local visited = {} -- mark visited nodes so not to retrace steps
+
+    table.insert( queue, { startx, startz } )
+    visited[startx.."_"..startz] = true
+
+    -- the 8 grid nodes around the current
+    local neighbours = {
+        { stepsize, 0        }, {-stepsize, 0        },
+        { 0,        stepsize }, { 0,       -stepsize },
+        { stepsize, stepsize }, {-stepsize,-stepsize },
+        { stepsize,-stepsize }, {-stepsize, stepsize }
+    }
+
+    -- look through coords until I either arrive at the destination or have nowhere left to go so are blocked
+    while table.getn(queue) > 0 do
+
+        local node = table.remove(queue,1)
+
+        local x = node[1]
+        local z = node[2]
+
+        -- have I arrived at the destination so there is a land path
+        if x == destinationx and z == destinationz then
+            return true    
+        end
+
+        -- I am not there yet so keep looking
+        for _,neighbour in neighbours do
+
+            local neighbourx = x + neighbour[1]
+            local neighbourz = z + neighbour[2]
+
+            local key = neighbourx.."_"..neighbourz
+
+            if not visited[key] then
+
+                if grid[neighbourx] and grid[neighbourx][neighbourz] then -- does node exist?
+
+                    if grid[neighbourx][neighbourz] then -- am I passable by land?
+
+                        visited[key] = true
+                        table.insert( queue, {neighbourx,neighbourz} )
+
+                    end
+
+                end
+
+            end
+
+        end
+
+    end
+
+    return false
+
+end
+
+-- Get the start location for the AI and then check the start location of enemies to see if any of them have a land connection
+function AIHasLandEnemy( aiBrain )
+
+    local start = aiBrain:GetStartVector3f() -- this AI's start position
+
+    local stepsize = 32
+    local grid = BuildLandGrid(stepsize)
+
+    for _,brain in ArmyBrains do
+
+        if IsEnemy( aiBrain.ArmyIndex, brain.ArmyIndex ) then
+
+            local destination = brain:GetStartVector3f() -- enemy start position
+
+            if LandPathExists( start, destination, grid, stepsize ) then
+
+                return true
+
+            end
+
+        end
+
+    end
+
+    return false
+
+end
+
+function VisualiseGrid(position, colour)
+
+    while true do
+        
+        DrawCircle(position, 3, colour)
+
+    WaitTicks(2)
+
+    end
+
+end
+
 function InitializeArmies()
 	
 	--Loop through active mods
@@ -961,6 +1183,51 @@ function InitializeArmies()
 
             if aiBrain.Personality == 'loud' then
 
+                -- Does the AI have a land connection to any enemy start position?
+                aiBrain.HasLandEnemy = AIHasLandEnemy( aiBrain )
+
+                -- Initialize income ratios
+                local baseMexUpgrade     = .45
+                local baseFactoryUpgrade = .08
+                local baseMaxFactory     = .4
+
+                aiBrain.TechLevel = 'T1'
+
+                aiBrain.IncomeRatio = {
+                    BaseMexUpgrade = baseMexUpgrade, MexUpgrade = baseMexUpgrade,
+                    BaseFactoryUpgrade = baseFactoryUpgrade, FactoryUpgrade = baseFactoryUpgrade,
+                    BaseMaxFactory = baseMaxFactory, MaxFactory = baseMaxFactory
+                }
+
+                ForkThread( ECOM.IncomeRatioBudget, aiBrain )
+
+                -- Initialize mex upgrade limits
+                aiBrain.MexUpgrade = {
+                    T2Active = 0, T3Active = 0,
+                    T2Limit  = 0, T3Limit  = 0, T3BaseLimit = 0
+                }
+
+                ForkThread( ECOM.MexUpgradeLimit, aiBrain )
+
+                -- Initialize factory upgrade limits
+                aiBrain.FactoryUpgrade = {
+                    T2LANDActive = 0, T2AIRActive = 0,
+                    T3LANDActive = 0, T3AIRActive = 0,
+                    T2LANDLimit  = 0, T2AIRLimit  = 0,
+                    T3LANDLimit  = 0, T3AIRLimit  = 0
+                }
+
+                ForkThread( ECOM.FactoryUpgradeLimit, aiBrain )
+
+                -- Initialize factory build limits
+                aiBrain.MaxFactory = {
+                    LANDCount  = 0, LANDLimit  = 0,
+                    AIRCount   = 0, AIRLimit   = 0,
+                    NAVALCount = 0, NAVALLimit = 0,
+                }
+
+                ForkThread( ECOM.MaxFactoryLimit, aiBrain )
+                
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
                 --- is used to limit the # of self-upgrades that can be issued in a given time
