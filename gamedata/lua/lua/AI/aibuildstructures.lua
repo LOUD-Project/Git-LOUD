@@ -265,7 +265,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
                 local GetFractionComplete = GetFractionComplete
                 local GetUnitsAroundPoint = GetUnitsAroundPoint
 
-				for _,v in GetUnitsAroundPoint( aiBrain, categories.STRUCTURE, buildlocation, 1, 'Ally' ) do
+				for _,v in GetUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.FACTORY, buildlocation, 1, 'Ally' ) do
 			
 					if not v.Dead and GetFractionComplete(v) < 1 then
 					
