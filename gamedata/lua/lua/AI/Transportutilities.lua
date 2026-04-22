@@ -669,7 +669,7 @@ function GetTransports( platoon, aiBrain)
 	local out_of_range      = false
     local transports        = {}			-- this will hold the data for all of the eligible transports    
 
-    local id, range, rangeCap, ratioScale, unitPos
+    local id, range, unitPos
 
 	-- loop thru all transports and filter out those that dont pass muster
 	for k,transport in AvailableTransports do
@@ -702,15 +702,10 @@ function GetTransports( platoon, aiBrain)
 					
 						unitPos = GetPosition(transport)
 						range = VDist2( unitPos[1],unitPos[3], location[1], location[3] )
-						blueprint = transport:GetBlueprint()
-						-- Find how far the transport can travel factoring the required fuel
-						rangeCap = math.min(1800, (blueprint.Air.MaxAirspeed * blueprint.Physics.FuelUseTime) * FuelRequired)
-						-- A scale from the current air ratio clamped between 0 and 1
-						ratioScale = math.pow(math.max(0, (math.min(2, aiBrain.AirRatio) - 0.5)) / 1.5, 2)
 
-						-- Air Ratio of 0 to 0.5 will give 600 range
-						-- Air Ratio of >0.5 to 2 will quadratically scale up to the range cap
-						if range < 600 + (rangeCap - 600) * ratioScale then
+						-- limit to 12 km range if air ratio is low - 16 km if normal
+                        -- this insures that transport wont expire before loading takes place as loading has a 120 second time limit --
+						if range < 600 + ( 300 * (math.max( 1, aiBrain.AirRatio ))) then
                             
                             -- mark the transport as being assigned 
                             -- to prevent it from being picked up in another transport collection
@@ -742,7 +737,7 @@ function GetTransports( platoon, aiBrain)
 						else
                         
                             if TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(600 + ( 200 * (math.min( 1, aiBrain.AirRatio )))) )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(600 + ( 300 * (math.max( 1, aiBrain.AirRatio )))) )
                             end
                             
 							out_of_range = true

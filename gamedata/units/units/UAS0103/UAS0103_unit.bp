@@ -454,6 +454,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SUBMARINE',
                 'SUBMERSIBLE',
+                'STRUCTURE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			

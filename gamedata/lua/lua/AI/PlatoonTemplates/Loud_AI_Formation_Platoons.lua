@@ -249,7 +249,7 @@ PlatoonTemplate { Name = 'T1ArtilleryAttack',
 }
 
 PlatoonTemplate { Name = 'T1MassAttack',
-    Plan = 'GuardPoint',    
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
@@ -261,7 +261,7 @@ PlatoonTemplate { Name = 'T1MassAttack',
 }
 
 PlatoonTemplate { Name = 'T2MassAttack',
-    Plan = 'GuardPoint',    
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
@@ -273,7 +273,7 @@ PlatoonTemplate { Name = 'T2MassAttack',
 }
 
 PlatoonTemplate { Name = 'T3MassAttack',
-    Plan = 'GuardPoint',
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.EXPERIMENTAL, 45, 60, 'Attack', 'none' },
 		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },
@@ -286,6 +286,7 @@ PlatoonTemplate { Name = 'T3MassAttack',
 }
 
 PlatoonTemplate { Name = 'T1LandAttack',
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
@@ -297,6 +298,7 @@ PlatoonTemplate { Name = 'T1LandAttack',
 }
 
 PlatoonTemplate { Name = 'T2LandAttack',
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
@@ -308,7 +310,7 @@ PlatoonTemplate { Name = 'T2LandAttack',
 }
 
 PlatoonTemplate { Name = 'T3LandAttack',
-    Plan = 'LandForceAILOUD',
+
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.AMPHIBIOUS, 40, 60, 'Attack', 'none' },
 		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },

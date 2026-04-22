@@ -1,3 +1,46 @@
+### Release 04-17-2026
+
+LUA 8.10
+
+- revised the mass requirements for T1 Pgen building, was causing factory stalling by being too aggressive
+- revised the mass requirements for Assist Mass, was likewise causing factory stalling by being a bit too aggressive
+- production ratios for AIR & NAVAL are now a minimum of 4 when the enemy doesn't participate in those arms, reducing overbuilding of factorys and defenses
+- production value of upgrading factories is now treated as 'idle' rather than full output (this should cover factory enhancements as well)
+- removal of unit state functions for units which are upgrading, this is now just a simple lookup
+
+
+
+### Release 04-11-2026
+
+LUA 8.09
+
+- refined the production ratios to respond more effectively when the opponent ignores a certain arm (AIR or NAVAL)
+    -- AIR & NAVAL production ratios are multiplied by the number of opponents when no production is detected in that arm
+    -- addition of new air factories is now restricted when the air production ratio > 4 (previously 6)
+- a minor cheat buff to movement speed (.3) for engineers when outnumbered
+- better recognition of an amphibious presentation allows me to limit or entirely stop standard land unit production
+    -- this responds better in conditions where airtransports have been restricted
+    -- takes advantage of 'land mode' indication to control production focus of amphibious units, reducing build up of non-amphib units at rear positions
+- a fix for amphibious pathfinding that was having trouble with steep coastal slopes
+- improved AI Debug base naming function to indicate 'land mode' and switch the display if the mode changes
+
+
+
+
+### Release 04-04-2026
+
+LUA 8.08
+
+- fixed an error with transport range being limited to 700 ogrids, rather than being dynamic with AirRatio (minimum should be 800)
+- increased emphasis on early MEX upgrades
+- revised LOG for the Guardpoint behavior
+- moved behavior specs into the platoon builder, and out of the platoon formation template
+- small increases to the number of air transports permitted 
+- AI ACU will now favor 'Assist Energy' over building additional T1 power gens, once any advanced power is underway
+- AI Self Upgrade tasks now gain a small random amount to thier initial delay, to reduce tasks being checked on the same tick
+
+
+
 ### Release 03-20-2026
 
 LUA 8.07

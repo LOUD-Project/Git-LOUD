@@ -607,7 +607,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoRapidLoader',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
+            RemoveEnhancements = {'EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
 
             Slot = 'RCH',
         },
@@ -646,7 +646,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTorpedoClusterLauncher',
 
-            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
+            RemoveEnhancements = {'EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
 
             Slot = 'RCH',
         },
@@ -723,7 +723,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXImprovedContainmentBottle',
 
-            RemoveEnhancements = {'EXAntiMatterCannon','EXImprovedContainmentBottle','EXImprovedContainmentBottleRemove'},
+            RemoveEnhancements = {'EXImprovedContainmentBottle','EXImprovedContainmentBottleRemove'},
 
             Slot = 'RCH',
         },
@@ -762,7 +762,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXPowerBooster',
 
-            RemoveEnhancements = {'EXAntiMatterCannon','EXImprovedContainmentBottle','EXPowerBooster','EXPowerBoosterRemove'},
+            RemoveEnhancements = {'EXPowerBooster','EXPowerBoosterRemove'},
 
             Slot = 'RCH',
         },
@@ -838,7 +838,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXImprovedCoolingSystem',
 
-            RemoveEnhancements = {'EXGattlingEnergyCannon','EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
+            RemoveEnhancements = {'EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
 
             Slot = 'RCH',
         },
@@ -877,7 +877,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXEnergyShellHardener',
 
-            RemoveEnhancements = {'EXGattlingEnergyCannon','EXImprovedCoolingSystem','EXEnergyShellHardener','EXEnergyShellHardenerRemove'},
+            RemoveEnhancements = {'EXEnergyShellHardener','EXEnergyShellHardenerRemove'},
 
             Slot = 'RCH',
         },
@@ -914,7 +914,7 @@ UnitBlueprint {
 
             Name = 'Remove Intel Package',
 
-            Prerequisite = 'EXIntelEnhancement',
+            Prerequisite = 'EXIntelEnhancementT2',
 
             RemoveEnhancements = {'EXIntelEnhancementT2','EXIntelEnhancementT2Remove'},
 
@@ -998,7 +998,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXSatelliteSystem',
 
-            RemoveEnhancements = {'EXSatelliteSystem','EXSatelliteSystemRemove','EXIntelEnhancementT3','EXIntelEnhancementT2'},
+            RemoveEnhancements = {'EXSatelliteSystem','EXSatelliteSystemRemove'},
 
             Slot = 'Command',
         },
@@ -1111,7 +1111,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXActiveSkinShield',
 
-            RemoveEnhancements = {'EXShieldBubble','EXActiveSkinShield','EXActiveSkinShieldRemove'},
+            RemoveEnhancements = {'EXActiveSkinShield','EXActiveSkinShieldRemove'},
 
             Slot = 'Back',
         },
@@ -1168,7 +1168,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXAdvancedSkinShield',
 
-            RemoveEnhancements = {'EXShieldBubble','EXActiveSkinShield','EXAdvancedSkinShield','EXAdvancedSkinShieldRemove' },
+            RemoveEnhancements = {'EXAdvancedSkinShield','EXAdvancedSkinShieldRemove' },
 
             Slot = 'Back',
         },
@@ -1220,7 +1220,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTyphoonBubble',
 
-            RemoveEnhancements = {'EXShieldBubble','EXActiveSkinShield','EXAdvancedSkinShield','EXTyphoonBubble','EXTyphoonBubbleRemove'},
+            RemoveEnhancements = {'EXTyphoonBubble','EXTyphoonBubbleRemove'},
 
             Slot = 'Back',
         },
@@ -1295,7 +1295,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXClusterMisslesPack',
 
-            RemoveEnhancements = {'EXClusterMisslePack','EXClusterMisslesPack','EXClusterMisslesPackRemove'},
+            RemoveEnhancements = {'EXClusterMisslesPack','EXClusterMisslesPackRemove'},
 
             Slot = 'Back',
         },
@@ -1332,7 +1332,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXClusterMissleSalvoPack',
 
-            RemoveEnhancements = {'EXClusterMisslePack','EXClusterMisslesPack','EXClusterMissleSalvoPack','EXClusterMissleSalvoPackRemove'},
+            RemoveEnhancements = {'EXClusterMissleSalvoPack','EXClusterMissleSalvoPackRemove'},
 
             Slot = 'Back',
         },
@@ -1443,7 +1443,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXTacticalNukeSubstitution',
 
-            RemoveEnhancements = {'EXTacticalMisslePack','EXTacticalNukeSubstitution','EXTacticalNukeSubstitutionRemove'},
+            RemoveEnhancements = {'EXTacticalNukeSubstitution','EXTacticalNukeSubstitutionRemove'},
 
             Slot = 'Back',
         },

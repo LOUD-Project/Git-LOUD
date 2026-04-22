@@ -511,7 +511,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
             import('/lua/ai/sorianutilities.lua').AISendChat('allies', aiBrain.Nickname, 'Creating new base '..baseName )
 
-            AISendPing( position, 'alert', aiBrain.ArmyIndex )
+            ForkThread( AISendPing, position, 'alert', aiBrain.ArmyIndex )
 			
 			return true
 		end

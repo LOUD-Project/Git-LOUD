@@ -8661,7 +8661,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 	local EnergyMaintenance = LOUDMAX( (( __blueprints[upgradeID].Economy.MaintenanceConsumptionPerSecondEnergy or 0) - enerused) * .1, 0)   * math.min(1, unit.EnergyBuildAdjMod or 1) 
 
-	local init_delay        = 1
+	local init_delay        = 1 + Random(0,5)   --- added random number of ticks to spread out simultaneously started items
 	local upgradeIssued     = false    
     local workrate          = checkperiod   --- store normal checkperiod
 

@@ -81,7 +81,7 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 			continue
 		end
 
-		if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+		if not v.Upgrading and not IsUnitState( v, 'Building' ) then
 		
 			continue
 		end

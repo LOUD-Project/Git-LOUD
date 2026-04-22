@@ -918,7 +918,7 @@ BuffBlueprint { Name = 'CheatENG',
     Duration = -1,
     Affects = {
 		SpeedMult = {
-			Add = 0,
+			Add = 0.3,
 			Mult = 1.1,
 		},
         AccelMult = {

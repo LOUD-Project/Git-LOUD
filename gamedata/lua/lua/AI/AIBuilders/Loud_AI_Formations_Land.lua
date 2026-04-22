@@ -295,7 +295,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -386,7 +388,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 801,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -585,10 +589,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land',
 	
         PlatoonTemplate = 'T2MassAttack',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -670,10 +677,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land Need Mass',
 	
         PlatoonTemplate = 'T2MassAttack',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -756,10 +766,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	Builder {BuilderName = 'MEX Attack Small Land Need Mass',
 	
         PlatoonTemplate = 'T1MassAttack',
+
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -934,7 +947,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'LandForceAILOUD',
+  		
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -1073,7 +1088,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
@@ -1155,7 +1172,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'GuardPoint',
+  		
         Priority = 801,
 		
 		PriorityFunction = function(self, aiBrain, manager)

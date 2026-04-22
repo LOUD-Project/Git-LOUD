@@ -1268,6 +1268,8 @@ AIBrain = Class(moho.aibrain_methods) {
 					if ScenarioInfo.DisplayBaseNames or self.DisplayBaseNames or self.BuilderManagers[k].MarkerID then
 					
 						ForkThread( import('/lua/loudutilities.lua').RemoveBaseMarker, self, k, self.BuilderManagers[k].MarkerID)
+                        
+                        self.BuilderManagers[k].MarkerID = nil
 						
 					end
 					

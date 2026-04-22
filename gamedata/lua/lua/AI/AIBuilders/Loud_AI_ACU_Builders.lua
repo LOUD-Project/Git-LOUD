@@ -9,9 +9,10 @@ local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local BHVR  = '/lua/ai/aibehaviors.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
-local BaseInPlayableArea    = import(MIBC).BaseInPlayableArea
-local GetThreatAtPosition   = moho.aibrain_methods.GetThreatAtPosition
-local GetPosition           = moho.entity_methods.GetPosition
+local BaseInPlayableArea        = import(MIBC).BaseInPlayableArea
+local GetThreatAtPosition       = moho.aibrain_methods.GetThreatAtPosition
+local GetPosition               = moho.entity_methods.GetPosition
+local UnitsGreaterAtLocation    = import(UCBC).UnitsGreaterAtLocation
 
 
 -- this is here as a test to see if it has any impact I can detect
@@ -19,6 +20,7 @@ local GetPosition           = moho.entity_methods.GetPosition
 -- that is loaded
 local ENERGYPRODUCTION  = categories.ENERGYPRODUCTION
 local HYDROCARBON       = categories.HYDROCARBON
+local ENERGYT2          = ENERGYPRODUCTION * categories.TECH2 - HYDROCARBON
 local MASSFABRICATION   = categories.MASSFABRICATION
 local MASSPRODUCTION    = categories.MASSPRODUCTION
 local ENGINEER          = categories.ENGINEER
@@ -29,26 +31,6 @@ local ANTIAIR           = categories.ANTIAIR
 local TECH1             = categories.TECH1
 local TECH2             = categories.TECH2
 local TECH3             = categories.TECH3
-
-
--- imbedded into the Builder
-local First5Minutes = function( self,aiBrain )
-	
-	if aiBrain.CycleTime > 300 then
-		return 0, false
-	end
-	
-	return self.Priority, true
-end
-
-local First40Minutes = function( self,aiBrain )
-	
-	if aiBrain.CycleTime > 2400 then
-		return 0, false
-	end
-	
-	return self.Priority, true
-end
 
 -- this function turns on the builder when he has T3 ability
 -- this is kind of costly - best if any of those enhancements just flagged the brain
@@ -198,6 +180,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game', BuildersType = 'Engin
 	
 		-- this function removes the builder (like original function BuildOnce)
 		PriorityFunction = function(self, aiBrain)
+
             if GetGameTimeSeconds() > 12 then
                 return 0, false
             end
@@ -262,7 +245,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game', BuildersType = 'Engin
 --  COMMANDER TASKS AFTER START
 BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
-    -- his most important role for first 45 mins
+    -- his most important role early game
     -- if low on power and has sufficient mass stored
     -- and no advanced power of any kind
     Builder {BuilderName = 'CDR - T1 Power',
@@ -274,9 +257,22 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		PlatoonAIPlan = 'EngineerBuildAI',
 		
         Priority = 780,
-		
-		PriorityFunction = First40Minutes,
-		
+
+		-- this function removes the builder (like original function BuildOnce)
+		PriorityFunction = function(self, aiBrain, manager)
+
+            if aiBrain.CycleTime > 2400 then
+                return 0, false
+            end
+ 
+            -- if T2 power is present - turn it off - likely to choose Assist Energy then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT2 ) then
+                return 0, false
+            end
+
+            return 780, true
+		end,
+
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 

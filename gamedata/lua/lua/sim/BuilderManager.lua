@@ -464,6 +464,7 @@ BuilderManager = Class {
 		
 		local PoolGreaterAtLocation         = import('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
         local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
+        local RemoveBaseMarker              = import('/lua/loudutilities.lua').RemoveBaseMarker
         local ResetPFMTasks                 = import('/lua/loudutilities.lua').ResetPFMTasks
         
         local FREEUNITS = categories.ALLUNITS - categories.ENGINEER
@@ -526,12 +527,26 @@ BuilderManager = Class {
                 if path and not BuilderManager.LandMode then
                 
                     brain.BuilderManagers[LocationType].LandMode = true
+                
+                    if brain.BuilderManagers[LocationType].MarkerID then
+
+   						ForkThread( RemoveBaseMarker, brain, LocationType, brain.BuilderManagers[LocationType].MarkerID)
+                        
+                        brain.BuilderManagers[LocationType].MarkerID = nil
+                    end
 
                 else
                     if not path and BuilderManager.LandMode then
                     
                         brain.BuilderManagers[LocationType].LandMode = false
+                
+                        if brain.BuilderManagers[LocationType].MarkerID then
 
+                            ForkThread( RemoveBaseMarker, brain, LocationType, brain.BuilderManagers[LocationType].MarkerID)
+
+                            brain.BuilderManagers[LocationType].MarkerID = nil
+                        end
+   
                     end
                 end
 

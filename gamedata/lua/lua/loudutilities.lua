@@ -1519,11 +1519,22 @@ function SetPrimaryLandAttackBase( aiBrain )
         
             if aiBrain.PrimaryLandAttackBase then
             
-                if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                local base = aiBrain.PrimaryLandAttackBase
+                
+                if aiBrain.BuilderManagers[base].LandMode != currentlandbasemode then
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(base).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                
+                    if aiBrain.BuilderManagers[base].MarkerID then
+
+                        ForkThread( RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[base].MarkerID)
+
+                        aiBrain.BuilderManagers[base].MarkerID = nil
+                    end
+   
                 end
             
-                aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
+                aiBrain.BuilderManagers[base].LandMode = currentlandbasemode
             end
 
         end
@@ -3452,6 +3463,8 @@ function DeadBaseMonitor( aiBrain )
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or BM[k].MarkerID then
 						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
+                        
+                        BM[k].MarkerID = nil
 					end
 
 					-- remove base from table
@@ -5774,7 +5787,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         myairidle = myairidle + 1
                         myairtot = myairtot + .3
                     else
@@ -5796,6 +5809,12 @@ function ParseIntelThread( aiBrain )
             -- my air production value divided by (enemy air production value/Number of Opponents)
             aiBrain.AirProdRatio = myairtot/(LOUDMAX(NumOpponents,grandairtot)/NumOpponents)
             
+            -- if the enemy is not playing AIR then multiply air prod ratio by 4
+            -- this should greatly inhibit the building of additional factories of this type
+            if grandairtot < 1 then
+                aiBrain.AirProdRatio = LOUDMAX(4,aiBrain.AirProdRatio) * 4
+            end
+            
             mylandcount = 0
             mylandidle  = 0
             mylandtot   = 0
@@ -5810,7 +5829,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         mylandidle = mylandidle + 1
                         mylandtot = mylandtot + .3
                     else
@@ -5843,7 +5862,7 @@ function ParseIntelThread( aiBrain )
 
                 if u:GetFractionComplete() == 1 and not u.Dead then
 
-                    if IsIdleState(u) then 
+                    if IsIdleState(u) or u.Upgrading then 
                         mynavalidle = mynavalidle + 1
                         mynavaltot = mynavaltot + .3
                     else
@@ -5861,6 +5880,10 @@ function ParseIntelThread( aiBrain )
             mynavaltot = mynavaltot * aiBrain.BuildRateModifier
 
             aiBrain.NavalProdRatio = mynavaltot/(LOUDMAX(NumOpponents,grandnavaltot)/NumOpponents)
+            
+            if grandnavaltot < 1 then
+                aiBrain.NavalProdRatio = LOUDMAX(4,aiBrain.NavalProdRatio) * 4
+            end
 
             -- I have navy production but the enemy is undetected
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
@@ -5875,10 +5898,10 @@ function ParseIntelThread( aiBrain )
             if ReportRatios then
                 LOG("*AI DEBUG ===============================")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/NumOpponents) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
-                LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.3f", myairtot).." -- LAND "..string.format("%.3f",mylandtot).." -- NAVAL "..string.format("%.3f",mynavaltot) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.3f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.3f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.3f",grandnavaltot/NumOpponents) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.3f", aiBrain.AirProdRatio).." - LAND "..string.format("%.3f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalProdRatio) ) 
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.3f", aiBrain.AirRatio).." -- LAND "..string.format("%.3f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..string.format("%.3f",aiBrain.AirBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
                 LOG("*AI DEBUG ===============================")
             end

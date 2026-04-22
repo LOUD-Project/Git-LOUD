@@ -67,8 +67,7 @@ local Map10korLess = function(self,aiBrain)
 end
 
 -- This group covers those units that are universal to both land and water maps
-BuilderGroup {BuilderGroupName = 'Factory Production Land',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'FactoryBuilder',
 	
     -- land scouts are reduced priority on smaller maps
     Builder {BuilderName = 'Land Scout', 
@@ -96,7 +95,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderType = {'LandT1','LandT2','LandT3'},
     },
 
-    -- LAB are only built for the first 30 minutes
+    -- LAB are only built for the first 30 minutes and only in a land based attack plan
 	Builder {BuilderName = 'T1 Bots',
 	
 		PlatoonTemplate = 'T1LandDFBot',
@@ -106,6 +105,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First30Minutes,
 
 		BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
             -- don't build LABs for typical combat - but numbers count when you're winning
             { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
@@ -115,6 +116,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		BuilderType = {'LandT1'},
     },	
 	
+    -- also only built in a land based attack plan
     Builder {BuilderName = 'T1 Tanks',
 	
         PlatoonTemplate = 'T1LandDFTank',
@@ -124,7 +126,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 135, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 200, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
@@ -132,6 +136,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderType = {'LandT1','LandT2'},
     },
 
+    -- also only built in a land based attack plan
     Builder {BuilderName = 'T1 Mobile Artillery',
 	
         PlatoonTemplate = 'T1LandArtillery',
@@ -141,6 +146,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
             -- must have some Directfire in the Pool at this Location
@@ -153,7 +160,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         BuilderType = {'LandT1'},
     },
     
-    -- T1 MAA is only built for the first 30 minutes --
+    -- MAA is only built for the first 30 minutes and in a land based attack plan
     Builder {BuilderName = 'T1 Mobile AA - Large Map',
 	
         PlatoonTemplate = 'T1LandAA',
@@ -163,6 +170,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
@@ -191,6 +200,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },            
@@ -226,6 +237,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 80 }},
@@ -278,6 +291,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 80 }},
@@ -326,6 +341,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -378,6 +395,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
@@ -458,6 +477,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
         end,
 		
         BuilderConditions = {
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
@@ -473,8 +493,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', BuildersType = 'FactoryBuilder',
 
 	-- T2 Flak Vehicle 
     Builder {BuilderName = 'T2 Mobile Flak',
@@ -767,8 +786,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map',
 }
 
 
-BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map',
-    BuildersType = 'FactoryBuilder',
+BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', BuildersType = 'FactoryBuilder',
 
 
     -- Tech 1 Amphibious Tank

@@ -519,7 +519,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                 factory:SetCustomName("")
             end
 		
-			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not Upgrading) then
+			if not factory.Dead and (not factory.Upgrading) and (not Upgrading) then
 
                 --- go and get a build task --
 				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
@@ -571,7 +571,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				continue
 			end
             
-			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+			if not v.Upgrading and not IsUnitState( v, 'Building' ) then
 				continue
 			end
             
@@ -837,7 +837,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- since we control the jobs presented to the factories in advance 
     BuilderParamCheck = function( self, builder, factory )
 		
-		if factory.Upgrading or IsUnitState( factory, 'Upgrading' ) then
+		if factory.Upgrading then
 		
 			return false
 		end

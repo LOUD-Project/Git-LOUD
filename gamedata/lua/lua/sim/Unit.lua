@@ -998,7 +998,7 @@ Unit = Class(UnitMethods) {
 
     OnUnpaused = function(self)
 		
-        if IsUnitState( self, 'Building') or IsUnitState( self, 'Upgrading') or IsUnitState( self, 'Repairing') then
+        if IsUnitState( self, 'Building') or self.Upgrading or IsUnitState( self, 'Repairing') then
 		
             self:SetActiveConsumptionActive()
 

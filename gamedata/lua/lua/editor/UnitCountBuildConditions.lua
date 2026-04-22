@@ -115,7 +115,7 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 			continue
 		end
 
-		if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+		if not v.Upgrading and not IsUnitState( v, 'Building' ) then
 			continue
 		end
 
@@ -571,7 +571,7 @@ local function GetNumberOfUnitsBeingBuilt( aiBrain, location, buildingCategory, 
 
 		end
 
-        if (not IsUnitState(v, 'Building') and not IsUnitState(v, 'Upgrading')) then
+        if (not IsUnitState(v, 'Building')) and not v.Upgrading then
 			
             continue
 
@@ -708,19 +708,19 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
     elseif techLevel == 'Tech2' then
 	
         catCheck = T2
-        capmult = 300
+        capmult = 400
         caplimit = 3
 		
     elseif techLevel == 'Tech3' then
 	
         catCheck = T3
-        capmult = 250
+        capmult = 350
         caplimit = 5
 		
     elseif techLevel == 'SCU' then
 	
         catCheck = SUBCOMMANDER
-        capmult = 200
+        capmult = 300
         caplimit = 10
 		
     else

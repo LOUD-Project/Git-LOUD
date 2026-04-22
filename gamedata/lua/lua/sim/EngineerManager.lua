@@ -828,7 +828,7 @@ EngineerManager = Class(BuilderManager) {
 			--end
 	
 			if aiBrain.BuilderManagers[LocationType] then
-				aiBrain.BuilderManagers[LocationType].MarkerID = AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType )
+				aiBrain.BuilderManagers[LocationType].MarkerID = AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType.." land mode "..repr(aiBrain.BuilderManagers[LocationType].LandMode) )
 			end
 		end
 		
@@ -1072,6 +1072,8 @@ EngineerManager = Class(BuilderManager) {
                 
                     if aiBrain.BuilderManagers[LocationType].MarkerID then
    						ForkThread( RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[LocationType].MarkerID)
+
+                        aiBrain.BuilderManagers[LocationType].MarkerID = nil
                     end
                     
                 end

@@ -896,7 +896,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 50 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 75 }},
         },
 		
