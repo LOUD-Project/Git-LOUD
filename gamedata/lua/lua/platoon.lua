@@ -1069,7 +1069,7 @@ Platoon = Class(PlatoonMethods) {
                 -- only AIR platoons will use full Marker Distances
                 -- others will be limited to 85%
                 if platoonLayer != 'Air' then
-                    testdistance = testdistance * .85
+                    testdistance = testdistance * .95
                 end
                 
                 -- this code provided by Delins 
@@ -8770,7 +8770,7 @@ Platoon = Class(PlatoonMethods) {
 									self.RTBLocation = NewBasePos
                                     
 								else
-									
+                                    
 									LOG( dialog.." failed to start new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
 
 									-- clear the expansion data
