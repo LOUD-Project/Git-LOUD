@@ -89,9 +89,9 @@ function AssignTransportToPool( unit, aiBrain )
 
 		unit:AddUnitCallback( function(unit)
     
-            if TransportDialog then
-                LOG("*AI DEBUG TRANSPORT "..unit.PlatoonHandle.BuilderName.." Transport "..unit.EntityID.." Fires ReturnToPool callback" )
-            end
+            --if TransportDialog then
+              --  LOG("*AI DEBUG TRANSPORT "..unit.PlatoonHandle.BuilderName.." Transport "..unit.EntityID.." Fires ReturnToPool callback" )
+            --end
 	
 			if LOUDGETN(unit:GetCargo()) == 0 then
 
@@ -2563,9 +2563,13 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon, IsEngineer)
 				if reloads > 2 then
 
                     if counter > 1 then
-                        LOG( dialog.." Reloading "..counter.." units - reload "..reloads.." on tick "..GetGameTick() )
+                        if TransportDialog then
+                            LOG( dialog.." Reloading "..counter.." units - reload "..reloads.." on tick "..GetGameTick() )
+                        end
                     else
-                        LOG( dialog.." Reloading "..repr(newunits[1].BlueprintID).." - reload "..reloads.." Engineer "..repr(IsEngineer).." on tick "..GetGameTick() )                    
+                        if TransportDialog then
+                            LOG( dialog.." Reloading "..repr(newunits[1].BlueprintID).." - reload "..reloads.." Engineer "..repr(IsEngineer).." on tick "..GetGameTick() )                    
+                        end
                     end
                     
                     local unit = newunits[1]

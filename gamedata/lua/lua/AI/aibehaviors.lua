@@ -8138,7 +8138,7 @@ function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
         
         if Primary != Base then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..platoon.BuilderName.." "..repr(platoon.BuilderInstance).." Detects that Primary Sea Base has changed to "..repr(Primary))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..platoon.BuilderName.." "..repr(platoon.BuilderInstance).." Detects that Primary Sea Base has changed to "..repr(Primary))
             
             platoon.RTBLocation = Primary
             

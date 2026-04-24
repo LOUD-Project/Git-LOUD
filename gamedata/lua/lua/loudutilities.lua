@@ -1523,7 +1523,9 @@ function SetPrimaryLandAttackBase( aiBrain )
                 
                 if aiBrain.BuilderManagers[base].LandMode != currentlandbasemode then
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(base).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(base).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                    end
                 
                     if aiBrain.BuilderManagers[base].MarkerID then
 
@@ -1793,7 +1795,7 @@ function GetPrimarySeaAttackBase( aiBrain )
 			end
 		end
     
-		WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Sea Attack Base")
+		--WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Sea Attack Base")
         
         SetPrimarySeaAttackBase( aiBrain )
 	end

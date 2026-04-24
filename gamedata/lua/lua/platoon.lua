@@ -8761,10 +8761,10 @@ Platoon = Class(PlatoonMethods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, NewBaseName, NewBasePos, eng, eng.NewExpansion[3] ) then
                                 
-                               		--if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
+                               		if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
                                         LOG( dialog.." creates new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
                                         LOG( dialog.." presently at "..repr(eng:GetPosition()))
-                                    --end
+                                    end
 									
 									self.LocationType = NewBaseName
 									self.RTBLocation = NewBasePos
