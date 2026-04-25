@@ -1,12 +1,21 @@
-### Release 04-17-2026
+### Release 04-24-2026
 
-LUA 8.10
+LUA 8.10.1
+4DC for LOUD 8.00
+Black Ops for LOUD 8.00
+UNITS 8.01
+LOUD_MISC 8.00
 
 - revised the mass requirements for T1 Pgen building, was causing factory stalling by being too aggressive
 - revised the mass requirements for Assist Mass, was likewise causing factory stalling by being a bit too aggressive
 - production ratios for AIR & NAVAL are now a minimum of 4 when the enemy doesn't participate in those arms, reducing overbuilding of factorys and defenses
 - production value of upgrading factories is now treated as 'idle' rather than full output (this should cover factory enhancements as well)
 - removal of unit state functions for units which are upgrading, this is now just a simple lookup
+- fix for depth charges not firing at submerged structures
+- fix for BO ACU weapon issues (MostLostNoob)
+- fix for issue with AI assisting a factory instead of building a new one
+- addition of 'Paragon' breakout for Supreme Economy (Frust)
+- reduction of many non-filtered AI Debug messages
 
 
 

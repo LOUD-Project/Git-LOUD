@@ -1060,13 +1060,16 @@ Platoon = Class(PlatoonMethods) {
 				positions   = {}			
                 temptable   = {}
 
-                local Node, Position, goaldistance, testdistance, thisdistance, thisthreat
+                local closest, Node, Position, goaldistance, testdistance, thisdistance, thisthreat
+                
+                closest = 999999
                 
                 testdistance = MaxMarkerDist
                 
                 -- only AIR platoons will use full Marker Distances
+                -- others will be limited to 85%
                 if platoonLayer != 'Air' then
-                    testdistance = testdistance * .6
+                    testdistance = testdistance * .95
                 end
                 
                 -- this code provided by Delins 
@@ -1076,6 +1079,10 @@ Platoon = Class(PlatoonMethods) {
                     
                     v.resultdist = LOUDFLOOR( VDist2( Position[1],Position[3], location[1],location[3] ) )
                     
+                    if v.resultdist < closest then
+                        closest = v.resultdist
+                    end
+                    
                     if v.resultdist <= testdistance then
                     
                         counter = counter + 1
@@ -1084,7 +1091,7 @@ Platoon = Class(PlatoonMethods) {
                 end
                 
                 if counter == 0 then
-                    WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location) )
+                    WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." closest marker is "..closest )
                     return false, false
                 end
 
@@ -8759,16 +8766,16 @@ Platoon = Class(PlatoonMethods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, NewBaseName, NewBasePos, eng, eng.NewExpansion[3] ) then
                                 
-                               		--if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
+                               		if ScenarioInfo.BaseMonitorDialog or EngineerDialog then
                                         LOG( dialog.." creates new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
                                         LOG( dialog.." presently at "..repr(eng:GetPosition()))
-                                    --end
+                                    end
 									
 									self.LocationType = NewBaseName
 									self.RTBLocation = NewBasePos
                                     
 								else
-									
+                                    
 									LOG( dialog.." failed to start new base "..repr(NewBaseName).." at "..repr(NewBasePos).." on tick "..GetGameTick() )
 
 									-- clear the expansion data

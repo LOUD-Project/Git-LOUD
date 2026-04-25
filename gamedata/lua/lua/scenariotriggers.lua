@@ -638,7 +638,8 @@ function PlatoonToPositionDistanceTriggerThread( platoon, callbackfunction, mark
             if distance <= triggerdistance or count > 80 then
             
                 if count > 80 then
-                    LOG( dialog.." cycle "..count.." reached - invoking trigger on tick "..GetGameTick() )
+                
+                    --LOG( dialog.." cycle "..count.." reached - invoking trigger on tick "..GetGameTick() )
 
                     platoon.MovingToWaypoint = false
                     platoon.WaypointCallback = nil
