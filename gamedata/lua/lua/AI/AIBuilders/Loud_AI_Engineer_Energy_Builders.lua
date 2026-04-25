@@ -68,9 +68,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
 		
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},  
+          
             { EBC, 'LessThanEnergyTrendOverTime', { 45 }},
+
         },
 		
         BuilderType = { 'T1','T2' },

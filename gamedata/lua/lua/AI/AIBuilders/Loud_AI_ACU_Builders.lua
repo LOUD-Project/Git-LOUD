@@ -278,7 +278,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 40, 0 }},
 
-            { EBC, 'LessThanEnergyTrendOverTime', { 8 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 10 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
