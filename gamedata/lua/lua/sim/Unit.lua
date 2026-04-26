@@ -988,7 +988,7 @@ Unit = Class(UnitMethods) {
     end,
 
     OnPaused = function(self)
-	
+
         self:SetActiveConsumptionInactive()
         
         self:StopUnitAmbientSound( 'ConstructLoop' )
@@ -999,7 +999,7 @@ Unit = Class(UnitMethods) {
     OnUnpaused = function(self)
 		
         if IsUnitState( self, 'Building') or self.Upgrading or IsUnitState( self, 'Repairing') then
-		
+
             self:SetActiveConsumptionActive()
 
             self:PlayUnitAmbientSound( 'ConstructLoop' )
@@ -4076,8 +4076,12 @@ Unit = Class(UnitMethods) {
             
                 local emit
                 
-                if EffectBag and not self[EffectBag] then
-                    self[EffectBag] = {}
+                if type(EffectBag) == 'string' then
+                    EffectBag = self[EffectBag]
+                end
+                
+                if not EffectBag then
+                    EffectBag = {}
                 end
 			
 				for _, vBone in vTypeGroup.Bones do
@@ -4085,18 +4089,20 @@ Unit = Class(UnitMethods) {
 					for _, vEffect in effects do
 
 						emit = LOUDATTACHEMITTER( self, vBone, Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1)
+                        
+                        --LOG("*AI DEBUG emitter is "..repr(emit))
 
 						if vTypeGroup.Offset then
 							emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
 						end
                         
                         if EffectBag then
-							LOUDINSERT( self[EffectBag], emit )
+							LOUDINSERT( EffectBag, emit )
 						end
 					end
 				end
                 
-                --LOG("*AI DEBUG EffectBag "..repr(EffectBag).." after create terrain effect is "..repr(self[EffectBag]))
+                --LOG("*AI DEBUG EffectBag "..repr(EffectBag).." after create terrain effect is "..repr(EffectBag))
 			end
         end
 		
@@ -4120,7 +4126,7 @@ Unit = Class(UnitMethods) {
 					self.IdleEffectsBag = {}
 				end
 			
-				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, 'IdleEffectsBag' )
+				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, self.IdleEffectsBag )
 			end
 		end
 		
