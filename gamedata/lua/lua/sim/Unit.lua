@@ -3424,6 +3424,9 @@ Unit = Class(UnitMethods) {
         end
 		
         if order == 'Upgrade' and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo then
+
+            self.Upgrading = true
+
             unitBeingBuilt.DisallowCollisions = true
         end
         
@@ -3457,6 +3460,8 @@ Unit = Class(UnitMethods) {
         self:PlayUnitSound('ConstructStop')
         
         self.CurrentBuildOrder = false
+
+        self.Upgrading = nil
     end,
 
     GetUnitBeingBuilt = function(self)

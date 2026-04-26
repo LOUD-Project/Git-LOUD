@@ -156,6 +156,7 @@ StructureUnit = Class(Unit) {
     IdleState = State {
         Main = function(self)
             self.UnitBeingBuilt = nil
+            self.Upgrading = nil
         end,
     },
 
@@ -166,6 +167,8 @@ StructureUnit = Class(Unit) {
             self:DestroyTarmac()
 
             PlayUnitSound(self,'UpgradeStart')
+            
+            self.Upgrading = true
 
             self:DisableDefaultToggleCaps()
 
@@ -228,6 +231,8 @@ StructureUnit = Class(Unit) {
                 self:StopUpgradeEffects(unitBuilding)
 
                 PlayUnitSound(self,'UpgradeEnd')
+                
+                self.Upgrading = nil
 
 				self:DoDestroyCallbacks()
 
@@ -240,6 +245,8 @@ StructureUnit = Class(Unit) {
         OnFailedToBuild = function(self)
 
             Unit.OnFailedToBuild(self)
+            
+            self.Upgrading = nil
 
             self:EnableDefaultToggleCaps()
 
@@ -658,6 +665,8 @@ StructureUnit = Class(Unit) {
 
 			if unitBeingBuilt.BlueprintID == __blueprints[self.BlueprintID].General.UpgradesTo then
 				ChangeState(self, self.UpgradingState)
+                
+                self.Upgrading = true
 			end
 		end
     end,
