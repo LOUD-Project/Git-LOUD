@@ -111,9 +111,12 @@ UnitBlueprint {
         },
     },
 
-    Description = '<LOC ssb5401_desc>Experimental Quantum Gateway',
+    Description = '<LOC ssb5401_desc>Experimental Teleport Gateway',
 
     Display = {
+        Abilities = {
+            '<LOC ability_aquatic>Aquatic',
+        },
         BlinkingLights = {
             { BLBone = 'Light04', BLOffsetZ = 0.05, BLScale = 1 },
             { BLBone = 'Light05', BLOffsetZ = 0.05, BLScale = 1 },
@@ -194,7 +197,7 @@ UnitBlueprint {
     General = {
         ConstructionBar = true,
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
 
         OrderOverrides = {
             RULEUTC_GenericToggle = { bitmapId = 'stop', helpText = 'stargate_stop' },
@@ -212,10 +215,6 @@ UnitBlueprint {
         VisionRadius = 20,
     },
 
-    Interface = {
-        HelpText = '<LOC ssb5401_desc>Experimental Teleport Gateway',
-    },
-
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.65,
     LifeBarSize = 5.5,
@@ -224,6 +223,7 @@ UnitBlueprint {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
+            LAYER_Sub = true,
         },
         DragCoefficient = 0.2,
 
