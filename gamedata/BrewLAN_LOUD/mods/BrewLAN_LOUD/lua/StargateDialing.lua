@@ -56,6 +56,10 @@ function StargateDialing(SuperClass)
                 DialingHome = math.mod(self:GetEntityId() or 1, 9),
                 CurrentPosition = 9,
             }
+
+            if self:GetCurrentLayer() ~= 'Land' then
+                self:HideBone('XSB0304', false)
+            end
         end,
         
         OnStopBeingBuilt = function(self,builder,layer)
