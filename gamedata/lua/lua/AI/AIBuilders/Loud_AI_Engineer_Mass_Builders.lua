@@ -1012,7 +1012,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction', BuildersTy
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -1050,7 +1052,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction', BuildersTy
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
         },
 		
 		BuilderType = { 'T3' },

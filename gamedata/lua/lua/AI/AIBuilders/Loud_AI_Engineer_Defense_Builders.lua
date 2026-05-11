@@ -6303,9 +6303,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 5, 50, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6356,9 +6356,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 5, 50, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
