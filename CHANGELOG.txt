@@ -1,3 +1,12 @@
+### Release 04-26-2026
+
+LUA 8.10.2
+
+- hotfix for issue with pausing factories
+- fix for how various visual effects are toggled and how the data tables are stored
+
+
+
 ### Release 04-24-2026
 
 LUA 8.10.1

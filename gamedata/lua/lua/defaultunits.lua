@@ -156,6 +156,7 @@ StructureUnit = Class(Unit) {
     IdleState = State {
         Main = function(self)
             self.UnitBeingBuilt = nil
+            self.Upgrading = nil
         end,
     },
 
@@ -166,6 +167,8 @@ StructureUnit = Class(Unit) {
             self:DestroyTarmac()
 
             PlayUnitSound(self,'UpgradeStart')
+            
+            self.Upgrading = true
 
             self:DisableDefaultToggleCaps()
 
@@ -228,6 +231,8 @@ StructureUnit = Class(Unit) {
                 self:StopUpgradeEffects(unitBuilding)
 
                 PlayUnitSound(self,'UpgradeEnd')
+                
+                self.Upgrading = nil
 
 				self:DoDestroyCallbacks()
 
@@ -240,6 +245,8 @@ StructureUnit = Class(Unit) {
         OnFailedToBuild = function(self)
 
             Unit.OnFailedToBuild(self)
+            
+            self.Upgrading = nil
 
             self:EnableDefaultToggleCaps()
 
@@ -658,6 +665,8 @@ StructureUnit = Class(Unit) {
 
 			if unitBeingBuilt.BlueprintID == __blueprints[self.BlueprintID].General.UpgradesTo then
 				ChangeState(self, self.UpgradingState)
+                
+                self.Upgrading = true
 			end
 		end
     end,
@@ -1457,7 +1466,7 @@ MobileUnit = Class(Unit) {
 		
     end,
 
-    CreateMovementEffects = function( self, EffectsBag, TypeSuffix, TerrainType )
+    CreateMovementEffects = function( self, EffectsBagName, TypeSuffix, TerrainType )
 	
 		-- If SimSpeed drops too low -- curtail movement effects
 		if Sync.SimData.SimSpeed < 0 then return end
@@ -1483,9 +1492,13 @@ MobileUnit = Class(Unit) {
 				return false
 			end
             
+            if not self[EffectsBagName] then
+                self[EffectsBagName] = {}
+            end
+
             --LOG("*AI DEBUG Create Movement Effect for "..repr(CacheLayer))
 
-			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', CacheLayer, TypeSuffix, EffectsBag, TerrainType )
+			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', CacheLayer, TypeSuffix, self[EffectsBagName], TerrainType )
 
 		end
 
@@ -1612,7 +1625,12 @@ MobileUnit = Class(Unit) {
 			local Effects = MotionEffects[self.CacheLayer..old..new] or false
 
 			if bpTable then
-				self:CreateTerrainTypeEffects( Effects, 'FXMotionChange', key, nil, 'IdleEffectsBag' )
+            
+                if not self.IdleEffectsBag then
+                    self.IdleEffectsBag = {}
+                end
+
+				self:CreateTerrainTypeEffects( Effects, 'FXMotionChange', key, nil, self.IdleEffectsBag )
 			end
 		end
     end,
@@ -3356,7 +3374,7 @@ RadarJammerUnit = Class(StructureUnit) {
 
 			self.IntelEffectsBag = {}
 
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, 'IntelEffectsBag' )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, self.IntelEffectsBag )
             
 			self.IntelFxOn = true
 
@@ -3505,6 +3523,57 @@ WalkingLandUnit = Class(MobileUnit) {
 	SetupEngineerCallbacks = function( eng, EM )
 		ConstructionUnit.SetupEngineerCallbacks( eng, EM )
 	end,
+
+    OnIntelEnabled = function(self,intel)
+
+        Unit.OnIntelEnabled(self,intel)
+
+        if (intel == 'Jammer' or intel == 'RadarStealthField') and self.IntelEffects and not self.IntelFxOn then
+
+			self.IntelEffectsBag = {}
+
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, self.IntelEffectsBag )
+            
+			self.IntelFxOn = true
+
+		end
+
+        --LOG("*AI DEBUG Unit after intel enable is "..repr(intel).." is "..repr(self) )
+
+    end,
+
+    OnIntelDisabled = function(self,intel)
+
+        --LOG("*AI DEBUG Unit before intel disable "..repr(intel).." is "..repr(self) )
+    
+        --LOG("*AI DEBUG Effects Bags are "..repr(self.IntelEffectsBag).." "..repr(self.StealthEffectsBag))
+
+        Unit.OnIntelDisabled(self,intel)
+        
+        if (intel == 'Jammer' or intel == 'RadarStealthField') and self.IntelEffectsBag then
+        
+            --LOG("*AI DEBUG Cleanup Intel Effects "..repr(self.IntelEffectsBag))
+
+            CleanupEffectBag(self,'IntelEffectsBag')
+
+            self.IntelEffectsBag = nil
+
+            self.IntelFxOn = nil
+
+            --LOG("*AI DEBUG Unit after is "..repr(self))
+            
+        end
+        
+        if intel == 'RadarStealthField' and self.StealthEffectsBag then
+        
+            --LOG("*AI DEBUG Cleanup Stealth Effects "..repr(self.StealthEffectsBag))
+
+            CleanupEffectBag(self,'StealthEffectsBag')
+
+            self.StealthEffectsBag = nil
+        end        
+        
+    end,
 
 }
 
