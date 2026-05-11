@@ -553,7 +553,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		
         PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },		
 	
-        Priority = 610,
+        Priority = 601,
 		
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
