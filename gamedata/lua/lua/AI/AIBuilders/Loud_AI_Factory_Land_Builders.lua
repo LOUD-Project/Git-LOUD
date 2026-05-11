@@ -105,7 +105,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 		PriorityFunction = First30Minutes,
 
 		BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
             -- don't build LABs for typical combat - but numbers count when you're winning
             { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 200, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
@@ -146,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
             
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
@@ -170,7 +170,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
@@ -200,7 +200,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
@@ -237,7 +237,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
@@ -291,7 +291,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
             
@@ -341,7 +341,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -395,7 +395,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -505,7 +505,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
@@ -534,7 +534,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
   
@@ -567,7 +567,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
             
@@ -587,7 +587,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
             
@@ -607,7 +607,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
@@ -634,7 +634,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         Priority = 600,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
@@ -654,7 +654,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         Priority = 600,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
@@ -676,7 +676,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
@@ -710,7 +710,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
@@ -736,7 +736,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
@@ -763,7 +763,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+            { MIBC, 'HasLandEnemy', { true }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
  
@@ -891,6 +891,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { MIBC, 'HasLandEnemy', { false }},
+
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
@@ -915,6 +917,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { MIBC, 'HasLandEnemy', { false }},
+
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
@@ -1009,6 +1013,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
+            { MIBC, 'HasLandEnemy', { false }},
+
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -1036,6 +1042,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { MIBC, 'HasLandEnemy', { false }},
+
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
             { LUTL, 'UnitCapCheckLess', { .85 } },			
@@ -1062,6 +1070,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { MIBC, 'HasLandEnemy', { false }},
+
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
             { LUTL, 'UnitCapCheckLess', { .85 } },

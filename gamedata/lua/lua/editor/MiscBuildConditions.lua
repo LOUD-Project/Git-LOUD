@@ -101,6 +101,10 @@ function IsWaterMap(aiBrain, bool)
 	return bool == aiBrain.IsWaterMap
 end
 
+function HasLandEnemy(aiBrain, bool)
+	return bool == aiBrain.HasLandEnemy
+end
+
 function MapGreaterThan(aiBrain, size )	
 	return (ScenarioInfo.size[1] > size or ScenarioInfo.size[2] > size)
 end
