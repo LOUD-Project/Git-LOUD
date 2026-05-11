@@ -314,6 +314,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 30, [512] = 60, [1024] = 90, [2048] = 120, [4096] = 150}, HIGHALTAIRAA }},
         },
 
         BuilderType =  {'AirT3'},
