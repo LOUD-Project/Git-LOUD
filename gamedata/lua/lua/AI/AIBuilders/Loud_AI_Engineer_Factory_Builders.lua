@@ -373,7 +373,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2500, 25000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 5, 1.002, 1.002 }},
         },
@@ -490,7 +490,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2500, 25000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 5, 1.002, 1.002 }},
         },
