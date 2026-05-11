@@ -439,7 +439,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 100 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION - TECH1, ENGINEER + ENERGYPRODUCTION - TECH1, 40 }},
         },
@@ -450,9 +450,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 100,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 500,
+                AssistMass = 2000,
                 
 				AssistRange = 50,
                 AssisteeType = 'Structure',
@@ -478,7 +478,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 4000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION - TECH1, ENGINEER + MASSPRODUCTION, 36 }},
         },
@@ -489,9 +489,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 1000,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 500,
+                AssistMass = 2000,
 
 				AssistRange = 48,
 				AssisteeType = 'Structure',
@@ -520,7 +520,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
@@ -533,9 +533,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 2000,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 500,
+                AssistMass = 2000,
             
 				AssistRange = 75,
 				AssisteeType = 'Structure',
@@ -561,7 +561,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},          
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},          
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE + EXPERIMENTAL, ENGINEER, 125 }},
         },
@@ -572,9 +572,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 4000,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 500,
+                AssistMass = 2000,
 
 				AssistRange = 100,
                 AssisteeType = 'Engineer',
@@ -612,9 +612,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 3600,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 250,
+                AssistMass = 2000,
                 
 				AssistRange = 80,
 				AssisteeType = 'Factory',

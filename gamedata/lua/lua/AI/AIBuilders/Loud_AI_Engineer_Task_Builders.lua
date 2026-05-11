@@ -251,12 +251,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 745,
 		
-        InstanceCount = 6,
+        InstanceCount = 10,
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 1000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 105 }},
         },
@@ -264,9 +264,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderData = {
             Assist = {
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 150,
+                AssistMass = 2000,
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 100,
+                AssistEnergy = 8000,
             
 				AssistRange = 105,
                 AssisteeType = 'Any',
@@ -289,12 +289,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 744,
 		
-		InstanceCount = 4,
+		InstanceCount = 10,
 		
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 5000 }},            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -303,9 +303,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 500,
+                AssistEnergy = 8000,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 2000,
             
 				AssistRange = 120,
                 AssisteeType = 'Any',
@@ -394,7 +394,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         BuilderConditions = {
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.ENGINEER, categories.ENGINEER, 100 }},
 
@@ -422,7 +422,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 10,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
@@ -430,7 +430,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
@@ -459,14 +459,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 10,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
             { LUTL, 'LandStrengthRatioLessThan', { 2 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
@@ -495,14 +495,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 10,
 		
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
@@ -529,22 +529,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-		InstanceCount = 5,
+		InstanceCount = 20,
 		
         Priority = 720,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},		
 
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL - categories.ENERGYPRODUCTION - categories.MASSPRODUCTION, categories.ENGINEER + categories.FACTORY, 90 }},
         },
 		
         BuilderData = {
             Assist = {
-                AssistEnergy = 2000,
-                AssistMass = 200,
+                AssistEnergy = 8000,
+                AssistMass = 2000,
                 
 				AssistRange = 90,
 				AssisteeType = 'Any',
@@ -566,20 +566,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 720,
 		
-        InstanceCount = 6,
+        InstanceCount = 20,
 		
 		BuilderType = { 'T2','T3' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
 
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER + categories.FACTORY, 120 }},
         },
 		
         BuilderData = {
             Assist = {
-                AssistEnergy = 2400,
-                AssistMass = 240,
+                AssistEnergy = 8000,
+                AssistMass = 2000,
                 
 				AssistRange = 120,
 				AssisteeType = 'Any',
