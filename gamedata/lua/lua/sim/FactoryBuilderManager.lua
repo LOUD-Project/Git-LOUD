@@ -466,7 +466,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local energyTrigger = EnergyTrigger(factory, energyScale, adjacencyreductionE)
 
 		-- initial engineers have a lower cost
-		if aiBrain.CycleTime < 45 then
+		if aiBrain.CycleTime < 60 then
 			massTrigger = 100
 			energyTrigger = 1000
 		end
