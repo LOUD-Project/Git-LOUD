@@ -94,7 +94,7 @@ function IncomeRatioBudget(aiBrain)
 
         if ReportRatios then
             LOG(aiBrain.Nickname.." IncomeRatioBudget T1+T2/T3 mex: "..lowTierMex.."/"..mexUpgrade.T3BaseLimit.." gives an upgrade saturation: "..mexUpgradeSaturation
-            .." with a surplus ratio of: "..surplusRatio.. " | ratios for maxfac/facup/mexup are now "..incomeRatio.MaxFactory.." / "..incomeRatio.FactoryUpgrade.." / "..incomeRatio.MexUpgrade)
+            .." with a surplus ratio of: "..surplusRatio.. " | ratios for maxfac/facup/mexup are now "..string.format("%.2f", incomeRatio.MaxFactory).." / "..string.format("%.2f", incomeRatio.FactoryUpgrade).." / "..string.format("%.2f", incomeRatio.MexUpgrade))
         end
 
         WaitTicks(190)
