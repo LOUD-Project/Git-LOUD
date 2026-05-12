@@ -261,12 +261,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 		-- this function removes the builder (like original function BuildOnce)
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if aiBrain.CycleTime > 2400 then
+            if aiBrain.CycleTime > 1800 then
                 return 0, false
             end
  
             -- if T2 power is present - turn it off - likely to choose Assist Energy then
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, ENERGYT2 ) then
                 return 0, false
             end
 

@@ -58,7 +58,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             end
  
             -- if T2 power is present - priority is the same as Assist Energy task
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGYT2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, ENERGYT2 ) then
                 return 745, true
             end
 
@@ -121,8 +121,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         BuilderConditions = {
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
-
-			{ EBC, 'LessThanEnergyTrendOverTime', { 80 }},
 
         },
 		
