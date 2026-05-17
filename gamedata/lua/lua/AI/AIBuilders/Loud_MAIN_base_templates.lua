@@ -718,16 +718,18 @@ MassFabLayout = {
 -- UEF
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- left front corner
-			{ 17, 17 }, -- right front corner
-			{-33,-11 }, -- left back
-			{ 33,-11 }, -- right back
-			{-33, 11 },	-- left front
-			{ 33, 11 }, -- right front
-			{-11, 33 },	-- front left
-			{ 11, 33 }, -- front right
-			{-11,-33 },	-- rear left
-			{ 11,-33 }, -- rear right
+			{-17, 17 }, -- inner
+			{ 17, 17 },
+			{-17,-17 },
+			{ 17,-17 },
+			{-33, 11 }, -- outer
+			{-33,-11 },
+			{ 33, 11 },
+			{ 33,-11 },
+			{-11,-33 },
+			{ 11,-33 },
+			{-11, 33 },
+			{ 11, 33 },
 		},
 		{{'T2MassCreation'},
             { -5, 15 }, -- front
@@ -747,16 +749,18 @@ MassFabLayout = {
 -- Aeon
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- left front corner
-			{ 17, 17 }, -- right front corner
-			{-33,-11 }, -- left back
-			{ 33,-11 }, -- right back
-			{-33, 11 },	-- left front
-			{ 33, 11 }, -- right front
-			{-11, 33 },	-- front left
-			{ 11, 33 }, -- front right
-			{-11,-33 },	-- rear left
-			{ 11,-33 }, -- rear right
+			{-17, 17 }, -- inner
+			{ 17, 17 },
+			{-17,-17 },
+			{ 17,-17 },
+			{-33, 11 }, -- outer
+			{-33,-11 },
+			{ 33, 11 },
+			{ 33,-11 },
+			{-11,-33 },
+			{ 11,-33 },
+			{-11, 33 },
+			{ 11, 33 },
 		},
 		{{'T2MassCreation'},
             { -5, 15 }, -- front
@@ -776,16 +780,18 @@ MassFabLayout = {
 -- Cybran
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- left front corner
-			{ 17, 17 }, -- right front corner
-			{-33,-11 }, -- left back
-			{ 33,-11 }, -- right back
-			{-33, 11 },	-- left front
-			{ 33, 11 }, -- right front
-			{-11, 33 },	-- front left
-			{ 11, 33 }, -- front right
-			{-11,-33 },	-- rear left
-			{ 11,-33 }, -- rear right
+			{-17, 17 }, -- inner
+			{ 17, 17 },
+			{-17,-17 },
+			{ 17,-17 },
+			{-33, 11 }, -- outer
+			{-33,-11 },
+			{ 33, 11 },
+			{ 33,-11 },
+			{-11,-33 },
+			{ 11,-33 },
+			{-11, 33 },
+			{ 11, 33 },
 		},
 		{{'T2MassCreation'},
             { -5, 15 }, -- front
@@ -805,16 +811,18 @@ MassFabLayout = {
 -- Sera
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- left front corner
-			{ 17, 17 }, -- right front corner
-			{-33,-11 }, -- left back
-			{ 33,-11 }, -- right back
-			{-33, 11 },	-- left front
-			{ 33, 11 }, -- right front
-			{-11, 33 },	-- front left
-			{ 11, 33 }, -- front right
-			{-11,-33 },	-- rear left
-			{ 11,-33 }, -- rear right
+			{-17, 17 }, -- inner
+			{ 17, 17 },
+			{-17,-17 },
+			{ 17,-17 },
+			{-33, 11 }, -- outer
+			{-33,-11 },
+			{ 33, 11 },
+			{ 33,-11 },
+			{-11,-33 },
+			{ 11,-33 },
+			{-11, 33 },
+			{ 11, 33 },
 		},
 		{{'T2MassCreation'},
             { -5, 15 }, -- front
