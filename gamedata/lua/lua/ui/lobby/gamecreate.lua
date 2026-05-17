@@ -98,9 +98,10 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 				portEdit:SetText(Prefs.GetFromCurrentProfile('LastPort') or defaultPort)
 			end
 		end
-		
-		autoPort:SetCheck(true)
-    
+
+		local lastAutoPort = Prefs.GetFromCurrentProfile('LastAutoPort')
+		autoPort:SetCheck(lastAutoPort == nil or lastAutoPort)
+
 		local autoPortLabel = UIUtil.CreateText(panel, "<LOC GAMECREATE_0003>Auto Port", 14, UIUtil.bodyFont)
 		
 		autoPortLabel.Right:Set(autoPort.Left)
@@ -221,6 +222,7 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 			if port != 0 then
 				Prefs.SetToCurrentProfile('LastPort', port)
 			end
+			Prefs.SetToCurrentProfile('LastAutoPort', autoPort:IsChecked())
 			
 		elseif not IsSignedInToSteam() then
 		
