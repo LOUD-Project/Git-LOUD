@@ -633,6 +633,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
+			{ MIBC, 'HasLandEnemy', { false } },
+            
 			{ EBC, 'NeedFactory', { 'NAVAL' }},
 			
 			-- can't be a major enemy base within 15km of here
@@ -685,7 +687,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
-			{ MIBC, 'MapLessThan', { 1028 } },            
+			{ MIBC, 'MapLessThan', { 1028 } }, 
+            
+            { MIBC, 'HasLandEnemy', { false } },
 
 			{ EBC, 'NeedFactory', { 'NAVAL' }},
 
