@@ -1302,12 +1302,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 20000 ) then
-            
-                return 10, true
-               
-            end
             
             if not UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, FACTORY ) then
                 
@@ -1341,9 +1335,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         InstanceCount = 1,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 2000 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1374,12 +1368,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
-            end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 24000 ) then
-            
-                return 10, true
-               
             end
 
             if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
@@ -1414,9 +1402,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 		InstanceCount = 1,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1488,12 +1476,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-            
-                return 10, true
-               
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1511,9 +1493,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1551,10 +1533,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-                return 10, true
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1572,9 +1550,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1612,10 +1590,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-                return 10, true
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1633,9 +1607,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1673,12 +1647,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 20000 ) then
-            
-                return 10, true
-               
-            end
             
             if not UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, FACTORY ) then
                 
@@ -1712,9 +1680,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 		InstanceCount = 1,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 2000 }},
+
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -1745,12 +1714,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
-            end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 24000 ) then
-            
-                return 10, true
-               
             end
 
             if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
@@ -1785,9 +1748,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
 		InstanceCount = 1,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1824,12 +1787,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-            
-                return 10, true
-               
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1847,9 +1804,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1887,10 +1844,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-                return 10, true
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1908,9 +1861,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1948,10 +1901,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-        
-            if not GreaterThanEnergyIncome( aiBrain, 32000 ) then
-                return 10, true
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -1969,9 +1918,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
         end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -2008,10 +1957,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
             if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
                 return 0, false
             end
-       
-            if not GreaterThanEnergyIncome( aiBrain, 50000 ) then
-                return 10, true
-            end
 
             if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
             
@@ -2033,9 +1978,9 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .90 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
+            
+            { EBC, 'GreaterThanEnergyTrend', { 8000 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGY * categories.TECH3 }},
         },
@@ -2746,9 +2691,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4107,9 +4052,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
 		InstanceCount = 1,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 2000 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY}},
         },
@@ -4183,9 +4128,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
 		InstanceCount = 1,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4252,9 +4197,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 		InstanceCount = 1,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 2000 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY}},
         },
@@ -4324,9 +4269,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 		InstanceCount = 1,
         
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 250, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4389,9 +4334,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 		end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
+
+            { EBC, 'GreaterThanEnergyTrend', { 8000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},
         },
 		
         BuilderType = {'SubCommander'},
@@ -4769,9 +4715,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			-- check perimeter for less than 9 TMD
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, TMD, 46, 75 }},
@@ -4840,9 +4786,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 6000 }},
 
 			{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -5525,7 +5471,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
+            { EBC, 'GreaterThanEnergyTrend', { 1000 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5620,11 +5566,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         end,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 2000 }},
 
 			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},            
         },
@@ -5677,11 +5623,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         end,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 500, 2000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 250, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			--{ TBC, 'ThreatCloserThanOrArtillery', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
