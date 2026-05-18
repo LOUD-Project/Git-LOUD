@@ -363,7 +363,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, ENERGYPRODUCTION * TECH3 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (ENERGYPRODUCTION * TECH3) - HYDROCARBON }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 25, (ENERGYPRODUCTION * TECH3) - HYDROCARBON }},
         },
 	
         BuilderType = { 'Commander' },
@@ -396,12 +396,13 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
 
         BuilderType = { 'Commander' },
 		
-        BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 20000 }},			
+        BuilderConditions = {	
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
+
+            { EBC, 'GreaterThanEnergyTrend', { 8000 }},
+
 			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, MASSFABRICATION * TECH3, 10, 42 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, MASSFABRICATION * TECH3, 10, 42 }},
             
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},

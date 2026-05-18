@@ -91,7 +91,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         }
     },
 	
-    Builder {BuilderName = 'T2 Power Template',
+    Builder {BuilderName = 'T2 Power Template - Demand',
     
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -111,7 +111,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
                 return 12, true
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 8, ENERGY - categories.TECH1 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 10, ENERGY - categories.TECH1 ) then
                 return 11, true
             end
 	
@@ -120,7 +120,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         
         BuilderConditions = {
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 60 }}, 
 
         },
 		
@@ -142,7 +143,59 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
         }
     },
 
-    Builder {BuilderName = 'T3 Power Template',
+    Builder {BuilderName = 'T2 Power Template - Surplus',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 900,
+
+        InstanceCount = 1,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if aiBrain.CycleTime > 3600 then
+                return 0, false
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, ENERGYT3 ) then
+                return 12, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 10, ENERGY - categories.TECH1 ) then
+                return 11, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+        
+        BuilderConditions = {
+
+			{ EBC, 'GreaterThanEconMassStorageRatio', { 75 }},
+			{ EBC, 'GreaterThanEconEnergyStorageRatio', { 25 }},
+
+        },
+		
+        BuilderType = {'T2'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 3,
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 75,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'PowerLayout',
+				
+                BuildStructures = { 'T2EnergyProduction' },
+            }
+        }
+    },
+
+    Builder {BuilderName = 'T3 Power - Demand',
     
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -163,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
     
         BuilderConditions = {
       
-			{ EBC, 'LessThanEnergyTrendOverTime', { 5000 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 1000 }},
 
         },
 		
@@ -184,6 +237,50 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders', BuildersType = 'Eng
             }
         }
     },
+
+    Builder {BuilderName = 'T3 Power - Surplus',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 851,
+
+        InstanceCount = 3,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager )
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 25, ENERGYT3 - HYDRO ) then
+                return 12, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
+    
+        BuilderConditions = {
+      
+			{ EBC, 'GreaterThanEconMassStorageRatio', { 75 }},
+			{ EBC, 'GreaterThanEconEnergyStorageRatio', { 25 }},
+
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 4,
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				ThreatMax = 60,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'PowerLayout',
+				
+                BuildStructures = { 'T3EnergyProduction' },
+            }
+        }
+    },    
 	
     Builder {BuilderName = 'Hydrocarbon',
     

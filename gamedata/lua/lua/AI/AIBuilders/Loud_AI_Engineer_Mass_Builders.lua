@@ -319,17 +319,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         
         Priority = 800,
 
+        InstanceCount = 2,
+
 		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { EBC, 'GreaterThanEnergyIncome', { 3000 }},
+ 
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+            { EBC, 'GreaterThanEnergyTrend', { 800 }},
 
 			-- check base massfabs -- this should pick up only those in the base core - not the T3's on the outer layers
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
         },
 
         BuilderData = {
@@ -350,24 +353,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
     }, 
 
     -- build T3 MassFab
-    Builder {BuilderName = 'Mass Fab T3 - Template',
+    Builder {BuilderName = 'Mass Fab T3 - Demand',
     
         PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 850,
-
-        PriorityFunction = function( builder, aiBrain, unit, manager )
-            
-            if GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 < 24000 and aiBrain.IncomeRatio.MexUpgrade > 0.2 then
-            
-                return 12, true
-                
-            end
-
-            return (builder.OldPriority or builder.Priority), true
-        end,
 
 		BuilderType = { 'T3','SubCommander' },
 
@@ -376,8 +368,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
+            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
+            { EBC, 'GreaterThanEnergyTrend', { 4000 }},
+
 			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
 
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
@@ -403,7 +398,50 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
         }
     }, 
 
-	
+    Builder {BuilderName = 'Mass Fab T3 - Surplus',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 850,
+
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .9 } },
+
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { EBC, 'GreaterThanEconMassStorageRatio', { 50 }},
+            { EBC, 'GreaterThanEnergyTrend', { 8000 }},
+
+			-- check base massfabs 
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
+
+			-- there has to be advanced power at this location
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+        },
+
+        BuilderData = {
+        
+			DesiresAssist = true,
+            NumAssistees = 4,
+
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				ThreatMax = 50,
+
+				Iterations = 1,
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'MassFabLayout',
+                
+                BuildStructures = {'T3MassCreation'},
+            }
+        }
+    }, 	
 
 }
 

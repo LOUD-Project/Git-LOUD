@@ -251,7 +251,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 745,
 		
-        InstanceCount = 10,
+        InstanceCount = 20,
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
@@ -289,7 +289,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 744,
 		
-		InstanceCount = 10,
+		InstanceCount = 20,
 		
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
@@ -388,7 +388,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 746,
 		
-		InstanceCount = 4,
+		InstanceCount = 10,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
