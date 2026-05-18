@@ -137,14 +137,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
         BuilderConditions = {
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-
-			{ EBC, 'NeedFactory', { 'LAND' }},
             
 			-- this base must have 3+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- all other 'counted' land bases must have at least 3 T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
 
 			-- there must be a vacant start/expansion area with no allied structures within ExpansionRadius range (115)
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 60, 0, 'AntiSurface' } },
@@ -210,14 +208,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         BuilderConditions = {
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-
-			{ EBC, 'NeedFactory', { 'LAND' }},
             
 			-- this base must have 3+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- all other 'counted' land bases must have at least 3 T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
 
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 75, 0, 'AntiSurface' } },
         },
@@ -284,8 +280,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
         PriorityFunction = OutNumbered_First15Minutes_Land,
 		
         BuilderConditions = {
-
-			{ EBC, 'NeedFactory', { 'LAND' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
