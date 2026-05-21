@@ -226,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2500, 25000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * GATE }},
         },
