@@ -620,7 +620,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.7 then 
+            if aiBrain.AirRatio < 0.9 then 
                 return 600, true
             end
             
@@ -669,7 +669,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.7 then
+            if aiBrain.AirRatio < 0.9 then
                 return 10, true
             end
             
@@ -709,7 +709,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
                 return 10, true
             end
             
-            if aiBrain.AirRatio < 0.7 then
+            if aiBrain.AirRatio < 0.9 then
                 return 600, true
             end
             
