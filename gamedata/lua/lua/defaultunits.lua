@@ -3502,16 +3502,22 @@ WalkingLandUnit = Class(MobileUnit) {
         if self.BuildingUnit then
             Unit.StopBuildingEffects(self, self.UnitBeingBuilt )
         end
+        
+        if self.Upgrading then
+            self:CleanupEnhancementEffects()
+        end
+        
     end,
 
     OnUnpaused = function(self)
 
         if self.BuildingUnit then
-
             --self:PlayUnitAmbientSound( 'ConstructLoop' )
-
             Unit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
-
+        end
+        
+        if self.Upgrading then
+            self:CreateEnhancementEffects(self.Work)
         end
 
         Unit.OnUnpaused(self)

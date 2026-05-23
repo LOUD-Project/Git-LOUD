@@ -3795,6 +3795,7 @@ Unit = Class(UnitMethods) {
 
     ClearWork = function(self)
 	
+        self.Work = nil
         self.WorkItem = nil
         self.WorkItemBuildCostEnergy = nil
         self.WorkItemBuildCostMass = nil
@@ -3830,6 +3831,7 @@ Unit = Class(UnitMethods) {
         --end
 
         -- seems to support the UI and progress bar
+        self.Work = work
         self.WorkItem = tempEnhanceBp
         self.WorkItemBuildCostEnergy = tempEnhanceBp.BuildCostEnergy
         self.WorkItemBuildCostMass = tempEnhanceBp.BuildCostMass
@@ -4635,7 +4637,7 @@ Unit = Class(UnitMethods) {
 			
             AddUnitEnhancement(self, work)
 			
-            self:CleanupEnhancementEffects(work)
+            self:CleanupEnhancementEffects()
             self:CreateEnhancement(work)
             
             self.WorkItem = nil
