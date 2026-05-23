@@ -9,6 +9,7 @@ local BrainMethods = moho.aibrain_methods
 
 local CanBuildStructureAt   = BrainMethods.CanBuildStructureAt
 local GetCurrentUnits       = BrainMethods.GetCurrentUnits
+local GetListOfUnits        = BrainMethods.GetListOfUnits
 local GetEconomyTrend       = BrainMethods.GetEconomyTrend
 local GetEconomyStoredRatio = BrainMethods.GetEconomyStoredRatio
 local GetEconomyIncome      = BrainMethods.GetEconomyIncome
@@ -29,7 +30,10 @@ local IsUnitState = moho.unit_methods.IsUnitState
 
 local LOUDLOG10 = math.log10
 local LOUDMAX   = math.max
+local LOUDMIN   = math.min
+local LOUDFLOOR = math.floor
 local LOUDSORT  = table.sort
+local LOUDGETN  = table.getn
 
 local ENGINEER      = categories.ENGINEER
 local FACTORY       = categories.FACTORY
@@ -387,6 +391,9 @@ function LessThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
     return (aiBrain.EcoData['OverTime']['MassEfficiency'] <= mEfficiency and aiBrain.EcoData['OverTime']['EnergyEfficiency'] <= eEfficiency)
 end
 
+function NeedFactory(aiBrain, factoryType)
+	return (aiBrain.MaxFactory[factoryType.."Count"] < aiBrain.MaxFactory[factoryType.."Limit"])
+end
 
 -- this now includes a basic eco check to insure we are positive flow
 -- allows us to remove other eco checks in the builder conditions

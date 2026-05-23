@@ -97,16 +97,16 @@ PlatoonTemplate { Name = 'T3BuildEngineer',
 PlatoonTemplate { Name = 'T3BuildEngineerInitial',
     FactionSquads = {
         UEF = {
-            { 'uel0309', 1, 2, 'Support', 'none' }
+            { 'uel0309', 1, 6, 'Support', 'none' }
         },
         Aeon = {
-            { 'ual0309', 1, 2, 'Support', 'none' }
+            { 'ual0309', 1, 6, 'Support', 'none' }
         },
         Cybran = {
-            { 'url0309', 1, 2, 'Support', 'none' }
+            { 'url0309', 1, 6, 'Support', 'none' }
         },
         Seraphim = {
-            { 'xsl0309', 1, 2, 'Support', 'none' }
+            { 'xsl0309', 1, 6, 'Support', 'none' }
         },
     }
 }

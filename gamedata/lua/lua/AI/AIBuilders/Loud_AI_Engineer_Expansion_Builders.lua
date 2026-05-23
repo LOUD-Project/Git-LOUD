@@ -10,9 +10,9 @@ local LUTL  = '/lua/loudutilities.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
-local AboveUnitCap65 = function( self,aiBrain )
+local AboveUnitCap75 = function( self,aiBrain )
 	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
 		return 10, true
 	end
 	
@@ -132,20 +132,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
+			{ EBC, 'NeedFactory', { 'LAND' }},
             
 			-- this base must have 3+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- all other 'counted' land bases must have at least 3 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-            
-			-- must have enough mass input to sustain existing factories and surplus
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
 			-- there must be a vacant start/expansion area with no allied structures within ExpansionRadius range (115)
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 60, 0, 'AntiSurface' } },
@@ -187,7 +186,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
-                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T2Radar',
+                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T2EnergyProduction','T2Radar',
 					'T1GroundDefense',
 					'T1GroundDefense',
 					'T1GroundDefense',
@@ -207,16 +206,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         Priority = 750,
         
-        PriorityFunction = AboveUnitCap65,
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
+			{ EBC, 'NeedFactory', { 'LAND' }},
             
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
-
+			-- this base must have 3+ T2/T3 factories
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 5, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            
+			-- all other 'counted' land bases must have at least 3 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 75, 0, 'AntiSurface' } },
         },
@@ -284,9 +285,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 		
         BuilderConditions = {
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+			{ EBC, 'NeedFactory', { 'LAND' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 1000 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -541,6 +542,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				
                 BuildStructures = { 'T2GroundDefense', 'T2AADefense',
                     'T2AirStagingPlatform',
+                    'T2EnergyProduction',
                     'T2Radar',
                     'T2GroundDefense',
                     'T2AADefense',
@@ -637,9 +639,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
-      
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
 			
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
@@ -648,7 +648,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
-        BuilderType = { 'T2','T3' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderData = {
             Construction = {
@@ -669,7 +669,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {'T1SeaFactory','T2AirStagingPlatform','T1SeaFactory','T1Sonar'}
+                BuildStructures = {'T1SeaFactory'}
             }
         }
     },
@@ -693,11 +693,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ MIBC, 'MapLessThan', { 1028 } },            
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
-
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
 
 			-- can't be a major enemy base within 7km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
@@ -706,7 +702,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
-        BuilderType = { 'T1','T2' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderData = {
             Construction = {
@@ -745,9 +741,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 		
         BuilderConditions = {
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -854,7 +848,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.025, 1.02 } },
+			{ EBC, 'NeedFactory', { 'NAVAL' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 2000 }},
 			
             -- must be 5 T3 yards before we expand
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},

@@ -415,6 +415,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},            
@@ -972,7 +973,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {},
 		
         BuilderData = {
-			MergeLimit = 90,
+			MergeLimit = 60,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
@@ -980,7 +981,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             AggressiveMove = true,
             
-            MaxAttackRange = 900,
+            MaxAttackRange = 1800,
         },
     },
 
@@ -1001,7 +1002,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 24 then
                 return 10,true
             else
-                return 802,true
+                return 801,true
             end
 
         end,
@@ -1017,7 +1018,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
 		
         BuilderData = {
-			MergeLimit = 60,
+			MergeLimit = 40,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
@@ -1025,7 +1026,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             AggressiveMove = true,
             
-            MaxAttackRange = 650,
+            MaxAttackRange = 1300,
         },
     },
     
@@ -1067,7 +1068,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
 		
         BuilderData = {
-			MergeLimit = 30,
+			MergeLimit = 20,
 			
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},
 			
@@ -1075,7 +1076,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             AggressiveMove = true,
             
-            MaxAttackRange = 400,
+            MaxAttackRange = 800,
         },
     },
 
@@ -1206,10 +1207,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1250,
+			PointRadius = 2500,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 1250,
+			PointMax = 2500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -2797,6 +2798,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = { 
+            { LUTL, 'LandStrengthRatioLessThan', { 8 } },
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 75, 'Land' }},
         },
