@@ -8783,16 +8783,20 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             skipTrendCheck = true
             skipUpgradeLimitCheck = true
 
+            EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' ) * 10
+
             -- Check if maximum number of mex upgrades has been reached
             if EntityCategoryContains( categories.TECH1, unit ) then
 
-                if aiBrain.MexUpgrade.T2Active >= aiBrain.MexUpgrade.T2Limit then
+                if aiBrain.MexUpgrade.T2Active >= aiBrain.MexUpgrade.T2Limit
+                or EnergyTrend < 80 then
                     continue
                 end
 
             elseif EntityCategoryContains( categories.TECH2, unit ) then
 
-                if aiBrain.MexUpgrade.T3Active >= aiBrain.MexUpgrade.T3Limit then
+                if aiBrain.MexUpgrade.T3Active >= aiBrain.MexUpgrade.T3Limit
+                or EnergyTrend < 220 then
                     continue
                 end
 
