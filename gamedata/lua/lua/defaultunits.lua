@@ -3484,10 +3484,37 @@ WalkingLandUnit = Class(MobileUnit) {
 
     OnCmdrUpgradeFinished = function(self)
         self:DoUnitCallbacks('OnCmdrUpgradeFinished')
+        
+        self.Upgrading = false
     end,
 
     OnCmdrUpgradeStart = function(self)
         self:DoUnitCallbacks('OnCmdrUpgradeStart')
+        
+        self.Upgrading = true
+    end,
+
+    OnPaused = function(self)
+
+        --self:StopUnitAmbientSound( 'ConstructLoop' )
+        Unit.OnPaused(self)
+
+        if self.BuildingUnit then
+            Unit.StopBuildingEffects(self, self.UnitBeingBuilt )
+        end
+    end,
+
+    OnUnpaused = function(self)
+
+        if self.BuildingUnit then
+
+            --self:PlayUnitAmbientSound( 'ConstructLoop' )
+
+            Unit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
+
+        end
+
+        Unit.OnUnpaused(self)
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
