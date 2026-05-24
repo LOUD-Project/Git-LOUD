@@ -88,7 +88,7 @@ function IncomeRatioBudget(aiBrain)
 
         -- only rebudget in T2 or T3
         if aiBrain.TechLevel ~= 'T1' then
-            incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.58)
+            incomeRatio.MaxFactory = baseMaxFactory + (surplusRatio * 0.29)
             incomeRatio.FactoryUpgrade = baseFactoryUpgrade + (surplusRatio * 0.2)
         end
 
@@ -336,3 +336,4 @@ function MaxFactoryLimit(aiBrain)
     end
 
 end
+
