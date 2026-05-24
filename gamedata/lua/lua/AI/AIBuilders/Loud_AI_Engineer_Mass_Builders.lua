@@ -368,7 +368,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             { EBC, 'GreaterThanEnergyTrend', { 4000 }},
 
 			-- check base massfabs 
@@ -413,7 +413,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders', BuildersType = 'Engin
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { EBC, 'GreaterThanEconMassStorageRatio', { 50 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
             { EBC, 'GreaterThanEnergyTrend', { 8000 }},
 
 			-- check base massfabs 
@@ -740,8 +740,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval', BuildersType 
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 8000 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 40 }},
 
@@ -788,9 +788,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions', 
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 0.3, 1.04 }},            
+            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 8000 }},    
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -846,9 +845,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 0.3, 1.04 }},            
+            { EBC, 'GreaterThanEconStorageCurrent', { 500, 0 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 8000 }},           
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
