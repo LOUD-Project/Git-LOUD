@@ -57,7 +57,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -101,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
         },
@@ -145,7 +145,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
         },
@@ -189,7 +189,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land', BuildersType =
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
         },
@@ -232,7 +232,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions', B
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1000, 4000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -275,7 +275,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions', B
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
         },
@@ -318,7 +318,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions', B
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
         },
@@ -361,7 +361,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Land - Expansions', B
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
         },
@@ -413,7 +413,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map', Buil
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -460,7 +460,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map', Buil
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -505,7 +505,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map', Buil
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -551,7 +551,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map', Bui
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -594,7 +594,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map', Bui
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -642,7 +642,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map - Expa
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -687,7 +687,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Land Map - Expa
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -732,7 +732,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Exp
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -773,7 +773,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Construction Air - Water Map - Exp
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -821,7 +821,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction', BuildersType 
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.03 }},
         },
@@ -864,7 +864,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction', BuildersType 
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -911,7 +911,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions', 
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 6000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 			
@@ -955,7 +955,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions', 
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
@@ -1118,11 +1118,11 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
         Priority = 740,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .90 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 40000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 80000 }},
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 7, categories.FACTORY - categories.TECH1 }},
 
@@ -1165,11 +1165,11 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval', Bui
         Priority = 740,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .90 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 40000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 80000 }},
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 7, categories.FACTORY - categories.TECH1 }},			
 

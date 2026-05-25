@@ -48,7 +48,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3', BuildersR
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
@@ -108,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4', BuildersR
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
 
@@ -162,7 +162,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3 Expansions'
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
@@ -221,7 +221,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4 Expansions'
 
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
 
@@ -273,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction', BuildersRestricti
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
@@ -325,7 +325,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction Expansions', Builde
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 4000, 16000 }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
 
