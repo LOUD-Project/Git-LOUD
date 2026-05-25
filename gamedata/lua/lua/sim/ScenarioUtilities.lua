@@ -1227,7 +1227,9 @@ function InitializeArmies()
                 }
 
                 ForkThread( ECOM.MaxFactoryLimit, aiBrain )
-                
+                -- Initialize mass stall monitor
+                ForkThread( ECOM.EvaluateMassStall, aiBrain )
+
                 --- Create the SelfUpgradeIssued counter
                 --- holds the number of units that have recently issued a self-upgrade
                 --- is used to limit the # of self-upgrades that can be issued in a given time

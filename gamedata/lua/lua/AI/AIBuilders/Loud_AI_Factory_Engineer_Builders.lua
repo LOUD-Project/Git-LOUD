@@ -109,6 +109,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         Priority = 900,
         
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.SUBCOMMANDER }},
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'SCU' } },
         },
@@ -132,6 +133,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         PriorityFunction = AboveUnitCap50,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.MOBILE * categories.ENGINEER }},
@@ -155,6 +158,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         PriorityFunction = AboveUnitCap60,
         
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
@@ -179,6 +184,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         PriorityFunction = AboveUnitCap70,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 - categories.SUBCOMMANDER }},

@@ -356,6 +356,9 @@ function GreaterThanMassIncome(aiBrain, mIncome)
 	return (GetEconomyIncome( aiBrain, 'MASS' ) *10) >= mIncome
 end
 
+function IsMassStalled(aiBrain, bool)
+	return bool == aiBrain.IsMassStalled
+end
 
 --------------------------
 -- EFFICIENCY FUNCTIONS --

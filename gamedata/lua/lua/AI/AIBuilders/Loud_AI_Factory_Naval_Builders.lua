@@ -77,6 +77,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT1'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL }},			
@@ -116,6 +118,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
             
             { LUTL, 'PoolLess', { 6, categories.FRIGATE }},
@@ -133,6 +137,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
             
             { LUTL, 'PoolLess', { 32, categories.FRIGATE }},
@@ -156,6 +162,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT1'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'PoolLess', { 24, categories.DEFENSIVEBOAT } },
@@ -198,6 +206,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
             
             { UCBC, 'PoolGreater', { 5, categories.FRIGATE }},
@@ -240,6 +250,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },        
             
             { UCBC, 'PoolGreater', { 5, categories.FRIGATE }},
@@ -261,6 +273,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
 
             { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
@@ -294,6 +308,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'PoolLess', { 24, (categories.SUBMARINE + categories.xes0102) }},
@@ -329,6 +345,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
@@ -367,6 +385,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
@@ -402,6 +422,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'PoolLess', { 24, categories.SUBMARINE }},
@@ -423,6 +445,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
 
             { LUTL, 'PoolLess', { 8, categories.SUBMARINE }},
@@ -442,6 +466,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'PoolLess', { 12, categories.xes0205 }},
             
             { UCBC, 'PoolGreater', { 2, categories.CRUISER + categories.DESTROYER }},
@@ -465,6 +491,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'PoolLess', { 9, categories.xrs0205 }},
             
             { UCBC, 'PoolGreater', { 2, categories.CRUISER + categories.DESTROYER }},
@@ -484,6 +512,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
 
 			{ UCBC, 'PoolLess', { 4, categories.BATTLESHIP }},
             
@@ -507,6 +536,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -532,6 +563,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -557,6 +590,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -582,6 +617,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -630,7 +667,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
-			
+			{ EBC, 'IsMassStalled', { false }},
+
 			{ UCBC, 'PoolLess', { 24, categories.SUBMARINE }},
             
             { UCBC, 'PoolGreater', { 6, categories.CRUISER + categories.DESTROYER }},
@@ -815,6 +853,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT1'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SUBMARINE, categories.NAVAL }},			
         },
@@ -831,6 +870,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT1','SeaT2' },
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 36, categories.FRIGATE * categories.NAVAL }},
@@ -852,6 +893,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 36, categories.FRIGATE * categories.NAVAL }},
@@ -875,6 +918,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT1'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.DEFENSIVEBOAT * categories.NAVAL } },
@@ -896,6 +941,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.DESTROYER * categories.NAVAL }},
@@ -917,6 +964,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.CRUISER * categories.NAVAL }},
@@ -940,6 +989,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, (categories.SUBMARINE + categories.xes0102) } },
@@ -961,6 +1012,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.SUBMARINE } },
@@ -985,6 +1038,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
@@ -1006,6 +1061,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
@@ -1027,6 +1084,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },			
 
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
@@ -1052,6 +1111,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
@@ -1075,6 +1136,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, categories.NAVAL * categories.TECH3 }},
@@ -1100,6 +1163,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
             { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -1125,6 +1190,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, categories.NAVAL * categories.TECH3 }},
@@ -1150,6 +1217,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },        
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -1175,6 +1244,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -1200,6 +1271,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
@@ -1223,6 +1296,8 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         BuilderType = {'SeaT3'},
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+            
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},

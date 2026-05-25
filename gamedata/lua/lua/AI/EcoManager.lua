@@ -1,6 +1,7 @@
-local BrainMethods     = moho.aibrain_methods
-local GetEconomyIncome = BrainMethods.GetEconomyIncome
-local GetListOfUnits   = BrainMethods.GetListOfUnits
+local BrainMethods         = moho.aibrain_methods
+local GetEconomyIncome     = BrainMethods.GetEconomyIncome
+local GetEconomyStoredRatio = BrainMethods.GetEconomyStoredRatio
+local GetListOfUnits       = BrainMethods.GetListOfUnits
 
 local IsUnitState = moho.unit_methods.IsUnitState
 
@@ -337,3 +338,49 @@ function MaxFactoryLimit(aiBrain)
 
 end
 
+-- If the mass storage level remains under 10% for a prolonged period then signal to halt unit production
+-- This will allow the AI to shift focus from units onto eco as well as activating builders with higher triggers
+function EvaluateMassStall(aiBrain)
+
+    local lowStorage = 0
+    local massStorage
+    
+    aiBrain.IsMassStalled = false
+
+    while not aiBrain:IsDefeated() do
+
+        local engineerDialog = ScenarioInfo.EngineerDialog or false
+        
+        massStorage = GetEconomyStoredRatio(aiBrain, 'MASS') * 100
+
+        if massStorage < 10 then
+            lowStorage = lowStorage + 1
+        else
+            if lowStorage > 0 then
+                lowStorage = lowStorage - 1
+            end
+        end
+
+        if lowStorage >= 10 then
+            lowStorage = 0
+            aiBrain.IsMassStalled = true
+
+            if engineerDialog then
+                LOG(aiBrain.Nickname.." EvaluateMassStall - Pausing Unit Production")
+            end
+
+            WaitTicks(900)
+
+            if engineerDialog then
+                LOG(aiBrain.Nickname.." EvaluateMassStall - Resuming Unit Production")
+            end
+
+            aiBrain.IsMassStalled = false
+            continue
+        end
+
+        WaitTicks(100)
+
+    end
+
+end

@@ -1,9 +1,11 @@
+
 -- Loud_AI_Factory_Air_Builders.lua
 -- factory production of all air units
 
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local TUTL  = '/lua/ai/transportutilities.lua'
 
 local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
@@ -164,6 +166,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         end,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+            
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             -- don't build T1 air scouts if we can build better ones
@@ -188,6 +192,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         PriorityFunction = HaveLessThanFourT3AirFactory,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 4, [512] = 8, [1024] = 16, [2048] = 24, [4096] = 32}, AIRSCOUT }},
@@ -209,6 +215,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         PriorityFunction = AboveUnitCap90,
         
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 12, [1024] = 20, [2048] = 40, [4096] = 60}, AIRSCOUT }},
@@ -234,6 +242,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
@@ -256,6 +266,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
@@ -273,6 +285,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
             
             { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
@@ -292,6 +306,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
             
             { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
@@ -311,6 +327,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveT3PowerIncomeRate,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
@@ -333,6 +351,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			-- stop making them if enemy has T2 AA of any kind
@@ -351,6 +371,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 		PriorityFunction = HaveLessThanFourT3AirFactory,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
             { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
@@ -368,6 +390,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
 		PriorityFunction = HaveT3PowerIncomeRate,
         
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
@@ -388,6 +412,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
 		PriorityFunction = HaveLessThanFourT3AirFactory,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
             
             { LUTL, 'GreaterThanEnergyIncome', { 1800 } },
@@ -407,6 +433,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
 		PriorityFunction = HaveT3PowerIncomeRate,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
@@ -430,6 +458,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 1 } },        
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
@@ -453,6 +483,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
@@ -478,6 +510,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
@@ -501,6 +535,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 0.75 } },
 
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } }, 
@@ -526,6 +562,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Torpedo Bombers', Bui
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NavalStrengthRatioLessThan', { 0.75 } },
 
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
@@ -558,6 +596,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 		PriorityFunction = HaveLessThanT2IncomeRate,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 5, [4096] = 5}, TRANSPORTS * categories.TECH1}},
@@ -590,6 +630,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         end,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT2UP }},
@@ -640,6 +682,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         end,
 		
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT2UP }},
@@ -689,6 +733,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         end,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
@@ -723,6 +769,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         end,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, TRANSPORTST2UP, AIRT3 }},
@@ -765,6 +813,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         end,
 
         BuilderConditions = {
+            { EBC, 'IsMassStalled', { false }},
+
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
