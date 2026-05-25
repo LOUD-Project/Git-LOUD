@@ -581,7 +581,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },        
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
         BuilderType = { 'T3','SubCommander'},
@@ -642,7 +642,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -710,7 +710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -1036,7 +1036,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -2495,7 +2495,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
         
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -2555,7 +2555,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -2620,7 +2620,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -3093,7 +3093,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }}, 
         },
 		
 		BuilderType = { 'T3' },
@@ -3304,7 +3304,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
         },
@@ -3564,7 +3564,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -3623,7 +3623,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -3685,7 +3685,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }}, 
         },
 		
         BuilderType = {'T3'},
@@ -3809,7 +3809,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
@@ -4591,7 +4591,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -4647,7 +4647,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 35, 'Air' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -5071,7 +5071,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 50, 85 }},
         },
@@ -5118,7 +5118,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, AA * categories.TECH3, 1, 40 }},
         },
@@ -5664,7 +5664,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * categories.TECH3 }},
         },
@@ -5717,7 +5717,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -5925,7 +5925,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
         
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, TMD }},
         },
@@ -5960,7 +5960,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},
 
@@ -5997,7 +5997,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 2000, 8000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 1500, 6000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
         },
