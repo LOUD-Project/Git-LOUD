@@ -8225,7 +8225,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 4000 and GetEconomyStored( aiBrain, 'ENERGY') >= 16000 then
 			
                     for _,v in unit:GetGuards() do
 			
@@ -8390,7 +8390,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local IsUnitState = IsUnitState
     
 	local CurrentEnhancement
-	local BuildCostE, BuildCostM, BuildCostT
+	local BuildCostE, BuildCostM, BuildCostT, massTrigger, energyTrigger
 	local EFFTime, RateNeededE, RateNeededM
     
     local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
@@ -8403,11 +8403,6 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	
 		WaitTicks(201)
 
-        -- 45 minute delay before enhancements can start
-        if aiBrain.CycleTime < 2700 then
-            continue
-        end
-
         CurrentEnhancement = EnhanceList[1]
 
         while (not unit.Dead) and not HasEnhancement(unit, CurrentEnhancement) do
@@ -8417,6 +8412,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 				BuildCostE = EBP[CurrentEnhancement].BuildCostEnergy
 				BuildCostM = EBP[CurrentEnhancement].BuildCostMass
 				BuildCostT = EBP[CurrentEnhancement].BuildTime
+                EnhName    = EBP[CurrentEnhancement].Name
 		
 				EffTime = ((100/GetBuildRate(unit)) * BuildCostT) / 100    -- build time in seconds
 
@@ -8429,10 +8425,27 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 					if FactoryEnhanceDialog then
 						LOG( body.." M Trend needs "..string.format("%.2f",RateNeededM).." is "..string.format("%.2f",econ.MassTrend).." E Trend needed "..string.format("%.2f",RateNeededE).." is "..string.format("%.2f",econ.EnergyTrend).." on tick "..GetGameTick() )
 					end
-			
+
+                    massTrigger   = 2000
+                    energyTrigger = 8000
+
+                    -- different storage requirements for different upgrades
+                    if EnhName == "Armor Package 1" then
+
+                        massTrigger   = 25000
+                        energyTrigger = 100000
+
+                    elseif EnhName == "Regen Package 1"
+                    or EnhName == "Regen Package 2" then
+
+                        massTrigger   = 20000
+                        energyTrigger = 80000
+
+                    end
+
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
-					if GetEconomyStored( aiBrain, 'MASS') >= 2000 and GetEconomyStored( aiBrain, 'ENERGY') >= 8000 then
+					if GetEconomyStored( aiBrain, 'MASS') >= massTrigger and GetEconomyStored( aiBrain, 'ENERGY') >= energyTrigger then
 				
 						IssueStop({unit})
 						IssueClearCommands({unit})
