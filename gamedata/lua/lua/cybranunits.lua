@@ -255,6 +255,10 @@ CConstructionUnit = Class(ConstructionUnit){
         if self.BuildBots then
 
             for _, bot in self.BuildBots do
+            
+                if bot:BeenDestroyed() then
+                    continue
+                end
 
                 if bot.BuildProjectile then
                 

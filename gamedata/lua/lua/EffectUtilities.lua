@@ -941,7 +941,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
         
-        if pos[1] then
+        if pos[1] and IsBeingBuilt(unitBeingBuilt) then
 
             LOUDWARP( projectile, pos)
   
@@ -1128,6 +1128,10 @@ function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, 
     if BuildBots then
     
         for _, bot in BuildBots do
+        
+            if bot:BeenDestroyed() then
+                continue
+            end
 
             bot:DetachFrom()
             bot.Detached = true
