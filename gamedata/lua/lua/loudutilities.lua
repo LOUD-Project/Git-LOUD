@@ -1606,13 +1606,13 @@ function SetPrimarySeaAttackBase( aiBrain )
     if aiBrain.AttackPlan.Goal then
 
         -- this is almost always a land position so it's not really valid for the sea attack base
-        -- perhaps we should locate the closest naval path marker to this position
-        local reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water' )
+        -- perhaps we should locate the closest naval path marker to this position (within 300 rather than default 250)
+        local reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Water', 300 )
         
         if not goal then
         
             if AttackPlanDialog then
-                LOG( dialog.." fails to find WATER node at "..distance.." trying AMPHIBIOUS")
+                LOG( dialog.." fails to find WATER node at 300 - closest is "..distance.." trying AMPHIBIOUS")
             end
             
             reason, goal, distance = GetClosestPathNode( aiBrain.AttackPlan.Goal,'Amphibious')
@@ -6414,9 +6414,9 @@ function CreateAttackPlan( self, enemyPosition )
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
 	end
 
-	local stagesize     = 300
-	local minstagesize  = 125 * 125
-	local maxstagesize  = 310 * 310
+	local stagesize     = 300 + (ScenarioInfo.IMAPSize/4)
+	local minstagesize  = (stagesize * .45) * (stagesize * .45)
+	local maxstagesize  = (stagesize + 10) * (stagesize + 10)
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
     
@@ -6629,7 +6629,7 @@ function CreateAttackPlan( self, enemyPosition )
             counter = 0
 
             -- Now we'll test each valid position and assign a value to it
-            -- seek the position which has the lowest path value between our minimum(100) and maximum(300) stage size distance
+            -- seek the position which has the lowest path value between our minimum and maximum stagesize distance
             -- note that the path value might exceed these limits - but the crow flies distance cannot
 
 			-- Filter the list of markers
