@@ -870,17 +870,18 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." with radius "..radius.." marker radius "..markerRadius.." Units "..unitMax.." tMin "..tMin.." tMax "..tMax.." Rings "..tRings.." type "..tType.." on tick "..GetGameTick())
-  	
+
+    --- we must have a Primary base - an Attack Plan - and the Primary must have a position value
     if Position and ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
         
         local AttackPlan    = aiBrain.AttackPlan
         local AttackGoal    = table.copy(AttackPlan.Goal)
         
         -- this gives us a Goal of the closest water node to the Attack Plan goal
-        local reason, Goal, distance = GetClosestPathNode( AttackGoal,'Water' )
+        local reason, Goal, distance = GetClosestPathNode( AttackGoal,'Water', 600 )
         
         if not Goal then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." fails to find Path Node near Attack Plan Goal for Naval DP at distance "..distance)
+            LOG("*AI DEBUG "..aiBrain.Nickname.." fails to find Path Node near Attack Plan Goal for Naval DP within 600 - closest is "..distance.." on tick "..GetGameTick()  )
             return false, false
         end
         

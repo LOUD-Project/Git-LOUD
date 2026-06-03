@@ -35,9 +35,16 @@ local VectorCached = { 0, 0, 0 }
 
 --	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
 --	Returns:  true/false and position of closest node
-function GetClosestPathNodeInRadiusByLayer(location, layer)
+--  modified to return false but report on distance of the closest one (for potential retry within limits) 
+function GetClosestPathNodeInRadiusByLayer(location, layer, distance_override)
 
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
+    
+    local checkdistance = LayerLimits[layer]
+    
+    if distance_override then
+        checkdistance = distance_override
+    end
 
 	
 	if nodes[1] then
@@ -51,12 +58,15 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
         local distance = VDist3( position, location )
 
 		-- if the first result is within radius then respond
-		if distance <= LayerLimits[layer] then
+		if distance <= checkdistance then
 			return true, position, distance
+        -- otherwise report the distance of the closest one found
+        else
+            return false, nil, distance
         end
 	end
 
-	return false, nil, LayerLimits[layer]
+	return false, nil, checkdistance
 end
 
 -- determines the max range of a naval platoon and returns the weapon arc and turret pitch range
