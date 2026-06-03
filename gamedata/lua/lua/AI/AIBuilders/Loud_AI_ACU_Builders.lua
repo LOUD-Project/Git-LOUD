@@ -259,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks', BuildersType = 'EngineerBuilder',
         Priority = 780,
 
 		-- this function removes the builder (like original function BuildOnce)
-		PriorityFunction = function(self, aiBrain, manager)
+		PriorityFunction = function(self, aiBrain, unit, manager)
 
             if aiBrain.CycleTime > 2400 then
                 return 0, false
