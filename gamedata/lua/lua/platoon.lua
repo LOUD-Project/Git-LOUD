@@ -7456,9 +7456,13 @@ Platoon = Class(PlatoonMethods) {
 
 			-- didn't find a location to build at
 			if not startpos then
+            
+                local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
 			
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." No location found for new base on tick "..GetGameTick() )
-				
+
+                EM:ForkThread( EM.AssignTimeout, self.BuilderName, 300 )
+                
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
             end
 			
