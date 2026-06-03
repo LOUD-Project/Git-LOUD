@@ -7,6 +7,9 @@ local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
+local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+
+
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
@@ -904,13 +907,33 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
 		
         Priority = 750,
 
-        PriorityFunction = AboveUnitCap80,
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+                return 10, true
+            end
+        
+            if table.getn( AIGetMarkerLocations('Naval Defensive Point') ) < 1 then
+                return 0, false
+            end
+            
+            if not aiBrain.AttackPlan.Goal then
+                return 11, true
+            end
+            
+            if not import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer( aiBrain.AttackPlan.Goal, 'Water', 600 ) then
+                return 12, true
+            end
+	
+            return (self.OldPriority or self.Priority), true            
+
+        end,
         
         BuilderConditions = {
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
             
-            { LUTL, 'NavalStrengthRatioGreaterThan', { .25 } },
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 0.5 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             

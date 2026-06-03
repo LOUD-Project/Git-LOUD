@@ -3,10 +3,10 @@
 
 local import = import
 
-local AIFindBrainTargetAroundPoint = import('/lua/ai/aiutilities.lua').AIFindBrainTargetAroundPoint
-
-local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
-local GetNumberOfOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
+local AIFindBrainTargetAroundPoint      = import('/lua/ai/aiutilities.lua').AIFindBrainTargetAroundPoint
+local AIGetMarkerLocations              = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+local GetOwnUnitsAroundPoint            = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+local GetNumberOfOwnUnitsAroundPoint    = import('/lua/ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
 
 local AltAIUtils = import('/lua/ai/altaiutilities.lua')
 
@@ -276,8 +276,14 @@ end
 
 function NavalDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType )
 
-    if AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
-        return true
+    if AIGetMarkerLocations('Naval Defensive Point') then
+
+        if AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
+            return true
+        end
+        
+    else
+        LOG("*AI DEBUG "..aiBrain.Nickname.." finds no Naval DP Markers")
     end
     
     return false    
