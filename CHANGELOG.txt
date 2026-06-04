@@ -1,3 +1,18 @@
+### Release 06-04-2026
+
+LUA 8.11
+BrewLAN for LOUD 0.8.8.9.128
+
+- minor shift in air ratio requirement to build transports
+- fixed SACU enhancements being unable to 'unpause', if paused
+- addition of 'sub' layer to BrewLAN's Sera Gate - to permit seabed teleportation (MostLostNoob)
+- user profile will now store the 'auto port' setting from multiplayer games (Niriak)
+- fixed an ACU task that was using invalid priority function parameters
+- addressed 'thrashing' issues around finding Naval DP positions, extended Naval DP location range
+
+
+
+
 ### Release 04-26-2026
 
 LUA 8.10.2
