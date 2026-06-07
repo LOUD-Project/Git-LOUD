@@ -429,9 +429,11 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         for k, v in aiBrain.AttackPlan.StagePoints do
 
             if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+            
+                local plantype = aiBrain.AttackPlan.StagePoints[k].Type
 
                 -- the StagePoint must be on Land
-                if aiBrain.AttackPlan.StagePoints[k].Type == 'Land' then
+                if plantype == 'Land' or plantype == 'Amphibious' then
 
                     local basename = aiBrain.AttackPlan.StagePoints[k].Name
                     local position = aiBrain.AttackPlan.StagePoints[k].Position
@@ -450,14 +452,14 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
                     
                     -- if not owned then insert it into the positions table
                     if basename then
-                        LOUDINSERT( positions, { Name = basename, Position = table.copy(position) } )
+                        LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
                     end
                 end    
             end
         end
 
         -- if we didn't get any attack plan positions then test all the markers
-        if table.getn(positions) < 1 then
+        if LOUDGETN(positions) < 1 then
             positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
             positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', test_position, radius, tMin, tMax, tRings, tType))
         end
@@ -575,13 +577,13 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
                     
                     -- if not owned then insert it into the positions table
                     if basename then
-                        LOUDINSERT( positions, { Name = basename, Position = table.copy(position) } )
+                        LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
                     end
                 end    
             end
         end
         
-        if table.getn(positions) < 1 then
+        if LOUDGETN(positions) < 1 then
             local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
         end
 
