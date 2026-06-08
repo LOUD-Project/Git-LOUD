@@ -14,10 +14,13 @@ local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
 local LOUDGETN              = table.getn
 
 local AIR               = categories.AIR
+local AIRBOMBER         = AIR * categories.BOMBER
+local AIRGUNSHIP        = AIR * categories.GROUNDATTACK
 local AIRSCOUT          = AIR * categories.SCOUT
+local AIRTORP           = AIR * categories.ANTINAVY
 local AIRT2UP           = AIR - categories.TECH1
 local AIRT3             = AIR * categories.TECH3
-local AIRTORP           = AIR * categories.ANTINAVY
+
 local FACTORY           = categories.FACTORY
 local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
 local TRANSPORTS        = categories.TRANSPORTFOCUS
@@ -400,6 +403,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRBOMBER, AIRT2UP }},
         },
 		
         BuilderType =  {'AirT3'},
@@ -437,6 +442,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Gunships', BuildersRe
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRGUNSHIP, AIRT2UP }},
         },
 
         BuilderType =  {'AirT3'},
