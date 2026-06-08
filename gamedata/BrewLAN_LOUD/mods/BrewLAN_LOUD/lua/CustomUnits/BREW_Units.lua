@@ -40,10 +40,10 @@ T3Bomber = {
 	Seraphim = {'ssa0314', 15},
 },
 
-T3Fighter = {
-	Cybran = {'sra0313', 10},
-    UEF = {'sea0313', 10},
-    Seraphim = {'ssa0313', 10},
+T3FighterAdv = {
+	Cybran = {'sra0313', 100},
+    UEF = {'sea0313', 100},
+    Seraphim = {'ssa0313', 100},
 },
 
 T3Gunship = {

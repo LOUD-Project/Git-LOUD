@@ -304,7 +304,6 @@ PlatoonTemplate { Name = 'T2Fighter',
     }
 }
 
-
 PlatoonTemplate { Name = 'T3Fighter',
     FactionSquads = {
         UEF = {
@@ -320,6 +319,15 @@ PlatoonTemplate { Name = 'T3Fighter',
             { 'xsa0303', 1, 2, 'Attack', 'none' }
         },
     }
+}
+
+PlatoonTemplate { Name = 'T3FighterAdv',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }    
 }
 
 PlatoonTemplate { Name = 'T2Gunship',

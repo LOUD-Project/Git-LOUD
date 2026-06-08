@@ -333,6 +333,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         BuilderType =  {'AirT3'},
     },
+    
+    --- This builder is specifically for Pen Fighters atm
+    Builder {BuilderName = 'Fighters T3 Advanced',
+	
+        PlatoonTemplate = 'T3FighterAdv',
+
+        Priority = 600,
+		
+		PriorityFunction = IsEnemyAirActive,
+
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
+        },
+
+        BuilderType =  {'AirT3'},
+    },    
 }
 
 BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRestriction = 'AIRBOMBERS', BuildersType = 'FactoryBuilder',	
