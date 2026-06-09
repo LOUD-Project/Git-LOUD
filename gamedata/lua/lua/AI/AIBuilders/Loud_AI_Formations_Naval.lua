@@ -14,7 +14,7 @@ local NotPrimaryBase = function( self,aiBrain,manager)
 	return 650, true
 end
 
-local IsPrimaryBase = function(self,aiBrain,manager)
+local IsPrimarySeaBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
 		return self.OldPriority or self.Priority, true
@@ -61,7 +61,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations', BuildersType = 'Platoon
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 740 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
                     return 10,true
@@ -107,7 +107,7 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small', BuildersType = 
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 740 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
                     return 10,true
@@ -152,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 740 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 740 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
                     return 10,true
@@ -193,7 +193,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 750 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then
                     return 10,true
@@ -284,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 750 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -344,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 750 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -404,7 +404,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 750 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -464,7 +464,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 750 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 750 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -523,7 +523,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 751 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
                     return 10,true
@@ -582,7 +582,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 751 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
                     return 10,true
@@ -646,7 +646,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 751 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
                     return 10,true
@@ -709,7 +709,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 751 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 751 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 1 then
                     return 10,true
@@ -772,7 +772,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 752 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
                     return 10,true
@@ -834,7 +834,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 752 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
                     return 10,true
@@ -897,7 +897,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 752 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
                     return 10,true
@@ -960,7 +960,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 752 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BATTLESHIP ) < 3 then
                     return 10,true
@@ -1023,7 +1023,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 752 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 752 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -1078,7 +1078,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 753 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 753 then
 
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then
                     return 10,true
@@ -1091,7 +1091,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
             end
         end,
 
-		PriorityFunction = IsPrimaryBase,
+		PriorityFunction = IsPrimarySeaBase,
 
         InstanceCount = 2,
 		
@@ -1135,7 +1135,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 754 then
+            if IsPrimarySeaBase(self,aiBrain,manager) == 754 then
 
                 if PlatoonCategoryCount( aiBrain.ArmyPool, BOMBARD ) < 4 then
                     return 10,true
