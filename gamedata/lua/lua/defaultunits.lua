@@ -1036,9 +1036,51 @@ StructureUnit = Class(Unit) {
 			
 		end
 
-		CreateAdjacencyBeams( self, adjacentUnit )
-
+		table.insert(self.AdjacencyBeamsBag, {
+	        Unit = adjacentUnit,
+	        -- Trash = CreateAdjacencyBeams( self, adjacentUnit ), --TODO check effect is active
+	    }
+		
     end,
+
+	ShowAdjacentEffects = function(self, adjacentUnit)
+			
+		if not self.AdjacencyBeamsBag then
+			return
+		end
+			
+		for k, v in self.AdjacencyBeamsBag do
+
+			if v.Unit == adjacentUnit.EntityID then
+				if not v.Trash then
+					v.Trash = CreateAdjacencyBeams( self, adjacentUnit )
+				end
+				return
+			end
+			
+		end
+			
+	end,
+		
+	HideAdjacentEffects = function(self, adjacentUnit)
+			
+		if not self.AdjacencyBeamsBag then
+			return
+		end
+			
+		for k, v in self.AdjacencyBeamsBag do
+
+			if v.Unit == adjacentUnit.EntityID then
+				if v.Trash then
+					v.Trash:Destroy()
+					v.Trash = nil
+				end
+				return
+			end
+			
+		end
+			
+	end,
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
 
