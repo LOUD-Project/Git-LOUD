@@ -1565,7 +1565,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
     local TrashAdd = TrashAdd
 
-	local info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
+	local Trash = TrashBag()
+	-- local info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
     
     local army = unit.Army
     local faction = __blueprints[unit.BlueprintID].General.FactionName
@@ -1591,11 +1592,12 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
     
         local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
         
-        TrashAdd( info.Trash, beam )
+        TrashAdd( Trash, beam )
         TrashAdd( unit.Trash, beam )
     end
 
-	LOUDINSERT( unit.AdjacencyBeamsBag, info)
+	return Trash
+	-- LOUDINSERT( unit.AdjacencyBeamsBag, info)
 
 end
 
