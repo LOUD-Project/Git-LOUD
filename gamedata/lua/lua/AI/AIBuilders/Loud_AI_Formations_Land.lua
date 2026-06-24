@@ -20,19 +20,7 @@ local NotPrimaryBase = function( self,aiBrain,manager)
 	
 end
 
-local IsPrimaryBase = function(self,aiBrain,manager)
-	
-	if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-	
-		return self.OldPriority or self.Priority, true
-		
-	end
 
-	return 10, true
-	
-end
-
-local PlatoonCategoryCount                  = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition    = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 
 local DEFENSESTRUCTURE  = categories.STRUCTURE * categories.DEFENSE * (categories.DIRECTFIRE + categories.INDIRECTFIRE)
@@ -44,6 +32,8 @@ local LANDANTIAIR       = LAND * categories.ANTIAIR
 local LANDARTILLERY     = LAND * categories.INDIRECTFIRE - categories.EXPERIMENTAL
 local LANDDIRECTFIRE    = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL
 local LANDSCOUT         = LAND * categories.SCOUT
+local LANDT4            = LAND * categories.EXPERIMENTAL * categories.AMPHIBIOUS
+
 
 -- used to group T3 artillery into platoons
 BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
@@ -56,13 +46,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
         Priority = 600,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.ARTILLERY * categories.STRUCTURE - categories.TACTICAL - categories.TECH2 - categories.TECH1, manager.Location, manager.Radius ) < 1 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.ARTILLERY * categories.STRUCTURE - categories.TACTICAL - categories.TECH2 - categories.TECH1, manager.Location, manager.Radius ) < 1 then
-                return 10,true
-            else
-                return 600,true
-            end
-        end,
+		end,
 
         InstanceCount = 12,
 
@@ -83,13 +72,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Nukes',
         Priority = 600,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.NUKE * categories.STRUCTURE * ( categories.TECH3 + categories.EXPERIMENTAL ), manager.Location, manager.Radius ) < 1 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.STRATEGIC * categories.STRUCTURE * categories.NUKE, manager.Location, manager.Radius ) < 1 then
-                return 10,true
-            else
-                return 600,true
-            end
-        end,
+		end,
 
         InstanceCount = 4,
 
@@ -107,17 +95,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         PlatoonTemplate = 'T1LandScoutForm',
 		PlatoonAIPlan = 'ScoutingAI',
 		FactionIndex = 2,
+
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            else
-                return 800,true
-            end
-
-        end,
+		end,
 
         InstanceCount = 7,
 
@@ -138,17 +125,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         PlatoonTemplate = 'T1LandScoutForm',
 		PlatoonAIPlan = 'ScoutingAI',
 		FactionIndex = 1,
+
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            else
-                return 800,true
-            end
-
-        end,
+		end,
 
         InstanceCount = 7,
 
@@ -169,17 +155,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         PlatoonTemplate = 'T1LandScoutForm',
 		PlatoonAIPlan = 'ScoutingAI',
 		FactionIndex = 3,
+
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 1 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 1 then
-                return 10,true
-            else
-                return 800,true
-            end
-
-        end,
+		end,
 
         InstanceCount = 10,
 
@@ -200,17 +185,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         PlatoonTemplate = 'T1LandScoutForm',
 		PlatoonAIPlan = 'ScoutingAI',
 		FactionIndex = 4,
+
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 1 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            else
-                return 800,true
-            end
-
-        end,
+		end,
 
         InstanceCount = 7,
 
@@ -249,16 +233,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 803,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 55 then 
+                return 10, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 56 then
-                return 10,true
-            elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then
-                return 10,true
-            else
-                return 803,true
-            end
-        end,
-		
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then 
+                return 10, true
+            end  
+
+		end,
+	
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -301,22 +286,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 802 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then
-                    return 10,true
-                elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then
-                    return 10,true
-                else
-                    return 802,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then 
+                    return 11, true
+                end  
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -330,6 +315,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 1000 }},
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},            
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, LANDDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -394,20 +382,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 801,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 801 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then
-                    return 10,true
-                else
-                    return 801,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -421,6 +407,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			-- enemy AA structures within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1000 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -481,22 +469,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then
-                    return 10,true
-                elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 40 then 
+                    return 11, true
+                end  
+
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -506,6 +494,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -540,20 +531,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -563,6 +552,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -598,20 +589,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 3,
 		
@@ -623,6 +612,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -686,20 +677,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -712,6 +701,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			-- enemy mass points within 16km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 800 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -781,13 +772,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
                 return 0, false
             end
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then
-                return 10,true
-            else
-                return 800,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then 
+                return 11, true
+            end  
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -799,8 +788,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
 
-			-- enemy mass points within 12km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 650 }},
+			-- enemy mass points within 8km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 400 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -813,10 +804,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointCategory = categories.MASSPRODUCTION,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 650,
+			PointRadius = 400,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 650,
+			PointMax = 400,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 38,
@@ -865,20 +856,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then
-                    return 10,true
-                else
-                    return 800,true
-                end
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then 
+                    return 11, true
+                end  
 
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 4,
 		
@@ -892,6 +881,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			-- enemy DEFENSE structures within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 1750 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -953,15 +944,21 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then
-                return 10,true
-            elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then
-                return 10,true
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 40 then 
+                    return 11, true
+                end  
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then 
+                    return 11, true
+                end  
+
             else
-                return 802,true
+                return 10, true
             end
 
-        end,
+		end,
 	
 		RTBLocation = 'Any',
 		
@@ -969,7 +966,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderType = 'Any',
 		
-        BuilderConditions = {},
+        BuilderConditions = {
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, LANDARTILLERY }},            
+        },
 		
         BuilderData = {
 			MergeLimit = 90,
@@ -998,13 +999,17 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 24 then
-                return 10,true
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
+
             else
-                return 802,true
+                return 10, true
             end
 
-        end,
+		end,
 
 		RTBLocation = 'Any',
 		
@@ -1014,6 +1019,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -1048,13 +1055,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
                 return 0, false
             end
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 5 then
-                return 10,true
-            else
-                return 800,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 5 then 
+                return 11, true
+            end  
 
-        end,
+		end,
 
 		RTBLocation = 'Any',
 		
@@ -1064,6 +1069,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -1093,22 +1100,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if IsPrimaryBase(self,aiBrain,manager) == 802 then
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then
-                    return 10,true
-                elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then
-                    return 10,true
-                else
-                    return 802,true
-                end
-                
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then 
+                    return 11, true
+                end  
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then 
+                    return 11, true
+                end  
+
             else
                 return 10, true
             end
 
-        end,
+		end,
 
         InstanceCount = 2,
 		
@@ -1122,6 +1129,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 
 			-- enemy mass points within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1250 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, LANDDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -1178,13 +1188,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then
-                return 10,true
-            else
-                return 801,true
-            end
-        end,
-		
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then 
+                return 11, true
+            end  
+
+		end,
+	
         InstanceCount = 2,
 		
         BuilderType = 'Any',
@@ -1195,6 +1204,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
             
 			-- enemy mass production within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1250 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -1259,28 +1270,21 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
         Priority = 802,
 		
-		-- this function alters the builder 
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, manager.Location, manager.Radius ) < 11 then
-                return 10,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDT4, manager.Location, manager.Radius ) < 7 then 
+                return 11, true
+            end  
 
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-			
-				if aiBrain.AttackPlan.Method != 'Amphibious' then
-					return 802, true
-				end
-			end
-			
-			return 10, true
 		end,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {},
+		BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, LANDT4 }},
+        },
 		
         BuilderData = {
 
@@ -1309,36 +1313,25 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, manager.Location, manager.Radius ) < 11 then
-                return 10,true
-            end
-		
-			-- effectively - if this is a primary base - and the attack plan requires amphibious attack --			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-			
-				if aiBrain.AttackPlan.Method == 'Amphibious' then
-					return 802, true
-				end
-			end
-			
-            if ScenarioInfo.MapWaterRatio > 0 then
-                return 10, true
-            else
-                return 0, false
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDT4, manager.Location, manager.Radius ) < 7 then 
+                return 11, true
+            end  
+
 		end,
-		
-        InstanceCount = 3,
+	
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {},
+		BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, LANDT4 }},
+        },
 		
         BuilderData = {
 
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 2500,
+			MaxAttackRange = 1500,
 			
 			MergeLimit = 120,
 			
@@ -1365,19 +1358,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
                 return 0, false
             end
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, manager.Location, manager.Radius ) < 7 then
-                return 10, true
-            end
-			
-			-- effectively - if this is a primary base - and the attack plan requires amphbious attack --
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-			
-				if aiBrain.AttackPlan.Method == 'Amphibious' then
-					return 800, true
-				end
-			end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDT4, manager.Location, manager.Radius ) < 7 then 
+                return 11, true
+            end  
 
-            return 10, true
 		end,
 		
         InstanceCount = 2,
@@ -1386,6 +1370,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, LANDT4 }},            
 		},
 		
         BuilderData = {
@@ -1418,22 +1403,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, (LAND * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT, manager.Location, manager.Radius ) < 7 then
-                return 10,true
-            elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 13 then
-                return 10,true
-            elseif PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 6 then
-                return 10,true
-            end
-			
-			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-			
-				if aiBrain.AttackPlan.Method != 'Amphibious' then
-					return 800, true
-				end
-			end
-			
-			return 10, true
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDT4, manager.Location, manager.Radius ) < 7 then 
+                return 11, true
+            end  
+
 		end,
 		
         InstanceCount = 2,
@@ -1442,6 +1415,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, LANDT4 }},
 		},
 		
         BuilderData = {
@@ -1475,11 +1449,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 
 		-- this function turns on the builder 
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LAND * categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 1 then
-                return 10,true
-            end
-
             return NotPrimaryBase(self,aiBrain,manager), true
 		end,
 
@@ -1487,7 +1456,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 
         BuilderType = 'Any',
 
-        BuilderConditions = {},
+        BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, LANDT4 }},
+        },
 
         BuilderData = {
             UseFormation = 'GrowthFormation',
@@ -1514,18 +1485,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 803 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 48 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT, manager.Location, manager.Radius ) < 48 then
-                    return 10,true
-                else
-                    return 803,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -1534,7 +1502,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {},
+		BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 47, LANDAMPHIB - categories.ANTIAIR }},
+        },
 		
         BuilderData = {
         
@@ -1561,18 +1531,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 802 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 36 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT, manager.Location, manager.Radius ) < 36 then
-                    return 10,true
-                else
-                    return 802,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -1583,6 +1550,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 35, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1610,18 +1578,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 801 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 24 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT, manager.Location, manager.Radius ) < 24 then
-                    return 10,true
-                else
-                    return 801,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',		
@@ -1632,6 +1597,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDAMPHIB - categories.ANTIAIR }},
 		},
 		
         BuilderData = {
@@ -1661,18 +1627,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 16 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT, manager.Location, manager.Radius ) < 16 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -1684,6 +1647,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1742,18 +1706,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 3 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT, manager.Location, manager.Radius ) < 3 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -1765,6 +1726,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1825,13 +1787,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.SCOUT - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 3 then
-                return 10,true
-            else
-                return 802,true
-            end
-
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 3 then 
+                return 11, true
+            end  
         end,
 		
 		RTBLocation = 'Any',
@@ -1844,12 +1803,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},                        
 
 			-- empty mass point within 20km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1915,11 +1876,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         Priority = 10,
 
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - LANDSCOUT, manager.Location, manager.Radius ) < 7 then
-                return 10,true
-            end
-
             return NotPrimaryBase(self,aiBrain,manager), true
 		end,
 		
@@ -1930,6 +1886,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1962,12 +1920,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                return 11, true
+            end  
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 1 then
-                return 10,true
-            else
-                return 802,true
-            end
         end,
 		
 		RTBLocation = 'Any',
@@ -1983,6 +1940,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- empty mass point within 12km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 600, 0, 75, 1, 'AntiSurface', 1 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2053,12 +2012,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         Priority = 802,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            else
-                return 802,true
-            end
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                return 11, true
+            end  
 
         end,
 
@@ -2075,6 +2032,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- we have a mass extractor within 2-10km with less than 4 defense structures, and > 15 threat within 1 ring 
             { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 75, 650, 3, 15, 125, 1 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2144,17 +2103,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         Priority = 801,
 		
 		PriorityFunction = function(self, aiBrain, manager)
-          
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 2 then
-                return 10, true
-            end
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                return 11, true
+            end  
 
             if ScenarioInfo.size[1] < 1024 or ScenarioInfo.size[2] < 1024 then
                 return 800, true
             else
                 return 801, true
             end
-  
         end,
 		
 		RTBLocation = 'Any',
@@ -2166,10 +2124,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'DefensivePointNeedsStructure', { 'LocationType', 1250, 'DEFENSE STRUCTURE DIRECTFIRE', 60, 3, 0, 100, 0, 'AntiSurface' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2234,16 +2194,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 2 then
-                return 10, true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                return 11, true
+            end  
 
             if ScenarioInfo.size[1] < 1024 or ScenarioInfo.size[2] < 1024 then
                 return 800, true
             else
                 return 801, true
             end
-  
         end,
         
 		RTBLocation = 'Any',
@@ -2259,6 +2218,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2322,21 +2283,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 801,
-        
-        PriorityFunction = function(self, aiBrain, manager)
+		
+		PriorityFunction = function(self, aiBrain, manager)
             
-            if IsPrimaryBase(self,aiBrain,manager) == 801 then
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                    return 11, true
+                end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 2 then
-                    return 10,true
-                else
-                    return 801,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -2353,6 +2311,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- a starting point within 15km that has <= 6 non-economic structures within 60 and no more than 100 threat
             { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2416,21 +2376,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 800,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 2 then 
+                    return 11, true
+                end  
 
-        PriorityFunction = function(self, aiBrain, manager)            
-
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
-
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 6 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -2447,6 +2404,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- a DP marker with less than 100 enemy threat
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2506,21 +2465,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 800,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 2 then 
+                    return 11, true
+                end  
 
-        PriorityFunction = function(self, aiBrain, manager)            
-
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
-
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 6 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -2536,6 +2492,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2596,21 +2554,18 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 800,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 2 then 
+                    return 11, true
+                end  
 
-        PriorityFunction = function(self, aiBrain, manager)            
-
-            if IsPrimaryBase(self,aiBrain,manager) == 800 then
-
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 6 then
-                    return 10,true
-                else
-                    return 800,true
-                end
-                
             else
                 return 10, true
             end
-
         end,
 
 		RTBLocation = 'Any',
@@ -2626,6 +2581,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 4, 0, 100, 0, 'AntiSurface' }},            
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2686,15 +2643,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
         PlatoonAIPlan = 'GuardPoint',
 		
-        Priority = 800,
+        Priority = 805,
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - LANDAMPHIB, manager.Location, manager.Radius ) < 2 then
-                return 10,true
-            else
-                return 805,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 2 then 
+                return 11, true
+            end  
 
         end,
 
@@ -2712,6 +2667,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- enemy mass points within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.STRUCTURE * (categories.MASSPRODUCTION + categories.HYDROCARBON), 1000 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2786,11 +2743,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 6 then
-                return 10,true
-            else
-                return 805,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then 
+                return 11, true
+            end  
 
         end,
 		
@@ -2799,6 +2754,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderConditions = { 
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 75, 'Land' }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2831,20 +2788,20 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDANTIAIR, manager.Location, manager.Radius ) < 6 then
-                return 10,true
-            else
-                return 805,true
-            end
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDANTIAIR, manager.Location, manager.Radius ) < 5 then 
+                return 11, true
+            end  
 
         end,
-		
+	
         BuilderType = 'Any',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
 			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDANTIAIR }},
         },
 		
         BuilderData = {
@@ -2882,11 +2839,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         Priority = 10,
 
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then
-                return 10,true
-            end
-
             return NotPrimaryBase(self,aiBrain,manager), true
 		end,
 		
@@ -2897,6 +2849,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2916,11 +2870,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         Priority = 10,
 
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY - categories.EXPERIMENTAL, manager.Location, manager.Radius ) < 5 then
-                return 10,true
-            end
-
             return NotPrimaryBase(self,aiBrain,manager), true
 		end,
 		
@@ -2931,6 +2880,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2950,11 +2901,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         Priority = 10,
 
 		PriorityFunction = function(self, aiBrain, manager)
-            
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 3 then
-                return 10,true
-            end
-
             return NotPrimaryBase(self,aiBrain,manager), true
 		end,
 		
@@ -2965,6 +2911,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Reinforcement',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
+
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
