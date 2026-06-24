@@ -8,6 +8,14 @@ local LUTL  = '/lua/loudutilities.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
+local BATTLESHIP    = categories.BATTLESHIP
+local BOMBARD       = categories.BOMBARDMENT
+local CRUISER       = categories.CRUISER
+local DEFENSIVE     = categories.DEFENSIVEBOAT
+local DESTROYER     = categories.DESTROYER
+local FRIGATE       = categories.FRIGATE
+local SUBMARINE     = categories.SUBMARINE + categories.xes0102
+
 local AboveUnitCap70 = function( self,aiBrain )
 	
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .70 then
@@ -51,13 +59,11 @@ end
 
 BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestriction = 'NAVAL', BuildersType = 'FactoryBuilder',
 	
-	-- you'll notice the high priority on T1 subs and frigates -- this will keep them producing frequently thru the game or 
-	-- until the priority function shuts them down (T1 subs)
 	Builder {BuilderName = 'T1 Sub',
 	
         PlatoonTemplate = 'T1SeaSub',
 		
-        Priority = 610,
+        Priority = 600,
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
@@ -77,6 +83,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT1'},
 		
         BuilderConditions = {
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.SUBMARINE } },
 			
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL }},			
@@ -86,63 +93,35 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
     Builder {BuilderName = 'T1 Frigate',
 	
         PlatoonTemplate = 'T1SeaFrigate',
-		
-        Priority = 610,
         
-        PriorityFunction = AboveUnitCap85,
-		
-        BuilderType = {'SeaT1','SeaT2'},
-		
-        BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-            
-            { LUTL, 'PoolLess', { 32, categories.FRIGATE }},
-
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
-        },
-    },
-
-    -- this will provide some frigate production even if the enemy is not in the water
-    Builder {BuilderName = 'T1 Frigate - High Strength',
-	
-        PlatoonTemplate = 'T1SeaFrigate',
-		
         Priority = 600,
-        
-        PriorityFunction = AboveUnitCap85,
+		
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.NavalRatio < 6 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
 		
         BuilderType = {'SeaT1','SeaT2','SeaT3'},
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
-            
-            { LUTL, 'PoolLess', { 6, categories.FRIGATE }},
-        },
-    },
 
-    Builder {BuilderName = 'T1 Frigate at T3 factory',
-	
-        PlatoonTemplate = 'T1SeaFrigate',
-		
-        Priority = 600,
-        
-        PriorityFunction = AboveUnitCap85,
-
-        BuilderType = {'SeaT3'},
-		
-        BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-            
-            { LUTL, 'PoolLess', { 32, categories.FRIGATE }},
+            { LUTL, 'PoolLess', { 30, categories.FRIGATE }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
         },
     },
-	
+
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON',
 	
         PlatoonTemplate = 'T1SeaAntiAir',
@@ -158,7 +137,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-			{ LUTL, 'PoolLess', { 24, categories.DEFENSIVEBOAT } },
+			{ LUTL, 'PoolLess', { 20, categories.DEFENSIVEBOAT } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.DEFENSIVEBOAT } },
 
@@ -824,16 +803,27 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
 	
         PlatoonTemplate = 'T1SeaFrigate',
 		
-        Priority = 610,
-        
-        PriorityFunction = AboveUnitCap95,
+        Priority = 600,
 		
-        BuilderType = {'SeaT1','SeaT2' },
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 then
+                return 10, true
+            end
+            
+            if aiBrain.NavalRatio < 6 then
+                return self.Priority + 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
+
+        BuilderType = {'SeaT1','SeaT2','SeaT3' },
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 36, categories.FRIGATE * categories.NAVAL }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 30, categories.FRIGATE * categories.NAVAL }},
 			
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.FRIGATE } },
             
@@ -841,27 +831,6 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
         },
     },
 
-    Builder {BuilderName = 'T1 Frigate - Small - at T3 factory',
-	
-        PlatoonTemplate = 'T1SeaFrigate',
-		
-        Priority = 600,
-        
-        PriorityFunction = AboveUnitCap95,
-		
-        BuilderType = {'SeaT3'},
-		
-        BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 6 } },
-
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 36, categories.FRIGATE * categories.NAVAL }},
-
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.FRIGATE }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
-        },
-    },
-		
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON - Small',
 	
         PlatoonTemplate = 'T1SeaAntiAir',
