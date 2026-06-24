@@ -1,0 +1,217 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Legs',
+        },
+    },
+
+    Audio = {
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
+    },
+
+    Buffs = {},
+
+    BuildIconSortPriority = 110,
+
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FIELD',
+        'BUILTBYTIER2FIELD',
+        'BUILTBYTIER3FIELD',
+        'SERAPHIM',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH1',
+        'DIRECTFIRE',
+        'DRAGBUILD',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTDEFENSE',
+    },
+
+    CollisionOffsetY = -0.25,
+
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 1300,
+        MaxHealth = 1300,
+        SurfaceThreatLevel = 13,
+    },
+
+    Description = '<LOC ssb2121_desc>Amphibious Point Defense',
+
+    Display = {
+        AnimationDeath = {
+            { Animation = '/mods/BrewLAN/units/SSB2121/SSB2121_ADeath_Land01.sca', AnimationRateMax = 2.5, AnimationRateMin = 2, Weight = 100 },
+            { Animation = '/mods/BrewLAN/units/SSB2121/SSB2121_ADeath_Land02.sca', AnimationRateMax = 2.5, AnimationRateMin = 2, Weight = 100 },
+            { Animation = '/mods/BrewLAN/units/SSB2121/SSB2121_ADeath_Land03.sca', AnimationRateMax = 2.5, AnimationRateMin = 2, Weight = 100 },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        UniformScale = 0.038,
+    },
+
+    Economy = {
+        BuildCostEnergy = 2150,
+        BuildCostMass = 255,
+        BuildTime = 255,
+
+        RebuildBonusIds = {'ssb2121'},
+    },
+
+    General = {
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        SelectionPriority = 5,
+
+        UnitName = '<LOC ssb2121_name>Uttuos',
+    },
+
+    Intel = {
+        VisionRadius = 24,
+    },
+
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.4,
+    LifeBarSize = 0.9,
+
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1,
+        MeshExtentsY = 1.1,
+        MeshExtentsZ = 1,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 1,
+        SkirtSizeZ = 1,
+        TurnRate = 0,
+    },
+
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.35,
+    SelectionThickness = 1.1,
+
+    SizeX = 0.5,
+    SizeY = 0.9,
+    SizeZ = 0.5,
+
+    StrategicIconName = 'icon_structure1_directfire',
+    StrategicIconSortPriority = 205,
+
+    Veteran = {
+        Level1 = 5,
+        Level2 = 10,
+        Level3 = 15,
+        Level4 = 20,
+        Level5 = 25,
+    },
+
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0201_Cannon_Spectra',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+
+            Damage = 250,
+            DamageType = 'Normal',
+
+            DisplayName = 'Oh Spectra Cannon',
+
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+
+            Label = 'MainGun',
+
+            MaxRadius = 26,
+
+            MuzzleVelocity = 25,
+
+            ProjectileId = '/projectiles/SDFOhCannon01/SDFOhCannon01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectilesPerOnFire = 1,
+
+            RackBones = {
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Muzzle' },
+            },
+
+            RackRecoilDistance = -1,
+
+            RangeCategory = 'UWRC_DirectFire',
+
+            RateOfFire = 0.6,
+
+            TargetCheckInterval = 0.75,
+
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE -AIR',
+                'DEFENSE',
+                'ALLUNITS -AIR',
+            },
+
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            TrackingRadius = 1.1,
+
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Pitch',
+            TurretBoneYaw = 'Yaw',
+            TurretDualManipulators = false,
+
+            TurretPitch = 0,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 60,
+
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 36,
+
+            Turreted = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Water = true,
+        },
+    },
+}
