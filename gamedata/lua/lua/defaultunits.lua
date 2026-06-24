@@ -983,6 +983,12 @@ StructureUnit = Class(Unit) {
 			for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
 				ApplyBuff(adjacentUnit, v, self)
 			end
+ 
+            -- if turned off - turn off adjacency buff
+            -- when the unit is turned on - the buff will be reapplied
+            if self.ProductionPaused then
+                self:OnProductionPaused()
+            end
 
 			self:RequestRefreshUI()
 			adjacentUnit:RequestRefreshUI()

@@ -11,6 +11,7 @@ local EffectTemplate                = import('/lua/EffectTemplates.lua')
 local EffectUtilities               = import('/lua/EffectUtilities.lua')
 
 local CleanupEffectBag              = EffectUtilities.CleanupEffectBag
+local CreateAdjacencyBeams          = EffectUtilities.CreateAdjacencyBeams
 local CreateUnitDestructionDebris   = EffectUtilities.CreateUnitDestructionDebris
 
 local Game                          = import('/lua/game.lua')
@@ -1206,6 +1207,8 @@ Unit = Class(UnitMethods) {
 	
         self:SetMaintenanceConsumptionInactive()
 
+        self.ProductionPaused = true
+
 		-- check for -- and remove - any buffs we may have on adjacent units --
 		if self.AdjacencyBeamsBag then
 
@@ -1226,7 +1229,14 @@ Unit = Class(UnitMethods) {
 						end
 					end
 				end
-				
+                
+                -- destroy adjacency beam and clear the data
+                if v.Beam then
+                    v.Trash:Destroy()
+                    v.Trash = TrashBag()
+                    v.Beam = nil
+                end
+
 				RequestRefreshUI( self )
                 
                 if unit and not unit:BeenDestroyed() then
@@ -1243,6 +1253,8 @@ Unit = Class(UnitMethods) {
     OnProductionUnpaused = function(self)
 	
         self:SetMaintenanceConsumptionActive()
+        
+        self.ProductionPaused = nil
 
 		-- reapply buffs to adjacent units --
 		if self.AdjacencyBeamsBag then
@@ -1263,6 +1275,8 @@ Unit = Class(UnitMethods) {
 
 					end
 				end
+                
+                CreateAdjacencyBeams( self, unit, v )
 
 				RequestRefreshUI( self )
 				RequestRefreshUI( unit )				

@@ -1553,19 +1553,22 @@ end
 
 
 
--- I modded this to reduce the number of entities created by the adjacency beams
--- only Sera effect remains untouched
--- At this time, I am considering just how pointless most of this is and that it's really just **BLING**
--- this detail is SO small that I'm considering replacing it with a simple beam between the two entities for ALL factions
--- and getting rid of all this complex calculation for position and intermediate nodes
-function CreateAdjacencyBeams( unit, adjacentUnit )
+-- I modded this to reduce the number of entities created by the adjacency beams only Sera effect remains untouched
+-- added a new ability here, when BeamBagInfo is provided this indicates we are restoring a previously existing adjacency beam
+-- rather than creating a new one - we rebuild the beam but add it to the already existing table, rather than inserting a new entry
+function CreateAdjacencyBeams( unit, adjacentUnit, BeamBagInfo )
 
 	local LOUDINSERT = LOUDINSERT
     local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
-	local LOUDATTACHEMITTER = CreateAttachedEmitter
-    local TrashAdd = TrashAdd
 
-	local info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
+    local TrashAdd = TrashAdd
+    local info
+    
+    if BeamBagInfo then
+        info = BeamBagInfo
+    else
+        info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
+    end
     
     local army = unit.Army
     local faction = __blueprints[unit.BlueprintID].General.FactionName
@@ -1586,16 +1589,21 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
     if beamEffect then
 
         if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(unit).Nickname.." "..unit.EntityID.." "..unit.BlueprintID.." CreateAdjacencyBeam to "..adjacentUnit.EntityID.." "..adjacentUnit.BlueprintID.." on tick "..GetGameTick())
+            LOG("*AI DEBUG UNIT "..GetAIBrain(unit).Nickname.." "..unit.EntityID.." "..unit.BlueprintID.." CreateAdjacencyBeam to "..adjacentUnit.EntityID.." "..adjacentUnit.BlueprintID.." on tick "..GetGameTick().." info is "..repr(info) )
         end
     
         local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
         
+        info.Beam = beam
+        
         TrashAdd( info.Trash, beam )
         TrashAdd( unit.Trash, beam )
+
     end
 
-	LOUDINSERT( unit.AdjacencyBeamsBag, info)
+    if not BeamBagInfo then
+        LOUDINSERT( unit.AdjacencyBeamsBag, info)
+    end
 
 end
 
