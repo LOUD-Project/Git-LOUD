@@ -2047,34 +2047,53 @@ function ResetPFMTasks (PFM, aiBrain)
 	local newtasks = 0
     
     if PriorityDialog then
-        LOG( header.." Resets Any PFM Tasks on tick "..GetGameTick() )
+        LOG( header.." Resets "..table.getn(PFM.BuilderData['Any'].Builders).." Any PFM Tasks on tick "..GetGameTick() )
     end
 
 	for _,BuilderTask in PFM.BuilderData['Any'].Builders do
+        
+        if PriorityDialog then
+            LOG( header.." Reset examines "..repr(BuilderTask.Priority).." "..repr(BuilderTask.BuilderName) )
+        end
 
         if BuilderTask.PriorityFunction then
 
             NewPriority, temporary = BuilderTask:PriorityFunction( aiBrain, PFM )
 
+            -- if NewPriority is different - set the new priority
             if NewPriority and NewPriority != BuilderTask.Priority then
-
-                if PriorityDialog then
-                    LOG( header.." resets "..BuilderTask.BuilderName.." to "..repr(NewPriority))
-                end
 
                 PFM:SetBuilderPriority(BuilderTask.BuilderName, NewPriority, temporary)
 
-                -- signal a resort of the PFM Builders
-                PFM.BuilderData['Any'].NeedSort = true
+            else
+                -- if NewPriority but it hasn't changed - do nothing
+                if NewPriority then
+                
+                -- otherwise reset the original priority
+                else
+                    if BuilderTask.OldPriority then
+                        BuilderTask:ResetPriority(PFM)
+                    end
+                end
+            end
+
+        else
+            -- if the priority was changed by anything reset it - that's the only time that OldPriority has a value
+            if BuilderTask.OldPriority then
+                BuilderTask:ResetPriority(PFM)
             end
         end
 
-		if (not NewPriority and BuilderTask.Priority > 99) or (NewPriority and NewPriority > 99) then
-
+        -- only count tasks with priority 100 or more - less means they are 'parked' 
+		if BuilderTask.Priority > 99 then
 			newtasks = newtasks + 1
 		end
 
 	end
+    
+    if PriorityDialog then
+        LOG( header.." Reset activated "..newtasks.." Any PFM Tasks on tick "..GetGameTick() )
+    end
 
 	PFM.NumBuilders = newtasks	
 end

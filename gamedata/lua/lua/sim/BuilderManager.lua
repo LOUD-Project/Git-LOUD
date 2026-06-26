@@ -599,7 +599,7 @@ BuilderManager = Class {
 			
             -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, LocationType, 0, FREEUNITS ) and brain:GetNoRushTicks() < 75 then
-		
+
                 if BuilderData['Any'].NeedSort then
 
                     if PriorityDialog then
@@ -609,10 +609,16 @@ BuilderManager = Class {
                     LOUDSORT( BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
 
                     BuilderData['Any'].NeedSort = false
+                    
+                    --if PriorityDialog then
+                      --  for key,bData in BuilderData['Any'].Builders do
+                        --    LOG( header.." bData is "..repr(bData))
+                        --end
+                    --end
                 end
 			
                 -- loop thru all the platoon builders
-				for bType,bTypeData in BuilderData do
+				for bType,bTypeData in BuilderData['Any'] do
                 
                     if BuilderData['Any'].NeedSort then
                         break
@@ -621,8 +627,9 @@ BuilderManager = Class {
                     local Builders          = bTypeData.Builders
                     local ConditionResults  = brain.ConditionsMonitor.ResultTable
 
-					for key,bData in Builders do
+					for key,bData in BuilderData['Any'].Builders do
 
+                        -- only process builders with 100 or greater priority with available instances
 						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
                     
                             if PriorityDialog then
@@ -631,12 +638,15 @@ BuilderManager = Class {
 
 							numTested = numTested + 1
 						
+                            -- if it passes all it's builder conditions
 							if GetBuilderStatus( bData.BuilderConditions, ConditionResults ) then
-
+                            
+                                -- go off and form the platoon
 								ForkTo ( ManagerLoopBody, self, bData, bType, brain )
 							
 								numPassed = numPassed + 1
 						
+                                -- wait before testing the next builder
                                 if ticksize >= 1 then
                                     WaitTicks(ticksize)
                                     numTicks = numTicks + ticksize
@@ -664,8 +674,6 @@ BuilderManager = Class {
 				WaitTicks( duration - numTicks )
 			end
 
-            -- reset the tasks with Priority Functions at this PFM
-            ResetPFMTasks( self, brain )
         end
     end,
 	
