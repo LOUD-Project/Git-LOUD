@@ -862,7 +862,7 @@ PlatoonTemplate { Name = 'SeaAttack Bombardment',
 		UEF = {
 	
 			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.CRUISER, 2, 8, 'Support', 'none' },													--Cruisers
 			{ categories.DEFENSIVEBOAT, 2, 4, 'Guard', 'none' },												--Shield
 			
 		},
@@ -870,7 +870,7 @@ PlatoonTemplate { Name = 'SeaAttack Bombardment',
 		Aeon = {
 	
 			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.CRUISER, 2, 8, 'Support', 'none' },													--Cruisers
 			{ categories.DEFENSIVEBOAT, 0, 4, 'Guard', 'none' },												--AA
 		
 		},
@@ -878,7 +878,7 @@ PlatoonTemplate { Name = 'SeaAttack Bombardment',
 		Cybran = {
 	
 			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.CRUISER, 2, 8, 'Support', 'none' },													--Cruisers
 			{ categories.DEFENSIVEBOAT, 1, 3, 'Guard', 'none' },												--CounterIntel
 		
 		},
@@ -886,7 +886,7 @@ PlatoonTemplate { Name = 'SeaAttack Bombardment',
 		Seraphim = {
 	
 			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.CRUISER, 2, 8, 'Support', 'none' },													--Cruisers
 		
 		},
 		

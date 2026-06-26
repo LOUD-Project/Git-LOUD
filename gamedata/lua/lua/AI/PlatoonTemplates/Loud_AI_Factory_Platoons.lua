@@ -689,8 +689,6 @@ PlatoonTemplate { Name = 'T2LandMobileTMD',
     FactionSquads = {
         UEF = {},
         Aeon = {},
-        Cybran = {},
-        Seraphim = {},
     }
 }
 
