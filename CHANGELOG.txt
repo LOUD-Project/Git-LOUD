@@ -1,3 +1,28 @@
+### Release 06-26-2026
+
+LUA 8.12
+BrewLAN for LOUD 0.8.8.9.129
+UNITS 8.02
+LOUD_MISC 8.01
+Textures 7.06
+
+- improved base finding logic with respect to Attack Plan - prioritizes DP positions according to attack plan
+- new platoon definition and builders for T3FighterAdv (T3 Fighter Advanced), this splits Pen Fighters apart from standard ASF 
+- new Naval Bombardment builder allowing nuanced formation based on air control
+- low air ratio (<1) will reduce priority of transport builders to 600 (previously 0.9)
+- T2/T3 transports are only built if there is a demand for them (previously equal priority with other air production)
+- T3 Gunship & Bomber production now limited to 2 factories each (previously unlimited)
+- the crossover for T2/T3 land unit production is now streamlined at 3 T3 land factories (Siv)
+- MAP - Gentlemans Reef Attack/Defense - remarked and start positions redistributed
+- teleportation costs increased 5%
+- Teleport nodes now emit 900 Economy threat (up from 300), making them very attractive AI targets
+- new BrewLAN submod - Gantry Homogenizer - removes all faction diversity from gantries 
+- new BrewLAN unit - SSB2121 - T1 amphibious PD
+- fixed a bug with paused extractors and fabs giving double adjacency bonuses (Carcassam)
+- paused fabs & extractors will no longer show an adjacency line when shut off (Balthazar)
+
+
+
 ### Release 06-04-2026
 
 LUA 8.11
