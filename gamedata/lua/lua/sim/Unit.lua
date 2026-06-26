@@ -5594,9 +5594,9 @@ Unit = Class(UnitMethods) {
         if bp.Economy then
 		
 			-- calc a resource cost value based on both mass and energy
-            local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)		-- ie. 18000 mass becomes 2700
+            local mass = bp.Economy.BuildCostMass * LOUDMIN(.165, bp.Economy.TeleportMassMod or 0.165)		-- ie. 18000 mass becomes 2700
 
-            local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.08, bp.Economy.TeleportEnergyMod or 0.08)	-- ei. 5m Energy becomes 400,000
+            local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.084, bp.Economy.TeleportEnergyMod or 0.084)	-- ei. 5m Energy becomes 400,000
 
             -- remove the initial E charge already paid
             energy = LOUDMAX( 0, energy - telecostpaid)
@@ -5674,6 +5674,10 @@ Unit = Class(UnitMethods) {
 		else
 	        
             Warp(self, location, orientation)
+            
+            local brain = self:GetAIBrain()
+            
+            brain:AssisgnThreatAtPosition( location, 1000, 0.05, 'Economy' )
 
             self:OnTeleported(location)        
         end

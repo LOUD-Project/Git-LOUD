@@ -303,19 +303,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) { BeamType = TractorClawCollisionBeam,
         
         return target
     end,
---[[
-    OnLostTarget = function(self)
-    
-        self:AimManipulatorSetEnabled(true)
 
-        DefaultBeamWeapon.OnLostTarget(self)
-        
-        ------enabled= false
-        ------self.unit:SetEnabled(false)
-        
-        DefaultBeamWeapon.PlayFxBeamEnd(self,self.Beams[1].Beam)
-    end,
---]]
     TractorThread = function(self, target)
 
         local beam = self.Beams[1].Beam
