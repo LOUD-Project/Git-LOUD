@@ -460,6 +460,9 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			-- technically, some basebuildertemplates could be less affected by threat but I don't see it
 			-- essentially the expansion function just returns a reduced value according to how close threat is to the position
 			-- this was originally intended to select different base plans
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." seeking template for marker "..repr(constructionData.NearMarkerType))
+            
 			baseValue,island = baseData.ExpansionFunction( aiBrain, position, constructionData.NearMarkerType )
 
 			if baseValue > 0 then

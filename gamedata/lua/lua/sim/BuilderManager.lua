@@ -469,6 +469,20 @@ BuilderManager = Class {
         
         local FREEUNITS = categories.ALLUNITS - categories.ENGINEER
 
+        while tasks < 1 do
+            WaitTicks(2)
+            tasks = self.NumBuilders
+        end
+
+        local BuilderData       = self.BuilderData
+        local BuilderManager    = brain.BuilderManagers[self.LocationType]
+        local LocationType      = self.LocationType
+        local PriorityDialog    = ScenarioInfo.PriorityDialog
+
+        local AttackPlanGoal, LastGoalCheck, landpathlength, path, pathcost, reason, ThreadWaitDuration
+        
+        local header = "*AI DEBUG "..brain.Nickname.." "..LocationType.." "..self.ManagerType
+
 		local GetBuilderStatus = function( BuilderConditions, ResultTable )
         
             local conditioncount = LOUDGETN(BuilderConditions)
@@ -481,6 +495,7 @@ BuilderManager = Class {
 				if not ResultTable[v].Instant then
 				
 					if not ResultTable[v].Status then
+                        --LOG( header.." fails Instant condition "..repr(ResultTable[v].FunctionName))
 						return false
 					end
 					
@@ -491,6 +506,7 @@ BuilderManager = Class {
                     numTicks = numTicks + 1
 				
 					if not ResultTable[v]:GetStatus(brain) then
+                        --LOG( header.." fails non-Instant condition "..repr(ResultTable[v].FunctionName))
 						return false
 					end
 					

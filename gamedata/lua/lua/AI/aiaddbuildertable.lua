@@ -34,10 +34,10 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..baseBuilderName.." "..locationType.." Type "..BuildersType.." adding Group "..builderGroupName.." Restriction "..repr(BuildersRestriction) )
 
-            if BuildersRestriction and CategoryRestricted(BuildersRestriction) then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..builderGroupName.." restricted due to "..BuildersRestriction )
-                return
-            end
+            --if BuildersRestriction and CategoryRestricted(BuildersRestriction) then
+            --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..builderGroupName.." restricted due to "..BuildersRestriction )
+            --  return
+            --end
 
 			local tableType 
 
@@ -61,7 +61,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 				if k != 'BuildersType' and k != 'BuilderGroupName' and k != 'BuildersRestriction' then
                     
                     --if tableType == 'PlatoonFormManager' then
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." adding "..repr(tableType).." Builder "..repr(Builders[v].BuilderName).." at "..repr(Builders[v].Priority) )
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." adding "..repr(tableType).." Builder "..repr(Builders[v].BuilderName).." at "..repr(Builders[v].Priority) )
                     --end
                     
 					aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
@@ -69,7 +69,8 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
                     buildercount = buildercount + 1
                 end
 
-			end	
+			end
+
         end
 	end
     

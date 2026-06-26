@@ -7726,7 +7726,7 @@ Platoon = Class(PlatoonMethods) {
 					end
 
 					-- we fork a thread (on the platoon) to carry the new base information and pass along when called for
-					eng.NewBaseThread = self:ForkThread( MonitorNewBaseThread, refName, LOUDCOPY(reference[1]), cons )
+					eng.NewBaseThread = self:ForkThread( MonitorNewBaseThread, refName, LOUDCOPY(reference[1]), LOUDCOPY(cons) )
 			
 					eng.NewExpansion = { refName, {reference[1][1],reference[1][2],reference[1][3]}, cons}
 
