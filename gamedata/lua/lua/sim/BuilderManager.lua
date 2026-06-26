@@ -515,30 +515,20 @@ BuilderManager = Class {
 		
 			return true
 		end		
-
-
-        local BuilderData       = self.BuilderData
-        local BuilderManager    = brain.BuilderManagers[self.LocationType]
-        local LocationType      = self.LocationType
-        local PriorityDialog    = ScenarioInfo.PriorityDialog
-
-        local AttackPlan, landpathlength, path, pathcost, reason, ThreadWaitDuration
-        
-        local header = "*AI DEBUG "..brain.Nickname.." "..LocationType.." "..self.ManagerType
         
         while self.Active do
         
             PriorityDialog = ScenarioInfo.PriorityDialog or false
         
-            AttackPlan = brain.AttackPlan
+            AttackPlanGoal = brain.AttackPlan.Goal
      
             -- if this is not a naval base - see if mode should change from Amphibious to Land
-            if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
+            if AttackPlanGoal and ( not LastGoalCheck or not LOUDEQUAL(LastGoalCheck, AttackPlanGoal) ) and BuilderManager.BaseType != 'Sea' then
                 
                 -- record the position of the the goal --
-                self.LastGoalCheck = LOUDCOPY(AttackPlan.Goal)        
+                LastGoalCheck = LOUDCOPY(AttackPlanGoal)        
 
-                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 10000, 160 )
+                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlanGoal, 10000, 160 )
 
                 if path and not BuilderManager.LandMode then
                 
@@ -584,6 +574,9 @@ BuilderManager = Class {
                     self.BuilderCheckInterval = math.min( ThreadWaitDuration * 1.5, 900 )
                 end
 			end
+
+            -- reset the tasks with Priority Functions at this PFM
+            ResetPFMTasks( self, brain )		
 
             -- and we set the delay between task checks accordingly
 			if (self.NumBuilders > 0 and tasks != self.NumBuilders) or ( self.BuilderCheckInterval != duration ) then

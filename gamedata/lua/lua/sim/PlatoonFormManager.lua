@@ -44,6 +44,7 @@ PlatoonFormManager = Class(BuilderManager) {
         self.Location = position
         self.LocationType = lType
 		self.ManagerType = 'PFM'
+        self.Position = position
         self.Radius = radius
 		
         self:AddBuilderType('Any')
@@ -135,8 +136,6 @@ PlatoonFormManager = Class(BuilderManager) {
     end,
 	
 	-- Just to note that this only runs if the task has passed all of its conditions
-	-- platoon priorityfunctions (for the PFM) only run when the base changes its status between Primary and not Primary
-	-- hmm..might make sense if they were run each time the PFM started a new cycle...perhaps...
     -- either way - the loop that runs this function can be found in BUILDERMANAGER
     ManagerLoopBody = function( self, builder, bType, aiBrain)
 		

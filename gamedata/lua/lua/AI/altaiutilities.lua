@@ -438,7 +438,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
                     local basename = aiBrain.AttackPlan.StagePoints[k].Name
                     local position = aiBrain.AttackPlan.StagePoints[k].Position
                     
-                    if string.find(basename, 'Fake') then
+                    if string.find(basename, 'Fake') or string.find(basename, 'Naval') then
                         continue
                     end
                 
@@ -561,11 +561,15 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 
             if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
 
-                -- the StagePoint must be on Land
+                -- the StagePoint must be in the Water
                 if aiBrain.AttackPlan.StagePoints[k].Type == 'Amphibious' then
 
                     local basename = aiBrain.AttackPlan.StagePoints[k].Name
                     local position = aiBrain.AttackPlan.StagePoints[k].Position
+                    
+                    if not string.find(basename, 'Naval') then
+                        continue
+                    end
                 
                     -- check the nobody else already owns it
                     for index,brain in Brains do
