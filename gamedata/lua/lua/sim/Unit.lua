@@ -5677,7 +5677,7 @@ Unit = Class(UnitMethods) {
             
             local brain = self:GetAIBrain()
             
-            brain:AssisgnThreatAtPosition( location, 1000, 0.05, 'Economy' )
+            brain:AssignThreatAtPosition( location, 1000, 0.05, 'Economy' )
 
             self:OnTeleported(location)        
         end
