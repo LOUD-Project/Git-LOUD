@@ -1,3 +1,15 @@
+### Release 06-28-2026
+
+LUA 8.12.1
+BrewLAN for LOUD 0.8.8.9.130
+
+- fixed an issue where AI would establish a DP, on a start position, that's being used by a human player (Lord Damage)
+- Sera T1 amphib PD now buildable by regular engineers (Stash)
+- fixed typo in teleport process that was to assign threat at the teleport location
+
+
+
+
 ### Release 06-26-2026
 
 LUA 8.12
