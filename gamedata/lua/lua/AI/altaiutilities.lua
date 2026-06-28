@@ -374,20 +374,28 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 			end
 		
 			if not removed then
-			
-                -- check it against my own existing bases
-				for basename, base in aiBrain.BuilderManagers do
-			
-					if VDist3( base.Position, position ) < minimum_baserange then
+
+				-- check if position is within range of my other bases
+				for basename,base in aiBrain.BuilderManagers do
 				
+					-- ignore position if too close to existing counted bases (non-Sea)
+					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, position ) < minimum_baserange then
+
 						removed = true
 						break
 					end
 				end
 			
+                -- check the location for allied structures at the expansion radius --
 				if not removed then
-					return position, name
+            
+                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, 72, 'Ally') < 1 then
+
+                        return position, name
+                    end
+                    
 				end
+           
 			end
 		end
 
@@ -512,14 +520,17 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 						removed = true
 						break
 					end
+
 				end
-
-                -- this is the closest unused position
+			
+                -- check the location for allied structures at the expansion radius --
 				if not removed then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Says "..repr(marker.Name).." at "..repr(position).." is valid")
+            
+                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, 72, 'Ally') < 1 then
 
-					return position, name
+                        return position, name
+                    end
+
 				end	
 			end
 		end
