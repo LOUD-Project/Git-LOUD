@@ -1917,11 +1917,14 @@ function EXTeleportChargeEffects(self)
 		self.EXPhaseShieldPercentage = 0
 
 		if bpe then
-			local mass = bpe.BuildCostMass * math.min(.1, bpe.TeleportMassMod or 0.01)
-			local energy = bpe.BuildCostEnergy * math.min(.01, bpe.TeleportEnergyMod or 0.001)
+			local mass = bpe.BuildCostMass * math.min(.1, bpe.TeleportMassMod or 0.165)
+			local energy = bpe.BuildCostEnergy * math.min(.01, bpe.TeleportEnergyMod or 0.084)
 
 			energyCost = mass + energy
-			EXTeleTime = energyCost * (bpe.TeleportTimeMod or 0.0001)
+
+            EXTeleTime = math.max( 12, ( teleportenergy / (bpe.BuildRate or 5) * 10) ))
+            
+			--EXTeleTime = energyCost * (bpe.TeleportTimeMod or 0.01)
 			
 			self.EXTeleTimeMod1 = (EXTeleTime * 10) * 0.2
 			self.EXTeleTimeMod2 = self.EXTeleTimeMod1 * 2
