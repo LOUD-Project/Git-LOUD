@@ -5672,6 +5672,11 @@ Unit = Class(UnitMethods) {
             end
 
 		else
+
+            -- clear any assisting units --
+            for k,v in self:GetGuards() do
+                IssueClearCommands( {v} )
+            end
 	        
             Warp(self, location, orientation)
             

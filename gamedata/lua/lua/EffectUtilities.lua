@@ -1922,7 +1922,7 @@ function EXTeleportChargeEffects(self)
 
 			energyCost = mass + energy
 
-            EXTeleTime = math.max( 12, ( teleportenergy / (bpe.BuildRate or 5) * 10) ))
+            EXTeleTime = math.max( 12, ( teleportenergy / (bpe.BuildRate or 5) * 10) )
             
 			--EXTeleTime = energyCost * (bpe.TeleportTimeMod or 0.01)
 			
