@@ -1955,7 +1955,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointSourceSelf = true,			-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 		-- must be Self, Ally or Enemy - determines which Structures and Units to check
 			PointRadius = 1000,		    	-- controls the finding of points based upon distance from PointSource
-			PointSort = 'Closest',			-- options are Closest or Furthest
+			PointSort = 'MostThreat',		-- options are Closest or Furthest
 			PointMin = 120,					-- filter points by range from PointSource
 			PointMax = 1000,
 			
@@ -2143,7 +2143,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointSourceSelf = true,			-- will use itself as the location
 			PointFaction = 'Ally',
 			PointRadius = 1250,
-			PointSort = 'Closest',
+			PointSort = 'MostThreat',
 			PointMin = 250,
 			PointMax = 999999,
 			
@@ -2418,7 +2418,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
 			PointRadius = 1250,
-			PointSort = 'Closest',
+			PointSort = 'MostThreat',
 			PointMin = 200,
 			PointMax = 999999,
 			
@@ -2506,7 +2506,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
 			PointRadius = 1000,
-			PointSort = 'Closest',
+			PointSort = 'MostThreat',
 			PointMin = 200,
 			PointMax = 1000,
 			
@@ -2595,7 +2595,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
 			PointRadius = 1000,
-			PointSort = 'Closest',
+			PointSort = 'MostThreat',
 			PointMin = 200,
 			PointMax = 1250,
 			
