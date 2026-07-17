@@ -998,7 +998,7 @@ BuffBlueprint { Name = 'AIRSTAGING',
 	Affects = {
 		Health = {
 			Add = 0,
-			Mult = 1.06,
+			Mult = 1.045,
 		},
 		FuelRatio = {
 			Add = 0.085,
