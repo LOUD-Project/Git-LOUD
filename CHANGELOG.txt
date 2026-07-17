@@ -1,3 +1,14 @@
+### Release 07-17-2026
+
+LUA 8.13
+
+- units assisting a teleporting unit will now have their commands cleared as a result of a successful teleport
+- several early skirmish platoons will now seek 'most threat' positions, rather than 'closest'
+- other formations will seek 'safest' rather than 'closest'
+- a moderation of the repair impact of the airpad aura (6% every 4 seconds to 4.5% every 3.8 seconds)
+
+
+
 ### Release 06-28-2026
 
 LUA 8.12.1
