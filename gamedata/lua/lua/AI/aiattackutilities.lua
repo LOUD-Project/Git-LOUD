@@ -697,6 +697,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         elseif PointSort == 'MostThreat' then
         
             LOUDSORT(positions, function(a,b)   return( a[6] > b[6] ) end)
+            
+        elseif PointSort == 'Safest' then
+        
+            LOUDSORT(positions, function(a,b)   return( a[6] < b[6] ) end)
 
         else
         

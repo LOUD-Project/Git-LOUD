@@ -251,7 +251,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
         },
 		
@@ -403,12 +402,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},            
+
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
 
 			-- enemy AA structures within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1000 }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -417,7 +415,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 1000,
-			PointSort = 'Closest',
+			PointSort = 'Safest',
 			PointMin = 300,
 			PointMax = 1000,
 			
@@ -493,7 +491,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, LANDARTILLERY }},
@@ -609,11 +607,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -698,11 +694,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+
 			-- enemy mass points within 16km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 800 }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
         },
 		
         BuilderData = {
@@ -716,7 +713,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 800,
-			PointSort = 'Closest',
+			PointSort = 'Safest',
 			PointMin = 100,
 			PointMax = 1000,
 			
@@ -805,7 +802,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 400,
-			PointSort = 'Closest',
+			PointSort = 'Safest',
 			PointMin = 100,
 			PointMax = 400,
 			
@@ -1502,9 +1499,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 47, LANDAMPHIB - categories.ANTIAIR }},
-        },
+		BuilderConditions = {},
 		
         BuilderData = {
         
@@ -1550,7 +1545,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 35, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1597,7 +1591,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDAMPHIB - categories.ANTIAIR }},
 		},
 		
         BuilderData = {
@@ -1646,8 +1639,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, LANDAMPHIB - categories.ANTIAIR }},
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
         },
 		
         BuilderData = {
@@ -1660,7 +1652,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 800,
-			PointSort = 'Closest',
+			PointSort = 'Safest',
 			PointMin = 100,
 			PointMax = 800,
 			
@@ -1725,8 +1717,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, LANDAMPHIB - categories.ANTIAIR }},
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
         },
 		
         BuilderData = {
@@ -1800,17 +1793,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
             { LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
             
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 140, 'Land', 200 }},                        
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
 
 			-- empty mass point within 20km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
-
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, LANDAMPHIB - categories.ANTIAIR }},
         },
 		
         BuilderData = {

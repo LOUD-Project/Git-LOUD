@@ -235,7 +235,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 2000,
-			PointSort = 'Closest',
+			PointSort = 'Safest',
 			PointMin = 200,
 			PointMax = 2000,
 			
