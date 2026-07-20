@@ -28,11 +28,10 @@ SRB2306 = Class(CStructureUnit) {
                 self.EnergyCost = self.EnergyMin
 
                 self.ForceCooldown = false
+
+                self.StopFireTime = false
                 
                 self.TimeSinceLastFire = 0
-                
-                self.unit.isexploding = false
-                self.unit.StopFireTime = false
                 
             end,
             
@@ -40,25 +39,18 @@ SRB2306 = Class(CStructureUnit) {
             
                 CDFHeavyMicrowaveLaserGeneratorCom.OnWeaponFired(self)
                 
-                self.TimeSinceLastFire = GetGameTimeSeconds() - (self.unit.StopFireTime or GetGameTimeSeconds())
-
-                local nrgReq = self.EnergyCost * (self.AdjEnergyMod or 1)
-                local nrgDrain = self.EnergyCost
-                local nrgReqAlt = (math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)) * (self.AdjEnergyMod or 1)
-                local nrgDrainAlt = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
+                self.TimeSinceLastFire = (self.StopFireTime or GetGameTimeSeconds()) - GetGameTimeSeconds()
 				
-                self.unit.deathdamage = nrgDrainAlt
-
-                --LOG("*AI DEBUG nrgDrain is "..repr(nrgDrain))
+                self.unit.deathdamage = math.max(self.EnergyMin, self.EnergyCost - math.floor(((self.TimeSinceLastFire - 1)*self.EnergyDissRate)/10)*10)
                 
-                --LOG("*AI DEBUG nrgDrainAlt is "..repr(nrgDrainAlt))
-                
-                --LOG("*AI DEBUG Time Since Last Fire is "..repr(self.TimeSinceLastFire))
-                
-                if nrgDrainAlt < self.EnergyCost then
+                if self.unit.deathdamage < self.EnergyCost then
                     self.unit.PerformOnFireChecks = true
                 end
-	
+
+                --LOG("*AI DEBUG Time Since Last Fire is "..repr(self.TimeSinceLastFire))
+                
+                --LOG("*AI DEBUG deathdamage is "..self.unit.deathdamage)
+
             end,
             
             IdleState = State(CDFHeavyMicrowaveLaserGeneratorCom.IdleState) { 
@@ -93,7 +85,7 @@ SRB2306 = Class(CStructureUnit) {
                 
                 OnGotTarget = function(self)
                 
-                    self.TimeSinceLastFire = GetGameTimeSeconds() - (self.unit.StopFireTime or GetGameTimeSeconds())
+                    self.TimeSinceLastFire = GetGameTimeSeconds() - (self.StopFireTime or GetGameTimeSeconds())
 
                     self.EnergyCost = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
                     
@@ -107,7 +99,7 @@ SRB2306 = Class(CStructureUnit) {
 			
                 local bp = self.bp
 				
-                if self.FirstShot then return end
+                if self.FirstShot or self.Dead then return end
 				
                 if not self.EconDrain then
 		
@@ -119,6 +111,8 @@ SRB2306 = Class(CStructureUnit) {
                     local nrgDrain = self.EnergyCost
 				
                     if self.unit.PerformOnFireChecks then
+                    
+                        --LOG("*AI DEBUG Time since last fire is "..repr(self.TimeSinceLastFire))
 					
                         nrgReq = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
                         nrgDrain = nrgReq
@@ -127,20 +121,31 @@ SRB2306 = Class(CStructureUnit) {
 						
                     end
                     
-                    if nrgDrain > self.EnergyMax then
+                    if nrgDrain >= self.EnergyMax then
                     
                         self.ForceCooldown = true
-                        
                         self.unit:Overheat()
-                        
-                        nrgDrain = nrgDrain/2
+
                     else
                         self.ForceCooldown = false
                     end
 					
-                    if self > 0 and nrgDrain > 0 then
+                    if (not self.Dead) and nrgDrain > 0 then
 					
                         local time = math.max(nrgReq / nrgDrain, 0.1)
+                        
+                        if self.ForceCooldown then
+                        
+                            time = time * 3
+                            
+                            self.unit.PerformOnFireChecks = true
+                            
+                        end
+                        
+                        --LOG("*AI DEBUG Charge Time is "..repr(time))
+                        --LOG("*AI DEBUG Charge requires "..nrgReq)
+                        
+                        self.StopFireTime = GetGameTimeSeconds() + time
 						
                         self.EconDrain = CreateEconomyEvent(self.unit, nrgReq, 0, time, ChargeProgress )   
                         self.FirstShot = true
@@ -172,16 +177,20 @@ SRB2306 = Class(CStructureUnit) {
 				
                 CDFHeavyMicrowaveLaserGeneratorCom.CreateProjectileAtMuzzle(self, muzzle)  
 
-                self.EnergyCost = self.EnergyCost + self.EnergyInc
+                self.EnergyCost = self.EnergyCost + self.EnergyInc  -- increase consumption
+                
+                -- then reduce it for any cooldown that took place
+                self.EnergyCost = math.max(self.EnergyMin, self.EnergyCost - math.floor(((self.TimeSinceLastFire - 1) * self.EnergyDissRate)/10)*10)
 				
                 self.PerformIdleChecks = true
 
-                self.unit.StopFireTime = GetGameTimeSeconds()				
             end,
         },
     },
 	
     Overheat = function(self)
+    
+        --LOG("*AI DEBUG Overheating - damage is "..repr(self.deathdamage))
     
         ForkThread( FloatingEntityText, self.EntityID, "Overheating Damage ")
 
@@ -189,7 +198,7 @@ SRB2306 = Class(CStructureUnit) {
         CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 150):ScaleEmitter( 0.6 )
         CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 120)
 
-        DamageArea(self, self:GetPosition(), 1, 200 + self.deathdamage, 'Default', true, true)
+        DamageArea(self, self:GetPosition(), 1, self.deathdamage, 'Default', true, true)
 
         explosion.CreateDefaultHitExplosionAtBone( self, 'Turret_Muzzle01', 1.0 )
         explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
