@@ -1091,14 +1091,12 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
-            
-            local bp = self.bp
-            local unit = self.unit
-            
-            self.OnFireEvent = true
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+            
+                local bp = self.bp
+
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(bp.Label).." OnFire at "..GetGameTick() )
             end
 			
         end,
@@ -1126,7 +1124,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 WaitFor(self.EconDrain)
                 
                 self.WeaponCharged = true
-				
+
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
                 self.EconDrain = nil
