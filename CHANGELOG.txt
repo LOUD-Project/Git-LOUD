@@ -1,3 +1,14 @@
+### Release 07-24-2026
+
+LUA 8.14
+BrewLAN for LOUD 0.8.8.9.131
+
+- Hades T3 PD will now go into cooldown mode, when it overheats, slowing it's firing rate until no longer overheating
+- defaultweapons that charge will no longer create an OnFireEvent flag during recharge state
+- map 7 Winged Arena updated so that 2 start locations no longer report 'too close to map edge'
+
+
+
 ### Release 07-17-2026
 
 LUA 8.13
