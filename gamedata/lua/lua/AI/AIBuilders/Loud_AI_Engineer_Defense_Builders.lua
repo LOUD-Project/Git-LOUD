@@ -2311,6 +2311,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
 			-- dont have any advanced power built -- makes this gun obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},
             
@@ -2381,6 +2383,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
@@ -6082,6 +6086,53 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
+        },
+		
+        BuilderType = {'T2','T3','SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 60,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+				
+                BuildStructures = {'T2StrategicMissile'},
+            }
+        }
+    },
+	
+    Builder {BuilderName = 'T2 DP STD TML Extra',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 1, ENERGY ) then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 7, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE ) then
+                return 10, true
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Economy' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
