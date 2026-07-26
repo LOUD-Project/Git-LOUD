@@ -41,6 +41,7 @@ T3Bomber = {
 },
 
 T3FighterAdv = {
+    Aeon = {'saa0313', 100},
 	Cybran = {'sra0313', 100},
     UEF = {'sea0313', 100},
     Seraphim = {'ssa0313', 100},
