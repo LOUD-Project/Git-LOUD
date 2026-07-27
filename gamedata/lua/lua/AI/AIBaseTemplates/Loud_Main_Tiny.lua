@@ -1,0 +1,183 @@
+-- This template is used on smaller maps and where unit cap may be an issue
+-- it has only 10 factories and some buildergroups are disabled
+BaseBuilderTemplate {
+    BaseTemplateName = 'Loud_Main_Tiny',
+    Builders = {
+        # ==== ECONOMY ==== #
+
+        # Build Engineers from Factories
+        'Factory Production - Engineers',
+     	
+		# Engineers reclaim, repair, assist
+        'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
+		
+		'Engineer Transfers',		-- MAIN will transfer to expansions
+        
+        # Build Economy at this base
+        'Engineer Energy Builders',
+        'Engineer Mass Builders',
+		--'Engineer T4 Economy Construction - Small Base',        
+  
+		# Engineers & Bob build new factories
+        'Engineer Factory Construction',
+		'Engineer Quantum Gate Construction - Small Base',
+
+        # Engineer Support buildings
+		'Engineer Eng Station Construction',
+
+        # ACU Tasks
+        'ACU Tasks - Start Game',
+        'ACU Tasks',
+        
+        # ==== EXPANSIONS ==== #
+		'Engineer Construction - Land Base',
+		'Engineer Construction - Land DP',
+        
+        # ==== DEFENSES ==== #
+        'Engineer Base Defense Construction - Core',
+		--'Engineer Base Defense Construction - Perimeter',
+
+		'Engineer T4 Shield Construction',
+        'Engineer Misc Construction - Small',
+   		'Engineer Mass Point Defense Construction',
+      
+        # ==== LAND UNIT BUILDERS ==== #
+		'Factory Production Land',
+        'Factory Production Land - Land Only Map',
+
+		'Land Formations - Scouts',
+		'Land Formations - Point Guards',
+		'Land Formations - Base Guards',
+		'Land Formations - Experimentals',
+		'Land Formations - Reinforcement',
+        
+        'Land Formations - Land Only Map',
+
+        # ==== AIR UNIT BUILDERS ==== #
+		'Factory Production Air - Scouts',
+		'Factory Production Air - Fighters',
+		'Factory Production Air - Bombers',
+		'Factory Production Air - Gunships',
+		'Factory Production Air - Transports',
+
+		'Air Formations - Scouts',
+		'Air Formations - Bombers',
+        'Air Formations - Fighters',
+        'Air Formations - Gunships',
+		'Air Formations - Experimentals',        		
+
+		# ==== ARTILLERY BUILDERS ==== #
+		'Engineer Artillery Construction T3',
+        'Engineer Artillery Construction T4',
+		'Engineer Nuke Construction',
+
+		'Land Formations - Artillery',
+		'Land Formations - Nukes',
+		
+        # ==== EXPERIMENTALS ==== #
+		'Engineer T4 Construction Land',
+        'Engineer T4 Construction Air - Land Map',
+
+		# ==== INTELLIGENCE ===== #
+        'Engineer Optics Construction',
+    },
+	
+	WaterMapBuilders = {
+		'Engineer T4 Construction Air - Water Map',
+		
+        'Engineer Construction - Naval Base',
+		'Engineer Construction - Naval DP',
+		
+		'Factory Production Air - Torpedo Bombers',
+		'Air Formations - Water Map',
+		
+		'Factory Production Land - Water Map',
+		'Land Formations - Water Map',
+		'Land Formations - Amphibious',
+	},
+	
+	LandOnlyBuilders = {},
+	
+	StandardCommanderUpgrades = {
+		'ACU Upgrades LOUD',
+	},
+	
+	BOACUCommanderUpgrades = {
+		'BOACU Upgrades LOUD',
+	},
+	
+    -- IS = Integrated Storage --
+	LOUD_IS_Installed_Builders = {
+
+        'Engineer Mass Energy Construction',
+		'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
+		'Engineer Shield Construction - LOUD_IS',
+	},
+	
+	LOUD_IS_Not_Installed_Builders = {
+
+		'Engineer Mass Storage Construction',
+		'Engineer Energy Storage Construction',
+		'Engineer T4 Economy Defense Construction - Small Base',
+        'Engineer Shield Construction',
+	},
+
+    BaseSettings = {
+	
+        EngineerCount = {
+            Tech1 = 6,
+            Tech2 = 8,
+            Tech3 = 6,
+            SCU = 12,
+        },
+        FactoryCount = {
+            LAND = 5,
+            AIR = 6,
+            SEA = 0,
+            GATE = 1,
+        },
+        MassToFactoryValues = {
+            T1Value = 7.5,
+            T2Value = 14,
+            T3Value = 20,
+        },
+		RallyPointRadius = 40,
+    },
+	
+	-- this type of base can never be built once the game is underway
+	-- it is only built at the start of a game -- therefore it will
+	-- always return a value of zero 
+    ExpansionFunction = function(aiBrain, location, markerType)
+        return 0
+    end,
+	
+	-- it is however the primary Starting base so it has this function
+    FirstBaseFunction = function(aiBrain)
+
+        local mapSizeX, mapSizeZ = GetMapSize()
+        local startX, startZ = aiBrain:GetArmyStartPos()
+
+        -- too close to the edge of the map for large footprint
+        if (startX < 45 or startX > (mapSizeX - 45)) or (startZ < 45 or startZ > (mapSizeZ - 45)) then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use Tiny base layout at this position - too close to edge of map")
+        
+            return 10, 'loud'
+            
+        end
+
+        -- If we're playing on a 5k or 10k map or low pop
+        if (mapSizeX <= 512 or mapSizeZ <= 512) or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
+            return 100, 'loud'
+			
+        -- If we're playing on a 20k map
+        elseif (mapSizeX >= 1024 and mapSizeX <= 2047) and (mapSizeZ >= 1024 and mapSizeZ <= 2048) then
+            return Random(60, 100), 'loud'
+		
+		end
+
+		-- if we're playing on anything larger
+        return 25, 'loud'
+    end,
+}
