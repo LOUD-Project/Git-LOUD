@@ -32,8 +32,6 @@ ainames = {
         "Gecko Mucousface",
         "Jesus Chrysler",
         "Maxon",
-        "RD",
-        "Snek Returns",
     },
     aeon = {
         "Albarel",
@@ -78,7 +76,6 @@ ainames = {
         "Kraglor",
         "M4h0n",
         "Rokion Era",
-        "Sckricko",
         "Snooker",
         "Spyder",
         "Squid",
@@ -88,7 +85,6 @@ ainames = {
         "Winter Knight",
         "Xahvres",
         "XShadowStormX",
-
         "LOUDNESS",
         "Doc Tater",
         "Dohlinho",

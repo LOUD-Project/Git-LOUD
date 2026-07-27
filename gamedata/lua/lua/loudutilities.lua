@@ -6496,7 +6496,7 @@ function CreateAttackPlan( self, enemyPosition )
   
     local markerlist    = {}
     local markers       = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
-    local markertypes   = {'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area','Small Expansion Area'}
+    local markertypes   = {'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area'}
 	
     -- build masterlist of ALL valid staging points between start and goal
     for k,v in markers do
