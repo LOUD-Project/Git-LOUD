@@ -55,8 +55,24 @@ function SetupMainBase(aiBrain)
         end
         
     else
+
+        local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
     
         LOG("*AI DEBUG "..aiBrain.Nickname.." cannot select a base for this start position - AI disabled")
+        
+        ForkThread( AISendChat, 'enemies', aiBrain.Nickname, " I cannot play this position - Self Destruct ")
+        
+        ForkThread( AISendChat, 'allies', aiBrain.Nickname, " Sorry - I can't play this position - Self Destruct ")
+        
+        aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+        
+        for _,unit in aiBrain:GetListOfUnits( categories.ALLUNITS, false, false ) do
+        
+            unit:Kill()
+            
+        end
+        
+        return false
     
     end
     
