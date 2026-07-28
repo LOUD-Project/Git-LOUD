@@ -1,7 +1,8 @@
 -- This template is used on smaller maps and where unit cap may be an issue
--- it has only 10 factories and some buildergroups are disabled
+-- or the map has starting locations too close to the edge of the map
+-- it has no Paragon builder and no Perimeter defenses
 BaseBuilderTemplate {
-    BaseTemplateName = 'Loud_Main_Tiny',
+    BaseTemplateName = 'Loud_Main_Smaller',
     Builders = {
         # ==== ECONOMY ==== #
 
@@ -111,7 +112,7 @@ BaseBuilderTemplate {
 	LOUD_IS_Installed_Builders = {
 
         'Engineer Mass Energy Construction',
-		'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
+		--'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
 		'Engineer Shield Construction - LOUD_IS',
 	},
 	
@@ -119,7 +120,7 @@ BaseBuilderTemplate {
 
 		'Engineer Mass Storage Construction',
 		'Engineer Energy Storage Construction',
-		'Engineer T4 Economy Defense Construction - Small Base',
+		--'Engineer T4 Economy Defense Construction - Small Base',
         'Engineer Shield Construction',
 	},
 
@@ -161,7 +162,7 @@ BaseBuilderTemplate {
         -- too close to the edge of the map for large footprint
         if (startX < 45 or startX > (mapSizeX - 45)) or (startZ < 45 or startZ > (mapSizeZ - 45)) then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use Tiny base layout at this position - too close to edge of map")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use SMALLER base layout at this position - too close to edge of map")
         
             return 10, 'loud'
             

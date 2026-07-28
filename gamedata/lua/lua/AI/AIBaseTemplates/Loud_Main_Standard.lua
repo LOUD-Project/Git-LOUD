@@ -167,7 +167,7 @@ BaseBuilderTemplate {
         -- too close to the edge of the map for large footprint
         if (startX < 65 or startX > (mapSizeX - 65)) or (startZ < 65 or startZ > (mapSizeZ - 65)) then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use Standard base layout at this position - too close to edge of map")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use STANDARD base layout at this position - too close to edge of map")
         
             return 10, 'loud'
             
