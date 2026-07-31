@@ -533,7 +533,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				RallyPointRadius = 44,
 
                 LocationRadius = 2000,
-                NearMarkerType = 'Expansion Area',
+                NearMarkerType = 'Large Expansion Area',
 
                 ThreatMax = 60,
                 ThreatRings = 0,
