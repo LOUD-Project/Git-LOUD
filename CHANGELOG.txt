@@ -1,3 +1,17 @@
+### Release 08-01-2026
+
+LUA 8.15
+BrewLAN for LOUD 0.8.8.9.132
+
+- added SMALLER Main base layout to accomodate start positions closer to the map edge
+- when even the SMALLER base won't fit - AI will self-destruct
+- new DP options that allows AI to build additional TML when enemy structures are in range
+- optimized early construction of base defenses based on proximity of enemy threat
+- added AEON T3 Pen Fighter to build list for AI
+- clarified marker selection for new bases
+
+
+
 ### Release 07-24-2026
 
 LUA 8.14
