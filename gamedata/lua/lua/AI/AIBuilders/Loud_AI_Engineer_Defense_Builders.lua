@@ -277,7 +277,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 				
 			end
 			
-			return self.Priority
+			return builder.Priority
 			
 		end,
 		
