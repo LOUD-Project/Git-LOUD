@@ -107,7 +107,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 		
 	end
 	
-	if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT2UP, false, true )) <= 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -124,7 +124,7 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
         return 10, true
     end
 
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) <= 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -356,6 +356,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
         },
