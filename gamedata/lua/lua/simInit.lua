@@ -77,6 +77,10 @@ local counter = {}
 
 function trace(event, line)
 
+    if GetGameTick() < 39411 then 
+        return
+    end
+
     local info = debug.getinfo(2)
     local source = info.source or 'unknown'
     local name = info.name or info.what or'unknown'
@@ -88,14 +92,14 @@ function trace(event, line)
     -- Lord Damage is 121800
     -- wraph is 55379
 
-    if math.mod(counter[source][name], 150000) == 0 or (GetGameTick() >= 28019) then
+    --if math.mod(counter[source][name], 500000) == 0 or (GetGameTick() >= 39000) then
 
-        if (GetGameTick() >= 28019) then
+        --if (GetGameTick() >= 39000) then
             LOG(debug.traceback())
-        end        
+        --end        
 
         LOG( GetGameTick(), string.format('trace: %s:%s called %d times (%s/%s)', source, name, counter[source][name], tostring(event), tostring(line)))
-    end
+    --end
 
     --if math.mod(counter[source][name], 100000) == 0 then
         --  repr(info)
@@ -163,6 +167,14 @@ function OnCreateArmyBrain(index, brain, name, nickname)
     ArmyBrains[index].Nickname = nickname
 
     InitializeArmyAI(name)
+end
+
+function ArmyInitializePrebuiltUnits(name)
+    
+    local brain = GetArmyBrain(name)
+
+    brain:OnSpawnPreBuiltUnits()
+    
 end
 
 function InitializePrebuiltUnits(name)

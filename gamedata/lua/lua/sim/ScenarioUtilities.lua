@@ -65,7 +65,8 @@ function CreateInitialArmyGroup(strArmy, createCommander)
 
     if createCommander and ( tblGroup == nil or 0 == table.getn(tblGroup) ) then
 
-        local factionIndex = GetArmyBrain(strArmy):GetFactionIndex()
+        local army = GetArmyBrain(strArmy)
+        local factionIndex = army:GetFactionIndex()
         local initialUnitName = import('/lua/factions.lua').Factions[factionIndex].InitialUnit
 
         cdrUnit = CreateInitialArmyUnit(strArmy, initialUnitName)
@@ -1016,7 +1017,12 @@ function InitializeArmies()
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "WOW - Why dont you just beat me with a stick?" )
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "You Outnumber me "..tostring(aiBrain.OutnumberedRatio).." to 1 !")
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
-        
+
+                    if aiBrain.OutnumberedRatio >= 2 and ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
+                    
+                        aiBrain:OnSpawnPreBuiltUnits(aiBrain.OutnumberedRatio - 1)
+                    
+                    end
                 end
 
                 -- start the spawn wave thread for cheating AI --

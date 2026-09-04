@@ -1000,8 +1000,8 @@ AIBrain = Class(moho.aibrain_methods) {
         end
     end,
 
-	OnSpawnPreBuiltUnits = function(self)
-	
+	OnSpawnPreBuiltUnits = function(self, multoverride)
+
         local factionIndex = self.FactionIndex
 
         local resourceStructure
@@ -1041,13 +1041,15 @@ AIBrain = Class(moho.aibrain_methods) {
 
         end
         
-        local mult = 2
+        local mult = multoverride or 2
         local engy = 0
         
         if self.OutnumberedRatio > 1 then
-            mult = math.floor(2 * self.OutnumberedRatio) + 1
+            mult = math.floor(mult * self.OutnumberedRatio) + 1
             engy = math.ceil(self.OutnumberedRatio) - 1
         end
+        
+        LOG("     "..self.Nickname.." recieves "..mult.." mass & energy structures and "..engy.." engineers")
 
         for index = 1, mult do
             table.insert( resourceStructures, resourceStructure )
