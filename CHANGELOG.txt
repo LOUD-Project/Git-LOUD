@@ -1,3 +1,16 @@
+### Release 09-
+
+LUA 8.17
+
+- minor typo fix in one defense builder
+- pathfinder can now find nodes upto 10% beyond search range when no other nodes are found
+- factory air builders to allow more T2/T3 transitional ASF building
+- when PreBuilt units (a lobby option) is NOT turned on, and the AI is outnumbered 2-1 or more
+    -- AI will get prebuilt mass, energy and T1 engineer units, based on the outnumbered ratio
+    -- at 2-1 this is about 1/3 less than the standard pre-built units
+    -- at 3-1 this equals the normal amount of pre-built units
+
+
 ### Release 08-15-2026
 
 LUA 8.16
