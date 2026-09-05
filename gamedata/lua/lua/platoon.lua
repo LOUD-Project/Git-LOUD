@@ -1063,11 +1063,12 @@ Platoon = Class(PlatoonMethods) {
                 local closest, Node, Position, goaldistance, testdistance, thisdistance, thisthreat
                 
                 closest = 999999
+                closestmark = false
                 
                 testdistance = MaxMarkerDist
                 
                 -- only AIR platoons will use full Marker Distances
-                -- others will be limited to 85%
+                -- others will be limited to 95%
                 if platoonLayer != 'Air' then
                     testdistance = testdistance * .95
                 end
@@ -1081,6 +1082,7 @@ Platoon = Class(PlatoonMethods) {
                     
                     if v.resultdist < closest then
                         closest = v.resultdist
+                        closestmark = v
                     end
                     
                     if v.resultdist <= testdistance then
@@ -1091,8 +1093,18 @@ Platoon = Class(PlatoonMethods) {
                 end
                 
                 if counter == 0 then
-                    WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." closest marker is "..closest )
-                    return false, false
+                    
+                    if closestmark and closest <= (testdistance*1.1) then
+                        --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." using marker at "..closest )                    
+
+                        counter = counter + 1
+                        temptable[counter] = closestmark
+                    end
+                    
+                    if counter == 0 then
+                        WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." closest marker is "..closest )
+                        return false, false
+                    end    
                 end
 
 				-- sort the table by closest to the given location (start position of this test)
