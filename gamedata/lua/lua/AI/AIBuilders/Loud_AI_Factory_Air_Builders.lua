@@ -282,12 +282,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
         },
 		
-        BuilderType =  {'AirT1'},
+        BuilderType =  {'AirT1','AirT2'},
     },
 	
     Builder {BuilderName = 'Fighters T2 Crossover',
