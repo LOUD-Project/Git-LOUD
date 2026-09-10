@@ -791,7 +791,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
             SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-            LOG("     "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from "..initialCap.." based on OutnumberedRatio only")
+            LOG("     "..aiBrain.Nickname.." Unit cap set to "..math.floor(cheatCap).." from "..initialCap.." based on OutnumberedRatio only")
             
         end
        
@@ -812,6 +812,12 @@ function SetupAICheat(aiBrain)
 
     if aiBrain.OutnumberedRatio > 1 then 
         LOG("     "..aiBrain.Nickname.."  OutnumberedRatio "..aiBrain.OutnumberedRatio)
+
+        -- standard cheat is buffed (by 4%) when outnumbered and cheat is 1 or less
+        if aiBrain.OutnumberedRatio >= 1.5 and aiBrain.CheatValue <= 1 then
+            aiBrain.CheatValue = aiBrain.CheatValue + ((aiBrain.OutnumberedRatio-1)*.08)
+            LOG("     "..aiBrain.Nickname.." Standard Cheat buffed to "..aiBrain.CheatValue)
+        end
     end
   
 	--- resource rate cheat buff

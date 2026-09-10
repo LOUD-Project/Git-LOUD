@@ -1010,7 +1010,7 @@ function InitializeArmies()
             
                 aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
 
-                if aiBrain.OutnumberedRatio > 1.5 and (aiBrain.VeterancyMult < aiBrain.OutnumberedRatio) then
+                if aiBrain.OutnumberedRatio >= 1.5 and (aiBrain.VeterancyMult < aiBrain.OutnumberedRatio) then
         
                     local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
         
@@ -1018,7 +1018,7 @@ function InitializeArmies()
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "You Outnumber me "..tostring(aiBrain.OutnumberedRatio).." to 1 !")
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
 
-                    if aiBrain.OutnumberedRatio >= 2 and ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
+                    if aiBrain.OutnumberedRatio >= 1.5 and ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
                     
                         aiBrain:OnSpawnPreBuiltUnits(aiBrain.OutnumberedRatio - 1)
                     
