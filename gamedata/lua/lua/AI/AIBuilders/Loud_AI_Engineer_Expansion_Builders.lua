@@ -44,14 +44,14 @@ end
 
 local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 	
-	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
+	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 or aiBrain.EnemyBaseNear then
 
         -- permanent removal of builder    
 		return 0, false
 	end
     
     -- ignore for first 10 seconds of game
-    if aiBrain.CycleTime < 100 then
+    if aiBrain.CycleTime < 100 or aiBrain.NumBasesNaval > 0 then
         return 10, true
     end
     
@@ -78,13 +78,13 @@ end
 
 local First15Minutes_Naval = function( self,aiBrain )
 	
-	if aiBrain.CycleTime > 900 then
+	if aiBrain.CycleTime > 900 or aiBrain.EnemyBaseNear then
     
         -- permanent removal of builder    
 		return 0, false
 	end
     
-    if aiBrain.CycleTime < 100 then
+    if aiBrain.CycleTime < 100 or aiBrain.NumBasesNaval > 0 then
         return 10, true
     end
     
@@ -98,6 +98,10 @@ end
 
 local MapHasNavalAreas = function( self, aiBrain )
 
+    if aiBrain.NumBasesNaval < 1 then
+        return 10, true
+    end
+    
     if ScenarioInfo['Naval Area'][1] then
         return self.Priority, false
     end
@@ -636,8 +640,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			{ UCBC, 'NavalBaseCount', { 1, '<' } },
-            
 			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
@@ -691,8 +693,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-
-			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
 			{ MIBC, 'MapLessThan', { 1028 } },            
 
@@ -753,8 +753,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
-			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 			
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
@@ -802,8 +800,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         BuilderConditions = {
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
-			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 			
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
@@ -853,8 +849,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .25 } },
-			
-			{ UCBC, 'NavalBaseCount', { 0, '>' } },
+
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.025, 1.02 } },

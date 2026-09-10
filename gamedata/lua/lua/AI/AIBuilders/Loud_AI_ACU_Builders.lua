@@ -144,14 +144,15 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game', BuildersType = 'Engin
             if GetGameTimeSeconds() > 12 then
                 return 0, false
             end
+            
+            if self.EnemyBaseNear then
+                return 999, true
+            end
 
             return self.Priority, true
 		end,
 		
-        BuilderConditions = {
-			-- Greater than 50 economy threat closer than 18km - instant build version
-			{ EBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
-        },
+        BuilderConditions = {},
 		
         BuilderType = { 'Commander' },
 	

@@ -5989,6 +5989,9 @@ function BuildScoutLocations( self )
         self.IL = { ['HiPri'] = {}, ['LowPri'] = {}, ['LastScoutHi'] = false, ['LastScoutHiCount'] = 0, ['LastAirScoutHi'] = false, ['LastAirScoutHiCount'] = 0, ['LastAirScoutMust'] = false, ['MustScout'] = {} }
 
         local myArmy = ScenarioInfo.ArmySetup[self.Name]
+        local myStart = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[myArmy.ArmyName].position
+        
+        --LOG("*AI DEBUG "..self.Nickname.." army start is "..repr(myStart))
 
         local numOpponents = 0
         local numAllies = 0
@@ -6014,6 +6017,17 @@ function BuildScoutLocations( self )
                         
                         -- add it to the MustScout list with 'extra' time (+6 minutes)
                         LOUDINSERT(self.IL.MustScout, { Created = GetGameTimeSeconds() + 360, Position = startPos, TaggedBy = false } )
+
+                        -- mark if enemy base is within 12km (danger close)
+                        local enemydistance = VDist3(myStart, startPos)
+                        
+                        if enemydistance < 600  and not self.EnemyBaseNear then
+
+                            LOG("     "..self.Nickname.." distance to enemy is "..enemydistance)
+                            
+                            self.EnemyBaseNear = true
+                        end
+
                     else
                         allyStarts['ARMY_' .. i] = startPos
                         numAllies = numAllies + 1
@@ -7394,8 +7408,6 @@ end
 --- infer that it's also okay for LOUD to engage tracking of AI which engage in this behavior, consider this a limited 'micro' for
 --- LOUD, which has no impact on human players - nulling this function would be a clear indication of bias
 
---- now that we've identified this kind of bias we can take other measures - I knew you couldn't resist and 
---- would not bother to examine how the Miasma projectile functions, and as you said YDGAF - lol
 function TrackSpoon(projectitem, self)
 
     local unit = self:GetCurrentTarget()

@@ -110,6 +110,10 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 
 		local threatTable = GetThreatsAroundPosition( aiBrain, position, 12, true, threattype)
         
+        --if threattype == 'Economy' then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." threats are "..repr(threatTable))
+        --end
+        
         local adjustment = 0
         
         if threatTable[1] then
@@ -131,11 +135,11 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 
             for _,v in threatTable do
 
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees "..math.floor(v[3]).." "..threattype.." threat CLOSER than "..distance.." threat trigger is "..threatcutoff )
+
                 if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
                     if v[3] > threatcutoff then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees "..math.floor(v[3]).." "..threattype.." threat CLOSER than "..distance.." threat trigger is "..threatcutoff )
 
                         return false
                     end

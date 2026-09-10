@@ -175,6 +175,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                 end
     
                 local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+                
+                if aiBrain.EnemyBaseNear then 
+                    threat = threat + 25
+                end
 
                 if threat > 125 then
 
@@ -347,6 +351,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             end
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+
+            if aiBrain.EnemyBaseNear then 
+                threat = threat + 25
+            end
 
             if threat > 175 then
 
@@ -563,6 +571,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
+            if aiBrain.EnemyBaseNear then 
+                threat = threat + 25
+            end
+
             if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
@@ -763,6 +775,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             end
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
+
+            if aiBrain.EnemyBaseNear then 
+                threat = threat + 30
+            end
 
             if threat > 175 then
 
@@ -1016,6 +1032,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
 
+            if aiBrain.EnemyBaseNear then 
+                threat = threat + 30
+            end
+
             if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
@@ -1178,6 +1198,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
             end
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks + 1, true, 'AntiSurface' )
+
+            if aiBrain.EnemyBaseNear then 
+                threat = threat + 50
+            end
 
             if threat > 175 then
 
