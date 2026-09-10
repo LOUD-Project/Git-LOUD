@@ -211,7 +211,11 @@ BaseBuilderTemplate {
         -- cap, or one that clearly is intended to be a water conflict
         if GetArmyUnitCap(aiBrain.ArmyIndex) < 1200 and aiBrain:GetMapWaterRatio() > .35 then
         
-            return 10, 'loud'
+            if not aiBrain.EnemyBaseNear then
+                return 10, 'loud'
+            else
+                return Random(35,90), 'loud'
+            end
             
         end
 		
