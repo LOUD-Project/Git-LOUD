@@ -8982,6 +8982,9 @@ end
 -- no matter what the value passed to this function is, there will always be a delay of at least 1 second
 function SelfUpgradeDelay( aiBrain, unit, delay, body )
 
+    -- the delay is increased by 2 seconds for each upgrade which is already underway (and in delay)
+    delay = delay + (aiBrain.UpgradeIssued * 21)
+
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued + 1
     
     if ScenarioInfo.StructureUpgradeDialog then
@@ -9029,10 +9032,6 @@ function SelfUpgradeDelay( aiBrain, unit, delay, body )
         end
         
         if reduction > 0 then
-            
-            --if ScenarioInfo.StructureUpgradeDialog then
-              --  LOG( body.." delay period reduced by "..reduction.." ticks ")
-            --end
 
             saveddelay = saveddelay + reduction
 
