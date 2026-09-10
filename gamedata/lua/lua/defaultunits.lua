@@ -3486,6 +3486,8 @@ WalkingLandUnit = Class(MobileUnit) {
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
         self:ForkThread(self.WarpInEffectThread)
+        
+        GetAIBrain(self):AssignThreatAtPosition( GetPosition(self), 5000, 0.03, 'Economy' )
     end,
 
     OnCmdrUpgradeFinished = function(self)
