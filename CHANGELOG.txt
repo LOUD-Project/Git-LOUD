@@ -1,3 +1,18 @@
+### Release 09-11-2026
+
+LUA 8.18
+
+- at game start, the ACU spawning in will insert a large economic threat at his position
+    -- this is similar to what happens when units 'teleport' to a new position
+- self upgrade delay now scales with # of upgrades already underway (to soften upgrade overstacking)
+- AI will now better acknowledge the presence of starting enemies closer than 12km and adjust accordingly
+    -- this adjusts a number of behaviors both production-wise, and defensively
+- as with ASF in previous patch, land factories will allow more transitional T2/T3 tank building
+- as with T2 ASF in previous patch, T2 air factories will allow more transitional T1 ASF building
+- when no cheat is in play (1.0 or less), outnumbered AI (1.5 to 1, or greater) will get a cheat based on the outnumbered ratio
+    -- for example, outnumbered 2-1, the AI will receive a cheat equivalent to 1.08, at 1.5-1, this would be 1.04
+
+
 ### Release 09-04-2026
 
 LUA 8.17
