@@ -62,7 +62,7 @@ UnitBlueprint {
 	
     Defense = {
 
-        MissileTorpDestroy = { AttachBone = {'Front_Left_Projectile02','Front_Right_Projectile01','AA_Point'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+        MissileTorpDestroy = { AttachBone = {'Front_Left_Projectile02','Front_Right_Projectile01','AA_Point'}, Radius = 3.5, RedirectRateOfFire = 8, ProjectileCategories = {'TORPEDO'} },
 
         ArmorType = 'Normal',
 
@@ -401,6 +401,169 @@ UnitBlueprint {
 			
             Turreted = false,
         },
+		
+        {
+            advancedTracking = true,
+            
+            BallisticArc = 'RULEUBA_None',
+			
+			CannotAttackGround = true,			
+            CollideFriendly = false,
 
+            CountedProjectile = true,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+
+            DisplayName = 'AntiTorpedo',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Sub|Water|Seabed',
+                Water = 'Sub|Water|Seabed',
+            },
+			
+            FiringTolerance = 90,
+			
+            HeadingArcCenter = -90,
+            HeadingArcRange = 105,
+			
+            Label = 'AntiTorpedo',
+			
+            MaxRadius = 32,
+            MinRadius = 8,
+
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 7,
+			
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 4,
+			
+            RackBones = {
+                { MuzzleBones = {'B02'}, RackBone = 'B02' },
+            },
+
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 2,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout - 2 every 1.5 seconds
+			
+            TargetCheckInterval = 1,
+
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            
+            WeaponRepackTimeout = 1.4,
+        },
+		
+        {
+            advancedTracking = true,
+            
+            BallisticArc = 'RULEUBA_None',
+			
+			CannotAttackGround = true,			
+            CollideFriendly = false,
+
+            CountedProjectile = true,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+
+            DisplayName = 'AntiTorpedo',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Sub|Water|Seabed',
+                Water = 'Sub|Water|Seabed',
+            },
+			
+            FiringTolerance = 90,
+			
+            HeadingArcCenter = 90,
+            HeadingArcRange = 105,
+			
+            Label = 'AntiTorpedo',
+			
+            MaxRadius = 32,
+            MinRadius = 8,
+
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 7,
+			
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 4,
+			
+            RackBones = {
+                { MuzzleBones = {'B04'}, RackBone = 'B04' },
+            },
+
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 2,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout - 2 every 1.5 seconds
+			
+            TargetCheckInterval = 1,
+
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            
+            WeaponRepackTimeout = 1.4,
+        },
+        { 
+            AutoInitiateAttackCommand = true, 
+
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub',             -- this weapon only fires when on the surface --
+            }, 
+
+            FiringRandomness = 7, 
+            FiringTolerance = 18, 
+
+            Label = 'DepthCharge',
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.3, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 3.5,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 5.5, 
+
+            RackBones = { 
+                { MuzzleBones = {'B01'}, RackBone = 'B01' },
+                { MuzzleBones = {'B03'}, RackBone = 'B03' },                
+            }, 
+ 
+            RackSalvoReloadTime = 5.4, 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE',
+                'STRUCTURE',
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 2,
+        },					
     },
 }

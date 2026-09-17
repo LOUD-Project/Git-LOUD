@@ -1,5 +1,9 @@
 local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
+local AeonWeapons = import('/lua/aeonweapons.lua')
+local AntiTorpedo = AeonWeapons.AIFQuasarAntiTorpedoWeapon
+local DepthCharge = AeonWeapons.AANDepthChargeBombWeapon
+
 local TANTorpedoAngler  = import('/lua/terranweapons.lua').TANTorpedoAngler
 local TSAMLauncher      = import('/lua/terranweapons.lua').TSAMLauncher
 
@@ -17,6 +21,8 @@ UES0401 = Class(TSubUnit) {
 	
         Torpedo = Class(TANTorpedoAngler) {},
         AA = Class(TSAMLauncher) {},
+        AntiTorpedo = Class(AntiTorpedo) {},        
+        DepthCharge = Class(DepthCharge) {},
 	},
 
     OnCreate = function(self)
