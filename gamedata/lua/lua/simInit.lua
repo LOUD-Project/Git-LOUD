@@ -174,10 +174,11 @@ function ArmyInitializePrebuiltUnits(name)
     local brain = GetArmyBrain(name)
 
     brain:OnSpawnPreBuiltUnits()
-    
+  
 end
 
 function InitializePrebuiltUnits(name)
+  
     ArmyInitializePrebuiltUnits(name)
 end
 

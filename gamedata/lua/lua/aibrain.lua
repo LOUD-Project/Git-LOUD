@@ -1001,6 +1001,64 @@ AIBrain = Class(moho.aibrain_methods) {
     end,
 
 	OnSpawnPreBuiltUnits = function(self, multoverride)
+    
+        local multE, multM, engy
+    
+        if multoverride and multoverride <= 1.25 then
+            return
+        end
+
+        -- if Pre-Built is not turned on, apply based on outnumbered
+        if multoverride then
+        
+            LOG("     "..self.Nickname.." Pre-Built units is OFF")
+            LOG("     "..self.Nickname.." Applying Outnumbered Pre-Built units - factor "..multoverride)
+            
+            multE   = multoverride + .2
+            multM   = multoverride - .35
+            engy    = multoverride - .25
+            
+            multE   = math.round(multE)
+            multM   = math.round(multM)
+            engy    = math.round(engy)
+            
+        -- Pre-Built is ON, outnumbered is added to base amounts
+        else
+        
+            LOG("     "..self.Nickname.." Pre-Built units is ON")
+   
+            -- base amount
+            multE   =  3
+            multM   =  2
+            engy    =  1
+
+            local outnumberfactor = math.max(1, (self.OutnumberedRatio/math.max(1,self.CheatValue or 1))) 
+        
+            LOG("     "..self.Nickname.." Applying Pre-Built units - factor "..outnumberfactor)
+            
+            -- if outnumbered (includes cheat factored in) more than 1.25
+            if outnumberfactor >= 1.25 then
+            
+                multE   =  multE + math.round(outnumberfactor +.2)
+                multM   =  multM + math.round(outnumberfactor -.35)
+                engy    =  engy + math.round(outnumberfactor -.25)
+                
+            end
+            
+            multE   = math.round(multE)
+            multM   = math.round(multM)
+            engy    = math.round(engy)
+        end
+        
+        if math.max(multE,multM,engy) < 1 then
+            return
+        end
+      
+        multE = math.max(0, multE)
+        multM = math.max(0, multM)
+        engy = math.max(0, engy)
+        
+        LOG("     "..self.Nickname.." receives "..multM.." mass "..multE.." energy structures and "..engy.." engineers")
 
         local factionIndex = self.FactionIndex
 
@@ -1040,20 +1098,19 @@ AIBrain = Class(moho.aibrain_methods) {
             initialengineer = 'XSL0105'			
 
         end
+
+        if multM > 0 then
         
-        local mult = multoverride or 2
-        local engy = 0
-        
-        if self.OutnumberedRatio > 1 then
-            mult = math.floor(mult * self.OutnumberedRatio) + 1
-            engy = math.ceil(self.OutnumberedRatio) - 1
+            for index = 1, multM do
+                table.insert( resourceStructures, resourceStructure )
+            end
         end
         
-        LOG("     "..self.Nickname.." recieves "..mult.." mass & energy structures and "..engy.." engineers")
-
-        for index = 1, mult do
-            table.insert( resourceStructures, resourceStructure )
-            table.insert( initialUnits, initialUnit )
+        if multE > 0 then
+        
+            for index = 1, multE do
+                table.insert( initialUnits, initialUnit )
+            end
         end
         
         if engy > 0 then
@@ -1065,7 +1122,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
         if resourceStructures then
         
-            mult = 0
+            local mult = math.max( multE, multM, engy)
 		
     		-- place resource structures down
     		for _, v in resourceStructures do
@@ -1119,8 +1176,6 @@ AIBrain = Class(moho.aibrain_methods) {
             end
             
         end
-        
-        LOG("*AI DEBUG "..self.Nickname.." Spawned PreBuilt Units")
 
         --- record that brain had prebuilt units
 		self.PreBuilt = true
