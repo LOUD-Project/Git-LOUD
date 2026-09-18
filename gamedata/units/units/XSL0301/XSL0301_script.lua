@@ -60,6 +60,7 @@ XSL0301 = Class(SWalkingLandUnit) {
 
                 SDFOverChargeWeapon.OnWeaponFired(self)
 
+                self:OnDisableWeapon()
                 self:ForkThread(self.PauseOvercharge)
             end,
             

@@ -537,7 +537,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 6000,
+            Damage = 4250,
             DamageFriendly = false,
             DamageRadius = 1.5,
             DamageType = 'Overcharge',
@@ -574,7 +574,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
-            RackSalvoFiresAfterCharge = true,
+            --RackSalvoFiresAfterCharge = true,
 
             RackSalvoReloadTime = 2.8,  -- 2.8 second delay after firing
             
