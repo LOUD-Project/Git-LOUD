@@ -209,31 +209,40 @@ function CreateSaveDialog(parent, exitBehavior, fileType)
 end
 
 local SaveErrors = {
-    WrongVersion = '<LOC uisaveload_0005>Wrong version for savegame "%s"',
-    CantOpen = '<LOC uisaveload_0004>Couldn\'t open savegame "%s"',
-    InvalidFormat = '<LOC uisaveload_0006>"%s" is not a valid savegame',
-    InternalError = '<LOC uisaveload_0007>Internal error loading savegame "%s": %s',
+    WrongVersion    = '<LOC uisaveload_0005>Wrong version for savegame "%s"',
+    CantOpen        = '<LOC uisaveload_0004>Couldn\'t open savegame "%s"',
+    InvalidFormat   = '<LOC uisaveload_0006>"%s" is not a valid savegame',
+    InternalError   = '<LOC uisaveload_0007>Internal error loading savegame "%s": %s',
 }
 
 function CreateLoadDialog(parent, exitBehavior, fileType)
+
     local function DoLoad(fileInfo, lparent, killBehavior)
+
         SetFrontEndData('NextOpBriefing', nil)
+
         local worked, error, detail = LoadSavedGame(fileInfo.fspec)
+
+        --- note - the 'Unknown error...' string below is intentionally not localized because# it should never show up.  If it does, add the error string to SaveErrors.
         if not worked then
             UIUtil.ShowInfoDialog(lparent,
-                                  # note - the 'Unknown error...' string below is intentionally not localized because
-                                  # it should never show up.  If it does, add the error string to SaveErrors.
                                   LOCF(SaveErrors[error] or ('Unknown error ' .. repr(error) .. 'loading savegame %s: %s'),
                                        Basename(fileInfo.fspec, true),
                                        InternalErrors[detail] or detail),
                                   "<LOC _Ok>")
         else
             if parent then
-                parent:Destroy()
+                if not killBehavior then
+                    parent:Destroy()
+                else
+                    killBehavior(true)
+                end
             end
+            
             MenuCommon.MenuCleanup()
         end
     end
+    
     dlg = CreateDialog(parent, true, DoLoad, exitBehavior, fileType)
 end
 

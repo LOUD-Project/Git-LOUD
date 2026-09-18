@@ -203,7 +203,7 @@ local Prefs = import('/lua/user/prefs.lua')
 
 -- Table of all mods found on disk, indexed by id
 local _mod_cache = nil
-
+local sorted_mods = nil
 
 -- Set the list of active mods requested by the user from the mod manager.
 -- nil means do nothing (happens when cancel selected from mod manager)
@@ -255,6 +255,7 @@ end
 --Clear _mod_cache to pick up any changes on disk
 function ClearCache()
     _mod_cache = nil
+    sorted_mods = nil    
 end
 
 

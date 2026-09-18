@@ -19,6 +19,22 @@ _UnitRestricted_checked = false
 
 doscript('/lua/BuffFieldDefinitions.lua')
 
+local MPSaveRawGameTime = GetGameTimeSeconds
+local MPSaveGameTimeOffset = 0
+
+function GetMPSaveRawGameTimeSeconds()
+	return MPSaveRawGameTime()
+end
+
+function SetMPSaveGameTimeSeconds( savedTime )
+	MPSaveGameTimeOffset = math.max(0, tonumber(savedTime) or 0) - MPSaveRawGameTime()
+end
+
+function GetGameTimeSeconds()
+	return MPSaveRawGameTime() + MPSaveGameTimeOffset
+end
+
+
 BrewLANLOUDPath = function()
     for i, mod in __active_mods do
         if mod.uid == "25D57D85-7D84-27HT-A501-BR3WL4N000079" then
@@ -169,16 +185,13 @@ function WeaponRestricted(weaponLabel)
     return SpecialWepRestricted[weaponLabel]
 end
 
-
 function NukesRestricted()
     return WeaponRestricted('StrategicMissile')
 end
 
-
 function TacticalMissilesRestricted()
     return WeaponRestricted('TacticalMissile')
 end
-
 
 function CheckUnitRestrictionsEnabled()
     -- tells you whether unit restrictions are enabled
