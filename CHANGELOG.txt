@@ -1,3 +1,15 @@
+### Release 09-19-2026
+
+LUA 8.19
+UNITS 8.03
+
+- icon for DEA0202 correctly shows fighter (not fighter/bomber) (Frust)
+- Aeon Tempest (UAS0401) has anti-torps upgraded
+- UEF Atlantis (UES0401) gets 2 anti-torps (all layers) & 2 depth charges (surface only)
+- some background work, in preparation for integrating the Multiplayer Save mod (VsUK)
+- fixed Overcharge issue with Sera SACU, reviewed overcharge damage (6000 > 4250) (Negatos)
+
+
 ### Release 09-11-2026
 
 LUA 8.18
