@@ -90,6 +90,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
 			-- and that we aren't already building some
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.SCOUT, LAND } },
+
+            -- scouts cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.SCOUT, DIRECTFIRELAND, 4 }},
         }, 
 		
         BuilderType = {'LandT1','LandT2','LandT3'},
@@ -150,11 +153,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
             
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
-            -- must have some Directfire in the Pool at this Location
+            --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-			-- turn off as soon as we have a T2/T3 land factory
+			--- turn off as soon as we have a T2/T3 land factory
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
+
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 12 }},            
         },
 		
         BuilderType = {'LandT1'},
@@ -180,10 +186,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
  
             { UCBC, 'PoolLess', { 4, ANTIAIRLAND }},
 
-            -- must have some Directfire in the Pool at this location
+            --- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND, DIRECTFIRELAND, 10 }},
         },
 
         BuilderType = {'LandT1'},
@@ -208,16 +217,19 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
  
-			-- only on 5k-20k maps
+			--- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },
  
             { UCBC, 'PoolLess', { 8, ANTIAIRLAND }},
 
-            -- must have some Directfire in the Pool at this location
+            --- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-			-- turn off as soon as we have a T2/T3 land factory
+			--- turn off as soon as we have a T2/T3 land factory
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND, DIRECTFIRELAND, 8 }},
         },
 
         BuilderType = {'LandT1'},
@@ -293,7 +305,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ LUTL, 'PoolLess', { 7, LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
@@ -302,7 +314,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+
+            -- Mobile Stealth cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, DIRECTFIRELAND, 2 }},
         },
 
         BuilderType = {'LandT2'},
@@ -316,12 +331,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         Priority = 550,
 
         BuilderConditions = {
-			{ LUTL, 'PoolLess', { 6, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+			{ LUTL, 'PoolLess', { 6, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+
+            -- Mobile TMD cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND, 2 }},
         },
 		
         BuilderType = {'LandT2'},
@@ -406,7 +424,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+
+            -- Mobile Stealth cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, DIRECTFIRELAND, 2 }},
         },
 
         BuilderType = {'LandT3'},
@@ -449,7 +470,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+
+            -- Mobile TMD cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND, 2 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -513,13 +537,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, LANDT3 }},
 
-            -- must have some Directfire in the Pool at this Location
+            --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-            -- if less than 24 T2/T3 MAA
+            --- if less than 24 T2/T3 MAA
 			{ UCBC, 'PoolLess', { 24, ANTIAIRLAND - categories.TECH1 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ANTIAIRLAND - categories.TECH1, LAND }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND - categories.TECH1, DIRECTFIRELAND, 12 }},
         },
 		
         BuilderType = {'LandT2'},
@@ -545,13 +572,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, LANDT3 }},
 
-            -- must have some Directfire in the Pool at this Location
+            --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
-            -- if less than 12 T2/T3 MAA
+            --- if less than 12 T2/T3 MAA
 			{ UCBC, 'PoolLess', { 12, ANTIAIRLAND - categories.TECH1 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND - categories.TECH1, LAND }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND - categories.TECH1, DIRECTFIRELAND, 12 }},
         },
 		
         BuilderType = {'LandT2'},
@@ -625,6 +655,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, INDIRECTFIRELAND, LAND }},
+
+            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 15 }},                        
         },
 
         BuilderType = {'LandT2'},
@@ -701,6 +734,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, LANDT3 }},
 
+            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 15 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -729,6 +764,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xel0306, LANDT3 }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.xel0306 }},
+
+            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, categories.xel0306, DIRECTFIRELAND, 12 }},            
         },
 
         BuilderType = {'LandT3'},
@@ -752,11 +790,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
-            -- must have some Directfire in the Pool at this Location
+            --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
 
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND - categories.TECH1, DIRECTFIRELAND, 15 }},
         },
 		
         BuilderType = {'LandT3','Gate'},
@@ -782,10 +822,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
 			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
-            -- must have some Directfire in the Pool at this Location
+            --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND - categories.TECH1, DIRECTFIRELAND, 15 }},
         },
 		
         BuilderType = {'LandT3','Gate'},
@@ -936,6 +979,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND - AMPHIBIOUS, LAND }},
+
+            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 8 }},
         },
 
         BuilderType = {'LandT2','LandT3'},
@@ -983,6 +1029,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ANTIAIRLAND * AMPHIBIOUS, LANDT3 }},
+
+            --- mobile AA cannot be more than 12% of DIRECTFIRELAND AMPHIBIOUS units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND * AMPHIBIOUS, DIRECTFIRELAND * AMPHIBIOUS, 12 }},
         },
 
         BuilderType = {'LandT3'},
@@ -1003,6 +1052,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND * AMPHIBIOUS, LANDT3 }},
+
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND * AMPHIBIOUS, DIRECTFIRELAND * AMPHIBIOUS, 12 }},            
         },
 
         BuilderType = {'LandT3'},
@@ -1055,6 +1107,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), LANDT3 }},
+
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 12 }},
         },
 
         BuilderType = {'LandT3'},
@@ -1081,6 +1136,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
             { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, LANDT3 }},
+
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, categories.xel0306, DIRECTFIRELAND - AMPHIBIOUS, 8 }},            
         },
 
         BuilderType = {'LandT3'},
