@@ -160,6 +160,17 @@ function HaveLessThanUnitsAsPercentageOfUnitCap(aiBrain, Percentage, testCat, id
     return GetCurrentUnits(aiBrain,testCat) < numReq
 end
 
+function HaveLessThanUnitsAsPercentageofCategoryUnitCount(aiBrain, Percentage, testcat1, testcat2, minAllowed)
+
+    local minAllow = minAllowed or 0
+
+    local numAllow = math.max(GetCurrentUnits(aiBrain, testcat2) * (Percentage/100), minAllow)
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Less than "..numAllow.." of "..GetCurrentUnits(aiBrain, testcat2) )
+    
+    return GetCurrentUnits(aiBrain, testcat1) < numAllow
+end
+
 function HaveLessThanUnitsForMapSize(aiBrain, sizetable, testCat, idleReq)
 	
     -- use the largest map dimension to determine which size selection we'll use for the number required
