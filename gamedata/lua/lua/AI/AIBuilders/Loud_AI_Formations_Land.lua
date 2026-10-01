@@ -1199,8 +1199,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
             
-			-- enemy mass production within 15km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1250 }},
+			-- enemy mass production within 12km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 600 }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
@@ -1214,10 +1214,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1250,
+			PointRadius = 600,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 1250,
+			PointMax = 600,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -1561,7 +1561,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
     
-	-- general attack at 24km 
+	-- general attack at 20km 
     Builder {BuilderName = 'Amphib Attk',
 	
         PlatoonTemplate = 'T2AmphibAttack',
@@ -1597,7 +1597,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
             PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},
 			
-			MaxAttackRange = 1200,
+			MaxAttackRange = 1000,
 			
 			MergeLimit = 65,
 			
@@ -1607,7 +1607,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
 
-	-- attack extractors within 16km 
+	-- attack extractors within 14km 
     Builder {BuilderName = 'Amphib MEX Attack',
 	
         PlatoonTemplate = 'T1AmphibAttack',
@@ -1651,10 +1651,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 800,
+			PointRadius = 700,
 			PointSort = 'Safest',
 			PointMin = 100,
-			PointMax = 800,
+			PointMax = 700,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 50,
@@ -1801,8 +1801,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
 
-			-- empty mass point within 20km with less than 75 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+			-- empty mass point within 15km with less than 75 threat 
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 750, 0, 75, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -1815,10 +1815,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			PointCategory = 'Mass',
 			PointSourceSelf = true,			-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 		-- must be Self, Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 1000,		    	-- controls the finding of points based upon distance from PointSource
+			PointRadius = 750,		    	-- controls the finding of points based upon distance from PointSource
 			PointSort = 'MostThreat',		-- options are Closest or Furthest or MostThreat
 			PointMin = 100,					-- filter points by range from PointSource
-			PointMax = 1000,
+			PointMax = 750,
 			
 			StrCategory = categories.MASSEXTRACTION,		-- filter points based upon presence of units/strucutres at point
 			StrRadius = 5,
