@@ -338,8 +338,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
+<<<<<<< HEAD
             -- Mobile TMD cannot be more than 5% of non-amphibious DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND * AMPHIBIOUS, 2 }},
+=======
+            -- Mobile TMD cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND, 2 }},
+>>>>>>> origin/master
         },
 		
         BuilderType = {'LandT2'},
@@ -472,8 +477,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
+<<<<<<< HEAD
             -- Mobile TMD cannot be more than 5% of non-amphib DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND * AMPHIBIOUS, 2 }},
+=======
+            -- Mobile TMD cannot be more than 5% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 5, LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2, DIRECTFIRELAND, 2 }},
+>>>>>>> origin/master
         },
 		
         BuilderType = {'LandT3'},
@@ -984,8 +994,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND - AMPHIBIOUS, LAND }},
 
+<<<<<<< HEAD
             --- non-amphib mobile arty cannot be more than 10% of DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND * AMPHIBIOUS, 8 }},
+=======
+            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 8 }},
+>>>>>>> origin/master
         },
 
         BuilderType = {'LandT2','LandT3'},
@@ -1116,8 +1131,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), LANDT3 }},
 
+<<<<<<< HEAD
             --- non-amphib mobile arty cannot be more than 10% of DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND * AMPHIBIOUS, 8 }},
+=======
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 12 }},
+>>>>>>> origin/master
         },
 
         BuilderType = {'LandT3'},
@@ -1145,8 +1165,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, LANDT3 }},
 
+<<<<<<< HEAD
             --- mobile arty cannot be more than 10% of DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, categories.xel0306, DIRECTFIRELAND * AMPHIBIOUS, 8 }},            
+=======
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, categories.xel0306, DIRECTFIRELAND - AMPHIBIOUS, 8 }},            
+>>>>>>> origin/master
         },
 
         BuilderType = {'LandT3'},

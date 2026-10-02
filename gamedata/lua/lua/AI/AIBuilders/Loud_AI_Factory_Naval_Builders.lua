@@ -122,7 +122,11 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, FRIGATE, NAVAL }},
 
+<<<<<<< HEAD
             --- Frigates cannot be more than 25% of NAVAL units
+=======
+            -- Frigates cannot be more than 25% of NAVAL units
+>>>>>>> origin/master
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 25, FRIGATE, NAVAL * categories.MOBILE, 10 }},
         },
     },
@@ -1040,9 +1044,12 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205, NAVAL - categories.TECH1 }},
+<<<<<<< HEAD
 
             --- Stealth cannot be more than 7% of NAVAL units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 7, categories.xrs0205, NAVAL * categories.MOBILE, 3 }},
+=======
+>>>>>>> origin/master
         },
     },
 
