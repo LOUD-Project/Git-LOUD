@@ -360,6 +360,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 
                 ForkThread( self.DelayBuildOrder, self, factory )
+			
+				if not factory.UpgradesComplete then
+				
+					if not factory.UpgradeThread and factory.LaunchUpgradeThread then
+					
+                        factory:LaunchUpgradeThread( aiBrain )
+					end
+				end
 			end
 		end
 	end,

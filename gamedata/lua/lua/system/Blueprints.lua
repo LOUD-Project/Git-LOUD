@@ -885,7 +885,7 @@ function ModBlueprints(all_blueprints)
 					-- mobile units some chance of getting within firing range before being completely shellacked.
 					for _, cat_structure in bp.Categories do
 					
-						if cat_structure == 'DIRECTFIRE' then
+						if cat_structure == 'DIRECTFIRE'  or cat_structure == 'INDIRECTFIRE' then
 							
 							for _, cat_tech in bp.Categories do
 
@@ -894,10 +894,13 @@ function ModBlueprints(all_blueprints)
 									--LOG("*AI DEBUG Modifying Weapon Range on EXPERIMENTAL "..bp.Description)
 									
 									for ik, wep in bp.Weapon do
+
 										if wep.MaxRadius and wep.MaxRadius > 60 then
 											--LOG("*AI DEBUG MaxRadius goes from "..wep.MaxRadius.." to "..math.floor(wep.MaxRadius * 0.91))
 											wep.MaxRadius = math.floor(wep.MaxRadius * 0.91)
 										end
+                                        
+                                        wep.AlwaysRecheckTarget = true
 									end										
 								end									
 							end
