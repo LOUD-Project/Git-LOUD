@@ -38,7 +38,7 @@ UnitBlueprint {
         'SERAPHIM',
         'MOBILE',
         'LAND',
-		'AMPHIBIOIUS',
+		'AMPHIBIOUS',
 		'SUBMERSIBLE',
         'TECH2',
         'DIRECTFIRE',
@@ -155,7 +155,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         UnitName = '<LOC brpt2btbot_name>Iltha',
     },
 	
