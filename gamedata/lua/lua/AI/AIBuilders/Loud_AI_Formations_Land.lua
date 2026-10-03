@@ -26,13 +26,16 @@ local PlatoonCategoryCountAroundPosition    = moho.platoon_methods.PlatoonCatego
 local DEFENSESTRUCTURE  = categories.STRUCTURE * categories.DEFENSE * (categories.DIRECTFIRE + categories.INDIRECTFIRE)
 
 local LAND              = categories.LAND * categories.MOBILE
+local AMPHIBIOUS        = categories.AMPHIBIOUS
+local ANTIAIR           = categories.ANTIAIR
+local SCOUT             = categories.SCOUT
 
-local LANDAMPHIB        = LAND * categories.AMPHIBIOUS - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL
-local LANDANTIAIR       = LAND * categories.ANTIAIR
+local LANDAMPHIB        = LAND * AMPHIBIOUS - SCOUT - categories.ENGINEER - categories.EXPERIMENTAL
+local LANDANTIAIR       = LAND * ANTIAIR
 local LANDARTILLERY     = LAND * categories.INDIRECTFIRE - categories.EXPERIMENTAL
-local LANDDIRECTFIRE    = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL
-local LANDSCOUT         = LAND * categories.SCOUT
-local LANDT4            = LAND * categories.EXPERIMENTAL * categories.AMPHIBIOUS
+local LANDDIRECTFIRE    = LAND * categories.DIRECTFIRE - SCOUT - categories.ENGINEER - categories.EXPERIMENTAL
+local LANDSCOUT         = LAND * SCOUT
+local LANDT4            = LAND * AMPHIBIOUS * categories.EXPERIMENTAL
 
 
 -- used to group T3 artillery into platoons
@@ -406,12 +409,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
 
 			-- enemy AA structures within 20km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ANTIAIR * categories.STRUCTURE, 1000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, ANTIAIR * categories.STRUCTURE, 1000 }},
         },
 		
         BuilderData = {
 			PointType = 'Unit',
-			PointCategory = categories.ANTIAIR * categories.STRUCTURE,
+			PointCategory = ANTIAIR * categories.STRUCTURE,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 1000,
@@ -532,7 +535,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
                     return 11, true
                 end  
 
@@ -551,7 +554,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -922,6 +925,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	},
 }
 
+
+--- THIS GROUP IS USED for NON-AMPHIB UNITS on a Water Map
 BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
     BuildersType = 'PlatoonFormBuilder',
 	
@@ -943,7 +948,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 40 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 40 then 
                     return 11, true
                 end  
             
@@ -965,7 +970,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderConditions = {
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE - AMPHIBIOUS }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, LANDARTILLERY }},            
         },
 		
@@ -998,7 +1003,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
                     return 11, true
                 end  
 
@@ -1017,7 +1022,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -1052,7 +1057,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
                 return 0, false
             end
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - categories.AMPHIBIOUS, manager.Location, manager.Radius ) < 5 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 5 then 
                 return 11, true
             end  
 
@@ -1067,7 +1072,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE - categories.AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE - AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -1100,7 +1105,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 45 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 45 then 
                     return 11, true
                 end  
             
@@ -1127,7 +1132,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			-- enemy mass points within 15km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1250 }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, LANDDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, LANDDIRECTFIRE - AMPHIBIOUS }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, LANDARTILLERY }},
         },
 		
@@ -1185,7 +1190,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
 		PriorityFunction = function(self, aiBrain, manager)
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 5 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 5 then 
                 return 11, true
             end  
 
@@ -1202,7 +1207,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			-- enemy mass production within 12km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 600 }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE - AMPHIBIOUS }},
         },
 		
         BuilderData = {
@@ -1469,7 +1474,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
     BuildersType = 'PlatoonFormBuilder',
 	
-	-- this is the VENTING attack for amphibious maps
+	--- the VENTING attack for amphibious maps
     Builder {BuilderName = 'Amphib Attk - Unit Forced',
 	
         PlatoonTemplate = 'AmphibAttackHuge',
@@ -1484,7 +1489,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 48 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 48 then 
                     return 11, true
                 end  
 
@@ -1505,9 +1510,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         
             PrioritizedCategories = { 'ENGINEER','ECONOMY','LAND MOBILE','SHIELD','NAVAL MOBILE','STRUCTURE -WALL'},		-- controls target selection
 			
-			MaxAttackRange = 2000,
+			MaxAttackRange = 1800,
 			
-			MergeLimit = 100,
+			MergeLimit = 125,
 			
 			AggressiveMove = false,
 			
@@ -1515,7 +1520,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
 	
-	-- large attack at 30 km
+	-- large amphib attack at 30 km
     Builder {BuilderName = 'Amphib Attk Large',
 	
         PlatoonTemplate = 'T3AmphibAttack',
@@ -1528,7 +1533,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 36 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 40 then 
                     return 11, true
                 end  
 
@@ -1553,7 +1558,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			MaxAttackRange = 1500,
 			
-			MergeLimit = 80,
+			MergeLimit = 100,
 			
 			AggressiveMove = true,
 			
@@ -1561,7 +1566,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
     
-	-- general attack at 20km 
+	--- general amphib attack at 20km 
     Builder {BuilderName = 'Amphib Attk',
 	
         PlatoonTemplate = 'T2AmphibAttack',
@@ -1574,7 +1579,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 24 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 30 then 
                     return 11, true
                 end  
 
@@ -1585,7 +1590,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 		RTBLocation = 'Any',		
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -1599,7 +1604,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			MaxAttackRange = 1000,
 			
-			MergeLimit = 65,
+			MergeLimit = 70,
 			
 			AggressiveMove = false,
 			
@@ -1607,7 +1612,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
 
-	-- attack extractors within 14km 
+	--- attack extractors within 15km 
     Builder {BuilderName = 'Amphib MEX Attack',
 	
         PlatoonTemplate = 'T1AmphibAttack',
@@ -1622,7 +1627,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 16 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 20 then 
                     return 11, true
                 end  
 
@@ -1651,10 +1656,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 700,
+			PointRadius = 750,
 			PointSort = 'Safest',
 			PointMin = 100,
-			PointMax = 700,
+			PointMax = 750,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 50,
@@ -1700,7 +1705,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 3 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 3 then 
                     return 11, true
                 end  
 
@@ -1781,7 +1786,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - categories.ANTIAIR, manager.Location, manager.Radius ) < 3 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 3 then 
                 return 11, true
             end  
         end,
@@ -1879,7 +1884,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
 
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, LANDAMPHIB - categories.ANTIAIR }},
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, LANDAMPHIB - ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1889,16 +1894,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 }
 
 
--- Guard Markers/Structures --
--- these are mostly early platoons - designed to skirmish
--- focused on mass points, extractors, DPs and Expansions
--- these platoons usually stop once the AI has attained his share of mass point control
--- many of these platoons are suppressed on 5k and 10k maps thus promoting a more aggressive attack posture
+--- Guard Markers/Structures --
+--- these are early skirmish platoons -- focused on mass points, extractors, DPs and Expansions
+--- many of these platoons are suppressed on 5k and 10k maps thus promoting a more aggressive attack posture
 BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
     BuildersType = 'PlatoonFormBuilder',
 
-	-- Platoon designed to go to empty mass points within 15km and stay there until an extractor is built
-	-- runs until AI team has its share of mass points
+	--- Platoon designed to go to empty mass points within 15km
     Builder {BuilderName = 'Mass Point Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -1921,7 +1923,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 7,
+        InstanceCount = 6,
 		
         BuilderType = 'Any',
 		
@@ -1930,8 +1932,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'LandStrengthRatioLessThan', { 2 } },
 
-			-- empty mass point within 12km with less than 75 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 600, 0, 75, 1, 'AntiSurface', 1 }},
+			--- empty mass point within 15km with less than 75 threat 
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 750, 0, 75, 1, 'AntiSurface', 1 }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
@@ -1946,10 +1948,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Mass',
 			PointSourceSelf = true,			-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 		-- must be Self, Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 1000,		    	-- controls the finding of points based upon distance from PointSource
+			PointRadius = 900,		    	-- controls the finding of points based upon distance from PointSource
 			PointSort = 'MostThreat',		-- options are Closest or Furthest
 			PointMin = 120,					-- filter points by range from PointSource
-			PointMax = 1000,
+			PointMax = 750,
 			
 			StrCategory = categories.MASSEXTRACTION,		-- filter points based upon presence of units/strucutres at point
 			StrRadius = 5,
@@ -1978,7 +1980,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
 			
-			MergeLimit = 12,				-- level to which merging is allowed
+			MergeLimit = 15,				-- level to which merging is allowed
 			
 			AggressiveMove = true,
 			
@@ -1990,7 +1992,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 	
-    -- this one guards existing extractors
+    --- this one guards existing extractors within 15km
     Builder {BuilderName = 'MEX Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -2023,13 +2025,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'LandStrengthRatioLessThan', { 2 } },
 
 			-- we have a mass extractor within 2-10km with less than 4 defense structures, and > 15 threat within 1 ring 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 75, 650, 3, 15, 125, 1 }},
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 120, 750, 3, 15, 125, 1 }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 120,
             DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 1,
@@ -2038,10 +2040,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = categories.MASSEXTRACTION + categories.HYDROCARBON,
 			PointSourceSelf = false,			-- will use current Enemy Main Base location
 			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 999999,				-- finding of points based upon distance from PointSource
+			PointRadius = 900,	    			-- finding of points based upon distance from PointSource
 			PointSort = 'MostThreat',			-- options are Closest, Furthest or MostThreat
-			PointMin = 75,						-- filter points by range from PointSource
-			PointMax = 650,
+			PointMin = 120,						-- filter points by range from PointSource
+			PointMax = 750,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 50,
@@ -2068,7 +2070,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MissionTime = 1080, 				-- platoon will operate 18 minutes
 			
-			MergeLimit = 12,    				-- unit count at which merging is denied
+			MergeLimit = 18,    				-- unit count at which merging is denied
             MergePlanMatch = true,              -- only merge with other MEX Guard platoons
 			
 			AggressiveMove = true,
@@ -2081,7 +2083,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 
-	-- This platoon will go to the closest DP that has no defense structures - reduced priority on maps < 20k
+	--- This platoon guards empty DP within 20k - reduced priority on maps < 20k
     Builder {BuilderName = 'DP Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -2119,7 +2121,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'LandStrengthRatioLessThan', { 1.5 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
-            { UCBC, 'DefensivePointNeedsStructure', { 'LocationType', 1250, 'DEFENSE STRUCTURE DIRECTFIRE', 60, 3, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointNeedsStructure', { 'LocationType', 1000, 'DEFENSE STRUCTURE DIRECTFIRE', 60, 3, 0, 100, 0, 'AntiSurface' }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
@@ -2134,10 +2136,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Defensive Point',
 			PointSourceSelf = true,			-- will use itself as the location
 			PointFaction = 'Ally',
-			PointRadius = 1250,
+			PointRadius = 1000,
 			PointSort = 'MostThreat',
 			PointMin = 250,
-			PointMax = 999999,
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -2171,7 +2173,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 	
-    -- this one guards Expansion points - reduced priority on maps < 20k
     Builder {BuilderName = 'Expansion Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -2209,7 +2210,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
@@ -2224,10 +2225,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Large Expansion Area',
 			PointSourceSelf = true,				-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 1250,					-- controls the finding of points based upon distance from PointSource
+			PointRadius = 1000,					-- controls the finding of points based upon distance from PointSource
 			PointSort = 'Closest',				-- options are Closest or Furthest
-			PointMin = 200,						-- allows you to filter found points by range from PointSource
-			PointMax = 1250,
+			PointMin = 250,						-- allows you to filter found points by range from PointSource
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,		-- filter points based upon units/strucutres at point
 			StrRadius = 60,
@@ -2252,7 +2253,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 72,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
-			MergeLimit = 26,					-- limit to which unit merging is allowed - nil = original platoon size
+			MergeLimit = 24,					-- limit to which unit merging is allowed - nil = original platoon size
             MergePlanMatch = true,			
 
 			AggressiveMove = true,
@@ -2263,7 +2264,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     }, 
 
-    -- and this one guards empty start positions
     Builder {BuilderName = 'Start Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -2302,7 +2302,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
 			-- a starting point within 15km that has <= 6 non-economic structures within 60 and no more than 100 threat
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
@@ -2317,10 +2317,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Blank Marker',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
-			PointRadius = 1250,
+			PointRadius = 1000,
 			PointSort = 'Closest',
-			PointMin = 200,
-			PointMax = 1250,
+			PointMin = 250,
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -2345,7 +2345,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 75,
 			GuardTimer = 1050,
 			
-			MergeLimit = 30,
+			MergeLimit = 24,
             MergePlanMatch = true,			
 
 			AggressiveMove = true,
@@ -2356,7 +2356,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
     
-    -- a pure artillery guard formation for empty DP positions
     Builder {BuilderName = 'DP Guard Artillery',
 	
         PlatoonTemplate = 'T1PointGuardArtillery',
@@ -2394,8 +2393,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
-			-- a DP marker with less than 100 enemy threat
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
+			--- a DP marker with less than 100 enemy threat
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1000, 0, 100, 0, 'AntiSurface' }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
@@ -2409,10 +2408,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointCategory = 'Defensive Point',
 			PointSourceSelf = true,
 			PointFaction = 'Ally',
-			PointRadius = 1250,
+			PointRadius = 1000,
 			PointSort = 'MostThreat',
-			PointMin = 200,
-			PointMax = 999999,
+			PointMin = 250,
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -2499,8 +2498,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointFaction = 'Ally',
 			PointRadius = 1000,
 			PointSort = 'MostThreat',
-			PointMin = 200,
-			PointMax = 1000,
+			PointMin = 250,
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 60,
@@ -2572,7 +2571,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 4, 0, 100, 0, 'AntiSurface' }},            
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 75, 4, 0, 100, 0, 'AntiSurface' }},            
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
@@ -2588,8 +2587,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointFaction = 'Ally',
 			PointRadius = 1000,
 			PointSort = 'MostThreat',
-			PointMin = 200,
-			PointMax = 1250,
+			PointMin = 250,
+			PointMax = 1500,
 			
 			StrCategory = DEFENSESTRUCTURE,
 			StrRadius = 75,
@@ -2664,7 +2663,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 120,
             DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
@@ -2745,7 +2744,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderConditions = { 
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 250, 75, 'Land' }},
 
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, LANDDIRECTFIRE }},
         },
