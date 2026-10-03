@@ -9802,7 +9802,7 @@ Platoon = Class(PlatoonMethods) {
 			end
 			
 			-- if still no target then RTB
-			if (not targetLocation) or notargetcount > 6 then 
+			if (not targetLocation) or notargetcount > 5 then 
 			
                 if AmphibForceAIDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." failed 6 target seeks - RTB")
