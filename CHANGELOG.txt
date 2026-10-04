@@ -1,3 +1,17 @@
+### Release 10-03-2026
+
+LUA 8.20
+Total Mayhem for LOUD 7.12
+
+- new function for building conditions based on % composition of current units
+- various builder restrictions for factory production of units based on % composition
+- added rare data guard for a condition where a factory may lose it's check for upgrading
+- some AI platoons have had their operational range reduced to favor larger formations
+- AI was not building SERA T1 amphibious mobile arty
+- TM unit BRPT2BTBOT (Iltha) corrected AMPHIBIOUS category and icon background (was built but not used in AMPHIB)
+- revised amphibious platoon sizes and operational ranges to better focus amphib operations
+
+
 ### Release 09-19-2026
 
 LUA 8.19
