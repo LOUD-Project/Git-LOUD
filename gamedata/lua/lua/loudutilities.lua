@@ -71,12 +71,19 @@ local IsUnitState           = moho.unit_methods.IsUnitState
 
 local VectorCached = { 0, 0, 0 }
 
-local AIRFACT3      = categories.FACTORY * categories.AIR * categories.TECH3
-local AIRPADS       = categories.AIRSTAGINGPLATFORM - categories.MOBILE
+local AIR           = categories.AIR
+local LAND          = categories.LAND
+local NAVAL         = categories.NAVAL
+local ECONOMIC      = categories.ECONOMIC
+local FACTORY       = categories.FACTORY
+local MOBILE        = categories.MOBILE
+
+local AIRFACT3      = FACTORY * AIR * categories.TECH3
+local AIRPADS       = categories.AIRSTAGINGPLATFORM - MOBILE
 local EXTRACTORS    = categories.MASSEXTRACTION - categories.TECH1
 local FABRICATORS   = categories.MASSFABRICATION * categories.TECH3
-local NAVALFAC      = categories.NAVAL * categories.FACTORY 
-local NAVALMOBILE   = categories.NAVAL * categories.MOBILE
+local NAVALFAC      = NAVAL * FACTORY 
+local NAVALMOBILE   = NAVAL * MOBILE
 local PARAGONS      = categories.MASSFABRICATION * categories.EXPERIMENTAL
 
 local timeACTBrains = {}
@@ -389,7 +396,7 @@ end
 -- if the AI has its share of mass points
 function HasMassPointShare( aiBrain, multiple )
 
-    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false, true)
+    local units = GetListOfUnits( aiBrain, ECONOMIC, false, true)
     
     local extractorCount = 0
     
@@ -413,7 +420,7 @@ end
 -- a variant of the above
 function NeedMassPointShare( aiBrain, multiple )
 
-    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false, true)
+    local units = GetListOfUnits( aiBrain, ECONOMIC, false, true)
     
     local extractorCount = 0
 	
@@ -746,7 +753,7 @@ function SpawnWaveThread( aiBrain )
 	end
 	
 	local initialdelay = true
-    local T3AIRFACS = categories.AIR * categories.FACTORY * categories.TECH3
+    local T3AIRFACS = AIR * FACTORY * categories.TECH3
 
 	-- IF there is an initial units list then
 	-- spawnwave will begin once the first T3 Air Factory is online - check every 60 seconds until it does
@@ -854,7 +861,7 @@ function SpawnWaveThread( aiBrain )
 		end
 		
 		-- send everything in the core to a disperse point --
-		coreunits = GetFreeUnitsAroundPoint( aiBrain, categories.MOBILE - categories.ENGINEER, {startx, 0, startz}, 26 )
+		coreunits = GetFreeUnitsAroundPoint( aiBrain, MOBILE - categories.ENGINEER, {startx, 0, startz}, 26 )
 		
 		DisperseUnitsToRallyPoints( aiBrain, coreunits, aiBrain.BuilderManagers['MAIN'].Position, aiBrain.BuilderManagers['MAIN'].RallyPoints )
 		
@@ -1131,7 +1138,7 @@ end
 function SimulateFactoryBuilt (finishedUnit)
 
 	-- this is a copy of what you'll find in the FactoryBuilderManager --
-	if LOUDENTITY((categories.AIR * categories.MOBILE), finishedUnit) then
+	if LOUDENTITY((AIR * MOBILE), finishedUnit) then
 		
 		-- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
 		if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), finishedUnit) then
@@ -1815,7 +1822,7 @@ function ClearOutBase( manager, aiBrain )
     if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts == 0 then
 
         -- all standard land units but Not experimentals 
-        local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
         if grouplndcount > 0 then
 
@@ -1849,7 +1856,7 @@ function ClearOutBase( manager, aiBrain )
         end
 	
         -- all amphibious land units including experimentals
-        local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.AMPHIBIOUS * categories.MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * categories.AMPHIBIOUS * MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
         if groupamphibcount > 0 then
 
@@ -1916,7 +1923,7 @@ function ClearOutBase( manager, aiBrain )
         end
 
         -- all fighter units including air scouts
-        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100, true )
+        local groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (AIR * MOBILE * (categories.ANTIAIR * categories.SCOUT)), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -1945,7 +1952,7 @@ function ClearOutBase( manager, aiBrain )
         end
 	
         -- all gunship units including EXPERIMENTAL
-        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.GROUNDATTACK ), Position, 100, true )
+        groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, (AIR * categories.GROUNDATTACK ), Position, 100, true )
 
         if groupaircount > 0 then
 
@@ -3355,7 +3362,7 @@ function DeadBaseMonitor( aiBrain )
 	local groupair, groupaircount
 	local groupsea, groupseacount
     
-    local FACTORIES     = categories.FACTORY
+    local FACTORIES     = FACTORY
     local STRUCTURES    = categories.STRUCTURE - categories.WALL
     local ALLUNITS      = categories.ALLUNITS - categories.WALL
     
@@ -4742,16 +4749,16 @@ function ParseIntelThread( aiBrain )
 		-- ThreatType	= { threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations }
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
         
-		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1 },
-        AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5 },
+		Air 			    = { 15 * ThresholdMult, 4.5, AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1 },
+        AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - AIR, 5 },
         AntiSub             = { 8 * ThresholdMult, 26, categories.ALLUNITS - categories.WALL, 3 },
 		Commander 	    	= { 50, 67.5, categories.COMMAND, 13 },
-		Economy	    		= { 50, 33.8, categories.ECONOMIC + categories.FACTORY, 7 },
-		Land 			    = { 8 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3 },
-		Naval 		    	= { 8 * ThresholdMult, 9, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 2 },
-		StructuresNotMex    = { 100, 67.5, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.ANTIAIR, 11 },
+		Economy	    		= { 50, 33.8, ECONOMIC + FACTORY, 7 },
+		Land 			    = { 8 * ThresholdMult, 13.5, MOBILE - AIR - categories.ANTIAIR - categories.SCOUT, 3 },
+		Naval 		    	= { 8 * ThresholdMult, 9, MOBILE - AIR - categories.ANTIAIR - categories.SCOUT, 2 },
+		StructuresNotMex    = { 100, 67.5, categories.STRUCTURE - categories.WALL - ECONOMIC - categories.ANTIAIR, 11 },
         
-		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },        
+		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * MOBILE), 4,'ff00fec3', false },        
         --AntiSurface       = { 20 * ThresholdMult, 26, categories.STRUCTURE - categories.WALL, 4, 'ffaf00ff', true},
 		--Artillery 	    = { 60, 52, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'60ffff00', false },
 	}
@@ -5732,7 +5739,7 @@ function ParseIntelThread( aiBrain )
             
                 if IsEnemy( MyArmyIndex, v ) and not ArmyIsCivilian( v ) then
                 
-                    units = GetListOfUnits( brain, categories.FACTORY, false, true)
+                    units = GetListOfUnits( brain, FACTORY, false, true)
                     
                     aircount = 0
                     airidle = 0
@@ -5821,7 +5828,7 @@ function ParseIntelThread( aiBrain )
 
             end
             
-            units = GetListOfUnits( aiBrain, categories.FACTORY, false, true )
+            units = GetListOfUnits( aiBrain, FACTORY, false, true )
             
             myaircount  = 0
             myairidle   = 0
@@ -5952,7 +5959,7 @@ function ParseIntelThread( aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.3f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.3f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.3f",grandnavaltot/NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.3f", aiBrain.AirProdRatio).." - LAND "..string.format("%.3f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalProdRatio) ) 
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.3f", aiBrain.AirRatio).." -- LAND "..string.format("%.3f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
-                LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..string.format("%.3f",aiBrain.AirBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      Air bias is "..string.format("%.3f",aiBrain.AirBias).."  Stat bias is "..string.format("%.3f",aiBrain.LandBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
                 LOG("*AI DEBUG ===============================")
             end
 
@@ -7164,12 +7171,12 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
     end
 	
 	local intelChecks = {
-		Air 			    = categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS,
-		Land 			    = categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT,
-		Naval 		    	= categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT,
-        AntiAir             = categories.ANTIAIR - categories.AIR,
-		Economy	    		= categories.ECONOMIC + categories.FACTORY,
-		StructuresNotMex    = categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.ANTIAIR,
+		Air 			    = AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS,
+		Land 			    = MOBILE - AIR - categories.ANTIAIR - categories.SCOUT,
+		Naval 		    	= MOBILE - AIR - categories.ANTIAIR - categories.SCOUT,
+        AntiAir             = categories.ANTIAIR - AIR,
+		Economy	    		= ECONOMIC + FACTORY,
+		StructuresNotMex    = categories.STRUCTURE - categories.WALL - ECONOMIC - categories.ANTIAIR,
 		Commander 	    	= categories.COMMAND,
 	}
 
@@ -7441,7 +7448,7 @@ function TrackSpoon(projectitem, self)
 
     local unit = self:GetCurrentTarget()
  
-    if not unit or not LOUDENTITY(categories.MOBILE,unit) then
+    if not unit or not LOUDENTITY(MOBILE,unit) then
         return
     end
 
