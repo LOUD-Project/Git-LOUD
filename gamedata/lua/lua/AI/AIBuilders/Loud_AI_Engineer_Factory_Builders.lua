@@ -647,7 +647,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
 		
         Priority = 800,
         
-        PriorityFunction = IsEnemyNavalActive,
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+
+            if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
+            
+                if aiBrain.MapWaterRatio > .50 and aiBrain.NavalProdRatio < 2.5 then
+                
+                    return 801, true
+                    
+                else
+
+                    return 800, true
+                    
+                end
+
+            end
+
+            return 10, true
+        
+        end,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },

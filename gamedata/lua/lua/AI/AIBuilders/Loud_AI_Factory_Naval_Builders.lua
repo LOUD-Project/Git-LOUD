@@ -104,7 +104,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
                 return 10, true
             end
             
-            if aiBrain.NavalRatio < 6 then
+            if aiBrain.NavalRatio < 2 then
                 return self.Priority + 10, true
             end
 			
@@ -112,7 +112,38 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
 			
 		end,
 		
-        BuilderType = {'SeaT1','SeaT2','SeaT3'},
+        BuilderType = {'SeaT1'},
+		
+        BuilderConditions = {
+
+            { LUTL, 'PoolLess', { 30, categories.FRIGATE }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, FRIGATE }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, FRIGATE, NAVAL }},
+
+            --- Frigates cannot be more than 25% of NAVAL units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 25, FRIGATE, NAVAL * categories.MOBILE, 10 }},
+        },
+    },
+
+    Builder {BuilderName = 'T1 Frigate at T2/T3',
+	
+        PlatoonTemplate = 'T1SeaFrigate',
+        
+        Priority = 600,
+		
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
+		
+        BuilderType = {'SeaT2','SeaT3'},
 		
         BuilderConditions = {
 
@@ -185,7 +216,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },
             
             { UCBC, 'PoolGreater', { 5, FRIGATE }},
             
@@ -227,7 +258,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval', BuildersRestrictio
         BuilderType = {'SeaT2','SeaT3'},
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioGreaterThan', { 6 } },        
+            { LUTL, 'NavalStrengthRatioGreaterThan', { 3 } },        
             
             { UCBC, 'PoolGreater', { 5, FRIGATE }},
             
@@ -830,7 +861,38 @@ BuilderGroup { BuilderGroupName = 'Factory Production Naval - Small', BuildersRe
 			
 		end,
 
-        BuilderType = {'SeaT1','SeaT2','SeaT3' },
+        BuilderType = {'SeaT1' },
+		
+        BuilderConditions = {
+
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 30, categories.FRIGATE }},
+			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, FRIGATE } },
+            
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, FRIGATE, NAVAL }},
+
+            --- Frigates cannot be more than 20% of NAVAL units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 25, FRIGATE, NAVAL * categories.MOBILE, 10 }},
+        },
+    },
+
+    Builder {BuilderName = 'T1 Frigate at T2/T3 - Small',
+	
+        PlatoonTemplate = 'T1SeaFrigate',
+		
+        Priority = 600,
+		
+		PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 then
+                return 10, true
+            end
+			
+			return self.Priority,true
+			
+		end,
+
+        BuilderType = {'SeaT2','SeaT3' },
 		
         BuilderConditions = {
 
