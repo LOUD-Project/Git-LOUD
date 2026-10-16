@@ -39,6 +39,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3', BuildersR
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
             end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
+            end
 
             return self.Priority, true            
         end,
@@ -91,6 +95,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4', BuildersR
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
             end
 
             return self.Priority, true            
@@ -149,6 +157,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T3 Expansions'
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
             end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
+            end
 
             return self.Priority, true            
         end,
@@ -204,6 +216,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction T4 Expansions'
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
             end
 
             return self.Priority, true            
@@ -262,6 +278,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction', BuildersRestricti
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
             end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
+            end
 
             return self.Priority, true            
         end,
@@ -313,6 +333,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction Expansions', Builde
 
             if LessThan30MinutesRemain(self, aiBrain) then
                 return 0, false
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 100, true
             end
 
             return self.Priority, true            

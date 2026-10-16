@@ -672,26 +672,30 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
         Priority = 550,
         
-        PriorityFunction = AboveUnitCap85,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
-
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
-
-            -- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
-
-			{ LUTL, 'PoolLess', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, INDIRECTFIRELAND, LAND }},
 
-            -- mobile arty cannot be more than 15% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 15 }},                        
+            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, INDIRECTFIRELAND, DIRECTFIRELAND, 18 }},                        
         },
 
         BuilderType = {'LandT2'},
@@ -745,28 +749,28 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
         Priority = 550,
         
-        PriorityFunction = AboveUnitCap85,
-		
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
+
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
-            
-			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
 
-            { UCBC, 'PoolLessAtLocation', { 'LocationType', 30, INDIRECTFIRELAND * categories.TECH3 }},            
+ 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, LANDT3 * MOBILE * ARTILLERY, LANDT3 }},
 
-            --- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
-
- 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, LANDT3 }},
-
-            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND, DIRECTFIRELAND, 15 }},
+            --- mobile arty cannot be more than 18% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, INDIRECTFIRELAND, DIRECTFIRELAND, 18 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -780,23 +784,28 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
         Priority = 550,
         
-        PriorityFunction = AboveUnitCap85,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
-
-			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xel0306, LANDT3 }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.xel0306 }},
-
-            --- mobile arty cannot be more than 15% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, categories.xel0306, DIRECTFIRELAND, 12 }},            
+            --- mobile arty cannot be more than 18% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, categories.xel0306, DIRECTFIRELAND, 18 }},            
         },
 
         BuilderType = {'LandT3'},
@@ -808,48 +817,29 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
         Priority = 550, 
         
-        PriorityFunction = AboveUnitCap85,
-
-        BuilderConditions = {
-            { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
-
-			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
-
-            --- must have some Directfire in the Pool at this Location
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, ANTIAIRLAND, LANDT3 }},
-
-            --- mobile AA cannot be more than 12% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND - categories.TECH1, DIRECTFIRELAND, 15 }},
-        },
-		
-        BuilderType = {'LandT3','Gate'},
-    },
-
-    Builder {BuilderName = 'T3 Mobile AA - High Need',
+        PriorityFunction = function(self, aiBrain)
 	
-        PlatoonTemplate = 'T3LandAA',
-
-        Priority = 560, 
-        
-        PriorityFunction = AboveUnitCap85,
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandRatio < 0.7 then
+                return 10, true
+            end
+            
+            if aiBrain.AirRatio > 6 then
+                return 10, true
+            end
+            
+            if aiBrain.AirRatio < 3 or aiBrain.AirBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
- 
-			{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
-
-            --- enemy focused upon ground attack in his air force
-            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
-
-			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
             --- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DIRECTFIRELAND }},
@@ -996,14 +986,23 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
         Priority = 550,
         
-        PriorityFunction = AboveUnitCap85,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
-
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 28, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
@@ -1011,7 +1010,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
             --- non-amphib mobile arty cannot be more than 10% of non-amphib DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 8 }},
-
         },
 
         BuilderType = {'LandT2','LandT3'},
@@ -1066,18 +1064,29 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
         PlatoonTemplate = 'T3AmphibiousArtillery',
 
         Priority = 550, 
-		
+        
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
+			
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND * AMPHIBIOUS, LANDT3 }},
 
-            --- amphibious mobile arty cannot be more than 15% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 15, INDIRECTFIRELAND * AMPHIBIOUS, DIRECTFIRELAND, 12 }},            
+            --- amphibious mobile arty cannot be more than 18% of DIRECTFIRELAND units
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, INDIRECTFIRELAND * AMPHIBIOUS, DIRECTFIRELAND, 18 }},            
         },
 
         BuilderType = {'LandT3'},
@@ -1120,18 +1129,27 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
         Priority = 550,
         
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
+	        
         PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },			
-
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
-
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), LANDT3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * MOBILE * ARTILLERY, LANDT3 }},
 
             --- non-amphib mobile arty cannot be more than 10% of non-amphib DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 8 }},
@@ -1149,16 +1167,23 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
         Priority = 550,
         
-        PriorityFunction = AboveUnitCap85,
+        PriorityFunction = function(self, aiBrain)
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+            
+            if aiBrain.LandBias > 1 then
+                return self.Priority + 10, true
+            end
+            
+            return self.Priority, false
+        end,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 4.5 } },
-
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
-
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 24, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, LANDT3 }},
 

@@ -72,12 +72,12 @@ function ReclaimablesInAreaEnergy(aiBrain, locType, range)
 end
 
 function GreaterThanGameTime(aiBrain, num)
-    return GetGameTimeSeconds() > num
+    return aiBrain.CycleTime > num
 end
 
-function LessThanGameTime(aiBrain, num)
-    return GetGameTimeSeconds() < num
-end
+--function LessThanGameTime(aiBrain, num)
+  --  return GetGameTimeSeconds() < num
+--end
 
 function IsIsland(aiBrain, check) 
 

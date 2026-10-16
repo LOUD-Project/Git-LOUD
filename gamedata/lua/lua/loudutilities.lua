@@ -4818,7 +4818,7 @@ function ParseIntelThread( aiBrain )
     end
 
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
-	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatSub, totalThreatSurface
+	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatStat, totalThreatSub, totalThreatSurface
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
     local aircount, airidle, landcount, landidle, navcount, navidle, myaircount, myairidle, mylandcount, mylandidle, mynavalcount, mynavalidle
     
@@ -4837,13 +4837,17 @@ function ParseIntelThread( aiBrain )
     
     local newPos = { 0,0,0 }
 
-    local AIR       = categories.AIR
-    local LAND      = categories.LAND
-    local NAVAL     = categories.NAVAL
+    local AIR       = AIR
+    local LAND      = LAND
+    local NAVAL     = NAVAL
     
-    local AIRUNITS  = (AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
-    local LANDUNITS = (LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
-    local NAVALUNITS = NAVALMOBILE + NAVALFAC + (NAVAL * categories.DEFENSE)
+    local DEFENSE   = categories.DEFENSE
+    local STRUCTURE = categories.STRUCTURE
+    
+    local AIRUNITS  = (AIR * MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
+    local LANDUNITS = (LAND * MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
+    local STATUNITS = STRUCTURE * DEFENSE - categories.ANTINAVY
+    local NAVALUNITS = NAVALMOBILE + NAVALFAC + (STRUCTURE * categories.ANTINAVY)
     local TECH1     = categories.TECH1
     local TECH2     = categories.TECH2
     local TECH3     = categories.TECH3
@@ -5508,6 +5512,7 @@ function ParseIntelThread( aiBrain )
             --- LAND UNITS ---
             ------------------
             totalThreat = 0
+            totalThreatStat = 0
             oldthreat = 0
         
             if IntelDialog then
@@ -5531,6 +5536,16 @@ function ParseIntelThread( aiBrain )
                                 oldthreat = oldthreat + bp.SurfaceThreatLevel
 
                             end
+                            
+                            units = GetListOfUnits( brain, STATUNITS, false, true)
+                            
+                            for _,v in units do
+                            
+                                bp = ALLBPS[v.BlueprintID].Defense
+                                
+                                totalThreatStat = totalThreatStat + bp.SurfaceThreatLevel
+                                
+                            end
 
                         end
 
@@ -5551,7 +5566,7 @@ function ParseIntelThread( aiBrain )
 
                 end
             
-                if oldthreat > 0 then
+                if oldthreat > 0 or totalThreatStat > 0 then
                 
                     -- multiply my strength * size of my team
                     totalThreat = totalThreat * aiBrain.TeamSize
@@ -5560,15 +5575,27 @@ function ParseIntelThread( aiBrain )
 
                     -- inflate the Land Ratio by the root of the Outnumbered Ratio
                     aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedFactor
+                    
+                    if ReportRatios then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Land Bias is threat "..repr(oldthreat).." versus Static of "..repr(totalThreatStat))
+                    end
 
+                    -- the relationship of static defense surface threat to mobile land surface threat
+                    -- higher values signify a greater composition of point defense versus mobile units
+                    -- a value of 1 indicates a fairly even split in firepower (not necessarily unit count)
+                    -- while less than 1 means mostly mobile units and over 1 indicates a lot of static defense
+                    aiBrain.LandBias = LOUDMIN( 2, LOUDMAX( 0.5, (totalThreatStat/oldthreat) ) )
+    
                 else
                 
                     if aiBrain.CycleTime < 600 then
                     
+                        aiBrain.LandBias = 1
                         aiBrain.LandRatio = .011
                         
                     else
-                    
+
+                        aiBrain.LandBias = 1
                         aiBrain.LandRatio = 10
                     end
                     
@@ -5578,10 +5605,12 @@ function ParseIntelThread( aiBrain )
                 
                 if aiBrain.CycleTime < 600 then
 
+                    aiBrain.LandBias = 1
                     aiBrain.LandRatio = .011
 
                 else
 
+                    aiBrain.LandBias = 1
                     aiBrain.LandRatio = 10
                 end
 

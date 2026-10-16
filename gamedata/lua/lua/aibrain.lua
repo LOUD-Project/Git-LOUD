@@ -869,6 +869,7 @@ AIBrain = Class(moho.aibrain_methods) {
         self.AirBias = 1
         self.AirRatio = 0.01
         self.AirProdRatio = 1
+        self.LandBias = 1
         self.LandRatio = 0.01
         self.LandProdRatio = 1
         self.NavalRatio = 0.01
