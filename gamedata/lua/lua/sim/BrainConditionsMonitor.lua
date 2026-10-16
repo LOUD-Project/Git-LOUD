@@ -109,7 +109,7 @@ BrainConditionsMonitor = Class {
         local WaitTicks = coroutine.yield	
 
 		-- record current game time
-		aiBrain.CycleTime = GetGameTimeSeconds()
+		aiBrain.CycleTime = GetGameTimeSeconds() - aiBrain:GetNoRushTicks()
 	
 		WaitTicks(11)
 		
@@ -158,7 +158,7 @@ BrainConditionsMonitor = Class {
 
         while true do
         
-			aiBrain.CycleTime = GetGameTimeSeconds()
+			aiBrain.CycleTime = GetGameTimeSeconds() - aiBrain:GetNoRushTicks()
 
 			-- the thread duration, in ticks, is always the number of checked conditions times 2
             -- plus a little extra slack based upon the number of brains + number of bases
