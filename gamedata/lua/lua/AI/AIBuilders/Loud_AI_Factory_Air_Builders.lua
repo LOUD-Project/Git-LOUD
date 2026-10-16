@@ -51,6 +51,10 @@ local First45Minutes = function( self, aiBrain )
 		return 0, false
 	end
     
+    if aiBrain.CycleTime < 1 then
+        return 10, true
+    end
+    
     if self.Priority > 0 then 
         return self.Priority, true
     else

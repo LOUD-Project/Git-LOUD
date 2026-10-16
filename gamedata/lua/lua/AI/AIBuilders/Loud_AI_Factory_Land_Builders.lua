@@ -53,6 +53,10 @@ local First30Minutes = function( self,aiBrain )
 	if aiBrain.CycleTime > 1800 then
 		return 0, false
 	end
+    
+    if aiBrain.CycleTime < 1 then
+        return 10, true
+    end
 	
 	return self.Priority,true
 end
@@ -62,6 +66,10 @@ local First45Minutes = function(self,aiBrain)
 	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
+    
+    if aiBrain.CycleTime < 1 then
+        return 10, true
+    end
 	
 	return self.Priority, true
 end
@@ -845,7 +853,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 		
         BuilderType = {'LandT3','Gate'},
     },
-		
+
 }
 
 
