@@ -2211,8 +2211,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
-
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -2390,7 +2388,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 5.1 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
 			--- a DP marker with less than 100 enemy threat
@@ -2479,12 +2477,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 5.1 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
-
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2568,12 +2564,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 5.1 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},                        
 
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 75, 4, 0, 100, 0, 'AntiSurface' }},            
-
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -2658,8 +2652,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			-- enemy mass points within 20km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.STRUCTURE * (categories.MASSPRODUCTION + categories.HYDROCARBON), 1000 }},
-
-            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
