@@ -713,7 +713,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 5.1 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6.5 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
@@ -734,7 +734,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ LUTL, 'LandStrengthRatioLessThan', { 5.1 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 6.5 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
@@ -752,7 +752,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Land Only Map', Buil
         
         PriorityFunction = function(self, aiBrain)
 	
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 then
                 return 10, true
             end
             
@@ -1029,7 +1029,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, DIRECTFIRELAND * AMPHIBIOUS }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, DIRECTFIRELAND * LANDT3 * AMPHIBIOUS }},
         },
 
         BuilderType = {'LandT3','Gate'},
@@ -1084,10 +1084,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND * AMPHIBIOUS, LANDT3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, INDIRECTFIRELAND * LANDT3 * AMPHIBIOUS, LANDT3 }},
 
             --- amphibious mobile arty cannot be more than 18% of DIRECTFIRELAND units
-            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, INDIRECTFIRELAND * AMPHIBIOUS, DIRECTFIRELAND, 18 }},            
+            { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 18, INDIRECTFIRELAND * LANDT3 * AMPHIBIOUS, DIRECTFIRELAND, 18 }},            
         },
 
         BuilderType = {'LandT3'},
@@ -1114,7 +1114,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
             --- insures that we're building amphib units first without using priority as a gate
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 1, DIRECTFIRELAND * AMPHIBIOUS }},
 
- 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, DIRECTFIRELAND - AMPHIBIOUS, LANDT3 }},			
+ 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, DIRECTFIRELAND * LANDT3 - AMPHIBIOUS, LANDT3 }},			
 
             --- Non-amphib T3 cannot be more than 10% of non-amphib DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, DIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 12 }},
@@ -1142,15 +1142,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
             
             return self.Priority, false
         end,
-	        
-        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LAND * MOBILE * ARTILLERY, LANDT3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, LANDT3 * MOBILE * ARTILLERY, LANDT3 }},
 
             --- non-amphib mobile arty cannot be more than 10% of non-amphib DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 10, INDIRECTFIRELAND - AMPHIBIOUS, DIRECTFIRELAND - AMPHIBIOUS, 8 }},
