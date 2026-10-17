@@ -1,3 +1,14 @@
+### Release 10-16-2026
+
+LUA 8.21
+
+- introduction of an AI metric 'LandBias' which allows the AI to recognize when an opponent in relying heavily on static defense
+- AI now understands when a player is devoting himself to static defense and will focus more on artillery (static & mobile)
+- AI will now taper early T1 unit production during No Rush time periods, to focus upon eco/factory upgrades and going directly to T2/T3
+- production changes to AI naval production, to encourage moving to heavier builds somewhat sooner (T2/T3).
+- minor adjustments to certain land formations to encourage larger attack platoons earlier.
+
+
 ### Release 10-03-2026
 
 LUA 8.20
