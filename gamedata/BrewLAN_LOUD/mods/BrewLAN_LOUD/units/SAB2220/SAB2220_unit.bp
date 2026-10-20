@@ -88,7 +88,7 @@ UnitBlueprint {
     Intel = {
 
         Cloak = true,
-        CloadFieldRadius = 4,
+        CloakFieldRadius = 4,
 
         FreeIntel = true,
 
