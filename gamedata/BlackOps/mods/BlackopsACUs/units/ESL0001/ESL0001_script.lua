@@ -649,6 +649,8 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			self:SetWeaponEnabledByLabel('EXRapidCannon01', false)
 			self:SetWeaponEnabledByLabel('EXRapidCannon02', false)
 			self:SetWeaponEnabledByLabel('EXRapidCannon03', false)
+            
+            wpTarget = self:GetWeaponByLabel('TargetPainter')
 
 			if self.wcTorp01 then
 
