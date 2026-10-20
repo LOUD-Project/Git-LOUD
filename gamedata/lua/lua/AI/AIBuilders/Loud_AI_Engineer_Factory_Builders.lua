@@ -540,8 +540,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         Priority = 800,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TECH3 * GATE ) then
             
                 return 12, true
                 
@@ -588,6 +592,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
         Priority = 800,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
             
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
             
@@ -646,10 +654,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
         Priority = 800,
         
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
 
             if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
-            
-                if aiBrain.MapWaterRatio > .50 and aiBrain.NavalProdRatio < 2.5 then
+
+                --- on 10k maps - 
+                if ScenarioInfo.IMAPSize < 64 and aiBrain.MapWaterRatio > .50 and aiBrain.NavalProdRatio < 2.5 then
+                
+                    return 801, true
+                    
+                --- on 20k+ maps
+                elseif ScenarioInfo.IMAPSize >= 64 and aiBrain.MapWaterRatio > .30 and aiBrain.NavalProdRatio < 3 then
                 
                     return 801, true
                     
@@ -666,9 +684,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval', Builde
         end,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { LUTL, 'NavalProductionRatioLessThan', { 3 } },
+            { LUTL, 'NavalProductionRatioLessThan', { 4.5 } },
 
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
@@ -748,8 +764,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         Priority = 850,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TECH3 * GATE ) then
             
                 return 12, true
                 
@@ -800,6 +820,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
         Priority = 850,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
 
             if aiBrain.NumBasesLand <= 1 then
             
@@ -863,8 +887,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         Priority = 850,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TECH3 * GATE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TECH3 * GATE ) then
             
                 return 12, true
                 
@@ -915,6 +943,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
         Priority = 900,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+                return 10, true
+            end
 
             if aiBrain.NumBasesLand <= 1 then
             
