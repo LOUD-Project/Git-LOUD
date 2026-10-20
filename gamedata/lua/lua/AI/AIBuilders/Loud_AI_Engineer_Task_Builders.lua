@@ -444,6 +444,56 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         },
     },
 
+    -- repair structures
+    Builder {BuilderName = 'Repair',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerRepairAI',
+		
+        Priority = 740,
+		
+        InstanceCount = 3,
+
+		BuilderType = { 'T1','T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
+            
+            { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
+        },
+		
+        BuilderData = { },
+    },
+
+    -- unfinished structures
+    Builder {BuilderName = 'Unfinished',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerRepairAI',
+		
+        Priority = 740,
+		
+        InstanceCount = 2,
+
+		BuilderType = { 'T1','T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
+            
+            { UCBC, 'UnfinishedUnits', { 'LocationType', STRUCTURE }},
+        },
+		
+        BuilderData = { },
+    },
+
     -- when there is nothing else to do assist AIR factories
     Builder {BuilderName = 'Assist Factory AIR',
 	
@@ -492,7 +542,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 5,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
@@ -528,12 +578,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 5,
 		
-		BuilderType = { 'T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 5.1 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
