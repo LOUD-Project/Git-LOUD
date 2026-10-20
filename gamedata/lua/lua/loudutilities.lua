@@ -5475,6 +5475,10 @@ function ParseIntelThread( aiBrain )
                     -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
                     aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.02, (totalThreatSurface/totalThreatAir) ) )
                     
+                    if ReportRatios then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." A2G Bias is Surface threat "..string.format("%.3f",totalThreatSurface).." versus Air Threat of "..string.format("%.3f",totalThreatAir))
+                    end
+                    
                     -- multiply my strength by size of my team
                     totalThreat = totalThreat * aiBrain.TeamSize
 
@@ -5584,7 +5588,7 @@ function ParseIntelThread( aiBrain )
                     aiBrain.LandRatio = aiBrain.LandRatio * OutnumberedFactor
                     
                     if ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Land Bias is threat "..repr(oldthreat).." versus Static of "..repr(totalThreatStat))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Land Bias is land threat "..string.format("%.3f",oldthreat).." versus Static threat of "..string.format("%.3f",totalThreatStat))
                     end
 
                     -- the relationship of static defense surface threat to mobile land surface threat
@@ -5685,6 +5689,10 @@ function ParseIntelThread( aiBrain )
                     -- the relationship of Surface and Sub in the enemy threat
                     -- a value of 1 indicates a fairly even split in firepower (not necessarily units)
                     aiBrain.SubBias = LOUDMIN( 2, LOUDMAX( 0.02, (totalThreatSub/totalThreatSurface) ) )
+                    
+                    if ReportRatios then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Sub Bias is Sub threat "..string.format("%.3f",totalThreatSub).." versus Surface threat of "..string.format("%.3f",totalThreatSurface))
+                    end
                     
                     totalThreat         = totalThreat * aiBrain.TeamSize
                     
@@ -5959,7 +5967,7 @@ function ParseIntelThread( aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.3f", grandairtot/NumOpponents ).." -- LAND "..string.format("%.3f", grandlandtot/NumOpponents).." -- NAVAL "..string.format("%.3f",grandnavaltot/NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.3f", aiBrain.AirProdRatio).." - LAND "..string.format("%.3f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalProdRatio) ) 
                 LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.3f", aiBrain.AirRatio).." -- LAND "..string.format("%.3f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.3f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
-                LOG("*AI DEBUG "..aiBrain.Nickname.."      Air bias is "..string.format("%.3f",aiBrain.AirBias).."  Stat bias is "..string.format("%.3f",aiBrain.LandBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..string.format("%.3f",aiBrain.AirBias).."  Stat bias is "..string.format("%.3f",aiBrain.LandBias).."  Sub bias is "..string.format("%.3f", aiBrain.SubBias)  )
                 LOG("*AI DEBUG ===============================")
             end
 
