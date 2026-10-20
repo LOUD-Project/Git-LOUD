@@ -1024,7 +1024,7 @@ function UnfinishedUnits(aiBrain, locationType, category)
 	
 		for num, unit in unfinished do
 			if unit:GetFractionComplete() < 1 and GetGuards(aiBrain, unit) < 1 then
-				LOG("*AI DEBUG Unfinished unit detected")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Unfinished structure detected at "..repr(locationType) )
 				return true
 			end
 		end
