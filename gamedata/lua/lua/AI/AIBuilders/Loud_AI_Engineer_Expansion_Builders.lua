@@ -359,8 +359,29 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		Priority = 750,
-        
-        PriorityFunction = AboveUnitCap80,
+
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+                return 10, true
+            end
+            
+            if not aiBrain.AttackPlan.Goal then
+                return 11, true
+            end
+            
+            if not import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer( aiBrain.AttackPlan.Goal, 'Land', 600 ) then
+                return 12, true
+            end
+            
+            --- if the Plan is water based, increase naval DP priority
+            if aiBrain.AttackPlan.Method == "Land" then
+                return (self.OldPriority or self.Priority) + 10, true
+            end
+	
+            return (self.OldPriority or self.Priority), true            
+
+        end,
 		
         BuilderConditions = {
 
@@ -409,9 +430,30 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		Priority = 750,
-        
-        PriorityFunction = AboveUnitCap80,
-		
+
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+                return 10, true
+            end
+            
+            if not aiBrain.AttackPlan.Goal then
+                return 11, true
+            end
+            
+            if not import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer( aiBrain.AttackPlan.Goal, 'Land', 600 ) then
+                return 12, true
+            end
+            
+            --- if the Plan is water based, increase naval DP priority
+            if aiBrain.AttackPlan.Method == "Land" then
+                return (self.OldPriority or self.Priority) + 10, true
+            end
+	
+            return (self.OldPriority or self.Priority), true            
+
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
