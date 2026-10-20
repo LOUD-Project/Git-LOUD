@@ -1052,7 +1052,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ANTIAIRLAND * AMPHIBIOUS, LANDT3 }},
 
-            --- amphibiouis MAA cannot be more than 12% of DIRECTFIRELAND units
+            --- amphibious MAA cannot be more than 12% of DIRECTFIRELAND units
             { UCBC, 'HaveLessThanUnitsAsPercentageofCategoryUnitCount', { 12, ANTIAIRLAND * AMPHIBIOUS, DIRECTFIRELAND, 12 }},
         },
 

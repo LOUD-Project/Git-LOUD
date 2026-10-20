@@ -20,15 +20,19 @@ local SHIELD        = categories.SHIELD
 local STRUCTURE     = categories.STRUCTURE
 
 local AIRPADS       = categories.AIRSTAGINGPLATFORM - MOBILE
+local AIRFAC        = AIR * FACTORY
+local LANDFAC       = LAND * FACTORY
 local NAVALFAC      = NAVAL * FACTORY
 
 local TECH1         = categories.TECH1 
 local TECH2         = categories.TECH2
 local TECH3         = categories.TECH3
 
+local DRAG          = categories.DRAGBUILD
 local ENERGYPROD    = categories.ENERGYPRODUCTION
 local ENERGYSTOR    = categories.ENERGYSTORAGE
 local MASSPROD      = categories.MASSPRODUCTION
+local WALL          = categories.WALL
 
 
 
@@ -451,26 +455,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
         Priority = 740,
 		
-		InstanceCount = 6,
+		InstanceCount = 5,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
         
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, MOBILE + FACTORY, FACTORY * AIR }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, MOBILE + FACTORY, AIRFAC }},
         },
 		
         BuilderData = {
             Assist = {
 				AssistRange = 120,
 				AssisteeType = 'Factory',
-				AssisteeCategory = FACTORY * AIR,
+				AssisteeCategory = AIRFAC,
 				BeingBuiltCategories = {FACTORY + MOBILE},
                 Time = 90,
             },
@@ -499,14 +503,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, MOBILE + FACTORY, FACTORY * LAND }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, MOBILE + FACTORY, LANDFAC }},
         },
 		
         BuilderData = {
             Assist = {
 				AssistRange = 120,
 				AssisteeType = 'Factory',
-				AssisteeCategory = FACTORY * LAND,
+				AssisteeCategory = LANDFAC,
 				BeingBuiltCategories = {FACTORY + MOBILE},
                 Time = 90,
             },
@@ -548,44 +552,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
             },
         },
     },
-
-    -- when there is nothing else to do - general assist for T1
-    Builder {BuilderName = 'T1 Assist Structure/Exp',
-	
-        PlatoonTemplate = 'EngineerGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAIPlan = 'EngineerAssistAI',
-		
-		InstanceCount = 5,
-		
-        Priority = 720,
-		
-        BuilderType = { 'T1' },
-		
-        BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
-
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - EXPERIMENTAL - ENERGYPROD - MASSPROD, ENGINEER + FACTORY, 90 }},
-        },
-		
-        BuilderData = {
-            Assist = {
-                AssistEnergy = 2000,
-                AssistMass = 200,
-                
-				AssistRange = 90,
-				AssisteeType = 'Any',
-				AssisteeCategory = ENGINEER + FACTORY,
-                BeingBuiltCategories = {categories.ALLUNITS - EXPERIMENTAL - ENERGYPROD - MASSPROD},
-                Time = 60,
-            },
-        },
-    },
     
-    -- when there is nothing else to do - general assist for T2/T3
-    Builder {BuilderName = 'Eng Assist Structure/Exp',
+    -- when there is nothing else to do - specific assist for T2/T3/SACU
+    Builder {BuilderName = 'Gen Assist Eng/Fac',
 	
         PlatoonTemplate = 'EngineerGeneral',
         
@@ -593,11 +562,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 720,
+        Priority = 725,
 		
-        InstanceCount = 6,
+        InstanceCount = 5,
 		
-		BuilderType = { 'T2','T3' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
@@ -619,30 +588,39 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         },
     },
 
-    -- repair damaged structures
-    Builder {BuilderName = 'Repair',
+    -- when there is nothing else to do - general assist
+    Builder {BuilderName = 'Gen Assist',
 	
         PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-        PlatoonAIPlan = 'EngineerRepairAI',
 		
-        Priority = 700,
+		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        InstanceCount = 4,
-
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		InstanceCount = 5,
+		
+        Priority = 720,
+		
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
-            
-            { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
-            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - EXPERIMENTAL - ENERGYPROD - MASSPROD, ENGINEER + FACTORY, 90 }},
         },
 		
-        BuilderData = { },
+        BuilderData = {
+            Assist = {
+                AssistEnergy = 2000,
+                AssistMass = 200,
+                
+				AssistRange = 90,
+				AssisteeType = 'Any',
+				AssisteeCategory = ENGINEER + FACTORY,
+                BeingBuiltCategories = {categories.ALLUNITS - EXPERIMENTAL - ENERGYPROD - MASSPROD},
+                Time = 60,
+            },
+        },
     },
 
 }
@@ -667,11 +645,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (TECH1 * STRUCTURE * DEFENSE * categories.DRAGBUILD) + (TECH1 * categories.WALL), 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (TECH1 * STRUCTURE * DEFENSE * DRAG) + (TECH1 * WALL), 5, false }},
         },
 		
         BuilderData = {
-			Reclaim = { (TECH1 * STRUCTURE * DEFENSE * categories.DRAGBUILD) + (TECH1 * categories.WALL)},
+			Reclaim = { (TECH1 * STRUCTURE * DEFENSE * DRAG) + (TECH1 * WALL)},
             ReclaimRange = 65,
         },
     },
@@ -725,13 +703,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * categories.DRAGBUILD - categories.WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 8, STRUCTURE * (categories.DIRECTFIRE + categories.INDIRECTFIRE) * TECH3, 15, 42 }},
         },
 		
         BuilderData = {
-			Reclaim = {TECH2 * STRUCTURE * DEFENSE * categories.DRAGBUILD - categories.WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC},
+			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC},
             ReclaimRange = 75,
         },
     },
@@ -752,7 +730,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, STRUCTURE * ENERGYPROD * categories.DRAGBUILD - TECH3 - EXPERIMENTAL - categories.HYDROCARBON, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, STRUCTURE * ENERGYPROD * DRAG - TECH3 - EXPERIMENTAL - categories.HYDROCARBON, 5, false }},
         },
 		
         BuilderData = {
@@ -873,11 +851,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * categories.DRAGBUILD - categories.WALL - SHIELD - categories.ANTIMISSILE, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ANTIMISSILE, 5, false }},
         },
 		
         BuilderData = {
-			Reclaim = {TECH2 * STRUCTURE * DEFENSE * categories.DRAGBUILD - categories.WALL - SHIELD - categories.ANTIMISSILE},
+			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ANTIMISSILE},
             ReclaimRange = 50,
         },
     },

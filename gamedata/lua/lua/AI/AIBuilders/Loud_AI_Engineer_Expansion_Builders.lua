@@ -13,6 +13,12 @@ local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocati
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
+local FACTORY       = categories.FACTORY
+local STRUCTURE     = categories.STRUCTURE
+
+local TECH1         = categories.TECH1
+local TECH3         = categories.TECH3
+
 local AboveUnitCap65 = function( self,aiBrain )
 	
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
@@ -146,10 +152,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			-- this base must have 3+ T2/T3 factories
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY * STRUCTURE - TECH1}},
             
 			-- all other 'counted' land bases must have at least 3 T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', FACTORY * STRUCTURE * TECH3 }},
             
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
@@ -219,9 +225,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
         BuilderConditions = {
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY * STRUCTURE - TECH1}},
 
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', FACTORY * STRUCTURE * TECH3 }},
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
@@ -364,7 +370,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
@@ -413,7 +419,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.02 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
@@ -521,7 +527,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' } },
         },
@@ -578,7 +584,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.02 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' } },
         },
@@ -644,7 +650,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
       
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, FACTORY * STRUCTURE}},
 			
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
@@ -700,7 +706,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
 
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY * STRUCTURE}},
 
 			-- can't be a major enemy base within 7km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
@@ -855,12 +861,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.025, 1.02 } },
 			
             -- must be 5 T3 yards before we expand
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, FACTORY * STRUCTURE * TECH3 }},
             
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1100, -250, 50, 2, 'AntiSurface' } },
 			
 			-- all other 'counted' Sea bases must have at least 5 T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Sea', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Sea', FACTORY * STRUCTURE * TECH3 }},
         },
 		
         BuilderType = { 'T2','T3' },
@@ -934,7 +940,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
             
 			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE -AIR', 60, 0, -999999, 75, 1, 'AntiSurface' }},
         },

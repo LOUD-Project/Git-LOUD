@@ -77,7 +77,7 @@ local counter = {}
 
 function trace(event, line)
 
-    if GetGameTick() < 39411 then 
+    if GetGameTick() < 11157 then 
         return
     end
 
