@@ -805,8 +805,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 
-			-- find a safe, unused, naval marker within 8km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 500, -250, 50, 1, 'AntiSurface' } },
+			-- find a safe, unused, naval marker within 12km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -852,7 +852,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			-- can't be a major enemy base within 15km of here
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
 
-			-- find a safe, unused, naval marker within 8km of this base
+			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
@@ -966,6 +966,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
             
             if not import('/lua/ai/aiattackutilities.lua').GetClosestPathNodeInRadiusByLayer( aiBrain.AttackPlan.Goal, 'Water', 600 ) then
                 return 12, true
+            end
+            
+            --- if the Plan is water based, increase naval DP priority
+            if aiBrain.AttackPlan.Method != "Land" then
+                return (self.OldPriority or self.Priority) + 10, true
             end
 	
             return (self.OldPriority or self.Priority), true            
