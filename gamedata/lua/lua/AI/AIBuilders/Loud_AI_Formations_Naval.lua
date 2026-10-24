@@ -1553,7 +1553,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Naval', 300 }},            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 300, 'Naval', 500 }},            
         },
 		
         BuilderData = {

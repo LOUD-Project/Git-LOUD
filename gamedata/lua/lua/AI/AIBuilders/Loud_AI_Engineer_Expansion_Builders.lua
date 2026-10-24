@@ -4,11 +4,9 @@
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
 local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
-
 
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
@@ -82,26 +80,6 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 	return self.Priority, true
 end
 
-local First15Minutes_Naval = function( self,aiBrain )
-	
-	if aiBrain.CycleTime > 900 or aiBrain.EnemyBaseNear then
-    
-        -- permanent removal of builder    
-		return 0, false
-	end
-    
-    if aiBrain.CycleTime < 100 or aiBrain.NumBasesNaval > 0 then
-        return 10, true
-    end
-    
-    -- if no detected naval activity
-    if aiBrain.NavalRatio < .02 then
-        return 10, true
-    end
-	
-	return self.OldPriority or self.Priority, true
-end
-
 local MapHasNavalAreas = function( self, aiBrain )
 
     if aiBrain.NumBasesNaval < 1 then
@@ -116,21 +94,6 @@ local MapHasNavalAreas = function( self, aiBrain )
 
 end
 
-local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
-
-    if aiBrain.NumBasesNaval < 1 then
-    
-        -- this just checks if there are any Naval Area markers on the map
-        if ScenarioInfo['Naval Area'][1] then
-            return 999, false
-        else
-            return 10, true
-        end
-        
-    end
-    
-	return 10, true
-end
 
 BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersType = 'EngineerBuilder',
     
@@ -680,24 +643,41 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 999,
-		
-		PriorityFunction = MapHasNavalAreasButNotEstablished,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
 
+        PriorityFunction = function( self, aiBrain, unit, manager )
+
+            if (ScenarioInfo.size[1] < 2048 or ScenarioInfo.size[2] < 2048)	then
+                return 0, false
+            end
+ 
+            if aiBrain.NumBasesNaval < 1 then
+    
+                -- this just checks if there are any Naval Area markers on the map
+                if ScenarioInfo['Naval Area'][1] then
+                    return 999, false
+                else
+                    return 10, true
+                end
+        
+            end
+
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+                return 10, true
+            end
+
+            return 10, true		
+        
+        end,
+        
+        BuilderConditions = {
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
-			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
       
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, FACTORY * STRUCTURE}},
 			
-			-- can't be a major enemy base within 15km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 			
-			-- find a safe, unused, naval marker within 14.5km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
@@ -734,15 +714,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 999,
-		
-		PriorityFunction = MapHasNavalAreasButNotEstablished,
-		
+
+        PriorityFunction = function( self, aiBrain, unit, manager )
+
+            if (ScenarioInfo.size[1] > 1024 or ScenarioInfo.size[2] > 1024)	then
+                return 0, false
+            end
+ 
+            if aiBrain.NumBasesNaval < 1 then
+    
+                -- this just checks if there are any Naval Area markers on the map
+                if ScenarioInfo['Naval Area'][1] then
+                    return 999, false
+                else
+                    return 0, false
+                end
+        
+            end
+
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+                return 10, true
+            end
+ 
+            return 10, true		
+        end,
+
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-
-			{ MIBC, 'MapLessThan', { 1028 } },            
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
@@ -750,10 +749,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY * STRUCTURE}},
 
-			-- can't be a major enemy base within 7km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 450, 'Economy', 500 }},
 
-			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
@@ -802,11 +799,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
-			-- can't be a major enemy base within 15km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 
-			-- find a safe, unused, naval marker within 12km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -821,10 +816,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 500,
+                LocationRadius = 725,
 				
                 ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -843,17 +838,31 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 		
         Priority = 999,
 
-		PriorityFunction = First15Minutes_Naval,
+        PriorityFunction = function( self, aiBrain, unit, manager )
+	
+            if aiBrain.CycleTime > 900 or aiBrain.EnemyBaseNear then
+                return 0, false
+            end
+    
+            if aiBrain.CycleTime < 100 or aiBrain.NumBasesNaval > 0 then
+                return 10, true
+            end
+    
+            -- if no detected naval activity
+            if aiBrain.NavalRatio < .02 then
+                return 10, true
+            end
+	
+            return self.OldPriority or self.Priority, true
+        end,
 
         BuilderConditions = {
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
-			-- can't be a major enemy base within 15km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 750, 'Economy', 200 }},
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 
-			-- find a safe, unused, naval marker within 12km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -868,16 +877,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 600,
+                LocationRadius = 725,
 				
                 ThreatMax = 50,
-                ThreatRings = 1,
+                ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {'T1SeaFactory'}
+                BuildStructures = {'T1SeaFactory','T1SeaFactory','T1Sonar'}
             }
         }
     },      
