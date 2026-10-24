@@ -629,14 +629,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 
 BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersType = 'EngineerBuilder',
 
-	-- start the primary naval base only when you have 4 or more factories at this base
-	-- only the MAIN base will do this -- Additional naval bases are only initiated by
-	-- other expansion bases 
+	-- start the primary naval base when you 3 or more factories at this base
+	-- only the MAIN base will do this -- Additional naval bases are only initiated by other expansion bases 
 	-- NOTE the threat restrictions on this builder - it's designed so that an AI will
 	-- not go into the water if an enemy is close or if there are no safe areas
 	-- I made use of the 'rings' variable here -- on a 20km map 2 rings is about 2.5km
-
-    Builder {BuilderName = 'Naval Base Initial - Large Map',
+    Builder {BuilderName = 'Naval Base Initial Large',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -707,7 +705,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         }
     },
     
-    Builder {BuilderName = 'Naval Base Initial - Small Map',
+    Builder {BuilderName = 'Naval Base Initial Small',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -780,8 +778,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         }
     },    
    
-    -- in Outnumbered conditions - hurry the naval base a bit
-    Builder {BuilderName = 'Naval Base Initial - OutNumbered',
+    Builder {BuilderName = 'Naval Base Initial OutNumbered',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -830,7 +827,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         }
     },        
    
-    Builder {BuilderName = 'Naval Base Initial - Rush Detected',
+    Builder {BuilderName = 'Naval Base Initial Rush Detected',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
