@@ -1069,6 +1069,10 @@ Platoon = Class(PlatoonMethods) {
                 
                 -- only AIR platoons will use full Marker Distances
                 -- others will be limited to 95%
+                if platoonLayer == 'Water' then
+                    testdistance = testdistance + (testdistance * ScenarioInfo.MapWaterRatio)
+                end
+                
                 if platoonLayer != 'Air' then
                     testdistance = testdistance * .95
                 end
