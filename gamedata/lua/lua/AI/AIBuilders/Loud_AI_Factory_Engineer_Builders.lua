@@ -18,6 +18,15 @@ local AboveUnitCap50 = function( self,aiBrain )
 	return (self.OldPriority or self.Priority), true
 end
 
+local ENGINEER      = categories.ENGINEER * categories.MOBILE
+local SACU          = categories.SUBCOMMANDER
+local ACU           = categories.COMMAND
+
+local TECH1         = categories.TECH1
+local TECH2         = categories.TECH2
+local TECH3         = categories.TECH3
+
+
 local AboveUnitCap60 = function( self,aiBrain )
 	
 	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .6 then
@@ -57,8 +66,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 3, categories.ENGINEER - categories.TECH3 - categories.SUBCOMMANDER - categories.COMMAND }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ENGINEER }},
+            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 3, ENGINEER - TECH3 - SACU - ACU }},
         },
 		
         BuilderType =  {'AirT1','LandT1','SeaT1','AirT2','LandT2','SeaT2'},
@@ -76,8 +85,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
 
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER) - categories.TECH1 - categories.COMMAND }},
-            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, categories.MOBILE * categories.ENGINEER * categories.TECH2 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (ENGINEER) - TECH1 - ACU }},
+            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, ENGINEER * TECH2 }},
         },
 		
         BuilderType =  {'AirT2','LandT2','SeaT2','AirT3','LandT3','SeaT3','Gate'},
@@ -95,8 +104,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},
-            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.SUBCOMMANDER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (ENGINEER * TECH3) - ACU }},
+            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, (ENGINEER * TECH3) - SACU }},
         },
         
         BuilderType =  {'AirT3','LandT3','SeaT3','Gate'},
@@ -109,7 +118,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         Priority = 900,
         
         BuilderConditions = {
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.SUBCOMMANDER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, SACU }},
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'SCU' } },
         },
         
@@ -134,13 +143,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, ENGINEER }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },            
             
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ENGINEER }},
         },
 		
         BuilderType = {'AirT1','LandT1','SeaT1','AirT2','LandT2','SeaT2'},
@@ -158,13 +167,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH2 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, ENGINEER * TECH2 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1, 1 }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
             
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ENGINEER }},
         },
         
         BuilderType = {'AirT2','LandT2','SeaT2','AirT3','LandT3','SeaT3','Gate'},
@@ -181,13 +190,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 - categories.SUBCOMMANDER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, ENGINEER * TECH3 - SACU }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1, 1 }},
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },
             
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ENGINEER * TECH3 }},
         },
         
         BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
@@ -207,12 +216,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, ENGINEER * TECH3 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             
             { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ENGINEER }},
         },
         
         BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
@@ -230,7 +239,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers', BuildersType 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.SUBCOMMANDER }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, SACU }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             

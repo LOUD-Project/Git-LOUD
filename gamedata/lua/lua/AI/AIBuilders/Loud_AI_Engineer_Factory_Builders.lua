@@ -19,6 +19,8 @@ local AIR       = categories.AIR
 local LAND      = categories.LAND
 local NAVAL     = categories.NAVAL
 
+local TELEPORT  = categories.TELEPORTER
+
 local TECH1     = categories.TECH1
 local TECH3     = categories.TECH3
 
@@ -597,7 +599,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
                 return 10, true
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TELEPORT ) then
             
                 return 12, true
                 
@@ -615,7 +617,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},            
 
-            { UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.TELEPORTER }},
+            { UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, TELEPORT }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -831,7 +833,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
                 
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TELEPORT ) then
             
                 return 12, true
                 
@@ -954,7 +956,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
                 
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.TELEPORTER ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, TELEPORT ) then
             
                 return 12, true
                 

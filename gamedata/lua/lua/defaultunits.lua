@@ -121,12 +121,21 @@ local PlayAnim = moho.AnimationManipulator.PlayAnim
 
 local VectorCached = { 0, 0, 0 }
 
+local TECH1             = categories.TECH1
+local TECH2             = categories.TECH2
+
+local ALLUNITS          = categories.ALLUNITS
 local AIRUNITS          = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
 local FACTORIES         = categories.FACTORY - categories.EXPERIMENTAL
-local ENERGYPRODUCTION  = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL - categories.TECH1
+local ENERGYPRODUCTION  = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL - TECH1
+local EXPERIMENTAL      = categories.EXPERIMENTAL
+local EXTRACTOR         = categories.MASSEXTRACTION
+local HYDRO             = categories.HYDROCARBON
+local MASSFAB           = categories.MASSFABRICATION
 local MASSPRODUCTION    = categories.MASSPRODUCTION - categories.EXPERIMENTAL
 local INTEL             = categories.INTELLIGENCE - categories.OPTICS
 local SERAPHIMAIR       = categories.SERAPHIM * categories.AIR
+local SHIELD            = categories.SHIELD
 local TRANSPORTS        = categories.TRANSPORTFOCUS - categories.uea0203
 
 local function GetRandomFloat( Min, Max )
@@ -708,7 +717,7 @@ StructureUnit = Class(Unit) {
             initialdelay = 90
             bypasseco = true
             
-            if EntityCategoryContains( categories.TECH2, finishedUnit ) then
+            if EntityCategoryContains( TECH2, finishedUnit ) then
                 
                 checkrate = 14
                 initialdelay = 110
@@ -738,7 +747,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 15
                 initialdelay = 120
             
-                if EntityCategoryContains( categories.TECH2, finishedUnit ) then
+                if EntityCategoryContains( TECH2, finishedUnit ) then
 
                     finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1, 0.75, 9999, 1.4, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                     
@@ -755,7 +764,7 @@ StructureUnit = Class(Unit) {
 		end
 
 		--- hydrocarbon --
-		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
+		if EntityCategoryContains( HYDRO, finishedUnit ) then
 
 			-- each hydro gets it's own platoon so we can enable PlatoonDistress calls for them
 			local Mexplatoon = MakePlatoon( aiBrain, 'HYDROPlatoon'..tostring(finishedUnit.EntityID), 'none')
@@ -774,7 +783,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 15
                 initialdelay = 90
                 
-                if EntityCategoryContains( categories.TECH1, finishedUnit ) then
+                if EntityCategoryContains( TECH1, finishedUnit ) then
   
                     finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.88, 0.75, 9999, 1.4, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                     
@@ -790,7 +799,7 @@ StructureUnit = Class(Unit) {
 		end
 
 		--- mass extractors --
-        if EntityCategoryContains( categories.MASSEXTRACTION, finishedUnit ) then
+        if EntityCategoryContains( EXTRACTOR, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
 			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.EntityID), 'none')
@@ -808,7 +817,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 13.5
                 initialdelay = 40
                 
-                if EntityCategoryContains( categories.TECH1, finishedUnit) then
+                if EntityCategoryContains( TECH1, finishedUnit) then
 
                     finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .66, 1.007, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
@@ -825,7 +834,7 @@ StructureUnit = Class(Unit) {
         end
 
 		--- mass fabricators --
-        if EntityCategoryContains( categories.MASSFABRICATION, finishedUnit ) then
+        if EntityCategoryContains( MASSFAB, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
 			local Mexplatoon = MakePlatoon( aiBrain, 'FABPlatoon'..tostring(finishedUnit.EntityID), 'none')
@@ -849,7 +858,7 @@ StructureUnit = Class(Unit) {
         end
 
 		--- shields --
-        if EntityCategoryContains( categories.SHIELD, finishedUnit ) then
+        if EntityCategoryContains( SHIELD, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
 
@@ -4547,7 +4556,7 @@ AirUnit = Class(MobileUnit) {
 		
 		-- NOTE: how we bypass the UNIT.OnKilled and let the OnImpact event handle the death
 		-- this causes a minor issue where a unit can be Dead but not Destroyed
-        if self.CacheLayer == 'Air' and ( Random() > 0.65 or EntityCategoryContains(categories.EXPERIMENTAL, self)) then
+        if self.CacheLayer == 'Air' and ( Random() > 0.65 or EntityCategoryContains(EXPERIMENTAL, self)) then
 
             self.CreateUnitAirDestructionEffects( self, 1.0 )
 
@@ -4678,9 +4687,9 @@ ConstructionUnit = Class(MobileUnit) {
 				end
 			end
 
-			eng:AddOnUnitBuiltCallback( EngineerBuildDone, categories.ALLUNITS )
+			eng:AddOnUnitBuiltCallback( EngineerBuildDone, ALLUNITS )
             
-            eng:AddOnStartBuildCallback( EM.UnitConstructionStarted, categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL )
+            eng:AddOnStartBuildCallback( EM.UnitConstructionStarted, FACTORIES * categories.STRUCTURE )
 
 			eng:AddUnitCallback( EngineerCaptureDone, 'OnStopCapture')
 			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')

@@ -64,19 +64,20 @@ local WaitTicks     = coroutine.yield
 local builderTypes = { 'Any','T1','T2','T3','SubCommander','Commander' }
 
 local COMMAND           = categories.COMMAND
-local FACTORY           = categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL
-local T4FACTORIES       = categories.FACTORY * categories.STRUCTURE * categories.EXPERIMENTAL
-local GENERALSTRUCTURE  = categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC)
-local RHIANNE           = categories.STRUCTURE * categories.AEON * categories.OPTICS
+local STRUCTURE         = categories.STRUCTURE
+local FACTORY           = categories.FACTORY * STRUCTURE - categories.EXPERIMENTAL
+local T4FACTORIES       = categories.FACTORY * STRUCTURE * categories.EXPERIMENTAL
+local GENERALSTRUCTURE  = STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC)
+local RHIANNE           = STRUCTURE * categories.AEON * categories.OPTICS
 local SUBCOMMANDER      = categories.SUBCOMMANDER
 
 local LANDUNITS     = categories.LAND * categories.MOBILE
 local AIRUNITS      = categories.AIR * categories.MOBILE
 local FIGHTERS      = categories.AIR * categories.ANTIAIR
-local SEAUNITS      = categories.MOBILE - categories.AIR
+local SEAUNITS      = categories.NAVAL * categories.MOBILE
 
-local LANDRESPONSE  = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
-local SEARESPONSE   = (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER
+local LANDRESPONSE  = LANDUNITS - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
+local SEARESPONSE   = SEAUNITS - STRUCTURE - categories.ENGINEER - categories.CARRIER
 local GROUNDATTACK  = categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY
 local NAVALATTACK   = categories.TORPEDOBOMBER + categories.GROUNDATTACK
 
@@ -1807,7 +1808,7 @@ EngineerManager = Class(BuilderManager) {
 			
 			if distress_land then 
 		
-				grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.SCOUT - categories.COMMAND - categories.ENGINEER, baseposition, (self.Radius * 1.75) )
+				grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, LANDUNITS - categories.ANTIAIR - categories.SCOUT - categories.COMMAND - categories.ENGINEER, baseposition, (self.Radius * 1.75) )
 
 				if grouplndcount > 0 then
 			
@@ -1827,7 +1828,7 @@ EngineerManager = Class(BuilderManager) {
 
 			if distress_naval then
 
-				groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER, baseposition, self.Radius * 1.75 )		
+				groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, SEAUNITS - STRUCTURE - categories.ENGINEER, baseposition, self.Radius * 1.75 )		
 
 				if groupseacount > 0 then
 			
@@ -1858,7 +1859,7 @@ EngineerManager = Class(BuilderManager) {
 		
 			if distress_ftr then
 		
-				groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, self.Radius * 2.5 )
+				groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, FIGHTERS, baseposition, self.Radius * 2.5 )
 			
 				if groupftrcount > 0 then
 			

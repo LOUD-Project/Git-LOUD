@@ -16,19 +16,37 @@ local UnitsGreaterAtLocationInRange                 = import(UCBC).UnitsGreaterA
 local UnitsLessAtLocation                           = import(UCBC).UnitsLessAtLocation
 local UnitsLessAtLocationInRange                    = import(UCBC).UnitsLessAtLocationInRange
 
-local AA        = categories.STRUCTURE * categories.ANTIAIR
-local PD        = categories.STRUCTURE * categories.DIRECTFIRE
-local SMD       = categories.STRUCTURE * categories.ANTIMISSILE * categories.SILO * categories.TECH3
-local TMD       = categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO
-local ENERGY    = categories.STRUCTURE * categories.ENERGYPRODUCTION
-local FACTORY   = categories.STRUCTURE * categories.FACTORY
-local HVYARTY   = categories.STRUCTURE * categories.ARTILLERY * categories.STRATEGIC
-local NUKESILO  = (categories.NUKE * categories.SILO) + (categories.SATELLITEUPLINK * categories.FACTORY)
-local RADAR     = categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE
-local SHIELD    = categories.STRUCTURE * categories.SHIELD
-local T3PD      = categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE
-local T4AIR     = categories.EXPERIMENTAL * categories.MOBILE * categories.AIR
-local T4LAND    = categories.EXPERIMENTAL * categories.MOBILE * categories.DIRECTFIRE
+local STRUCTURE     = categories.STRUCTURE
+
+local TECH1         = categories.TECH1
+local TECH2         = categories.TECH2
+local TECH3         = categories.TECH3
+
+
+
+local AA            = STRUCTURE * categories.ANTIAIR
+local AIRPAD        = categories.AIRSTAGINGPLATFORM
+local DEFENSE       = categories.DEFENSE
+local T4            = categories.EXPERIMENTAL
+
+local ARTY          = STRUCTURE * categories.ARTILLERY
+local TACTICAL      = ARTY * categories.TACTICAL
+local HVYARTY       = ARTY * categories.STRATEGIC
+
+local PD            = STRUCTURE * categories.DIRECTFIRE
+local SMD           = STRUCTURE * categories.ANTIMISSILE * categories.SILO * TECH3
+local TMD           = STRUCTURE * categories.ANTIMISSILE - categories.SILO
+local ENERGY        = STRUCTURE * categories.ENERGYPRODUCTION
+local FACTORY       = STRUCTURE * categories.FACTORY
+
+local NUKESILO      = (categories.NUKE * categories.SILO) + (categories.SATELLITEUPLINK * categories.FACTORY)
+local RADAR         = STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE
+local SHIELD        = STRUCTURE * categories.SHIELD
+local ANTIARTY      = categories.ANTIARTILLERY
+
+local T3PD          = STRUCTURE * DEFENSE * TECH3 * categories.DIRECTFIRE
+local T4AIR         = T4 * categories.MOBILE * categories.AIR
+local T4LAND        = T4 * categories.MOBILE * categories.DIRECTFIRE
 
 local LOUDFLOOR = math.floor
 
@@ -162,7 +180,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 10, true
                 end
                 
-                if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - categories.TECH1 ) then
+                if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - TECH1 ) then
                     return 11, true
                 end
 
@@ -254,7 +272,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                     return 11, true
                 end
 
-                if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - categories.TECH1 ) then
+                if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, ENERGY - TECH1 ) then
                     return 11, true
                 end
 
@@ -332,13 +350,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, PD * categories.TECH3, 15, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, PD * TECH3, 15, 42 ) then
             
                 return 12, true
                 
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 19, PD * categories.TECH2, 15, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 19, PD * TECH2, 15, 42 ) then
             
                 return 10, true
                 
@@ -557,7 +575,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, PD * categories.TECH3, 15, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, PD * TECH3, 15, 42 ) then
             
                 return 12, true
                 
@@ -630,7 +648,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 11, AA * categories.TECH3, 15, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 11, AA * TECH3, 15, 42 ) then
             
                 return 12, true
                 
@@ -762,7 +780,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, ARTY * TECH2, 21, 42 ) then
             
                 return 12, true
                 
@@ -838,7 +856,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, ARTY * TECH2, 10, 20 ) then
             
                 return 12, true
                 
@@ -904,7 +922,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 10, 20 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, categories.TACTICALMISSILEPLATFORM * STRUCTURE, 10, 20 ) then
             
                 return 12, true
                 
@@ -972,7 +990,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ANTITELEPORT * STRUCTURE * TECH3 ) then
             
                 return 12, true
                 
@@ -1024,7 +1042,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ARTILLERY * categories.TACTICAL ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, TACTICAL ) then
             
                 return 12, true
                 
@@ -1054,7 +1072,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, TACTICAL }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1187,7 +1205,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * categories.EXPERIMENTAL, 10, 45 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 5, PD * T4, 10, 45 ) then
                 return 12, true
             end
 
@@ -1260,7 +1278,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core', Bu
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, AA * categories.EXPERIMENTAL, 10, 40 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, AA * T4, 10, 40 ) then
             
                 return 12, true
                 
@@ -1339,7 +1357,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 12, true
              
@@ -1405,13 +1423,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                
             end
 
-            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - ANTIARTY, 16, 45 ) then
             
                 return 12, true
              
@@ -1479,7 +1497,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.1 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, SHIELD - categories.ANTIARTILLERY, 0,45 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, SHIELD - ANTIARTY, 0,45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -1518,13 +1536,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -1579,13 +1597,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -1640,13 +1658,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -1709,7 +1727,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 12, true
              
@@ -1776,13 +1794,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                
             end
 
-            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - ANTIARTY, 16, 45 ) then
             
                 return 12, true
              
@@ -1854,13 +1872,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -1915,13 +1933,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -1976,13 +1994,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS', Build
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * categories.ANTIARTILLERY ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 2, SHIELD * ANTIARTY ) then
             
                 return 12, true
              
@@ -2036,13 +2054,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 11, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.EXPERIMENTAL * categories.SHIELD ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, T4 * SHIELD ) then
             
                 return 12, true
              
@@ -2060,7 +2078,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction', BuildersType
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGY * categories.TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGY * TECH3 }},
         },
 
         BuilderType = {'SubCommander'},
@@ -2095,7 +2113,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD ) then
             
                 return 12, true
              
@@ -2143,7 +2161,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD * TECH2 ) then
             
                 return 12, true
              
@@ -2197,7 +2215,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD ) then
                 return 10, false
             end
     
@@ -2243,7 +2261,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD * TECH2 ) then
             
                 return 12, true
              
@@ -2338,7 +2356,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			-- dont have any advanced power built -- makes this gun obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY - TECH1 }},
             
 			-- the 12 accounts for the 12 T1 Base PD that may get built in this ring
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, PD, 50, 75}},
@@ -2411,7 +2429,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			-- dont have any advanced units
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, STRUCTURE - TECH1 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 18, PD}},
         },
@@ -2470,7 +2488,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
 			-- dont have any advanced units
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, STRUCTURE - TECH1 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, AA, 45, 75}},
         },
@@ -2583,7 +2601,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 26, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2, 55, 83 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 26, ARTY * TECH2, 55, 83 ) then
             
                 return 12, true
                 
@@ -2655,7 +2673,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * categories.TECH3, 56, 80 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * TECH3, 56, 80 ) then
             
                 return 12, true
                 
@@ -2725,7 +2743,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, AA * categories.TECH3, 56, 80 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, AA * TECH3, 56, 80 ) then
             
                 return 12, true
                 
@@ -2849,7 +2867,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, SHIELD - categories.ANTIARTILLERY, 60, 88 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, SHIELD - ANTIARTY, 60, 88 ) then
             
                 return 12, true
              
@@ -2926,7 +2944,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA * categories.EXPERIMENTAL, 50, 88 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA * T4, 50, 88 ) then
             
                 return 12, true
              
@@ -2996,7 +3014,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, PD * categories.EXPERIMENTAL, 50, 88 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, PD * T4, 50, 88 ) then
             
                 return 12, true
              
@@ -3209,10 +3227,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter', Bui
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
 
 			-- check the outer perimeter for shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 6, SHIELD - categories.ANTIARTILLERY, 60, 80 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 6, SHIELD - ANTIARTY, 60, 80 }},
 
 			-- check outer perimeter for storage
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 54, categories.ENERGYSTORAGE * categories.TECH3, 60, 80 }}, 
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 54, categories.ENERGYSTORAGE * TECH3, 60, 80 }}, 
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -3273,7 +3291,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 36, AA * categories.TECH3, 90, 120 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 36, AA * TECH3, 90, 120 ) then
             
                 return 12, true
              
@@ -3344,7 +3362,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
-			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 100, 600, 2, 2, categories.STRUCTURE * categories.DEFENSE }},
+			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 100, 600, 2, 2, STRUCTURE * DEFENSE }},
         },
 		
         BuilderType = {'T1'},
@@ -3360,7 +3378,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 				
 				MinStructureUnits = 2,
 				MaxDefenseStructures = 2,
-				MaxDefenseCategories = categories.STRUCTURE * categories.DEFENSE,
+				MaxDefenseCategories = STRUCTURE * DEFENSE,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacencyDefense',
@@ -3438,7 +3456,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
-			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 2, 4, categories.STRUCTURE * categories.DEFENSE * categories.TECH2 }},
+			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 2, 4, STRUCTURE * DEFENSE * TECH2 }},
         },
 		
         BuilderType = {'T2'},
@@ -3454,7 +3472,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 				
 				MinStructureUnits = 2,
 				MaxDefenseStructures = 4,
-				MaxDefenseCategories = categories.STRUCTURE * categories.DEFENSE * categories.TECH2,
+				MaxDefenseCategories = STRUCTURE * DEFENSE * TECH2,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacencyDefense',
@@ -3498,7 +3516,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
 
-			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
+			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 3, 3, STRUCTURE * DEFENSE * TECH3 }},
         },
 		
         BuilderType = {'T3'},
@@ -3512,7 +3530,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction', Bui
 				
 				MinStructureUnits = 3,
 				MaxDefenseStructures = 3,
-				MaxDefenseCategories = categories.STRUCTURE * categories.DEFENSE * categories.TECH3,
+				MaxDefenseCategories = STRUCTURE * DEFENSE * TECH3,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacencyDefense',
@@ -3553,13 +3571,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, PD * categories.TECH3, 14, 48 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, PD * TECH3, 14, 48 ) then
             
                 return 10, true
                 
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 15, PD * categories.TECH2, 14, 48 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 15, PD * TECH2, 14, 48 ) then
             
                 return 10, true
                 
@@ -3620,7 +3638,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, AA * categories.TECH2, 15, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, AA * TECH2, 15, 42 ) then
             
                 return 10, true
                 
@@ -3726,7 +3744,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 11, PD * categories.TECH3, 15, 58 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 11, PD * TECH3, 15, 58 ) then
             
                 return 10, true
                 
@@ -3793,7 +3811,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, AA * categories.TECH3, 15, 48 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, AA * TECH3, 15, 48 ) then
             
                 return 10, true
                 
@@ -3910,7 +3928,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 15, 48 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, categories.TACTICALMISSILEPLATFORM * STRUCTURE, 15, 48 ) then
             
                 return 10, true
                 
@@ -3973,7 +3991,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.ARTILLERY * categories.TACTICAL ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, TACTICAL ) then
             
                 return 10, true
                 
@@ -4045,7 +4063,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 		
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 
 			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},
 
@@ -4087,7 +4105,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, PD * categories.EXPERIMENTAL, 10, 42 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, PD * T4, 10, 42 ) then
             
                 return 10, true
                 
@@ -4152,7 +4170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, AA * categories.EXPERIMENTAL ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, AA * T4 ) then
             
                 return 10, true
                 
@@ -4220,7 +4238,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 10, true
              
@@ -4290,13 +4308,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions', Bu
                
             end
 
-            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 10, true
              
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - ANTIARTY, 16, 45 ) then
             
                 return 10, true
              
@@ -4365,7 +4383,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 10, true
              
@@ -4431,13 +4449,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
                
             end
 
-            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - categories.ANTIARTILLERY, 5, 16 ) then
+            if UnitsLessAtLocationInRange( aiBrain, manager.LocationType, 4, SHIELD - ANTIARTY, 5, 16 ) then
             
                 return 10, true
              
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - categories.ANTIARTILLERY, 16, 45 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 7, SHIELD - ANTIARTY, 16, 45 ) then
             
                 return 10, true
              
@@ -4512,13 +4530,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
                 return 10, true
             end
 
-            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - categories.ANTIARTILLERY ) then
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 9, SHIELD - ANTIARTY ) then
             
                 return 10, true
              
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.EXPERIMENTAL * categories.SHIELD ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, T4 * SHIELD ) then
             
                 return 10, true
              
@@ -4574,7 +4592,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * categories.TECH2, 46, 75 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * TECH2, 46, 75 ) then
             
                 return 10, true
                 
@@ -4636,7 +4654,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, AA * categories.TECH2, 46, 75 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, AA * TECH2, 46, 75 ) then
             
                 return 10, true
                 
@@ -4758,7 +4776,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * categories.TECH3, 46, 75 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * TECH3, 46, 75 ) then
             
                 return 10, true
                 
@@ -4776,7 +4794,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - TECH1 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -4824,7 +4842,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, AA * categories.TECH3, 46, 75 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, AA * TECH3, 46, 75 ) then
             
                 return 10, true
                 
@@ -4834,7 +4852,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - TECH1 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 35, 'Air' }},
 
@@ -4953,7 +4971,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
 
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, SHIELD - categories.ANTIARTILLERY, 46, 75 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, SHIELD - ANTIARTY, 46, 75 ) then
             
                 return 10, true
              
@@ -4977,7 +4995,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         end,
 
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, FACTORY - TECH1 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -5028,7 +5046,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD * TECH2 ) then
             
                 return 10, true
              
@@ -5081,9 +5099,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }}, 
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGY * categories.TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGY * TECH3 }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.COUNTERINTELLIGENCE * categories.STRUCTURE }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.COUNTERINTELLIGENCE * STRUCTURE }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -5123,7 +5141,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions', Buil
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }}, 
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * STRUCTURE * TECH3 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -5174,7 +5192,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, STRUCTURE * categories.ANTINAVY * TECH2, 50, 85 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander'},
@@ -5225,7 +5243,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
             
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, AA * categories.TECH2, 50, 85 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, AA * TECH2, 50, 85 }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -5266,13 +5284,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
             { LUTL, 'NavalStrengthRatioLessThan', { 2 } },
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - TECH1 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 50, 85 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, STRUCTURE * categories.ANTINAVY * TECH3, 50, 85 }},
         },
 		
 		BuilderType = { 'T3','SubCommander'},
@@ -5315,13 +5333,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
             
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, AA * categories.TECH3, 1, 40 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, AA * TECH3, 1, 40 }},
         },
 		
 		BuilderType = { 'T3','SubCommander'},
@@ -5354,7 +5372,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval', B
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * categories.TECH3 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.NAVAL * TECH3 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
             
@@ -5400,7 +5418,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval', BuildersT
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, AIRPAD }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -5508,7 +5526,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, ARTY * TECH2 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5547,7 +5565,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, PD * categories.TECH2 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, PD * TECH2 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5710,7 +5728,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
         
         PriorityFunction = function( self, aiBrain, unit, manager)
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD * TECH2 ) then
                 return 10, true
             end
 	
@@ -5879,7 +5897,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * categories.TECH3 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * TECH3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -6048,7 +6066,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.COUNTERINTELLIGENCE * categories.STRUCTURE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.COUNTERINTELLIGENCE * STRUCTURE ) then
                 return 10, true
             end
 
@@ -6099,7 +6117,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 3, categories.TACTICALMISSILEPLATFORM * STRUCTURE ) then
                 return 10, true
             end
     
@@ -6146,7 +6164,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 7, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 7, categories.TACTICALMISSILEPLATFORM * STRUCTURE ) then
                 return 10, true
             end
     
@@ -6230,7 +6248,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ENERGYSTORAGE * categories.TECH3 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ENERGYSTORAGE * TECH3 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -6267,7 +6285,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.025 }},
             
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, TACTICAL }},
         },
 		
         BuilderType = { 'T3','SubCommander'},
@@ -6303,7 +6321,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.ANTITELEPORT * categories.STRUCTURE ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.ANTITELEPORT * STRUCTURE ) then
                 return 10, true
             end
     
@@ -6353,7 +6371,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AA * categories.EXPERIMENTAL ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AA * T4 ) then
                 return 10, true
             end
 
@@ -6409,7 +6427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.STRUCTURE * categories.DEFENSE * categories.EXPERIMENTAL - categories.ANTIAIR ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, STRUCTURE * DEFENSE * T4 - categories.ANTIAIR ) then
                 return 10, true
             end
 
@@ -6653,7 +6671,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, AIRPAD - categories.MOBILE, 0, 28 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6726,7 +6744,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * categories.TECH2, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * TECH2, 0, 24 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6762,7 +6780,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 3, STRUCTURE * DEFENSE * categories.DIRECTFIRE, 0, 24 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6804,7 +6822,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, STRUCTURE * categories.ANTINAVY * TECH2, 0, 24 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -6842,7 +6860,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * categories.TECH3, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, AA * TECH3, 0, 24 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -6884,7 +6902,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval', BuildersType = 'E
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, STRUCTURE * categories.ANTINAVY * TECH3, 0, 24 }},
             
         },
 		

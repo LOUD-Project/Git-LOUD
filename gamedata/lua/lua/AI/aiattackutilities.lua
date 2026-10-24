@@ -28,6 +28,8 @@ local GetPlatoonPosition     = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits        = moho.platoon_methods.GetPlatoonUnits
 
 local ALLBUTWALLS   = categories.ALLUNITS - categories.WALL
+local ECONOMIC      = categories.ECONOMIC
+local FACTORY       = categories.FACTORY
 local SHIELDS       = categories.SHIELD * categories.STRUCTURE
 
 local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
@@ -381,7 +383,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     -- adjust allowed threat by size of IMAP blocks
     local threatmax = threatmax * ThreatMaxIMAPAdjustment
 
-    local TESTUNITS = categories.ALLUNITS - categories.FACTORY - categories.ECONOMIC - categories.SHIELD - categories.WALL
+    local TESTUNITS = ALLBUTWALLS - FACTORY - ECONOMIC - SHIELDS
 
 	local function GetRealThreatAtPosition( position, threattype )
 

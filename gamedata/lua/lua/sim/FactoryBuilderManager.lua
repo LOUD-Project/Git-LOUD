@@ -40,12 +40,20 @@ local WaitTicks                 = coroutine.yield
 
 local PlatoonTemplates = PlatoonTemplates
 
+local ALLUNITS      = categories.ALLUNITS
 local FACTORY       = categories.FACTORY * categories.STRUCTURE
+local GATE          = categories.GATE
 local ENGINEER      = categories.ENGINEER
 local LAND          = categories.LAND
 local AIR           = categories.AIR
 local NAVAL         = categories.NAVAL
-local TRAFFICUNITS  = categories.MOBILE - categories.EXPERIMENTAL - categories.AIR - categories.ENGINEER
+local MOBILE        = categories.MOBILE
+local TRAFFICUNITS  = MOBILE - categories.EXPERIMENTAL - AIR - ENGINEER
+
+local TECH1         = categories.TECH1
+local TECH2         = categories.TECH2
+local TECH3         = categories.TECH3
+
 	
 function CreateFactoryBuilderManager(brain, lType, location, basetype)
 
@@ -135,52 +143,52 @@ FactoryBuilderManager = Class(BuilderManager) {
 			factory.failedbuilds = 0
             factory.LocationType = self.LocationType
 			
-			if LOUDENTITY( LAND * categories.TECH1, factory ) then
+			if LOUDENTITY( LAND * TECH1, factory ) then
 			
 				factory.BuilderType = 'LandT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( LAND * categories.TECH2, factory ) then
+			elseif LOUDENTITY( LAND * TECH2, factory ) then
 			
 				factory.BuilderType = 'LandT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( LAND * categories.TECH3, factory ) then
+			elseif LOUDENTITY( LAND * TECH3, factory ) then
 			
 				factory.BuilderType = 'LandT3'
 				factory.BuildLevel = 3
 				
-			elseif LOUDENTITY( AIR * categories.TECH1, factory ) then
+			elseif LOUDENTITY( AIR * TECH1, factory ) then
 			
 				factory.BuilderType = 'AirT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( AIR * categories.TECH2, factory ) then
+			elseif LOUDENTITY( AIR * TECH2, factory ) then
 			
 				factory.BuilderType = 'AirT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( AIR * categories.TECH3, factory ) then
+			elseif LOUDENTITY( AIR * TECH3, factory ) then
 			
 				factory.BuilderType = 'AirT3'
 				factory.BuildLevel = 3
 				
-			elseif LOUDENTITY( NAVAL * categories.TECH1, factory ) then
+			elseif LOUDENTITY( NAVAL * TECH1, factory ) then
 			
 				factory.BuilderType = 'SeaT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( NAVAL * categories.TECH2, factory ) then
+			elseif LOUDENTITY( NAVAL * TECH2, factory ) then
 			
 				factory.BuilderType = 'SeaT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( NAVAL * categories.TECH3, factory ) then
+			elseif LOUDENTITY( NAVAL * TECH3, factory ) then
 			
 				factory.BuilderType = 'SeaT3'
 				factory.BuildLevel = 3
 
-			elseif LOUDENTITY( categories.GATE, factory ) then
+			elseif LOUDENTITY( GATE, factory ) then
 			
 				factory.BuilderType = 'Gate'
 				factory.BuildLevel = 3
@@ -196,10 +204,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 				self:FactoryFinishBuilding(factory, finishedUnit)
 			end
 
-			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
+			factory:AddOnUnitBuiltCallback( factoryWorkFinish, ALLUNITS )
 			
 			-- this section applies only to static factories - mobile factories dont need any of this
-			if not LOUDENTITY( categories.MOBILE, factory) then
+			if not LOUDENTITY( MOBILE, factory) then
 			
 				factory.DesiresAssist = true		-- default factory to desire assist
 				factory.NumAssistees = 3			-- default factory to 3 assistees			

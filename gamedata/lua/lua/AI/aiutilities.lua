@@ -2,23 +2,23 @@
 
 local SUtils = import('/lua/ai/sorianutilities.lua')
 
-local TABLECAT = table.cat
-local LOUDDEEPCOPY = table.deepcopy
-local LOUDFLOOR = math.floor
-local LOUDINSERT = table.insert
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDPARSE = ParseEntityCategory
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
-local VDist2Sq = VDist2Sq
+local TABLECAT      = table.cat
+local LOUDDEEPCOPY  = table.deepcopy
+local LOUDFLOOR     = math.floor
+local LOUDINSERT    = table.insert
+local LOUDMAX       = math.max
+local LOUDMIN       = math.min
+local LOUDPARSE     = ParseEntityCategory
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
+local VDist2Sq      = VDist2Sq
 
 local AIBrainMethods = moho.aibrain_methods
 
-local GetNumUnitsAroundPoint = AIBrainMethods.GetNumUnitsAroundPoint
-local GetThreatsAroundPosition = AIBrainMethods.GetThreatsAroundPosition
-local GetThreatAtPosition = AIBrainMethods.GetThreatAtPosition
-local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
+local GetNumUnitsAroundPoint    = AIBrainMethods.GetNumUnitsAroundPoint
+local GetThreatsAroundPosition  = AIBrainMethods.GetThreatsAroundPosition
+local GetThreatAtPosition       = AIBrainMethods.GetThreatAtPosition
+local GetUnitsAroundPoint       = AIBrainMethods.GetUnitsAroundPoint
 
 AIBrainMethods = nil
 
@@ -30,7 +30,12 @@ local GetPosition = moho.entity_methods.GetPosition
 local GetSurfaceHeight = GetSurfaceHeight 
 local GetTerrainHeight = GetTerrainHeight
 
-local SEARCHCATS = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
+local ALLUNITS      = categories.ALLUNITS
+local FACTORY       = categories.FACTORY
+local NOTUNIT       = categories.INSIGNIFICANTUNIT
+local WALL          = categories.WALL
+
+local SEARCHCATS = ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - WALL
 
 -- Adds an area to the brains MustScout table
 function AIAddMustScoutArea( aiBrain, location )
@@ -285,10 +290,15 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
                
                 counter = counter + 1                
                 tempMarkers[counter] = v
+
             end
         end
 
     end
+    
+    --if counter< 1 then
+      --  LOG("*AI DEBUG "..aiBrain.Nickname.." fails threatcheck in GetMarkers for "..markerType )    
+    --end
 	
 	return tempMarkers
 end
@@ -331,7 +341,7 @@ function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
 		
             local managers = aiBrain.BuilderManagers[v.Name]
 			
-            if managers.EngineerManager.EngineerList.Count == 0 and EntityCategoryCount( categories.FACTORY, managers.FactoryManager.FactoryList ) < 1 then 
+            if managers.EngineerManager.EngineerList.Count == 0 and EntityCategoryCount( FACTORY, managers.FactoryManager.FactoryList ) < 1 then 
 				return v.Position,v.Name
             end
         end
@@ -1017,7 +1027,7 @@ function ApplyCheatBuffs(unit)
 	local LOUDENTITY = EntityCategoryContains
 
     -- Cheatbuffs are NOT applied to Insignificant units or NUKE/ANTI-NUKE units --
-	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
+	if not LOUDENTITY( NOTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
     
         local aiBrain = GetAIBrain(unit)
         local ArmyIndex = aiBrain.ArmyIndex
@@ -1146,7 +1156,7 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     if aiBrain.BrainType == 'AI' then
 
         local ArmyIndex = aiBrain.ArmyIndex
-        local allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
+        local allUnits = aiBrain:GetListOfUnits(ALLUNITS, false, false)
     
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Army Pool Buff to "..repr(AIMult).." at time "..GetGameTimeSeconds() )
 
@@ -1192,7 +1202,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		local massValue = 0
 		
 		-- calc the mass value of allied units (negative)
-		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Ally' ) do
+		for k,v in GetUnitsAroundPoint( aiBrain, ALLUNITS - WALL, pos, 32, 'Ally' ) do
 		
 			if not v.Dead then
 				massValue = massValue - __blueprints[v.BlueprintID].Economy.BuildCostMass
@@ -1200,7 +1210,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		end
 		
 		-- and the mass value of enemy units (positive)
-		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Enemy' ) do
+		for k,v in GetUnitsAroundPoint( aiBrain, ALLUNITS - WALL, pos, 32, 'Enemy' ) do
 		
 			if not v.Dead then
 				massValue = massValue + __blueprints[v.BlueprintID].Economy.BuildCostMass
@@ -1214,7 +1224,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 	
 	local position = GetPosition(launcher)
 	
-    local targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' )
+    local targetUnits = GetUnitsAroundPoint( aiBrain, ALLUNITS - WALL, position, maxRange, 'Enemy' )
 	
 	local category, retUnit, retPostion, retAntis, distance
 	local unitPos, antinukes, dupTarget

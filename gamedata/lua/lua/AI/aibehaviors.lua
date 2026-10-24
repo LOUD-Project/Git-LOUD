@@ -79,6 +79,21 @@ local SetCustomName                 = UnitMethods.SetCustomName
 PlatoonMethods = nil
 UnitMethods = nil
 
+local AIR           = categories.AIR
+local ANTIAIR       = categories.ANTIAIR
+local ANTINAVY      = categories.ANTINAVY
+local BOMBER        = categories.BOMBER
+local EXPERIMENTAL  = categories.EXPERIMENTAL
+local GROUNDATTACK  = categories.GROUNDATTACK
+local HIGHALTAIR    = categories.HIGHALTAIR * ANTIAIR
+local LAND          = categories.LAND
+local NAVAL         = categories.NAVAL
+local SHIELD        = categories.SHIELD
+local STRUCTURE     = categories.STRUCTURE
+local WALL          = categories.WALL
+
+local ALLUNITS      = categories.ALLUNITS - WALL
+
 function CommanderThread( platoon, aiBrain )
 
     local WaitTicks = WaitTicks
@@ -310,9 +325,9 @@ function CDROverCharge( aiBrain, cdr )
 	
 			local GetNumUnitsAroundPoint = GetNumUnitsAroundPoint
 	
-			local distressUnitsNaval = GetNumUnitsAroundPoint( aiBrain, categories.NAVAL, distressLoc, 60, 'Enemy' ) 
-			local distressUnitsAir = GetNumUnitsAroundPoint( aiBrain, categories.AIR * (categories.BOMBER + categories.GROUNDATTACK) - categories.ANTINAVY, distressLoc, 60, 'Enemy' ) 
-			local distressUnitsexp = GetNumUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL, distressLoc, 150, 'Enemy' )
+			local distressUnitsNaval    = GetNumUnitsAroundPoint( aiBrain, NAVAL, distressLoc, 60, 'Enemy' ) 
+			local distressUnitsAir      = GetNumUnitsAroundPoint( aiBrain, BOMBER + GROUNDATTACK - ANTINAVY, distressLoc, 60, 'Enemy' ) 
+			local distressUnitsexp      = GetNumUnitsAroundPoint( aiBrain, EXPERIMENTAL, distressLoc, 150, 'Enemy' )
 		
 			if distressUnitsNaval > 2  or distressUnitsAir > 5 or distressUnitsexp > 0 then	
 			
@@ -362,7 +377,7 @@ function CDROverCharge( aiBrain, cdr )
 			IssueClearCommands( {cdr} )
 			
 			-- set target priorities
-			local priList = { categories.ENGINEER, categories.INDIRECTFIRE, categories.DIRECTFIRE, categories.CONSTRUCTION, categories.STRUCTURE }
+			local priList = { categories.ENGINEER, categories.INDIRECTFIRE, categories.DIRECTFIRE, categories.CONSTRUCTION, STRUCTURE }
 			
 			plat:SetPrioritizedTargetList( 'Attack', priList )
 			cdr:SetTargetPriorities( priList )
@@ -588,9 +603,9 @@ function CDRRunAway( aiBrain, cdr )
 
 		local GetNumUnitsAroundPoint = GetNumUnitsAroundPoint
 		
-        local nmeAir        = GetNumUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, cdr.CDRHome, 75, 'Enemy' )
-        local nmeLand       = GetNumUnitsAroundPoint( aiBrain, categories.COMMAND + (categories.LAND - categories.ANTIAIR), cdr.CDRHome, 75, 'Enemy' )
-		local nmeHardcore   = GetNumUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL, cdr.CDRHome, 120, 'Enemy' )
+        local nmeAir        = GetNumUnitsAroundPoint( aiBrain, BOMBER + GROUNDATTACK - ANTINAVY, cdr.CDRHome, 75, 'Enemy' )
+        local nmeLand       = GetNumUnitsAroundPoint( aiBrain, categories.COMMAND + (LAND - ANTIAIR), cdr.CDRHome, 75, 'Enemy' )
+		local nmeHardcore   = GetNumUnitsAroundPoint( aiBrain, EXPERIMENTAL, cdr.CDRHome, 120, 'Enemy' )
 		
 		-- immediate threats nearby - time to run		
         if nmeAir > 5 or nmeLand > 0 or nmeHardcore > 0 then
@@ -624,19 +639,19 @@ function CDRRunAway( aiBrain, cdr )
             local category = categories.DIRECTFIRE
 			
 			-- see if there are any shields nearby first
-			local nmaShield = GetNumUnitsAroundPoint( aiBrain, categories.SHIELD, cdrPos, 60, 'Ally' )
+			local nmaShield = GetNumUnitsAroundPoint( aiBrain, SHIELD, cdrPos, 60, 'Ally' )
 
 			local runShield = false
 			
 			if nmaShield > 0 then
 			
-				category = categories.SHIELD 
+				category = SHIELD 
 				runShield = true
 				
 			-- head for AA if air units
             elseif nmeAir > 5 then
 			
-                category = categories.ANTIAIR
+                category = ANTIAIR
             end
 			
             local runSpot, prevSpot
@@ -671,9 +686,9 @@ function CDRRunAway( aiBrain, cdr )
 				
                     cdrPos = GetPosition(cdr)
 					
-					nmeAir      = GetNumUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, cdr.CDRHome, 75, 'Enemy' )
-					nmeLand     = GetNumUnitsAroundPoint( aiBrain, categories.COMMAND + (categories.LAND - categories.ANTIAIR), cdr.CDRHome, 75, 'Enemy' )
-					nmeHardcore = GetNumUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL, cdr.CDRHome, 120, 'Enemy' )
+					nmeAir      = GetNumUnitsAroundPoint( aiBrain, BOMBER + GROUNDATTACK - ANTINAVY, cdr.CDRHome, 75, 'Enemy' )
+					nmeLand     = GetNumUnitsAroundPoint( aiBrain, categories.COMMAND + (LAND - ANTIAIR), cdr.CDRHome, 75, 'Enemy' )
+					nmeHardcore = GetNumUnitsAroundPoint( aiBrain, EXPERIMENTAL, cdr.CDRHome, 120, 'Enemy' )
 					
 					totalPercent = 1	-- default if no shield upgrade
 
@@ -760,8 +775,8 @@ function CDRHideBehavior( aiBrain, cdr )
 	    
         local category = false
 		
-		local nmaShield = GetNumUnitsAroundPoint( aiBrain, categories.SHIELD, cdr.CDRHome, 100, 'Ally' )
-		local nmaAA = GetNumUnitsAroundPoint( aiBrain, categories.ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
+		local nmaShield = GetNumUnitsAroundPoint( aiBrain, SHIELD, cdr.CDRHome, 100, 'Ally' )
+		local nmaAA = GetNumUnitsAroundPoint( aiBrain, ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
         local nmaDF = GetNumUnitsAroundPoint( aiBrain, categories.DIRECTFIRE, cdr.CDRHome, 80, 'Ally' )
 		
 		local runShield = false
@@ -769,12 +784,12 @@ function CDRHideBehavior( aiBrain, cdr )
 
 		if nmaShield > 0 then
 		
-			category = categories.SHIELD
+			category = SHIELD
 			runShield = true
 			
 		elseif nmaAA > 0 then
 		
-			category = categories.DEFENSE * categories.ANTIAIR
+			category = categories.DEFENSE * ANTIAIR
 			
 		elseif nmaDF > 0 then
         
@@ -986,8 +1001,8 @@ function AirScoutingAI( self, aiBrain )
 	local VDist3        = VDist3
     local VDist3Sq      = VDist3Sq
     
-    local UNITCHECK     = categories.ALLUNITS - categories.WALL
-    local OMNICHECK     = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
+    local UNITCHECK     = ALLUNITS
+    local OMNICHECK     = STRUCTURE * categories.INTELLIGENCE * categories.OMNI
 
     local CreationTime                  = self.CreationTime
     local MapSize                       = ScenarioInfo.size
@@ -1401,14 +1416,15 @@ function LandScoutingAI( self, aiBrain )
     local VDist3                    = VDist3
     
     local LOUDCOPY = LOUDCOPY
-    local UNITCHECK = categories.ALLUNITS - categories.WALL
-    local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
+    
+    local UNITCHECK     = ALLUNITS
+    local OMNICHECK     = STRUCTURE * categories.INTELLIGENCE * categories.OMNI
 
     local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
     local SendPlatoonWithTransportsLOUD = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
 
-    local MovementLayer = self.MovementLayer
-	local PlatoonPatrols = self.PlatoonData.Patrol or false
+    local MovementLayer     = self.MovementLayer
+	local PlatoonPatrols    = self.PlatoonData.Patrol or false
 	
     local dataList = GetPlatoonUnits(self)
 	
@@ -1850,9 +1866,9 @@ function NavalScoutingAI( self, aiBrain )
     local VDist2Sq  = VDist2Sq
     local VDist3    = VDist3
 
-    local UNITCHECK     = categories.ALLUNITS - categories.WALL
-    local OMNICHECK     = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
-    local SONARCHECK    = categories.STRUCTURE * categories.SONAR
+    local UNITCHECK     = ALLUNITS
+    local OMNICHECK     = STRUCTURE * categories.INTELLIGENCE * categories.OMNI
+    local SONARCHECK    = STRUCTURE * categories.SONAR
 
     local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
 
@@ -2229,7 +2245,7 @@ function RetreatAI( self, aiBrain )
 
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
     local GetPlatoonUnits           = GetPlatoonUnits    
-    local UNITCHECK                 = categories.ALLUNITS - categories.WALL
+    local UNITCHECK                 = ALLUNITS
     local WaitTicks                 = WaitTicks
     
     local ThreatCheck = 'Overall'
@@ -2490,7 +2506,7 @@ function NukeAI( self, aiBrain )
 					end
 
 					-- get an actual unit so we can plan for moving targets - do not target units that can fly -
-					for _, u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - (categories.AIR * categories.MOBILE), nukePos, 40, 'Enemy') do
+					for _, u in GetUnitsAroundPoint( aiBrain, ALLUNITS - (AIR * categories.MOBILE), nukePos, 40, 'Enemy') do
 						targetunit = u
 						break
 					end
@@ -3000,7 +3016,7 @@ function AirForceAILOUD( self, aiBrain )
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self      -- store the handle of the platoon to be guarded to the guardplatoon
-        guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
+        guardplatoon:SetPrioritizedTargetList( 'Attack', HIGHALTAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
@@ -3034,10 +3050,10 @@ function AirForceAILOUD( self, aiBrain )
     local SetLoiterPosition                                     = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     local type = type
 
-    local BOMBER        = categories.BOMBER
-    local GROUNDATTACK  = categories.GROUNDATTACK
-    local HIGHALTAIR    = categories.HIGHALTAIR
-    local UNITCHECK     = categories.ALLUNITS - categories.WALL
+    local BOMBER        = BOMBER
+    local GROUNDATTACK  = GROUNDATTACK
+    local HIGHALTAIR    = HIGHALTAIR
+    local UNITCHECK     = ALLUNITS
     
     if not GetPlatoonPosition(self) then
         return
@@ -3733,7 +3749,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
-        guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
+        guardplatoon:SetPrioritizedTargetList( 'Attack', HIGHALTAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
@@ -3770,9 +3786,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local threatrangeadjust = ScenarioInfo.IMAPRadius    
     local threatringrange   = LOUDFLOOR(IMAPblocks/2)
 
-    local SecondaryAA       = categories.ANTIAIR - categories.AIR
-    local SecondaryShield   = categories.SHIELD
-    local Tertiary          = categories.ALLUNITS - SecondaryAA - SecondaryShield - categories.AIR - categories.WALL
+    local SecondaryAA       = ANTIAIR - AIR
+    local SecondaryShield   = SHIELD
+    local Tertiary          = ALLUNITS - SecondaryAA - SecondaryShield - AIR
     
     local mult = { 1, 2, 2.65 }				-- this multiplies the searchradius of the platoon when searching for targets
 	local difficulty = { 1.2, 1, 0.8 }	    -- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
@@ -3926,8 +3942,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         --- this block will look for targets if there are any available 'Unassigned' units in the platoon
         if PlatoonExists(aiBrain, self) and attackercount > 0 then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS) * 1   -- use full value of surface threat
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)   -- plus any air threat
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS) * 1   -- use full value of surface threat
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', ALLUNITS)   -- plus any air threat
 
             if mythreat < 5 then
                 mythreat = 5
@@ -4310,8 +4326,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 		--- Cycle over the loiterposition or retreat
 		if PlatoonExists(aiBrain, self) then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS)
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS)
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', ALLUNITS)
 
             if mythreat < 5 then
                 mythreat = 5
@@ -4515,7 +4531,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
-        guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
+        guardplatoon:SetPrioritizedTargetList( 'Attack', HIGHALTAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
@@ -4553,8 +4569,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     local threatringrange   = LOUDFLOOR(IMAPblocks/2)
 
     local SecondaryAA       = categories.CRUISER
-    local SecondaryShield   = categories.SHIELD * categories.NAVAL
-    local Tertiary          = categories.NAVAL - SecondaryAA - SecondaryShield - categories.AIR - categories.WALL
+    local SecondaryShield   = SHIELD * NAVAL
+    local Tertiary          = NAVAL - SecondaryAA - SecondaryShield - AIR - WALL
     
     local mult = { 1, 2, 2.65 }				-- this multiplies the searchradius of the platoon when searching for targets
 	local difficulty = { 1.2, 1, 0.8 }	    -- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
@@ -4708,8 +4724,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
         --- this block will look for targets if there are any available 'Unassigned' units in the platoon
         if PlatoonExists(aiBrain, self) and attackercount > 0 then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS) * 1   -- use full value of surface threat if any
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Sub', categories.ALLUNITS)   -- plus any sub threat
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS) * 1   -- use full value of surface threat if any
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Sub', ALLUNITS)   -- plus any sub threat
 
             if mythreat < 5 then
                 mythreat = 5
@@ -5085,8 +5101,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 		--- Cycle over the loiterposition or retreat
 		if PlatoonExists(aiBrain, self) then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS)
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Sub', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS)
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Sub', ALLUNITS)
 
             if mythreat < 5 then
                 mythreat = 5
@@ -5276,7 +5292,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
-        guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
+        guardplatoon:SetPrioritizedTargetList( 'Attack', HIGHALTAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
@@ -5360,8 +5376,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS) * .65   -- use only 1/2 of surface threat for target search 
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)   -- plus any air threat
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS) * .65   -- use only 1/2 of surface threat for target search 
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', ALLUNITS)   -- plus any air threat
 
             if mythreat < 5 then
                 mythreat = 5
@@ -5438,9 +5454,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 TertiaryTargets = false
                 TertiaryCount = 0
             
-                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.ANTIAIR - categories.AIR, targetposition, threatcheckradius/2, 'Enemy')
-                SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
-                TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
+                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, ANTIAIR - AIR, targetposition, threatcheckradius/2, 'Enemy')
+                SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, SHIELD, targetposition, threatcheckradius/2, 'Enemy')
+                TertiaryTargets = GetUnitsAroundPoint( aiBrain, ALLUNITS - ANTIAIR - AIR - SHIELD, targetposition, threatcheckradius/4, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." bombers has target at "..repr(targetposition))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description))
@@ -5462,7 +5478,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 -- use strikerange to determine point from which to switch into attack mode
 				prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-				paththreat = (oldNumberOfUnitsInPlatoon * 1) + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + CalculatePlatoonThreat( self, 'Air', ALLUNITS)
 
                 path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
@@ -5658,8 +5674,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 		-- Attack until target is dead, beyond maxrange or retreat
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( GetPosition(target), loiterposition ) <= maxrange) do
            
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS) * .65   -- use 65% of surface threat
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)   -- plus any air threat
+            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS) * .65   -- use 65% of surface threat
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', ALLUNITS)   -- plus any air threat
             
             atthreat = 0
             
@@ -5771,7 +5787,7 @@ function NavalForceAILOUD( self, aiBrain )
          end
     else
         count = count + 1
-		categoryList[count] = categories.NAVAL
+		categoryList[count] = NAVAL
 	end
 
     --self:SetPrioritizedTargetList( 'Attack', categoryList )
@@ -5781,7 +5797,7 @@ function NavalForceAILOUD( self, aiBrain )
 	local platoonUnits = GetPlatoonUnits(self)
 	local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
-	local OriginalThreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+	local OriginalThreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
 
 	local navalmarkers = ScenarioInfo['Naval Area'] or AIGetMarkerLocations('Naval Area')
 	local combatmarkers = ScenarioInfo['Combat Zone'] or AIGetMarkerLocations('Combat Zone')
@@ -5978,7 +5994,7 @@ function NavalForceAILOUD( self, aiBrain )
 			targetlist = GetHiPriTargetList( aiBrain, platPos, targettypes, 2000, true )
 			targetvalue = 0
 
-            mythreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
 	
 			LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
 
@@ -6094,7 +6110,7 @@ function NavalForceAILOUD( self, aiBrain )
                         TargetPosition = v.Position
 
 						-- this is essentially the AVOIDS BASES function -- if we find an allied naval base there we'll just skip this BUT we'll keep it for later checking
-						if GetNumUnitsAroundPoint( aiBrain, categories.NAVAL * categories.STRUCTURE, TargetPosition, 75, 'Ally' ) > 0 then
+						if GetNumUnitsAroundPoint( aiBrain, NAVAL * STRUCTURE, TargetPosition, 75, 'Ally' ) > 0 then
 							continue
 						end
 						
@@ -6199,7 +6215,7 @@ function NavalForceAILOUD( self, aiBrain )
 					
 					if not v.Dead and LOUDENTITY ( categories.AIRSTAGINGPLATFORM, v) then
 
-						if GetOwnUnitsAroundPoint( aiBrain, categories.AIR * categories.MOBILE - categories.TRANSPORTFOCUS, GetPosition(v), 32) then
+						if GetOwnUnitsAroundPoint( aiBrain, AIR * categories.MOBILE - categories.TRANSPORTFOCUS, GetPosition(v), 32) then
 							
 							waitneeded = true
 
@@ -6402,7 +6418,7 @@ function NavalForceAILOUD( self, aiBrain )
 
                 oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 
-                OriginalThreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+                OriginalThreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
             end
 
         end
@@ -6460,14 +6476,14 @@ function NavalBombardAILOUD( self, aiBrain )
         end
     else
 		count = count + 1
-        categoryList[count] = categories.NAVAL
+        categoryList[count] = NAVAL
 	end
 
     self:SetPrioritizedTargetList( 'Attack', categoryList )
 
 	local platoonUnits              = GetPlatoonUnits(self)
 	local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
-	local OriginalThreat            = CalculatePlatoonThreat( self,'Overall', categories.ALLUNITS)
+	local OriginalThreat            = CalculatePlatoonThreat( self,'Overall', ALLUNITS)
 
 	-- get all the possible naval markers that we want the bombardment platoon to operate from
 	local navalmarkers = ScenarioInfo['Naval Area'] or AIGetMarkerLocations('Naval Area')
@@ -6531,7 +6547,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		target = false
         updatedtargetposition = false		
 
-		mythreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+		mythreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
 
 		maxRange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
 		
@@ -6657,7 +6673,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
 			targetvalue = 0
 
-            mythreat = CalculatePlatoonThreat( self,'Overall', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self,'Overall', ALLUNITS)
 
             if NavalBombardAIDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." mythreat is "..math.floor(mythreat).." here is the sorted targetlist "..repr(targetlist))
@@ -6888,7 +6904,7 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			end
 
-			mythreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+			mythreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
 
 			if PlatoonExists( aiBrain, self) and mythreat <= (OriginalThreat * .40) then
 			
@@ -6984,7 +7000,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
                 oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 
-                OriginalThreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+                OriginalThreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
 
                 if NavalBombardAIDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..self.BuilderName.." "..self.BuilderInstance.." completes merge to "..oldNumberOfUnitsInPlatoon.." units")
@@ -7032,7 +7048,7 @@ function EngineerTransferAI( self, aiBrain )
             
 			numUnits = EntityCategoryCount( Eng_Cat, engineerManager.EngineerList )
             
-			structurecount = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL, v.Position, 40, 'Ally'))
+			structurecount = LOUDGETN(aiBrain:GetUnitsAroundPoint( STRUCTURE - WALL, v.Position, 40, 'Ally'))
 			factorycount = LOUDGETN(factoryManager.FactoryList)
 			
 			capCheck = v.BaseSettings.EngineerCount[Eng_Type] or 1
@@ -8000,7 +8016,7 @@ function TMLThread( unit, aiBrain )
             
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." TML seeking target")
 			
-                targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
+                targetUnits = GetUnitsAroundPoint( aiBrain, ALLUNITS - AIR - categories.TECH1, position, maxRadius, 'Enemy' )
                 
                 if targetUnits[1] and not unit.HasTMLTarget then
                 
@@ -8024,7 +8040,7 @@ function TMLThread( unit, aiBrain )
                         -- if there is a target -- fire at it
                         if target and (not target.Dead) and not unit.Dead then
 			
-                            if LOUDENTITY(categories.STRUCTURE, target) then
+                            if LOUDENTITY(STRUCTURE, target) then
                             
                                 --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
                             
@@ -9122,11 +9138,11 @@ function AirLandToggleThread(unit, aiBrain)
 	
         position = GetPosition(unit)
 		
-        numAir = GetNumUnitsAroundPoint( aiBrain, ( categories.AIR ), position, antiAirRange, 'Enemy' )
-        numGround = GetNumUnitsAroundPoint( aiBrain, ( categories.ALLUNITS - categories.AIR - categories.WALL ), position, landRange, 'Enemy' )
+        numAir = GetNumUnitsAroundPoint( aiBrain, AIR, position, antiAirRange, 'Enemy' )
+        numGround = GetNumUnitsAroundPoint( aiBrain, ALLUNITS - AIR, position, landRange, 'Enemy' )
 		
-        frndAir = GetNumUnitsAroundPoint( aiBrain, ( categories.AIR * categories.ANTIAIR ), position, antiAirRange, 'Ally' )
-        frndGround = GetNumUnitsAroundPoint( aiBrain, ( categories.LAND + categories.NAVAL) - unitCat, position, landRange, 'Ally' )
+        frndAir = GetNumUnitsAroundPoint( aiBrain, AIR * ANTIAIR, position, antiAirRange, 'Ally' )
+        frndGround = GetNumUnitsAroundPoint( aiBrain, (LAND + NAVAL) - unitCat, position, landRange, 'Ally' )
 		
         if numAir > 5 and frndAir < 3 then
 		
@@ -9362,13 +9378,13 @@ function GetThreatOfUnits(platoon)
     end
 	
 	LOG("*AI DEBUG Platoon Threat for "..repr(platoon.BuilderName).." on layer "..repr(layer))
-	LOG("*AI DEBUG  AIR        is "..repr(platoon:CalculatePlatoonThreat('Air', categories.ALLUNITS)).." versus "..totalThreat)
-	LOG("*AI DEBUG ANTIAIR     is "..repr(platoon:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)).." versus "..totalThreat)
-	LOG("*AI DEBUG Artillery   is "..repr(platoon:CalculatePlatoonThreat('Air', categories.ALLUNITS)).." versus "..totalThreat)	
-	LOG("*AI DEBUG  LAND       is "..repr(platoon:CalculatePlatoonThreat('Land', categories.ALLUNITS)).." versus "..totalThreat)
-	LOG("*AI DEBUG  NAVAL      is "..repr(platoon:CalculatePlatoonThreat('Naval', categories.ALLUNITS)).." versus "..totalThreat)
-	LOG("*AI DEBUG SURFACE     is "..repr(platoon:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)).." versus "..totalThreat)
-	LOG("*AI DEBUG OVERALL IS     "..repr(platoon:CalculatePlatoonThreat('Overall', categories.ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG  AIR        is "..repr(platoon:CalculatePlatoonThreat('Air', ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG ANTIAIR     is "..repr(platoon:CalculatePlatoonThreat('AntiAir', ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG Artillery   is "..repr(platoon:CalculatePlatoonThreat('Air', ALLUNITS)).." versus "..totalThreat)	
+	LOG("*AI DEBUG  LAND       is "..repr(platoon:CalculatePlatoonThreat('Land', ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG  NAVAL      is "..repr(platoon:CalculatePlatoonThreat('Naval', ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG SURFACE     is "..repr(platoon:CalculatePlatoonThreat('AntiSurface', ALLUNITS)).." versus "..totalThreat)
+	LOG("*AI DEBUG OVERALL IS     "..repr(platoon:CalculatePlatoonThreat('Overall', ALLUNITS)).." versus "..totalThreat)
 	
     return totalThreat
 	
@@ -9426,7 +9442,7 @@ function FindLandExperimentalTargetLOUD( self, aiBrain )
 		
 		local notDeadUnit = false
 		
-		local unitsAtBase = aiBrain:GetUnitsAroundPoint( categories.ALLUNITS, base.Position, 70, 'Enemy')
+		local unitsAtBase = aiBrain:GetUnitsAroundPoint( ALLUNITS, base.Position, 70, 'Enemy')
 		
         for _, priority in SurfacePriorities do
             

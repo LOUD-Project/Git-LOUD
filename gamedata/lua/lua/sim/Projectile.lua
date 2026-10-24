@@ -61,6 +61,13 @@ local TrashDestroy      = TrashBag.Destroy
 
 local DefaultTerrainType = GetTerrainType( -1, -1 )
 
+local AIR           = categories.AIR
+local SATELLITE     = categories.SATELLITE
+local TORPEDO       = categories.TORPEDO
+local DIRECTFIRE    = categories.DIRECTFIRE
+local MISSILE       = categories.MISSILE
+local ANTIMISSILE   = categories.ANTIMISSILE
+
 local ALLBPS = __blueprints
 
 Projectile = Class( ProjectileMethods ) {
@@ -180,7 +187,7 @@ Projectile = Class( ProjectileMethods ) {
             self.AdvancedTrackinglock = nil
 		
             if not weapon then
-                targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
+                targetlist = GetUnitsAroundPoint( aiBrain, AIR - SATELLITE, position, self.range ,'ENEMY') 
             else
             
                 if not weapon:BeenDestroyed() then
@@ -385,10 +392,10 @@ Projectile = Class( ProjectileMethods ) {
 			--LOG("*AI DEBUG Projectile OnCollisionCheck ")
 		--end
         
-        local TORPEDO       = categories.TORPEDO
-        local DIRECTFIRE    = categories.DIRECTFIRE
-        local MISSILE       = categories.MISSILE
-        local ANTIMISSILE   = categories.ANTIMISSILE
+        local TORPEDO       = TORPEDO
+        local DIRECTFIRE    = DIRECTFIRE
+        local MISSILE       = MISSILE
+        local ANTIMISSILE   = ANTIMISSILE
 
         if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
@@ -884,7 +891,7 @@ Projectile = Class( ProjectileMethods ) {
 
         if self.DestroyOnImpact or not targetEntity or
 
-            (not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
+            (not self.DestroyOnImpact and targetEntity and not LOUDENTITY( ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
             
             Destroy(self)
         end 

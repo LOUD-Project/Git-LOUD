@@ -10,6 +10,10 @@ local VDist2Sq  = VDist2Sq
 local GetNumUnitsAroundPoint    = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetThreatsAroundPosition  = moho.aibrain_methods.GetThreatsAroundPosition
 
+local ARTY      = categories.ARTILLERY * categories.STRATEGIC
+
+local VEC0      = {0,0,0}
+
 
 function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threattype)
 	
@@ -57,7 +61,7 @@ end
 -- this adds a check for strategic artillery alongside a threat check
 function ThreatCloserThanOrArtillery( aiBrain, locationType, distance, threatcutoff, threattype)
 
-    if GetNumUnitsAroundPoint( aiBrain, categories.ARTILLERY * categories.STRATEGIC, {0,0,0}, 999999, 'Enemy' ) > 0 then
+    if GetNumUnitsAroundPoint( aiBrain, ARTY, VEC0, 999999, 'Enemy' ) > 0 then
         return true
     end
 	
@@ -135,11 +139,11 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 
             for _,v in threatTable do
 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees "..math.floor(v[3]).." "..threattype.." threat CLOSER than "..distance.." threat trigger is "..threatcutoff )
-
                 if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
                     if v[3] > threatcutoff then
+
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..locationType.." sees "..math.floor(v[3]).." "..threattype.." threat ("..threatcutoff..") at "..VDist2( v[1],v[2], position[1],position[3] ).." CLOSER than "..distance )
 
                         return false
                     end

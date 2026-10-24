@@ -40,6 +40,8 @@ local GetStat           = moho.unit_methods.GetStat
 local SetStat           = moho.unit_methods.SetStat
 local SetShieldRatio    = moho.unit_methods.SetShieldRatio
 
+local SHIELDPIERCE      = categories.SHIELDPIERCING or false
+
 Shield = Class(moho.shield_methods,Entity) {
 
     ShieldVerticalOffset = -1,
@@ -385,8 +387,8 @@ Shield = Class(moho.shield_methods,Entity) {
     OnCollisionCheck = function(self,other)
 	
 		-- credit Balthazar and PhilipJFry for diagnosing and repairing
-		if categories.SHIELDPIERCING then
-			if LOUDENTITY( categories.SHIELDPIERCING, other ) then
+		if SHIELDPIERCE then
+			if LOUDENTITY( SHIELDPIERCE, other ) then
 				return false
 			end
         end

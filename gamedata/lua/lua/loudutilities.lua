@@ -78,13 +78,19 @@ local ECONOMIC      = categories.ECONOMIC
 local FACTORY       = categories.FACTORY
 local MOBILE        = categories.MOBILE
 
-local AIRFACT3      = FACTORY * AIR * categories.TECH3
+local TECH1         = categories.TECH1
+local TECH3         = categories.TECH3
+
+local ACU           = categories.COMMAND
+local AIRFACT3      = FACTORY * AIR * TECH3
 local AIRPADS       = categories.AIRSTAGINGPLATFORM - MOBILE
-local EXTRACTORS    = categories.MASSEXTRACTION - categories.TECH1
-local FABRICATORS   = categories.MASSFABRICATION * categories.TECH3
+local ENGINEER      = categories.ENGINEER
+local EXTRACTORS    = categories.MASSEXTRACTION - TECH1
+local FABRICATORS   = categories.MASSFABRICATION * TECH3
 local NAVALFAC      = NAVAL * FACTORY 
 local NAVALMOBILE   = NAVAL * MOBILE
 local PARAGONS      = categories.MASSFABRICATION * categories.EXPERIMENTAL
+local SACU          = categories.SUBCOMMANDER
 
 local timeACTBrains = {}
 local ratioACTBrains = {}
@@ -753,7 +759,7 @@ function SpawnWaveThread( aiBrain )
 	end
 	
 	local initialdelay = true
-    local T3AIRFACS = AIR * FACTORY * categories.TECH3
+    local T3AIRFACS = AIR * FACTORY * TECH3
 
 	-- IF there is an initial units list then
 	-- spawnwave will begin once the first T3 Air Factory is online - check every 60 seconds until it does
@@ -861,7 +867,7 @@ function SpawnWaveThread( aiBrain )
 		end
 		
 		-- send everything in the core to a disperse point --
-		coreunits = GetFreeUnitsAroundPoint( aiBrain, MOBILE - categories.ENGINEER, {startx, 0, startz}, 26 )
+		coreunits = GetFreeUnitsAroundPoint( aiBrain, MOBILE - ENGINEER, {startx, 0, startz}, 26 )
 		
 		DisperseUnitsToRallyPoints( aiBrain, coreunits, aiBrain.BuilderManagers['MAIN'].Position, aiBrain.BuilderManagers['MAIN'].RallyPoints )
 		
@@ -1822,7 +1828,7 @@ function ClearOutBase( manager, aiBrain )
     if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts == 0 then
 
         -- all standard land units but Not experimentals 
-        local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * MOBILE) - categories.AMPHIBIOUS - ACU - ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
         if grouplndcount > 0 then
 
@@ -1856,7 +1862,7 @@ function ClearOutBase( manager, aiBrain )
         end
 	
         -- all amphibious land units including experimentals
-        local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * categories.AMPHIBIOUS * MOBILE) - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
+        local groupamphib, groupamphibcount = GetFreeUnitsAroundPoint( aiBrain, (LAND * categories.AMPHIBIOUS * MOBILE) - ACU - ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
         if groupamphibcount > 0 then
 
@@ -2181,7 +2187,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
         --- if transport - filter out the T1 airpads
         if LOUDENTITY( categories.TRANSPORTFOCUS, unit) then
-            plats = EntityCategoryFilterDown(AIRPADS - categories.TECH1, plats )
+            plats = EntityCategoryFilterDown(AIRPADS - TECH1, plats )
         end
 
 		if plats[1] then
@@ -2732,15 +2738,15 @@ function NameEngineerUnits( platoon, aiBrain )
 
 		if eng and not eng.Dead then
 
-			if LOUDENTITY( categories.ENGINEER - categories.SUBCOMMANDER - categories.COMMAND, eng ) and eng.PlatoonHandle.BuilderName then
+			if LOUDENTITY( ENGINEER - SACU - ACU, eng ) and eng.PlatoonHandle.BuilderName then
 
 				eng:SetCustomName("Eng " .. eng.EntityID .. ": " .. eng.PlatoonHandle.BuilderName)
 
-			elseif LOUDENTITY( categories.SUBCOMMANDER, eng) and eng.PlatoonHandle.BuilderName then
+			elseif LOUDENTITY( SACU, eng) and eng.PlatoonHandle.BuilderName then
 
 				eng:SetCustomName("SCU " .. eng.EntityID .. ": " .. eng.PlatoonHandle.BuilderName)
 
-			elseif LOUDENTITY( categories.COMMAND, eng) and eng.PlatoonHandle.BuilderName then
+			elseif LOUDENTITY( ACU, eng) and eng.PlatoonHandle.BuilderName then
 
 				eng:SetCustomName( aiBrain.Nickname.." ".. eng.PlatoonHandle.BuilderName)
 			end
@@ -4752,7 +4758,7 @@ function ParseIntelThread( aiBrain )
 		Air 			    = { 15 * ThresholdMult, 4.5, AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1 },
         AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - AIR, 5 },
         AntiSub             = { 8 * ThresholdMult, 26, categories.ALLUNITS - categories.WALL, 3 },
-		Commander 	    	= { 50, 67.5, categories.COMMAND, 13 },
+		Commander 	    	= { 50, 67.5, ACU, 13 },
 		Economy	    		= { 50, 33.8, ECONOMIC + FACTORY, 7 },
 		Land 			    = { 8 * ThresholdMult, 13.5, MOBILE - AIR - categories.ANTIAIR - categories.SCOUT, 3 },
 		Naval 		    	= { 8 * ThresholdMult, 9, MOBILE - AIR - categories.ANTIAIR - categories.SCOUT, 2 },
@@ -4760,7 +4766,7 @@ function ParseIntelThread( aiBrain )
         
 		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * MOBILE), 4,'ff00fec3', false },        
         --AntiSurface       = { 20 * ThresholdMult, 26, categories.STRUCTURE - categories.WALL, 4, 'ffaf00ff', true},
-		--Artillery 	    = { 60, 52, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'60ffff00', false },
+		--Artillery 	    = { 60, 52, (categories.ARTILLERY * categories.STRUCTURE - TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'60ffff00', false },
 	}
 
 
@@ -4852,12 +4858,11 @@ function ParseIntelThread( aiBrain )
     local STRUCTURE = categories.STRUCTURE
     
     local AIRUNITS  = (AIR * MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
-    local LANDUNITS = (LAND * MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
+    local LANDUNITS = (LAND * MOBILE) - categories.ANTIAIR - ENGINEER - categories.SCOUT
     local STATUNITS = STRUCTURE * DEFENSE - categories.ANTINAVY
     local NAVALUNITS = NAVALMOBILE + NAVALFAC + (STRUCTURE * categories.ANTINAVY)
-    local TECH1     = categories.TECH1
+
     local TECH2     = categories.TECH2
-    local TECH3     = categories.TECH3
 
 	WaitTicks( LOUDFLOOR(Random() * 25 + 1))	-- to avoid all the AI running at exactly the same tick
 
@@ -7185,7 +7190,7 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
         AntiAir             = categories.ANTIAIR - AIR,
 		Economy	    		= ECONOMIC + FACTORY,
 		StructuresNotMex    = categories.STRUCTURE - categories.WALL - ECONOMIC - categories.ANTIAIR,
-		Commander 	    	= categories.COMMAND,
+		Commander 	    	= ACU,
 	}
 
 	local EntityCategoryFilterDown  = EntityCategoryFilterDown

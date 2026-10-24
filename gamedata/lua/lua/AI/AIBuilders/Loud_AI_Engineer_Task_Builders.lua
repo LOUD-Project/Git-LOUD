@@ -9,6 +9,7 @@ local LUTL  = '/lua/loudutilities.lua'
 local BHVR  = '/lua/ai/aibehaviors.lua'
 
 local AIR           = categories.AIR
+local ANTIMISSILE   = categories.ANTIMISSILE
 local LAND          = categories.LAND
 local NAVAL         = categories.NAVAL
 local DEFENSE       = categories.DEFENSE
@@ -16,13 +17,15 @@ local ENGINEER      = categories.ENGINEER
 local EXPERIMENTAL  = categories.EXPERIMENTAL
 local FACTORY       = categories.FACTORY
 local MOBILE        = categories.MOBILE
-local SHIELD        = categories.SHIELD
+local SACU          = categories.SUBCOMMANDER
 local STRUCTURE     = categories.STRUCTURE
 
 local AIRPADS       = categories.AIRSTAGINGPLATFORM - MOBILE
 local AIRFAC        = AIR * FACTORY
+local ARTY          = STRUCTURE * categories.ARTILLERY
 local LANDFAC       = LAND * FACTORY
 local NAVALFAC      = NAVAL * FACTORY
+local SHIELD        = STRUCTURE * categories.SHIELD
 
 local TECH1         = categories.TECH1 
 local TECH2         = categories.TECH2
@@ -31,6 +34,7 @@ local TECH3         = categories.TECH3
 local DRAG          = categories.DRAGBUILD
 local ENERGYPROD    = categories.ENERGYPRODUCTION
 local ENERGYSTOR    = categories.ENERGYSTORAGE
+local HYDRO         = categories.HYDROCARBON
 local MASSPROD      = categories.MASSPRODUCTION
 local WALL          = categories.WALL
 
@@ -54,13 +58,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 		BuilderType = { 'Commander','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, (STRUCTURE * SHIELD - TECH2) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, SHIELD - TECH2 }},
             { UCBC, 'ShieldDamaged', { 'LocationType' }},
         },
 		
         BuilderData = {
             Assist = {
-                BeingBuiltCategories = {SHIELD * STRUCTURE - TECH2},
+                BeingBuiltCategories = { SHIELD - TECH2 },
                 Time = 25,
             },
         },
@@ -223,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
 
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE * categories.ARTILLERY, ENGINEER, 125 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', ARTY, ENGINEER, 125 }},
 
         },
 		
@@ -232,7 +236,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks', BuildersType = 'EngineerBuild
 				AssistRange = 125,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = ENGINEER,
-                BeingBuiltCategories = { (STRUCTURE * categories.ARTILLERY) },
+                BeingBuiltCategories = { ARTY },
                 Time = 150,
             },
         },
@@ -753,13 +757,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - ARTY - categories.SORTSTRATEGIC, 5, false }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 8, STRUCTURE * (categories.DIRECTFIRE + categories.INDIRECTFIRE) * TECH3, 15, 42 }},
         },
 		
         BuilderData = {
-			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ARTILLERY - categories.SORTSTRATEGIC},
+			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - ARTY - categories.SORTSTRATEGIC},
             ReclaimRange = 75,
         },
     },
@@ -780,11 +784,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures', Buil
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, STRUCTURE * ENERGYPROD * DRAG - TECH3 - EXPERIMENTAL - categories.HYDROCARBON, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, STRUCTURE * ENERGYPROD * DRAG - TECH3 - EXPERIMENTAL - HYDRO, 5, false }},
         },
 		
         BuilderData = {
-			Reclaim = {STRUCTURE * ENERGYPROD - TECH3 - EXPERIMENTAL - categories.HYDROCARBON},
+			Reclaim = {STRUCTURE * ENERGYPROD - TECH3 - EXPERIMENTAL - HYDRO},
             ReclaimRange = 75,
         },
     },
@@ -842,7 +846,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers', BuildersType = 'EngineerB
         },
 		
         BuilderData = {
-			TransferCategory = MOBILE * ENGINEER * TECH3 - categories.SUBCOMMANDER,
+			TransferCategory = MOBILE * ENGINEER * TECH3 - SACU,
 			TransferType = 'Tech3',
         },
     },
@@ -870,7 +874,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers', BuildersType = 'EngineerB
         },
 		
         BuilderData = {
-			TransferCategory = categories.SUBCOMMANDER,
+			TransferCategory = SACU,
 			TransferType = 'SCU',
         },
     },
@@ -901,11 +905,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ANTIMISSILE, 5, false }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - ANTIMISSILE, 5, false }},
         },
 		
         BuilderData = {
-			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - categories.ANTIMISSILE},
+			Reclaim = {TECH2 * STRUCTURE * DEFENSE * DRAG - WALL - SHIELD - ANTIMISSILE},
             ReclaimRange = 50,
         },
     },
@@ -1101,7 +1105,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
         },
 		
         BuilderData = {
-			TransferCategory = MOBILE * ENGINEER * TECH3 - categories.SUBCOMMANDER,
+			TransferCategory = MOBILE * ENGINEER * TECH3 - SACU,
 			TransferType = 'Tech3',
         },	
 	},
@@ -1125,14 +1129,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP', BuildersType = 'E
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
 			-- check that all the major components are in place
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.ANTIMISSILE * categories.SILO * TECH3, 1, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, ANTIMISSILE * categories.SILO * TECH3, 1, 24 }},
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, STRUCTURE * EXPERIMENTAL * categories.ANTIAIR, 1, 24 }},			
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, STRUCTURE * DEFENSE * TECH3 * categories.DIRECTFIRE, 1, 24 }},
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, STRUCTURE * SHIELD - categories.ANTIARTILLERY, 1, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY, 1, 24 }},
         },
 		
         BuilderData = {
-			TransferCategory = categories.SUBCOMMANDER,
+			TransferCategory = SACU,
 			TransferType = 'SCU',
         }
     },

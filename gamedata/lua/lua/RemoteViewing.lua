@@ -13,6 +13,8 @@ function RemoteViewing(SuperClass)
 
     local RemoteViewingDebug = false
     local dialog = "*AI DEBUG "
+    
+    local ANTITELEPORT  = categories.ANTITELEPORT
 
     return Class(SuperClass) {
 	
@@ -124,8 +126,7 @@ function RemoteViewing(SuperClass)
 
 			for num, brain in ArmyBrains do
 		
-				local unitList = brain:GetListOfUnits(categories.ANTITELEPORT, false, true)
-				--local location = self.RemoteViewingData.VisibleLocation
+				local unitList = brain:GetListOfUnits( ANTITELEPORT, false, true)
 			
 				for i, unit in unitList do
 

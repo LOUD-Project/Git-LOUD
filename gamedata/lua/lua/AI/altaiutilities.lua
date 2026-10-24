@@ -9,6 +9,7 @@ local LOUDCOPY      = table.copy
 local LOUDENTITY    = EntityCategoryContains
 local LOUDEQUAL     = table.equal
 local LOUDFLOOR     = math.floor
+local LOUDMAX       = math.max
 local LOUDGETN      = table.getn
 local LOUDINSERT    = table.insert
 local LOUDMERGED    = table.merged
@@ -37,6 +38,17 @@ local GetPlatoonUnits           = moho.platoon_methods.GetPlatoonUnits
 local GetUnitsAroundPoint       = moho.aibrain_methods.GetUnitsAroundPoint
 local PlatoonExists             = moho.aibrain_methods.PlatoonExists
 
+local TECH2         = categories.TECH2
+local TECH3         = categories.TECH3
+
+local ALLUNITS      = categories.ALLUNITS
+local ENGINEER      = categories.ENGINEER
+local EXTRACTORS    = categories.MASSEXTRACTION
+local MOBILE        = categories.MOBILE
+local STRUCTURE     = categories.STRUCTURE
+local SACU          = categories.SUBCOMMANDER
+local WALL          = categories.WALL
+
 
 local function NormalToBuildLocation(location)
 	return {location[1], location[3], 0}
@@ -53,8 +65,8 @@ function AssistBody(self, eng, aiBrain)
     local assistee = false
 	local assistRange = assistData.AssistRange or 80
 
-    local beingBuilt = assistData.BeingBuiltCategories or categories.ALLUNITS
-    local assisteeCat = assistData.AssisteeCategory or categories.ALLUNITS
+    local beingBuilt = assistData.BeingBuiltCategories or ALLUNITS
+    local assisteeCat = assistData.AssisteeCategory or ALLUNITS
 
 	local ass_count = 0
 	local beingbuiltcategory, assistList, platoonPos
@@ -141,7 +153,7 @@ function AssistBody(self, eng, aiBrain)
 		
         IssueGuard( {eng}, assistee )
 
-		if LOUDENTITY( categories.SUBCOMMANDER, eng ) then
+		if LOUDENTITY( SACU, eng ) then
 		
 			IssueGuard( {eng}, assistee )
 		end
@@ -155,7 +167,7 @@ function UnfinishedBody(self, eng, aiBrain)
 
     local assistData = self.PlatoonData.Assist
 
-    local beingBuilt = assistData.BeingBuiltCategories or categories.ALLUNITS
+    local beingBuilt = assistData.BeingBuiltCategories or ALLUNITS
     local range = assistData.Range or 80
     
     local position = aiBrain.BuilderManagers[self.BuilderLocation].Position
@@ -307,7 +319,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
                 -- check the location for allied structures at HALF the expansion radius --
 				if not removed then
             
-                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, expradius/2, 'Ally') < 1 then
+                    if GetNumUnitsAroundPoint( aiBrain, STRUCTURE - EXTRACTORS - WALL, position, expradius/2, 'Ally') < 1 then
 
                         return position, name
                     end
@@ -390,7 +402,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
                 -- check the location for allied structures at the expansion radius --
 				if not removed then
             
-                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, 72, 'Ally') < 1 then
+                    if GetNumUnitsAroundPoint( aiBrain, STRUCTURE - EXTRACTORS - WALL, position, 72, 'Ally') < 1 then
 
                         return position, name
                     end
@@ -527,7 +539,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
                 -- check the location for allied structures at the expansion radius --
 				if not removed then
             
-                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, 72, 'Ally') < 1 then
+                    if GetNumUnitsAroundPoint( aiBrain, STRUCTURE - EXTRACTORS - WALL, position, 72, 'Ally') < 1 then
 
                         return position, name
                     end
@@ -661,7 +673,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	return false, false
 end
 
--- finds Naval Areas - minimum range to ANY sea base is 200
+-- finds Naval Areas
 function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
@@ -685,6 +697,8 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 	
 		-- minimum range that a Naval Base can be from ANY existing base
 		local minimum_baserange = 175 + (ScenarioInfo.IMAPSize/8)
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Minimum Naval Area range is "..repr(minimum_baserange))
         
         local distance_from_base = false
         local distance_from_threat = false
@@ -720,7 +734,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 					-- too close to one of our other bases
 					if distance_from_base < minimum_baserange then
                     
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds position "..repr(position).." too close to "..basename.." at "..distance_from_base )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds position "..repr(position).." too close to "..basename.." at "..distance_from_base )
 
 						removed = true
 						break
@@ -749,7 +763,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
                         threatdistance = minimum_baserange / LOUDFLOOR( VDist2( v[1],v[2], position[1], position[3] ))
 
                         -- multiplied by relation to max threat allowed -- 
-                        threatdistance = math.max( 1, v[3]/tMax ) * threatdistance * distance_from_base
+                        threatdistance = LOUDMAX( 1, v[3]/tMax ) * threatdistance * distance_from_base
                     
                         if threatdistance > threatresult then
                             threatresult = threatdistance
@@ -773,10 +787,12 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
             LOUDSORT( choices, function(a,b) return a.DistThreatFactor < b.DistThreatFactor end )
             
             return choices[1].Position, choices[1].Name
+        else
+            LOG("*AI DEBUG "..aiBrain.Nickname.." finds no unused NAVALAREA within "..radius)
         end
-	end
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
+	else
+        LOG("*AI DEBUG "..aiBrain.Nickname.." find NAVALAREA has no source position")
+    end
 
 	return false, false
 end
@@ -1126,11 +1142,11 @@ function AIFindDefensiveAreaSorian( aiBrain, unit, category, range, runShield )
 				
                 for _,v in units do
 				
-                    if ( LOUDENTITY( categories.TECH3, v ) and not runShield ) or ( LOUDENTITY( categories.TECH3, v ) and runShield and v:ShieldIsOn() ) then
+                    if ( LOUDENTITY( TECH3, v ) and not runShield ) or ( LOUDENTITY( TECH3, v ) and runShield and v:ShieldIsOn() ) then
 					
                         tempNum = tempNum + 7
 						
-                    elseif ( LOUDENTITY( categories.TECH2, v ) and not runShield ) or ( LOUDENTITY( categories.TECH2, v ) and runShield and v:ShieldIsOn() ) then
+                    elseif ( LOUDENTITY( TECH2, v ) and not runShield ) or ( LOUDENTITY( TECH2, v ) and runShield and v:ShieldIsOn() ) then
 					
                         tempNum = tempNum + 4
 						
@@ -1142,15 +1158,15 @@ function AIFindDefensiveAreaSorian( aiBrain, unit, category, range, runShield )
 					
                 end
 				
-                local units = GetUnitsAroundPoint( aiBrain,categories.MOBILE, checkPos, gridSize, 'Enemy' )
+                local units = GetUnitsAroundPoint( aiBrain, MOBILE, checkPos, gridSize, 'Enemy' )
 				
                 for _,v in units do
 				
-                    if LOUDENTITY( categories.TECH3, v ) then
+                    if LOUDENTITY( TECH3, v ) then
 					
                         tempNum = tempNum - 10
 						
-                    elseif LOUDENTITY( categories.TECH2, v ) then
+                    elseif LOUDENTITY( TECH2, v ) then
 					
                         tempNum = tempNum - 5
 						
@@ -1198,7 +1214,7 @@ end
 
 function GetGuards( aiBrain, Unit)
 
-	local engs = GetUnitsAroundPoint( aiBrain, categories.ENGINEER, GetPosition(Unit), 20, 'Ally' )
+	local engs = GetUnitsAroundPoint( aiBrain, ENGINEER, GetPosition(Unit), 20, 'Ally' )
 	local count = 0
 	local UpgradesFrom = __blueprints[Unit.BlueprintID].General.UpgradesFrom
 

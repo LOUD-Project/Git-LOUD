@@ -60,6 +60,10 @@ local ForkThread = ForkThread
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 
+local AIR       = categories.AIR
+local LAND      = categories.LAND
+local NOTARGET  = categories.UNTARGETABLE
+
 
 SAirFactoryUnit = Class(FactoryUnit) {
 
@@ -107,7 +111,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
 
     RollOffUnit = function(self)
     
-        if EntityCategoryContains( categories.AIR, self.UnitBeingBuilt ) then
+        if EntityCategoryContains( AIR, self.UnitBeingBuilt ) then
         
             local vec = VectorCached
             local spin
@@ -126,7 +130,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
         local unitBuilding = self.UnitBeingBuilt
         
         -- If the unit being built isn't an engineer use normal rolloff
-        if not EntityCategoryContains( categories.LAND, unitBuilding ) then
+        if not EntityCategoryContains( LAND, unitBuilding ) then
 		
             FactoryUnit.RolloffBody(self)
 			
@@ -613,7 +617,7 @@ SEnergyBallUnit = Class(MobileUnit) {
 		    while true do
 			
 		        local location = self:GetPosition()
-		        local targets = aiBrain:GetUnitsAroundPoint( categories.LAND - categories.UNTARGETABLE, location, weaponMaxRange )
+		        local targets = aiBrain:GetUnitsAroundPoint( LAND - NOTARGET, location, weaponMaxRange )
 		        local filteredUnits = {}
 				
 		        for k,v in targets do

@@ -13,18 +13,24 @@ local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
 local LOUDGETN              = table.getn
 
+local TECH1             = categories.TECH1
+local TECH2             = categories.TECH2
+local TECH3             = categories.TECH3
+
 local AIR               = categories.AIR
 local AIRBOMBER         = AIR * categories.BOMBER
 local AIRGUNSHIP        = AIR * categories.GROUNDATTACK
 local AIRSCOUT          = AIR * categories.SCOUT
 local AIRTORP           = AIR * categories.ANTINAVY
-local AIRT2UP           = AIR - categories.TECH1
-local AIRT3             = AIR * categories.TECH3
+local AIRT2UP           = AIR - TECH1
+local AIRT3             = AIR * TECH3
+
+local ANTIAIR           = categories.ANTIAIR
 
 local FACTORY           = categories.FACTORY
-local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
+local HIGHALTAIRAA      = categories.HIGHALTAIR * ANTIAIR
 local TRANSPORTS        = categories.TRANSPORTFOCUS
-local TRANSPORTST2UP    = TRANSPORTS - categories.TECH1 - categories.GROUNDATTACK
+local TRANSPORTST2UP    = TRANSPORTS - TECH1 - AIRGUNSHIP
 
 
 local AboveUnitCap75 = function( self,aiBrain )
@@ -128,7 +134,7 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
         return 10, true
     end
 
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) <= 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, FACTORY * AIRT3, false, true )) <= 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -269,7 +275,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Fighters', BuildersRe
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 72}, HIGHALTAIRAA }},
             
 			--- stop if enemy has T2 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, ANTIAIR - TECH1, 'Enemy' }},
         },
 		
         BuilderType =  {'AirT1'},
@@ -384,7 +390,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Bombers', BuildersRes
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			-- stop making them if enemy has T2 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, ANTIAIR - TECH1, 'Enemy' }},
         },
 		
         BuilderType =  {'AirT1','AirT2'},
@@ -627,7 +633,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 6, [4096] = 6}, TRANSPORTS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 4, [2048] = 6, [4096] = 6}, TRANSPORTS * TECH1}},
         },
 
         BuilderType =  {'AirT1'},
@@ -675,7 +681,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 18, [2048] = 24, [4096] = 30}, TRANSPORTS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 18, [2048] = 24, [4096] = 30}, TRANSPORTS * TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -766,7 +772,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Transports', Builders
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, TRANSPORTST2UP, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 26}, TRANSPORTS * categories.TECH3}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 26}, TRANSPORTS * TECH3}},
         },
 
         BuilderType =  {'AirT3'},
