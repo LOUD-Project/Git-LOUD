@@ -35,11 +35,11 @@ do
             "ssb1313",
         },
         NUKE = {
-            --Nuke Mines
-            "srb2222",
-            "seb2222",
-            "sab2222",
-            "ssb2222",
+            --Nuke Mines (these mines are no longer NUKE in LOUD)
+            --"srb2222",
+            --"seb2222",
+            --"sab2222",
+            --"ssb2222",
             --Mobile Anti-Nukes
             "sal0321",
             "sel0321",
