@@ -1,3 +1,21 @@
+### Release 10-
+
+LUA 8.22
+Black Ops for LOUD 8.01
+BrewLAN for LOUD 0.8.8.9.133
+MAP - Anussons
+
+- typo fix for AEON T1 mine (cloaking not working)
+- removed hooked addition of NUKE category to T3 Demolition mines (they aren't really NUKE anymore)
+- BOACU Sera ACU target painter not being properly re-ranged (throwing LOG errors)
+- reinstated the 'Unfinished' task for engineers and re-prioritized it, and the 'Repair' mission
+- AI will now prioritize DP building based on the Attack Plan 'Method'
+- extensive additional category optimizations in builders and other places
+- additional AI Debug logging of the 3 bias calculations
+- Anussons - remarked map - no change to starts or resources
+
+
+
 ### Release 10-16-2026
 
 LUA 8.21
