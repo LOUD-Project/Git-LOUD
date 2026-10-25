@@ -1020,7 +1020,7 @@ function InitializeArmies()
 
                     if aiBrain.OutnumberedRatio >= 1.5 and ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
                     
-                        aiBrain:OnSpawnPreBuiltUnits( math.max(1, aiBrain.OutnumberedRatio/aiBrain.VeterancyMult) )
+                        aiBrain:OnSpawnPreBuiltUnits( math.max(1, aiBrain.OutnumberedRatio) )
                     
                     end
                 end

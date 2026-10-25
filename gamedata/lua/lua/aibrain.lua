@@ -1033,16 +1033,16 @@ AIBrain = Class(moho.aibrain_methods) {
             multM   =  2
             engy    =  1
 
-            local outnumberfactor = math.max(1, (self.OutnumberedRatio/math.max(1,self.CheatValue or 1))) 
+            local outnumberfactor = math.max(1, self.OutnumberedRatio) 
         
             LOG("     "..self.Nickname.." Applying Pre-Built units - factor "..outnumberfactor)
             
-            -- if outnumbered (includes cheat factored in) more than 1.25
+            -- if outnumbered more than 1.25
             if outnumberfactor >= 1.25 then
             
-                multE   =  multE + math.round(outnumberfactor +.2)
-                multM   =  multM + math.round(outnumberfactor -.35)
-                engy    =  engy + math.round(outnumberfactor -.25)
+                multE   =  multE * math.round(outnumberfactor +.2)
+                multM   =  multM * math.round(outnumberfactor -.35)
+                engy    =  engy * math.round(outnumberfactor)
                 
             end
             
