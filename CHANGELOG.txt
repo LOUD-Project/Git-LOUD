@@ -1,4 +1,13 @@
-### Release 10-
+### Release 10-25-2026
+
+LUA 8.23
+
+- fixed pre-built unit calculations for an Outnumbered AI
+- Using LUTL based functions, with localized categories, can throw data format errors - now using fully realized categories
+- turned off an AI Debug option that I had left turned on
+
+
+### Release 10-23-2026
 
 LUA 8.22
 Black Ops for LOUD 8.01
