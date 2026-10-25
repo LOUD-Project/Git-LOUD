@@ -27,6 +27,14 @@ local DESTROYER     = categories.DESTROYER
 local FRIGATE       = categories.FRIGATE
 local SUBMARINE     = categories.SUBMARINE + categories.xes0102
 
+local DEFENSE       = categories.DEFENSE
+local ECONOMIC      = categories.ECONOMIC
+local FACTORY       = categories.FACTORY
+local MOBILE        = categories.MOBILE
+local NAVAL         = categories.NAVAL
+local STRUCTURE     = categories.STRUCTURE
+local NUKE          = categories.NUKE
+
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations', BuildersType = 'PlatoonFormBuilder',
 
     Builder {BuilderName = 'Water Scout Formation',
@@ -231,7 +239,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			MissionTime = 1500,		-- 25 minute mission			
 			
 			PointType = 'Unit',
-			PointCategory = categories.ECONOMIC + categories.FACTORY,
+			PointCategory = ECONOMIC + FACTORY,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 2000,
@@ -239,7 +247,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			PointMin = 200,
 			PointMax = 2000,
 			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE,
+			StrCategory = STRUCTURE * DEFENSE,
 			StrRadius = 32,
 			StrTrigger = false,
 			StrMin = -1,
@@ -250,7 +258,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
             ThreatRings = 0,
             ThreatType = 'AntiSub',
 			
-			UntCategory = categories.NAVAL * categories.MOBILE,
+			UntCategory = NAVAL * MOBILE,
 			UntRadius = 64,
 			UntTrigger = false,
 			UntMin = -1,
@@ -1517,7 +1525,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
 		BuilderConditions = {
 		
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.NUKE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, NUKE }},
 			
         },
     },
@@ -1539,7 +1547,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                 return 10, true
             end
 
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.MOBILE * categories.NAVAL, manager.Location, manager.Radius ) < 2 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, MOBILE * NAVAL, manager.Location, manager.Radius ) < 2 then 
                 return 11, true
             end
 
