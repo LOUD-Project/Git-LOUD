@@ -280,6 +280,7 @@ options = {
             },
         },
     },
+    
     ui = {
         title = "Interface",
         key = 'ui',
@@ -651,6 +652,7 @@ options = {
         title = "Video",
         key = 'video',
         items = {
+
             {
                 title = "Primary Adapter",
                 key = 'primary_adapter',
@@ -778,6 +780,8 @@ options = {
                     },
                 },
             },
+
+            
             {
                 title = "Render Sky",
                 key = 'render_skydome',
@@ -1063,4 +1067,5 @@ options = {
             },
         },
     },
+
 }

@@ -872,7 +872,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
-            { LUTL, 'PoolLess', { 60, AMPHIBIOUS }},
+            { LUTL, 'PoolLess', { 60, categories.AMPHIBIOUS }},
 
             --- ok - we use a general amphibious check since units in this class are NOT necessarily DIRECTFIRE
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, AMPHIBIOUS, LAND }},
@@ -919,7 +919,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 4, LANDT3 }},
 
-            { LUTL, 'PoolLess', { 60, DIRECTFIRELAND * AMPHIBIOUS * LANDT2 }},
+            { LUTL, 'PoolLess', { 60, categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, DIRECTFIRELAND * AMPHIBIOUS * LANDT2, LAND }},
         },
@@ -942,7 +942,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
 
-			{ LUTL, 'PoolLess', { 20, ANTIAIRLAND - TECH1 }},
+			{ LUTL, 'PoolLess', { 20, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, ANTIAIRLAND, LAND }},
 
