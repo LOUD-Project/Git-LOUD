@@ -10,14 +10,14 @@ local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
-local AboveUnitCap80 = function( self,aiBrain )
-	
-	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
-		return 10, true
-	end
-	
-	return (self.OldPriority or self.Priority), true
-end
+local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
+local UnistLessAtLocation                           = import(UCBC).UnitsLessAtLocation
+
+local OPTICS    = categories.OPTICS
+local RADAR     = categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE
+local SONAR     = categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE
+local T3ENERGY  = categories.ENERGYPRODUCTION * categories.TECH3
+
 
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions', BuildersType = 'EngineerBuilder',
 	
@@ -28,14 +28,27 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions', Bui
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 760,
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
         
-        PriorityFunction = AboveUnitCap80,
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, RADAR ) then
+                return 12, true
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
-			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
         },
 		
@@ -60,14 +73,27 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions', Bui
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 760,
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
         
-        PriorityFunction = AboveUnitCap80,
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, RADAR ) then
+                return 12, true
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
 		
         BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
-			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
         },
 		
@@ -96,13 +122,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders', BuildersType = 'Engi
 		
         Priority = 750,
 
-        PriorityFunction = AboveUnitCap80,
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, SONAR ) then
+                return 12, true
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
 
         BuilderType = { 'T2' },
 		
         BuilderConditions = {
-			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
-
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
         },
 		
@@ -130,18 +169,33 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
         Priority = 760,
+
+        PriorityFunction = function( builder, aiBrain, unit, manager )
         
-        PriorityFunction = AboveUnitCap80,
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
+            
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 2, T3ENERGY ) then
+                return 11, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 1, OPTICS ) then
+                return 12, true
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, categories.OPTICS }},
         },
 		
         BuilderType = { 'T3','SubCommander' },
@@ -168,7 +222,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
         
         Priority = 760,
 
-        PriorityFunction = AboveUnitCap80,
+        PriorityFunction = function( builder, aiBrain, unit, manager )
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+	
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .8 then
+                return 10, true
+            end
+            
+            if UnitsLessAtLocation( aiBrain, manager.LocationType, 2, T3ENERGY ) then
+                return 11, true
+            end
+            
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, OPTICS ) then
+                return 12, true
+            end
+
+            return (builder.OldPriority or builder.Priority), true
+        end,
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -177,10 +250,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction', BuildersType = 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
-			
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.OPTICS }},
         },
 		
         BuilderType = { 'T3','SubCommander' },

@@ -163,6 +163,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         Priority = 600,
         
         PriorityFunction = function(self, aiBrain)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
 	
             if aiBrain.CycleTime < 180 then
                 return 10, true
@@ -203,6 +207,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         Priority = 600,
         
         PriorityFunction = function(self, aiBrain)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
        
             if not GreaterThanEnergyIncome( aiBrain, 1800 ) then
                 return 10, true

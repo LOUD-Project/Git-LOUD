@@ -35,6 +35,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
         Priority = 812,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+            
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
         
             -- this builder is limited by time AND mapsize
             if aiBrain.CycleTime < 360 and ScenarioInfo.IMAPSize > 64 then
@@ -74,6 +78,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		PriorityFunction = function(self, aiBrain, manager)
         
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
+        
             if aiBrain.CycleTime < 330 then
                 return 10, true
             end
@@ -105,6 +113,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
         Priority = 810,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
         
             if aiBrain.CycleTime < 300 then
                 return 10, true
@@ -139,6 +151,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
         Priority = 810,
 
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
         
             -- remove this task on maps 20k or less
             if ScenarioInfo.IMAPSize <= 64 then 
@@ -180,6 +196,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		-- this function removes the builder after 45 minutes
 		PriorityFunction = function(self, aiBrain, manager)
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
 
 			if aiBrain.CycleTime > 2700 then
 				return 0, false
@@ -212,6 +231,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		-- this function starts it at 12
         -- and removes it at 75 minutes 
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
         
             if aiBrain.CycleTime < 720 then
                 return 10, true
@@ -249,6 +272,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts', BuildersRestriction 
 		
 		-- this function starts it at 25
 		PriorityFunction = function(self, aiBrain, manager)
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
 
             if aiBrain.CycleTime < 1500 then
                 return 10, true

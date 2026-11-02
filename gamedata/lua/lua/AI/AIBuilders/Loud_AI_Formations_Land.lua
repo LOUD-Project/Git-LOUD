@@ -132,6 +132,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
             
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 2 then 
                 return 10, true
@@ -162,6 +166,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
         Priority = 800,
 		
 		PriorityFunction = function(self, aiBrain, manager)
+        
+            if aiBrain.NoFogOfWar then
+                return 0, false
+            end
             
             if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDSCOUT, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
