@@ -72,7 +72,16 @@ function CreateInitialArmyGroup(strArmy, createCommander)
         cdrUnit = CreateInitialArmyUnit(strArmy, initialUnitName)
 
         if EntityCategoryContains(categories.COMMAND, cdrUnit) then
+        
+            for _, brain in ArmyBrains do
 
+                if IsEnemy(army.ArmyIndex, brain.ArmyIndex) and not ArmyIsCivilian(brain.ArmyIndex) then
+                
+                    brain:AssignThreatAtPosition( cdrUnit:GetPosition(), 5000, 0.03, 'Economy' )
+
+                end
+            end
+            
             if ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
                 cdrUnit:HideBone(0, true)
                 ForkThread(CommanderWarpDelay, cdrUnit, 3)

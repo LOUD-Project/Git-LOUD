@@ -1304,16 +1304,23 @@ local Game = {}
 function GetReplayId()
     local id = nil
  
-    local syncID = GetFrontEndData('syncreplayid')
+    --local syncID = GetFrontEndData('syncreplayid')
+    
     if HasCommandLineArg("/syncreplay") and syncID ~= nil and syncID ~= 0 then
+
         id = syncID
         log.Trace('GetReplayId()... from cmd /syncreplay' )
+
     elseif HasCommandLineArg("/savereplay") then
+
         local url = GetCommandLineArg("/savereplay", 1)[1]
         local lastpos = string.find(url, "/", 20)
+
         id = string.sub(url, 20, lastpos-1)
         log.Trace('GetReplayId()... from cmd /savereplay' )
+
     elseif HasCommandLineArg("/replayid") then
+
         id =  GetCommandLineArg("/replayid", 1)[1]
         log.Trace('GetReplayId()... from cmd /replayid' )
     end 

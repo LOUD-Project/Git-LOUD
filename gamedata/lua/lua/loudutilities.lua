@@ -2944,6 +2944,8 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 	-- get the map dimension sizes
 	local Mx = ScenarioInfo.size[1]
 	local Mz = ScenarioInfo.size[2]	
+    
+    --LOG("*AI DEBUG Orientation is "..repr(Orient))
 	
 	if orientation then
 	
@@ -2957,8 +2959,10 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             
             --LOG("*AI DEBUG Getting Orientation for location "..repr(location).." on tick "..GetGameTick() )
 			
-			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Overall' )
+			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Economy' )
 
+            --LOG("AI DEBUG Threats around position are "..repr(threats))
+            
 			LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
 		
             local counter = 0
@@ -2975,8 +2979,8 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             
             --- if there are no threats on the map - then orient towards middle of the map
             if counter == 0 then
-            
-                --LOG("*AI DEBUG No threats were found for location "..repr(location) )
+       
+                LOG("*AI DEBUG No threats were found for location "..repr(location) )
 
                 avgposition[1] = Mx/2
                 avgposition[3] = Mz/2
@@ -2984,6 +2988,8 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             end
             
 			Direction = GetDirectionInDegrees( {avgposition[1]/counter, location[2], avgposition[3]/counter}, location )
+            
+            --LOG("*AI DEBUG Direction is "..repr(Direction))
 
 			if Direction then
 			

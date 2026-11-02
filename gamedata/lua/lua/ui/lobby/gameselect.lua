@@ -1177,6 +1177,7 @@ function CreateUI(over, exitBehavior, useSteam)
     ForkThread(function()
         gameList._tabs[2]:OnClick()
     end)
-	
-	InternalStartSteamDiscoveryService()
+
+    InternalStartSteamDiscoveryService()
+
 end

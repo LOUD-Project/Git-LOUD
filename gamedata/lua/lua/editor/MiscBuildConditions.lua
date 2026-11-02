@@ -135,3 +135,4 @@ function BaseInPlayableArea( aiBrain, locationType )
 
 end
 
+
