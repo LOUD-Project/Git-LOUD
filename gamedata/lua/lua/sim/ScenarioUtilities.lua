@@ -1199,6 +1199,13 @@ function InitializeSkirmishSystems(self)
     else
         self:SetResourceSharing(true)
     end
+    
+    if ScenarioInfo.Options.FogOfWar == 'none' then
+    
+        LOG("*AI DEBUG "..self.Nickname.." Fog of War turned off")
+        
+        self.NoFogOfWar = true
+    end
 
     -- Create the Condition monitor
     self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
