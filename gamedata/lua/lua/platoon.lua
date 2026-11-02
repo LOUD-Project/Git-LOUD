@@ -4927,57 +4927,54 @@ Platoon = Class(PlatoonMethods) {
 			PSource = {startx, 0, startz}
 		end
 		
-		local PFaction = self.PlatoonData.PointFaction or 'Ally'	 	
-		local PRadius = self.PlatoonData.PointRadius or 999999			
-		local PSort = self.PlatoonData.PointSort or 'Closest'			
-		local PMin = self.PlatoonData.PointMin or 1						
-		local PMax = self.PlatoonData.PointMax or 999999				
+		local PFaction  = self.PlatoonData.PointFaction or 'Ally'	 	
+		local PRadius   = self.PlatoonData.PointRadius or 999999			
+		local PSort     = self.PlatoonData.PointSort or 'Closest'			
+		local PMin      = self.PlatoonData.PointMin or 1						
+		local PMax      = self.PlatoonData.PointMax or 999999				
 		
-		local StrCat = self.PlatoonData.StrCategory or nil	
-		local StrRadius = self.PlatoonData.StrRadius or 20
-		local StrTrigger = self.PlatoonData.StrTrigger or false
-		local StrMin = self.PlatoonData.StrMin or 0
-		local StrMax = self.PlatoonData.StrMax or 99
+		local StrCat        = self.PlatoonData.StrCategory or nil	
+		local StrRadius     = self.PlatoonData.StrRadius or 20
+		local StrTrigger    = self.PlatoonData.StrTrigger or false
+		local StrMin        = self.PlatoonData.StrMin or 0
+		local StrMax        = self.PlatoonData.StrMax or 99
         
-        local ThreatMin = self.PlatoonData.ThreatMin or -999            -- control minimum threat so we can go to points WITH threat if provided
-        local ThreatMaxRatio = self.PlatoonData.ThreatMaxRatio or 0.8   -- control maximum threat based on platoon value
-        local ThreatRings = self.PlatoonData.ThreatRings or 0           -- allow use of 'rings' value
-        local ThreatType = self.PlatoonData.ThreatType or 'AntiSurface'
+        local ThreatMin         = self.PlatoonData.ThreatMin or -999        -- control minimum threat so we can go to points WITH threat if provided
+        local ThreatMaxRatio    = self.PlatoonData.ThreatMaxRatio or 0.8    -- control maximum threat based on platoon value
+        local ThreatRings       = self.PlatoonData.ThreatRings or 0         -- allow use of 'rings' value
+        local ThreatType        = self.PlatoonData.ThreatType or 'AntiSurface'
 
-		local UntCat = self.PlatoonData.UntCategory or nil	
-		local UntRadius = self.PlatoonData.UntRadius or 20
-		local UntTrigger = self.PlatoonData.UntTrigger or false
-		local UntMin = self.PlatoonData.UntMin or 0
-		local UntMax = self.PlatoonData.UntMax or 99
+		local UntCat        = self.PlatoonData.UntCategory or nil	
+		local UntRadius     = self.PlatoonData.UntRadius or 20
+		local UntTrigger    = self.PlatoonData.UntTrigger or false
+		local UntMin        = self.PlatoonData.UntMin or 0
+		local UntMax        = self.PlatoonData.UntMax or 99
 		
 		if PType == 'Unit' and type(PCat) == 'string' then
-		
 			PCat = LOUDPARSE(PCat)
 		end
 		
 		if type(StrCat) == 'string' then
-		
 			StrCat = LOUDPARSE(StrCat)
 		end
 		
 		if type(UntCat) == 'string' then
-		
 			UntCat = LOUDPARSE(UntCat)
 		end
 		
-		local AssistRange = self.PlatoonData.AssistRange or 0	
-        local guardTimer = self.PlatoonData.GuardTimer or 600	
+		local AssistRange       = self.PlatoonData.AssistRange or 0	
+        local guardTimer        = self.PlatoonData.GuardTimer or 600	
 		
-		local MissionTimer = self.PlatoonData.MissionTime or 1200
+		local MissionTimer      = self.PlatoonData.MissionTime or 1200
 		
-		local guardRadius = self.PlatoonData.GuardRadius or 75	
-		local MergeLimit = self.PlatoonData.MergeLimit or false	
+		local guardRadius       = self.PlatoonData.GuardRadius or 75	
+		local MergeLimit        = self.PlatoonData.MergeLimit or false	
         
-        local bAggroMove = self.PlatoonData.AggressiveMove or false
-        local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
+        local bAggroMove        = self.PlatoonData.AggressiveMove or false
+        local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
 
-		local allowinwater = self.PlatoonData.AllowInWater or 'true'
-		local AvoidBases = self.PlatoonData.AvoidBases or 'false'
+		local allowinwater      = self.PlatoonData.AllowInWater or 'true'
+		local AvoidBases        = self.PlatoonData.AvoidBases or 'false'
 		
 		local categoryList = {}
 		

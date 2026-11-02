@@ -513,7 +513,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             local val = BuffCalculate(unit, buffName, 'RadarRadius', __blueprints[unit.BlueprintID].Intel.RadarRadius or 0)
 
-			if val > 0 then
+			if val >= 1 then
+            
 				if not unit:IsIntelEnabled('Radar') then
 					unit:InitIntel(unit.Army,'Radar', val)
 					EnableIntel( unit, 'Radar')

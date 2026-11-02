@@ -6074,11 +6074,9 @@ function BuildScoutLocations( self )
                         LOUDINSERT(self.IL.MustScout, { Created = GetGameTimeSeconds() + 360, Position = startPos, TaggedBy = false } )
 
                         -- mark if enemy base is within 12km (danger close)
-                        local enemydistance = VDist3(myStart, startPos)
-                        
-                        if enemydistance < 600  and not self.EnemyBaseNear then
+                        if VDist3(myStart, startPos) < 600  and not self.EnemyBaseNear then
 
-                            LOG("     "..self.Nickname.." distance to enemy is "..enemydistance)
+                            LOG("     "..self.Nickname.." distance to enemy is "..VDist3(myStart, startPos))
                             
                             self.EnemyBaseNear = true
                         end
