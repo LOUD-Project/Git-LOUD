@@ -3,12 +3,11 @@
 -- Constructs All Base Defenses and Shields
 
 local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
-local BaseInPlayableArea                            = import(MIBC).BaseInPlayableArea
+local BaseInPlayableArea                            = import('/lua/editor/MiscBuildConditions.lua').BaseInPlayableArea
 local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
 local HaveGreaterThanUnitsWithCategoryAndAlliance   = import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance
 local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
@@ -21,8 +20,6 @@ local STRUCTURE     = categories.STRUCTURE
 local TECH1         = categories.TECH1
 local TECH2         = categories.TECH2
 local TECH3         = categories.TECH3
-
-
 
 local AA            = STRUCTURE * categories.ANTIAIR
 local AIRPAD        = categories.AIRSTAGINGPLATFORM
@@ -76,15 +73,6 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 	
 end
 
-local IsPrimaryBase = function(self,aiBrain,manager)
-	
-	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.OldPriority or self.Priority, true
-	end
-
-	return 10, true
-end
-
 -- this function will remove the builder if this is not a NAVAL map (water - but no naval markers)
 local IsNavalMap = function( self, aiBrain, manager)
 
@@ -102,24 +90,6 @@ end
 
 -- These 2 New Functions will enable LOUD to prioritize defenses if a ratio falls below a certain value
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
-local IsEnemyCrushingLand = function( builder, aiBrain, unit )
-
-    if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 360 then
-	
-		return (builder.OldPriority or builder.Priority) + 100, true	
-
-    end
-    
-    local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
-
-    if threat > 150 then
-
-        return (builder.OldPriority or builder.Priority) + 100, true
-        
-    end
-    
-    return (builder.OldPriority or builder.Priority), true
-end
 
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
@@ -129,21 +99,6 @@ local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
     end
     
-    return (builder.OldPriority or builder.Priority), true
-end
-
-local IsEnemyCrushingNaval = function( builder, aiBrain, unit )
-
-	if aiBrain.NavalRatio and ( aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 1.0 ) then
-
-        if aiBrain.CycleTime > 480 then
-	
-            return (builder.OldPriority or builder.Priority) + 100, true	
-
-        end
-    
-    end
-
     return (builder.OldPriority or builder.Priority), true
 end
 
@@ -1485,12 +1440,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction', BuildersType = 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 745,
-
+		
+		PriorityFunction = function(builder, aiBrain, unit, manager)
+      
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
+                return 0, false
+            end
+			
+			return (builder.OldPriority or builder.Priority)
+		end,
+	
 		InstanceCount = 2,
         
         BuilderConditions = {
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
@@ -2112,18 +2074,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction', BuildersType = 'E
         Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.CycleTime < 240 then
+                return 11, true
+            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD ) then
-            
                 return 12, true
-             
             end
     
             return (self.OldPriority or self.Priority), true
         end,
 
         BuilderConditions = {
-			{ MIBC, 'GreaterThanGameTime', { 240 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
@@ -2214,6 +2177,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         Priority = 846,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if aiBrain.CycleTime < 240 then
+                return 10, true
+            end
 
             if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, AIRPAD ) then
                 return 10, false
@@ -2223,8 +2190,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small', BuildersT
         end,
 
         BuilderConditions = {
-			{ MIBC, 'GreaterThanGameTime', { 240 } },
-
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
 			{ EBC, 'GreaterThanEnergyTrend', { 15 }},
@@ -3215,12 +3180,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter', Bui
         
         Priority = 745,
 		
+		PriorityFunction = function(builder, aiBrain, unit, manager)
+      
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
+                return 0, false
+            end
+			
+			return (builder.OldPriority or builder.Priority)
+		end,
+		
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
-
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3600 }},
 
@@ -5979,12 +5951,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard', BuildersType =
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+		
+		PriorityFunction = function(builder, aiBrain, unit, manager)
+      
+            if not BaseInPlayableArea( aiBrain, manager.LocationType ) then
+                return 0, false
+            end
+			
+			return (builder.OldPriority or builder.Priority)
+		end,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-        
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
