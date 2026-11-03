@@ -91,9 +91,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5000,
+        BuildCostEnergy = 5250,
         BuildCostMass = 395,
-        BuildTime = 2000,
+        BuildTime = 2200,
     },
 
     General = {
@@ -139,9 +139,9 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 0.9,
+        MaxAcceleration = 0.8,
         MaxBrake = 1.8,
-        MaxSpeed = 3.5,
+        MaxSpeed = 3.4,
         MaxSpeedReverse = 3,
 
         MaxSteerForce = 5,
@@ -186,7 +186,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 220,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Anait Torpedo',
@@ -206,7 +206,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 2,
 
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 5,
@@ -219,7 +219,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 220 x 2 = 440 every 5 =  88 DPS Sub/Surface
+            RateOfFire = 1,		-- 200 x 2 = 400 every 5 =  80 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -247,7 +247,7 @@ UnitBlueprint {
 
             CountedProjectile = true,
 			
-            Damage = 2,
+            Damage = 1,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
