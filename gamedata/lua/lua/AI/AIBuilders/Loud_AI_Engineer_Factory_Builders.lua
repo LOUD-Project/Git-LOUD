@@ -42,19 +42,6 @@ local AboveUnitCap75 = function( self,aiBrain )
 	return (self.OldPriority or self.Priority), true
 end
 
--- this function will turn a builder off if the enemy is not active in the water
-local IsEnemyNavalActive = function( self, aiBrain, manager )
-
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
-
-		return 800, true
-
-	end
-
-	return 10, true
-	
-end
-
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
@@ -543,7 +530,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions', B
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
 	
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
                 return 10, true
             end
             
@@ -767,7 +754,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction', BuildersT
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
 	
-            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
                 return 10, true
             end
             
