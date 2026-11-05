@@ -1531,6 +1531,8 @@ end
 -- call this whenever the lobby needs to exit and not go in to the game
 function ReturnToMenu()
 
+    colorPicker = false     -- thanks to Paul Mertens for catching this
+
     if lobbyComm then
         lobbyComm:Destroy()
         lobbyComm = false
