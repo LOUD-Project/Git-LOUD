@@ -375,6 +375,21 @@ TMobileFactoryUnit = Class(MobileUnit) {
             
         end
     end,   
+
+    -- same fallback as StructureUnit.StopBeingBuiltEffects - if the unit finishes
+    -- before CreateBuildCubeThread reaches ShowBone, the thread is destroyed with
+    -- the OnBeingBuiltEffectsBag and the unit would stay hidden
+    StopBeingBuiltEffects = function(self, builder, layer)
+
+        if not self.BeingBuiltShowBoneTriggered then
+            self:ShowBone(0, true)
+            self:HideLandBones()
+        end
+
+        self.BeingBuiltShowBoneTriggered = nil
+
+        MobileUnit.StopBeingBuiltEffects(self, builder, layer)
+    end,
 }
 
 TShieldStructureUnit = Class(ShieldStructureUnit) {
