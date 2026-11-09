@@ -20,7 +20,6 @@ SSA0306 = Class(SAirUnit) {
         AARight = Class(SAALosaareAutoCannonWeaponAirUnit) {},
     },
 
-    # Override air destruction effects so we can do something custom here
     CreateUnitAirDestructionEffects = function( self, scale )
         self:ForkThread(self.AirDestructionEffectsThread, self )
     end,

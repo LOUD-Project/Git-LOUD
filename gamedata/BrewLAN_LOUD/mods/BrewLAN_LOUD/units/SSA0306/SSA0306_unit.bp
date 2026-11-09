@@ -50,11 +50,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 8,
+            Level2 = 16,
+            Level3 = 24,
+            Level4 = 30,
+            Level5 = 36,
         },
     },
 	
@@ -81,7 +81,7 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 4100,
         MaxHealth = 4100,
-        RegenRate = 15,
+        RegenRate = 12,
 
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -89,11 +89,11 @@ UnitBlueprint {
             Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 9,
+            ShieldEnergyDrainRechargeTime = 18,
             ShieldMaxHealth = 3900,
-            ShieldRechargeTime = 20,
-            ShieldRegenRate = 93,
-            ShieldRegenStartTime = 1,
+            ShieldRechargeTime = 22,
+            ShieldRegenRate = 48,
+            ShieldRegenStartTime = 2,
             ShieldSize = 8,
             ShieldVerticalOffset = -1,
             TransportShield = true,
@@ -153,7 +153,7 @@ UnitBlueprint {
         BuildCostMass = 1625,
         BuildTime = 750,
 		
-        MaintenanceConsumptionPerSecondEnergy = 150,
+        MaintenanceConsumptionPerSecondEnergy = 165,
     },
 	
     Footprint = {
@@ -307,11 +307,11 @@ UnitBlueprint {
 			
             TurretPitch = -90,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 36,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },	
@@ -366,7 +366,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -375,11 +375,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 48,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },
@@ -430,7 +430,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
@@ -439,11 +439,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 48,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },
