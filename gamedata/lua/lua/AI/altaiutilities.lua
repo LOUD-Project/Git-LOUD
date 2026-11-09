@@ -243,7 +243,7 @@ function GetTemplateReplacement(building, faction, customunits)
 end
 
 -- This function finds any kind of available large base position (either start or expansion)
--- position is NOT driven by the Attack Plan but by the source base of the engineer doing this job
+-- it prioritizes the Attack Plan first
 -- added the check for 'allied' structures based on the baseradius in the engineer task
 function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, tMin, tMax, tRings, tType, eng)
 
@@ -263,8 +263,48 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
         local name, position
 		local positions = {}
 
-		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
-		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+        if aiBrain.AttackPlan.StagePoints then
+
+            -- first, we'll try to fill positions with those in the attack plan
+            for k, v in aiBrain.AttackPlan.StagePoints do
+
+                if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+            
+                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+
+                    -- the StagePoint must be on Land
+                    if plantype == 'Land' or plantype == 'Amphibious' then
+
+                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                    
+                        -- ignore Fake, Naval, or Defensive Point positions
+                        if string.find(basename, 'Fake') or string.find(basename, 'Naval') or string.find(basename, 'Defensive') then
+                            continue
+                        end
+                
+                        -- check that nobody else already owns it, including ourselves, and that it's active
+                        for _,brain in ArmyBrains do
+                            if brain.BuilderManagers[basename].EngineerManager.Active then
+                                basename = false
+                                break
+                            end
+                        end
+                    
+                        -- if not owned then insert it into the positions table
+                        if basename then
+                            LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
+                        end
+                    end    
+                end
+            end
+        end
+        
+        -- otherwise we'll use the normal selection process
+        if LOUDGETN(positions) < 1 then
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+        end
 	
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
@@ -352,10 +392,49 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
         local name, position
 		local positions = {}
-	
-		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
-        positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
-		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+        
+        if aiBrain.AttackPlan.StagePoints then
+
+            -- first, we'll try to fill positions with those in the attack plan
+            for k, v in aiBrain.AttackPlan.StagePoints do
+
+                if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+            
+                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+
+                    -- the StagePoint must be on Land
+                    if plantype == 'Land' or plantype == 'Amphibious' then
+
+                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                    
+                        -- ignore Fake, Naval, or Defensive Point positions
+                        if string.find(basename, 'Fake') or string.find(basename, 'Naval') or string.find(basename, 'Defensive') then
+                            continue
+                        end
+                
+                        -- check that nobody else already owns it, including ourselves, and that it's active
+                        for _,brain in ArmyBrains do
+                            if brain.BuilderManagers[basename].EngineerManager.Active then
+                                basename = false
+                                break
+                            end
+                        end
+                    
+                        -- if not owned then insert it into the positions table
+                        if basename then
+                            LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
+                        end
+                    end    
+                end
+            end
+        end
+       
+        if LOUDGETN(positions) < 1 then
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
+        end
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
@@ -445,41 +524,43 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
         local name, position
 		local positions = {}
+        
+        if aiBrain.AttackPlan.StagePoints then
 
-        -- first, we'll try to fill positions with those in the attack plan
-        for k, v in aiBrain.AttackPlan.StagePoints do
+            -- first, we'll try to fill positions with those in the attack plan
+            for k, v in aiBrain.AttackPlan.StagePoints do
 
-            if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+                if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
             
-                local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
 
-                -- the StagePoint must be on Land
-                if plantype == 'Land' or plantype == 'Amphibious' then
+                    -- the StagePoint must be on Land
+                    if plantype == 'Land' or plantype == 'Amphibious' then
 
-                    local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                    local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        local position = aiBrain.AttackPlan.StagePoints[k].Position
                     
-                    if string.find(basename, 'Fake') or string.find(basename, 'Naval') then
-                        continue
-                    end
-                
-                    -- check that nobody else already owns it
-                    for index,brain in Brains do
-                        if brain.BuilderManagers[basename] then
-                            basename = false
-                            break
+                        if string.find(basename, 'Fake') or string.find(basename, 'Naval') then
+                            continue
                         end
-                    end
+                
+                        -- check that nobody else already owns it
+                        for index,brain in Brains do
+                            if brain.BuilderManagers[basename] then
+                                basename = false
+                                break
+                            end
+                        end
                     
-                    -- if not owned then insert it into the positions table
-                    if basename then
-                        LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
-                    end
-                end    
+                        -- if not owned then insert it into the positions table
+                        if basename then
+                            LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
+                        end
+                    end    
+                end
             end
         end
 
-        -- if we didn't get any attack plan positions then test all the markers
         if LOUDGETN(positions) < 1 then
             positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
             positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', test_position, radius, tMin, tMax, tRings, tType))
@@ -579,35 +660,38 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 
         local name, position
 		local positions = {}
+        
+        if aiBrain.AttackPlan.StagePoints then
 
-        -- first, we'll try to fill positions with those in the attack plan
-        for k, v in aiBrain.AttackPlan.StagePoints do
+            -- first, we'll try to fill positions with those in the attack plan
+            for k, v in aiBrain.AttackPlan.StagePoints do
 
-            if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+                if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
 
-                -- the StagePoint must be in the Water
-                if aiBrain.AttackPlan.StagePoints[k].Type == 'Amphibious' then
+                    -- the StagePoint must be in the Water
+                    if aiBrain.AttackPlan.StagePoints[k].Type == 'Amphibious' then
 
-                    local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                    local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        local position = aiBrain.AttackPlan.StagePoints[k].Position
                     
-                    if not string.find(basename, 'Naval') then
-                        continue
-                    end
-                
-                    -- check the nobody else already owns it
-                    for index,brain in Brains do
-                        if brain.BuilderManagers[basename] then
-                            basename = false
-                            break
+                        if not string.find(basename, 'Naval') then
+                            continue
                         end
-                    end
+                
+                        -- check the nobody else already owns it
+                        for index,brain in Brains do
+                            if brain.BuilderManagers[basename] then
+                                basename = false
+                                break
+                            end
+                        end
                     
-                    -- if not owned then insert it into the positions table
-                    if basename then
-                        LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
-                    end
-                end    
+                        -- if not owned then insert it into the positions table
+                        if basename then
+                            LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
+                        end
+                    end    
+                end
             end
         end
         

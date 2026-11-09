@@ -133,8 +133,14 @@ function GreaterThanEnergyIncome(aiBrain, eIncome)
 	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
 end
 
--- static versions of functions from UCBC
+-- the base expansion underway flag is impacted by the creation of an Attack Plan
+-- we don't want the AI expanding until the Attack Plan is complete
 function IsBaseExpansionUnderway(aiBrain, bool)
+    
+    if aiBrain.AttackPlan.Pending then
+        return true
+    end
+    
 	return bool == aiBrain.BaseExpansionUnderway
 end
 
