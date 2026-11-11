@@ -11,7 +11,7 @@ local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
 local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
-local UnistLessAtLocation                           = import(UCBC).UnitsLessAtLocation
+local UnitsLessAtLocation                           = import(UCBC).UnitsLessAtLocation
 
 local OPTICS    = categories.OPTICS
 local RADAR     = categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE
