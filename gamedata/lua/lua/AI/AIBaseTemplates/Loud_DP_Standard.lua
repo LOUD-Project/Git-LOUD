@@ -19,7 +19,7 @@ BaseBuilderTemplate {
 		'Land Formations - Base Guards',
 		'Land Formations - Experimentals',
 		'Land Formations - Reinforcement',
-        'Land Formations - Land Only Map',
+        'Land Formations - All Maps',
 
 		'Air Formations - Scouts',		
 		'Air Formations - Bombers',

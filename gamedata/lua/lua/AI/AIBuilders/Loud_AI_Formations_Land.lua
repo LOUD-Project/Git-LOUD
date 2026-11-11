@@ -224,7 +224,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Scouts',
 	
 }
 
-BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
+BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
     BuildersType = 'PlatoonFormBuilder',
     
     -- this is the VENTING attack -- no odds required

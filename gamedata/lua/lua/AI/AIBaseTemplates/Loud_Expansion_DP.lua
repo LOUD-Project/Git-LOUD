@@ -22,7 +22,7 @@ BaseBuilderTemplate {
 		'Land Formations - Point Guards',
 		'Land Formations - Base Guards',
 		'Land Formations - Experimentals',
-        'Land Formations - Land Only Map',
+        'Land Formations - All Maps',
 		'Land Formations - Reinforcement',
 
 		# Create Platoons with Air Units

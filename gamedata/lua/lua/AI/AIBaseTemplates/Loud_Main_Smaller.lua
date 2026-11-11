@@ -51,7 +51,7 @@ BaseBuilderTemplate {
 		'Land Formations - Experimentals',
 		'Land Formations - Reinforcement',
         
-        'Land Formations - Land Only Map',
+        'Land Formations - All Maps',
 
         # ==== AIR UNIT BUILDERS ==== #
 		'Factory Production Air - Scouts',

@@ -64,7 +64,7 @@ BaseBuilderTemplate {
 		'Land Formations - Nukes',
 		'Land Formations - Experimentals',
         
-        'Land Formations - Land Only Map',
+        'Land Formations - All Maps',
         
 		'Air Formations - Scouts',        
 		'Air Formations - Bombers',
