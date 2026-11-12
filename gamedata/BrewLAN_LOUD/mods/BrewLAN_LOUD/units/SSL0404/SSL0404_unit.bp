@@ -241,7 +241,7 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.6,
+        MaxAcceleration = 0.5,
         MaxBrake = 0.9,
         MaxSpeed = 3.0,
         MaxSpeedReverse = 0,
@@ -286,8 +286,8 @@ UnitBlueprint {
     },
     
     -- Both weapons now have energy consumption cycles
-    -- RoF entirely controlled by energy cycles (13 seconds)
-    -- RoF set at 1 to allow almost immediate fire upon charge complete
+    -- RoF entirely controlled by energy cycles (15 seconds)
+    -- RoF set at 0.5 to allow almost immediate fire upon charge complete
     
     Weapon = {
         {
