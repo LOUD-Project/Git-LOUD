@@ -98,7 +98,7 @@ local armyColorObserver = 'FFC3C3C3'
 -- e.g. mass income -> mass reclaim
 --      unit total  -> unit land    -> unit air
 local switchTime = 0
-local switchInterval = 10 -- in seconds
+local switchInterval = 8 -- in seconds
   
 --local cid = 1
 -- TODO find a way to load army colors from the game instead of hard-coding them here    
