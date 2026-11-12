@@ -425,7 +425,7 @@ function CreateUI(over, exitBehavior, useSteam)
 					Prefs.SetToCurrentProfile('last_dc_ipaddress', ipaddress)
 					Prefs.SetToCurrentProfile('last_dc_port', tostring(port))
 	    
-					lobby.CreateLobby("UDP", 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+					lobby.CreateLobby("UDP", 0, name, nil, nil, over, function() CreateUI(over, exitBehavior, useSteam) end)
 					
                		panel:Destroy()
 					
@@ -770,7 +770,7 @@ function CreateUI(over, exitBehavior, useSteam)
 			
             local hostInfo = games[self.GameID]
 			
-            lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+            lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior, useSteam) end)
 			
             panel:Destroy()
 			
@@ -816,7 +816,7 @@ function CreateUI(over, exitBehavior, useSteam)
 			
             local hostInfo = games[self.GameID]
 			
-            lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior) end)
+            lobby.CreateLobby(hostInfo.Protocol, 0, name, nil, nil, over, function() CreateUI(over, exitBehavior, useSteam) end)
 			
             panel:Destroy()
             discovery:Destroy()
