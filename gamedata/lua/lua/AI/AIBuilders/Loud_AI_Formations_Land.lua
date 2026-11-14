@@ -272,7 +272,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 
             PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
 
-			MergeLimit = 100,	-- controls merging with others - nil = original platoon size
+			MergeLimit = 120,	-- controls merging with others - nil = original platoon size
 
             AggressiveMove = true,            
 
@@ -411,8 +411,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
 
@@ -445,7 +445,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 24,
+			UntMax = 20,
 			
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','DEFENSE STRUCTURE','ECONOMIC','ENGINEER','STRUCTURE -WALL','LAND MOBILE'},
 			
@@ -464,10 +464,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
         },
 	},
 
-	-- modest sized base attack platoon
-    -- forms when odds ok at (>.9)
-    -- focused on bases first -- no distance restriction
-    Builder {BuilderName = 'Land Attack Large NW',
+
+    Builder {BuilderName = 'Land Attack Lrg NW',
 	
         PlatoonTemplate = 'T3LandAttackNW',
         
@@ -485,7 +483,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
                     return 11, true
                 end  
 
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 12 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 10 then 
                     return 11, true
                 end  
 
@@ -503,9 +501,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, LANDDIRECTFIRE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, LANDARTILLERY }},
         },
 		
         BuilderData = {
@@ -522,14 +517,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
         },
 	},
 	
-	-- This Attacks are more modest in size, only deployed when we have a landstrength advantage.
-	-- Notice how this platoon focuses on more specific categories. 
-	-- modest sized production attack platoon
-    -- forms when odds are good at (>1)
-    -- focused on production first -- no distance restriction
-    Builder {BuilderName = 'Land Attack Large',
+    Builder {BuilderName = 'Land Attack Med NW',
 	
-        PlatoonTemplate = 'T2LandAttack',
+        PlatoonTemplate = 'T2LandAttackNW',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
@@ -543,7 +533,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE - AMPHIBIOUS, manager.Location, manager.Radius ) < 24 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDDIRECTFIRE, manager.Location, manager.Radius ) < 24 then 
                     return 11, true
                 end  
 
@@ -562,7 +552,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE - AMPHIBIOUS }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, LANDDIRECTFIRE }},
         },
 		
         BuilderData = {
@@ -585,7 +575,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 	-- another modest sized attack platoon
     -- forms when odds are hohum (>.8) but more of them
     -- focus on economic structures within 25km
-    Builder {BuilderName = 'MEX Attack Land',
+    Builder {BuilderName = 'MEX Attack Land Med',
 	
         PlatoonTemplate = 'T2MassAttack',
 
@@ -618,7 +608,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
         },
@@ -671,7 +661,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 	-- another MASSEXTRACTION attack but smaller
     -- formed when team does not have it's mass share
     -- attacks MASSPRODUCTION positions within 15 km
-    Builder {BuilderName = 'MEX Attack Land Need Mass',
+    Builder {BuilderName = 'MEX Attack Land Med Need Mass',
 	
         PlatoonTemplate = 'T2MassAttack',
 
@@ -703,9 +693,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 		
         BuilderConditions = {
 			{ LUTL, 'NeedTeamMassPointShare', {}},
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 
 			-- enemy mass points within 16km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 800 }},
@@ -732,7 +724,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 			StrRadius = 50,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 10,
+			StrMax = 8,
             
             ThreatMaxRatio = 1.5,
 			
@@ -740,7 +732,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 22,
+			UntMax = 16,
 			
             PrioritizedCategories = { 'ECONOMIC','DIRECTFIRE','LAND MOBILE','ENGINEER'},
 			
@@ -761,7 +753,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
 	-- another MASSEXTRACTION attack but smaller
     -- formed when team does not have it's mass share
     -- attacks MASSPRODUCTION positions within 15 km
-	Builder {BuilderName = 'MEX Attack Small Land Need Mass',
+	Builder {BuilderName = 'MEX Attack Land Sml Need Mass',
 	
         PlatoonTemplate = 'T1MassAttack',
 
@@ -846,11 +838,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
         },
     },
 
-	-- PD Attack Former -- 
-	-- This Platoon are the counter part to AA Attack Former
-	-- This Platoon hunts for Defenses and Shields 
-
-
 	-- attack enemy DEFENSE STRUCTURES with small groups
     -- forms when odds are modest(>0.7) 
     Builder {BuilderName = 'PD Attack Land',
@@ -884,7 +871,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - All Maps',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},            
 
 			-- enemy DEFENSE structures within 15km
@@ -960,7 +947,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 15 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDARTILLERY, manager.Location, manager.Radius ) < 10 then 
                     return 11, true
                 end  
 
