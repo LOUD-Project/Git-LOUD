@@ -97,9 +97,7 @@ end
 
 BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersType = 'EngineerBuilder',
     
-    -- Builds land expansion bases at both Start and Expansion points
-	-- but only when THIS location has at least 4 upgraded factories
-	-- and ALL other (counted) expansion bases have at least 4 upgraded factories
+    -- expansion bases at Start and Expansion points
     Builder {BuilderName = 'Land Expansion Base',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -245,9 +243,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
         }
     }, 
 
-   
-    -- Builds land expansion bases at both Start and Expansion points when there are nearby empty start locations
-    -- first 15 minutes only
     Builder {BuilderName = 'Land Expansion Base - Outnumbered',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -265,6 +260,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
             { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+      
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, FACTORY * STRUCTURE}},
+			
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
             
 			-- there must be an open start/expansion area within 14km
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, 115, -9999, 115, 60, 0, 'AntiSurface' } },
@@ -314,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 
 BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType = 'EngineerBuilder',
 
-	-- This builder will start an active DP with a T2/T3 engineer
+	-- start a DP with a T2/T3 engineer
 	Builder {BuilderName = 'DP Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilder',
@@ -385,7 +384,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 		}
 	},
         
-    -- this one starts with an SACU - difference between the previous builder - this one needs more factories as a condition
+    -- start a DP with a SACU
 	Builder {BuilderName = 'DP Expansion SACU',
 	
 		PlatoonTemplate = 'EngineerBuilder',
@@ -462,7 +461,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 		}
 	},
 
-	-- This builder will start an active DP with a T1
+	-- start a DP with a T1 
 	Builder {BuilderName = 'DP Expansion - Outnumbered',
 	
 		PlatoonTemplate = 'EngineerBuilder',
@@ -478,8 +477,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
     
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+      
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, FACTORY * STRUCTURE}},
+			
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 1, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T1' },
@@ -501,7 +504,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
                 LoopEnergy = 2500,
 				
                 ThreatMax = 60,
-                ThreatRings = 0,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
@@ -512,9 +515,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 		}
 	},
     
-	-- Like above, we want to create an Active DP, but on Start and Expansion areas
-	-- this allows the AI to setup forward positions long before he has the resources to start a full base
-	-- Later on he can convert these 'Active DP' into real bases at his discretion
+	-- start a DP on Start/Expansion areas for later conversion to production base
     Builder {BuilderName = 'DP Expansion - Start & Expansion Areas',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -571,7 +572,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
         }
     },
 
-    -- this is the SACU version with higher factory requirements
+    -- SACU version
     Builder {BuilderName = 'DP Expansion - Start & Expansion Areas SACU',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -791,14 +792,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
         BuilderConditions = {
 
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
-            
+
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 800, -250, 60, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -815,7 +814,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 725,
 				
-                ThreatMax = 50,
+                ThreatMax = 60,
                 ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
@@ -826,7 +825,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
             }
         }
     },        
-   
+
+    -- if we detect naval activity, early, and we're not in the water
     Builder {BuilderName = 'Naval Base Initial Rush Detected',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -859,7 +859,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 800, -250, 60, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -876,8 +876,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 725,
 				
-                ThreatMax = 50,
-                ThreatRings = 2,
+                ThreatMax = 60,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
