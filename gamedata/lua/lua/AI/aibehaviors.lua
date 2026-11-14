@@ -7070,7 +7070,7 @@ function EngineerTransferAI( self, aiBrain )
 			
 			-- if base has less than maximum allowed engineers and there are structures at that position
 			-- base must have no ability to make the engineers itself (no factory)
-			if numUnits < capCheck and structurecount > 0 then
+			if numUnits < capCheck and structurecount > 1 then
 			
 				if factorycount < 4 or Eng_Type == 'SCU' then
 				
@@ -7078,7 +7078,7 @@ function EngineerTransferAI( self, aiBrain )
 					possibles[counter] = k
 					
 					-- if its a counted base add it a second time
-					if v.CountedBase then
+					if v.CountedBase and factorycount > 0 then
 					
 						counter = counter + 1
 						possibles[counter] = k

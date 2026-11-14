@@ -1017,17 +1017,17 @@ Platoon = Class(PlatoonMethods) {
                 -- if more than deviation ogrids change in height over 8 ogrids distance
 				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
 
-                    if PathFindingDialog then
-                        LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(lastpos).." and "..repr(nextpos) )
-                    end
+                    --if PathFindingDialog then
+                      --  LOG( dialog.." count "..badstepcount.." obstructed "..string.format("%02.3f",LOUDABS(lastposHeight - nextposHeight)).." between "..repr(lastpos).." and "..repr(nextpos) )
+                    --end
                     
                     badstepcount = badstepcount + 1
                     
                     if badstepcount > 1 then
 
-                        if PathFindingDialog then
-                            LOG( dialog.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos).." using deviation of "..deviation.." layer is "..platoonLayer )
-                        end
+                        --if PathFindingDialog then
+                          --  LOG( dialog.." obstructed "..string.format("%02.3f",LOUDABS(lastposHeight - nextposHeight)).." between "..repr(pos).." and "..repr(targetPos).." using deviation of "..deviation.." layer is "..platoonLayer )
+                        --end
 
                         return true
                     end
@@ -1065,7 +1065,7 @@ Platoon = Class(PlatoonMethods) {
                 closest = 999999
                 closestmark = false
                 
-                testdistance = MaxMarkerDist
+                testdistance = MaxMarkerDist/1.5  --- MaxMarkerDistance is divided by 1.5 to limit range of marker finds
                 
                 -- only AIR platoons will use full Marker Distances
                 -- others will be limited to 95%
@@ -1077,18 +1077,25 @@ Platoon = Class(PlatoonMethods) {
                     testdistance = testdistance * .95
                 end
                 
-                -- this code provided by Delins 
+                -- this code provided by Delins
+                -- filter the markerlist for resultdistance and Check for Blocking
                 for _,v in markerlist do
                 
                     Position = v.position
                     
                     v.resultdist = LOUDFLOOR( VDist2( Position[1],Position[3], location[1],location[3] ) )
                     
+                    if CheckBlockingTerrain( location, Position, blockingcheck) then
+                        continue
+                    end
+                    
+                    -- this records the closest marker even if beyond the testdistance
                     if v.resultdist < closest then
                         closest = v.resultdist
                         closestmark = v
                     end
-                    
+
+                    -- this tables any good marker within testdistance
                     if v.resultdist <= testdistance then
                     
                         counter = counter + 1
@@ -1098,13 +1105,15 @@ Platoon = Class(PlatoonMethods) {
                 
                 if counter == 0 then
                     
-                    if closestmark and closest <= (testdistance*1.1) then
+                    -- if no markers were tabled, try and use the closest one if it's within 15% of the testdistance
+                    if closestmark and closest <= (testdistance*1.15) then
                         --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." using marker at "..closest )                    
 
                         counter = counter + 1
                         temptable[counter] = closestmark
                     end
                     
+                    -- we cant find one at all
                     if counter == 0 then
                         WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..testdistance.." range of "..repr(location).." closest marker is "..closest )
                         return false, false
@@ -1113,13 +1122,11 @@ Platoon = Class(PlatoonMethods) {
 
 				-- sort the table by closest to the given location (start position of this test)
 				LOUDSORT(temptable, function(a,b) return a.resultdist < b.resultdist end)
-                
-                ---LOG("*AI DEBUG sorted temptable is "..repr(temptable) )
 
                 counter         = 0
-                goaldistance    = VDist3(location,goalseek) * 1.1   -- only allow points closer (110%) to the goal than the start, sometimes the only marker is further away
+                goaldistance    = VDist3(location,goalseek) * 1.25   -- only allow points within 125% of the distance to the goal than the start, sometimes the only marker is further away
 	
-				-- traverse the list and make a new list of those with allowable threat 
+				-- traverse the list and make a new list of those with allowable threat
 				for _,v in temptable do
                 
                     Node            = v.node
@@ -1128,14 +1135,13 @@ Platoon = Class(PlatoonMethods) {
                     
                     thisdistance = LOUDFLOOR( VDist3(Position, goalseek) )
                     
-                    -- only process those closer to the goal
                     if thisdistance <= goaldistance then
 
                         thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype ) / LOUDMAX( 1, testdistance/IMAPRadius )
 
                         -- only those with acceptable threat
-                        if thisthreat <= maxthreat and not CheckBlockingTerrain( location, Position, blockingcheck ) then
-
+                        if thisthreat <= maxthreat then
+                            
                             counter = counter + 1						
                             positions[counter] = { thisthreat, Node, Position, testdistance, thisdistance }
 
@@ -1229,8 +1235,8 @@ Platoon = Class(PlatoonMethods) {
             LOG( dialog.." wants to find a path from "..repr(start).." to "..repr(destination).." Distance is "..VDist3(start,destination) )
         end
 	
-		-- Get the node at platoon position which is closest to the destination
-		local startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 1.5, true )
+		-- Get the node at platoon position which is closest AND safest
+		local startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, true, destination, 1.5, true )
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
@@ -1239,8 +1245,12 @@ Platoon = Class(PlatoonMethods) {
             end
             
 			platoonLayer = 'Land'
-			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 1.5, true )
+			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, true, destination, 1.5, true )
 
+        end
+        
+        if PathFindingDialog then
+            LOG( dialog.." Startnode is "..repr(startNodeName).." at "..repr(startNode.position))
         end
 	
 		if not startNode then
@@ -1267,7 +1277,7 @@ Platoon = Class(PlatoonMethods) {
             blockingcheck = false
         end
 
-		-- Get the closest safe node at the destination which is closest to the start        
+		-- Get the closest & safest node at the destination        
 		local endNode, endNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( destination, true, start, 1, blockingcheck )
 
 		if not endNode then
@@ -4986,7 +4996,6 @@ Platoon = Class(PlatoonMethods) {
             end
 			
         else
-
 			LOUDINSERT( categoryList, ALLUNITS )
 		end
 		

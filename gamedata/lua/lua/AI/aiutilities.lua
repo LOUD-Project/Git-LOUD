@@ -295,10 +295,6 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
         end
 
     end
-    
-    --if counter< 1 then
-      --  LOG("*AI DEBUG "..aiBrain.Nickname.." fails threatcheck in GetMarkers for "..markerType )    
-    --end
 	
 	return tempMarkers
 end

@@ -25,12 +25,12 @@ local VDist3    = VDist3
 
 local WaitTicks = coroutine.yield
 
-local AssignUnitsToPlatoon      = moho.aibrain_methods.AssignUnitsToPlatoon
-local IsBeingBuilt              = moho.unit_methods.IsBeingBuilt
-local IsIdleState               = moho.unit_methods.IsIdleState
-local IsUnitState               = moho.unit_methods.IsUnitState
+--local AssignUnitsToPlatoon      = moho.aibrain_methods.AssignUnitsToPlatoon
+--local IsBeingBuilt              = moho.unit_methods.IsBeingBuilt
+--local IsIdleState               = moho.unit_methods.IsIdleState
+--local IsUnitState               = moho.unit_methods.IsUnitState
 local GetFractionComplete       = moho.entity_methods.GetFractionComplete
-local GetListOfUnits            = moho.aibrain_methods.GetListOfUnits
+--local GetListOfUnits            = moho.aibrain_methods.GetListOfUnits
 local GetNumUnitsAroundPoint    = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetPosition               = moho.entity_methods.GetPosition
 local GetPlatoonPosition        = moho.platoon_methods.GetPlatoonPosition
@@ -38,6 +38,7 @@ local GetPlatoonUnits           = moho.platoon_methods.GetPlatoonUnits
 local GetUnitsAroundPoint       = moho.aibrain_methods.GetUnitsAroundPoint
 local PlatoonExists             = moho.aibrain_methods.PlatoonExists
 
+local TECH1         = categories.TECH1
 local TECH2         = categories.TECH2
 local TECH3         = categories.TECH3
 
@@ -255,12 +256,16 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 	if eng then
 		Position = eng
 	end
+	
+    local minimum_baserange = 160 + (ScenarioInfo.IMAPSize/4)
   
 	if Position then
-    
+	
+		local Brains = ArmyBrains    
+
         local VDist3 = VDist3
 
-        local name, position
+        local basename, name, plantype, position
 		local positions = {}
 
         if aiBrain.AttackPlan.StagePoints then
@@ -270,13 +275,13 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 
                 if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
             
-                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+                    plantype = aiBrain.AttackPlan.StagePoints[k].Type
 
                     -- the StagePoint must be on Land
                     if plantype == 'Land' or plantype == 'Amphibious' then
 
-                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        position = aiBrain.AttackPlan.StagePoints[k].Position
                     
                         -- ignore Fake, Naval, or Defensive Point positions
                         if string.find(basename, 'Fake') or string.find(basename, 'Naval') or string.find(basename, 'Defensive') then
@@ -284,7 +289,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
                         end
                 
                         -- check that nobody else already owns it, including ourselves, and that it's active
-                        for _,brain in ArmyBrains do
+                        for _,brain in Brains do
                             if brain.BuilderManagers[basename].EngineerManager.Active then
                                 basename = false
                                 break
@@ -312,11 +317,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		-- I expanded this concept further to base the exclusion radius upon map size
 		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
 		-- than clumping up - this also avoids overlap of the army pools 
-	
-		-- cap the minimum baserange at 180
-		local minimum_baserange = 180 + (ScenarioInfo.IMAPSize/4)
-	
-		local Brains = ArmyBrains
+
         local removed = false
     
 		-- loop thru all the positions
@@ -381,16 +382,18 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
 	if eng then
-	
         Position = GetPlatoonPosition(eng) or false
-		
 	end
-	
+    
+	local Brains = ArmyBrains
+  	
+	local minimum_baserange = 160 + (ScenarioInfo.IMAPSize/4)
+
 	if Position then
 
         local VDist3 = VDist3
 
-        local name, position
+        local basename, name, plantype, position
 		local positions = {}
         
         if aiBrain.AttackPlan.StagePoints then
@@ -400,13 +403,13 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
                 if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
             
-                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+                    plantype = aiBrain.AttackPlan.StagePoints[k].Type
 
                     -- the StagePoint must be on Land
                     if plantype == 'Land' or plantype == 'Amphibious' then
 
-                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        position = aiBrain.AttackPlan.StagePoints[k].Position
                     
                         -- ignore Fake, Naval, or Defensive Point positions
                         if string.find(basename, 'Fake') or string.find(basename, 'Naval') or string.find(basename, 'Defensive') then
@@ -414,7 +417,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
                         end
                 
                         -- check that nobody else already owns it, including ourselves, and that it's active
-                        for _,brain in ArmyBrains do
+                        for _,brain in Brains do
                             if brain.BuilderManagers[basename].EngineerManager.Active then
                                 basename = false
                                 break
@@ -437,11 +440,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
         end
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
-
-		local minimum_baserange = 200 + (ScenarioInfo.IMAPSize/4)
-    
-		local Brains = ArmyBrains
-        
+      
         local removed = false
 
 		for m,marker in positions do
@@ -496,7 +495,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	return false, false
 end
 
--- finds DP and EXPANSION BASE(regular not LARGE) markers - minimum range to ANY other LAND base is 170
+-- finds DP and EXPANSION BASE(regular not LARGE) markers
 -- non-counted bases that operate as forward positions or intel gathering locations
 function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
@@ -505,13 +504,12 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 	if eng then
 		Position = eng
 	end
+
+    local Brains = ArmyBrains
+
+	local minimum_baserange = 125 + (ScenarioInfo.IMAPSize/4)
 	
     if Position and aiBrain.PrimaryLandAttackBase and aiBrain.AttackPlan.Goal then
-        
-		local Brains = ArmyBrains
-
-		-- minimum range that a DP can be from an existing base -- Land	
-		local minimum_baserange = 170 + (ScenarioInfo.IMAPSize/4)
 
         local removed = false
  
@@ -522,7 +520,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
-        local name, position
+        local basename, name, plantype, position
 		local positions = {}
         
         if aiBrain.AttackPlan.StagePoints then
@@ -532,13 +530,13 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
                 if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
             
-                    local plantype = aiBrain.AttackPlan.StagePoints[k].Type
+                    plantype = aiBrain.AttackPlan.StagePoints[k].Type
 
                     -- the StagePoint must be on Land
                     if plantype == 'Land' or plantype == 'Amphibious' then
 
-                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        position = aiBrain.AttackPlan.StagePoints[k].Position
                     
                         if string.find(basename, 'Fake') or string.find(basename, 'Naval') then
                             continue
@@ -601,7 +599,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		
 					if VDist3( base.Position, position ) < minimum_baserange then
                     
-                        --LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." for minimum range to an existing base "..VDist3( base.Position, position ) )
+                        LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." for minimum range to an existing base "..VDist3( base.Position, position ) )
 
 						removed = true
 						break
@@ -609,7 +607,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
                     if VDist3( aiBrain.AttackPlan.Goal, position ) > test_range then
                     
-                        --LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." for range greater than current primary range "..VDist3( aiBrain.AttackPlan.Goal, position ) )
+                        LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(marker.Name).." for range greater than current primary range "..VDist3( aiBrain.AttackPlan.Goal, position ) )
 
 						removed = true
 						break
@@ -620,10 +618,12 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
                 -- check the location for allied structures at the expansion radius --
 				if not removed then
             
-                    if GetNumUnitsAroundPoint( aiBrain, STRUCTURE - EXTRACTORS - WALL, position, 72, 'Ally') < 1 then
+                    if GetNumUnitsAroundPoint( aiBrain, STRUCTURE - EXTRACTORS - WALL - TECH1, position, 50, 'Ally') < 1 then
 
                         return position, name
                     end
+                    
+                    LOG("AI DEBUG "..aiBrain.Nickname.." ignored "..repr(marker.Name).." due to proximal allied structures " )
 
 				end	
 			end
@@ -633,7 +633,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 	return false, false
 end
 
--- finds Naval DPs - minimum range to ANY sea base is 240
+-- finds Naval DPs
 function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
@@ -641,13 +641,12 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	if eng then
 		Position = eng
 	end
-	
-    if Position and aiBrain.PrimarySeaAttackBase and aiBrain.AttackPlan.Goal then
-        
-		local Brains = ArmyBrains
 
-		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 200 + (ScenarioInfo.IMAPSize/4)
+	local Brains = ArmyBrains
+
+	local minimum_baserange = 125 + (ScenarioInfo.IMAPSize/4)
+	
+    if Position and aiBrain.AttackPlan.Goal then
 
         local removed = false
  
@@ -658,7 +657,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
-        local name, position
+        local basename, name, plantype, position
 		local positions = {}
         
         if aiBrain.AttackPlan.StagePoints then
@@ -671,10 +670,10 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
                     -- the StagePoint must be in the Water
                     if aiBrain.AttackPlan.StagePoints[k].Type == 'Amphibious' then
 
-                        local basename = aiBrain.AttackPlan.StagePoints[k].Name
-                        local position = aiBrain.AttackPlan.StagePoints[k].Position
+                        basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        position = aiBrain.AttackPlan.StagePoints[k].Position
                     
-                        if not string.find(basename, 'Naval') then
+                        if not string.find(basename, 'Naval Defensive') then
                             continue
                         end
                 
@@ -766,27 +765,65 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		Position = eng
 	end
 	
+	local Brains = ArmyBrains
+
+	local minimum_baserange = 160 + (ScenarioInfo.IMAPSize/4)
+    	
     if Position then 
-    
+
         local VDist3 = VDist3
 
-        local position
+        local basename, position
 		local positions = {}
-	
-		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
 
-		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
-	
-		local Brains = ArmyBrains
-	
-		-- minimum range that a Naval Base can be from ANY existing base
-		local minimum_baserange = 175 + (ScenarioInfo.IMAPSize/8)
+--[[        
+        if aiBrain.AttackPlan.StagePoints then
+
+            -- first, we'll try to fill positions with those in the attack plan
+            for k, v in aiBrain.AttackPlan.StagePoints do
+
+                if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
+
+                    -- the StagePoint must be in the Water
+                    if aiBrain.AttackPlan.StagePoints[k].Type == 'Amphibious' then
+
+                        basename = aiBrain.AttackPlan.StagePoints[k].Name
+                        position = aiBrain.AttackPlan.StagePoints[k].Position
+                    
+                        if not string.find(basename, 'Naval Area') then
+                            continue
+                        end
+                
+                        -- check the nobody else already owns it
+                        for index,brain in Brains do
+                            if brain.BuilderManagers[basename] then
+                                basename = false
+                                position = false
+                                break
+                            end
+                        end
+                    
+                        -- if not owned then insert it into the positions table
+                        if basename then
+                            LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
+                        end
+                    end    
+                end
+            end
+        end
+--]]   	
+        --if LOUDGETN(positions) < 1 then
+            positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
+        --end
         
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
+    
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Minimum Naval Area range is "..repr(minimum_baserange))
         
         local distance_from_base = false
         local distance_from_threat = false
         local threatresult = 1
+        local threatTable = false
         local removed = false
         
         local choices = {}
@@ -832,7 +869,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
                 -- distance from origin of engineer -- valued - closer is best - lower
                 distance_from_base = LOUDFLOOR(VDist3( Position, position )) / minimum_baserange
 
-                local threatTable = aiBrain:GetThreatsAroundPosition( position, ScenarioInfo.IMAPBlocks + 2, true, tType)
+                threatTable = aiBrain:GetThreatsAroundPosition( position, ScenarioInfo.IMAPBlocks + 2, true, tType)
                 
                 LOUDSORT( threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3] ) end )
                 
@@ -993,7 +1030,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
     if Position and ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
         
         local AttackPlan    = aiBrain.AttackPlan
-        local AttackGoal    = table.copy(AttackPlan.Goal)
+        local AttackGoal    = LOUDCOPY(AttackPlan.Goal)
         
         -- this gives us a Goal of the closest water node to the Attack Plan goal
         local reason, Goal, distance = GetClosestPathNode( AttackGoal,'Water', 600 )
@@ -1063,13 +1100,13 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
                     
                     -- if not owned then insert it into the positions table
                     if basename then
-                        LOUDINSERT( positions, { Name = basename, Position = table.copy(position) } )
+                        LOUDINSERT( positions, { Name = basename, Position = LOUDCOPY(position) } )
                     end
                 end    
             end
         end
         
-        if table.getn(positions) < 1 then
+        if LOUDGETN(positions) < 1 then
             positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position or Position, radius, tMin, tMax, tRings, tType))
             positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', test_position or Position, radius, tMin, tMax, tRings, tType))
         end

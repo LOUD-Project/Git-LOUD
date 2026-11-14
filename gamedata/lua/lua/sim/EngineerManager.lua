@@ -823,13 +823,9 @@ EngineerManager = Class(BuilderManager) {
 
 		-- This function is used by the AI to put markers on a map so that Allied Humans can see them
 		local function SetBaseMarker()
-		
-			--if BaseMonitorDialog then
-				--LOG( header.." adding Marker")
-			--end
 	
 			if aiBrain.BuilderManagers[LocationType] then
-				aiBrain.BuilderManagers[LocationType].MarkerID = AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType.." land mode "..repr(aiBrain.BuilderManagers[LocationType].LandMode) )
+				aiBrain.BuilderManagers[LocationType].MarkerID = AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType )
 			end
 		end
 		
