@@ -5135,7 +5135,36 @@ Platoon = Class(PlatoonMethods) {
 				position = GetPlatoonPosition(self) or false
 				
 				if position then
-			
+				
+					if oldNumberOfUnitsInPlatoon > 0 and oldNumberOfUnitsInPlatoon < MergeLimit then
+					
+						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPointNaval', 90, false, MergeLimit) then
+				
+							units = GetPlatoonUnits(self)
+						
+							numberOfUnitsInPlatoon = 0
+						
+							for _,v in units do
+							
+								if not v.Dead then
+								
+									numberOfUnitsInPlatoon = numberOfUnitsInPlatoon + 1
+								end
+							end
+
+							if (oldNumberOfUnitsInPlatoon != numberOfUnitsInPlatoon) then
+							
+								self:Stop()
+								self:SetPlatoonFormationOverride(PlatoonFormation)
+							end
+
+							OriginalThreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS)
+							
+							marker = false
+                            break
+						end
+					end
+                    
 					if StrCat and StrTrigger then
 				
 						if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
@@ -5420,7 +5449,7 @@ Platoon = Class(PlatoonMethods) {
 				end		
 				
 				-- MERGE with other GuardPoint Platoons during regular guardtime
-				if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
+				if Random(1,3) == 1 and MergeLimit and PlatoonExists(aiBrain, self) then
 				
 					oldNumberOfUnitsInPlatoon = 0
 				
