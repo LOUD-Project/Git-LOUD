@@ -1036,6 +1036,14 @@ PlatoonTemplate { Name = 'T2ShieldBoat',
     },
 }
 
+PlatoonTemplate { Name = 'T2TorpedoBoat',
+    FactionSquads = {
+        UEF = {
+            { 'xes0102', 1, 2, 'Attack', 'None' },  -- Cooper Torpedo boat
+        },
+    },
+}
+
 PlatoonTemplate { Name = 'T2CounterIntelBoat',
     FactionSquads = {
         Cybran = {
