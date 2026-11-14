@@ -911,6 +911,8 @@ function SubscribeToACT(aiBrain)
 end
 
 function StartAdaptiveCheatThreads()
+   
+    LOG("ACT Feature selected")
 
 	if ratioACTBrains[1] then
     
@@ -920,7 +922,7 @@ function StartAdaptiveCheatThreads()
 			str = str.."\t"..v.Nickname.."\n"
 		end
         
-		LOG("*AI DEBUG Forking ratio ACT for:\n"..str)
+		LOG("ACT Feedback forking for:\n"..str)
         
 		ForkThread(RatioAdaptiveCheatThread)
 	end
@@ -933,7 +935,7 @@ function StartAdaptiveCheatThreads()
 			str = str.."\t"..v.Nickname.."\n"
 		end
         
-		LOG("*AI DEBUG Forking time ACT for:\n"..str)
+		LOG("ACT Timed forking for:\n"..str)
         
 		ForkThread(TimeAdaptiveCheatThread)
 	end
@@ -946,15 +948,23 @@ end
 -- - Sprouto; optimization
 function RatioAdaptiveCheatThread()
 
+    -- account for NoRush timer
+    if ScenarioInfo.Options.NoRushOption and ScenarioInfo.Options.NoRushOption != 'Off' then
+
+        LOG("ACT FEEDBACK begins after No Rush period "..ScenarioInfo.Options.NoRushOption.." minutes")
+ 
+        WaitTicks(tonumber(ScenarioInfo.Options.NoRushOption) * 60 * 10)
+    end
+
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
 	local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
 
-	LOG("*AI DEBUG Starting ACT FEEDBACK after 5 minutes. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
-    
+	LOG("ACT FEEDBACK begins in 5 minutes. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
+
 	-- Wait 5 minutes first, else earliest land ratios skew results
-	WaitTicks(10 * 60 * 5)
+	WaitTicks(5 * 60 * 10)
     
-	LOG("*AI DEBUG Starting ACT FEEDBACK on tick "..GetGameTick())
+	LOG("ACT FEEDBACK starts on tick "..GetGameTick())
 
 	while true do
     
@@ -1024,10 +1034,18 @@ function RatioAdaptiveCheatThread()
         
 	end
     
-	LOG("*AI DEBUG No more ACT FEEDBACK subscribers. Killing thread on tick "..GetGameTick())
+	LOG("ACT FEEDBACK - no subscribers remain. Killing thread on tick "..GetGameTick())
 end
 
 function TimeAdaptiveCheatThread()
+
+    -- account for NoRush timer
+    if ScenarioInfo.Options.NoRushOption and ScenarioInfo.Options.NoRushOption != 'Off' then
+
+        LOG("ACT TIMED begins after No Rush period "..ScenarioInfo.Options.NoRushOption.." minutes")
+ 
+        WaitTicks(tonumber(ScenarioInfo.Options.NoRushOption) * 60 * 10)
+    end
 
 	-- RATODO: Ideas by Uveso and Balthazar
 	-- - Parabola
@@ -1039,26 +1057,31 @@ function TimeAdaptiveCheatThread()
     local interval = 10 * 60 * (tonumber(ScenarioInfo.Options.ACTTimeDelay) + 1)
     local cheatInc = tonumber(ScenarioInfo.Options.ACTTimeAmount)
 	local cheatLimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
+
+    local aiBrain, broke, oldcheat
+    local a, b, c
     
 	-- EXAMPLE: If 1.5 is the limit, -.05 is the change, and 1.1 is the base,
 	-- this check prevents mult from getting math.maxed all the way up to 1.5
 	for i = 1, LOUDGETN(timeACTBrains) do
     
-		local aiBrain = timeACTBrains[i]
+		aiBrain = timeACTBrains[i]
         
 		if cheatInc < 0 and cheatLimit > aiBrain.CheatValue then
         
-			LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED: base is below limit. Unsubscribing on tick "..GetGameTick())
+			LOG("ACT TIMED for "..aiBrain.Nickname.." base is below limit. Unsubscribing on tick "..GetGameTick())
             
 			LOUDREMOVE(timeACTBrains, i)
 		end
         
 	end
 	
-	LOG("*AI DEBUG Starting ACT TIMED after "..startDelay.." ticks. Change: "..cheatInc.." per "..interval.." ticks. Limit: "..repr(cheatLimit).." on tick "..GetGameTick())
+	LOG("ACT TIMED begins after "..startDelay.." ticks.")
     
 	WaitTicks(startDelay)
-	
+    
+	LOG("ACT TIMED begins - Change: "..cheatInc.." every "..interval.." ticks. Limit: "..repr(cheatLimit).." on tick "..GetGameTick())
+
 	while true do
     
 		if not timeACTBrains[1] then
@@ -1066,33 +1089,33 @@ function TimeAdaptiveCheatThread()
 		end
         
 		WaitTicks(interval)
-        
-		--LOG("*AI DEBUG ACT TIMED cycles at "..repr(GetGameTimeSeconds()).." secs")
 
 		-- If a brain gets unsubscribed during an update, the list of brains is
 		-- compromised, and we must stop immediately and reiterate
-		local broke = false
+		broke = false
 
 		local function Iterate()
         
 			for i = 1, LOUDGETN(timeACTBrains) do
             
-				local aiBrain = timeACTBrains[i]
+				aiBrain = timeACTBrains[i]
+
+				oldcheat = aiBrain:TotalCheat()
                 
 				-- Between this iteration and last, AI may have been defeated,
 				-- or met/surpassed upper/lower limit. Deal with these cases
 				if aiBrain.Result == "defeat" then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: defeated on tick "..GetGameTick())
+					LOG("ACT TIMED for "..aiBrain.Nickname.." unsubbed: defeated on tick "..GetGameTick())
                     
 					LOUDREMOVE(timeACTBrains, i)
                     
 					broke = true
 					break
                     
-				elseif cheatInc < 0 and aiBrain:TotalCheat() <= cheatLimit then
+				elseif cheatInc < 0 and oldcheat <= cheatLimit then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: lower limit met on tick "..GetGameTick())
+					LOG("ACT TIMED for "..aiBrain.Nickname.." unsubbed: lower limit met on tick "..GetGameTick())
                     
 					SetArmyPoolBuff(aiBrain, LOUDMAX(cheatLimit, aiBrain:TotalCheat()))
                     
@@ -1101,9 +1124,9 @@ function TimeAdaptiveCheatThread()
 					broke = true
 					break
                     
-				elseif cheatInc > 0 and aiBrain:TotalCheat() >= cheatLimit then
+				elseif cheatInc > 0 and oldcheat >= cheatLimit then
                 
-					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: upper limit met on tick "..GetGameTick())
+					LOG("ACT TIMED for "..aiBrain.Nickname.." unsubbed: upper limit met on tick "..GetGameTick())
                     
 					SetArmyPoolBuff(aiBrain, math.min(cheatLimit, aiBrain:TotalCheat()))
                     
@@ -1113,26 +1136,26 @@ function TimeAdaptiveCheatThread()
 					break
                     
 				end
-
-				local oldcheat = aiBrain:TotalCheat()
 				
 				aiBrain.TimeCheat = aiBrain.TimeCheat + cheatInc
                 
                 -- adjust unit cap but only ever upwards - never down
                 if cheatInc > 0 then
                 
-                    local c = aiBrain.StartingUnitCap 
+                    c = aiBrain.StartingUnitCap 
                 
-                    local a = GetArmyUnitCap(aiBrain.ArmyIndex)
+                    a = GetArmyUnitCap(aiBrain.ArmyIndex)
                     
-                    local b = a + (c * cheatInc )
+                    b = a + (c * cheatInc )
                     
                     SetArmyUnitCap(aiBrain.ArmyIndex, b)
 				end
                 
 				SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED cheat goes from "..oldcheat.." to "..aiBrain:TotalCheat().." on tick "..GetGameTick())
+				LOG("ACT TIMED for "..aiBrain.Nickname.." cheat goes from "..oldcheat.." to "..aiBrain:TotalCheat().." on tick "..GetGameTick())
+
+                WaitTicks(2)    --- small delay between brains
 			end
 		end
 
@@ -6287,15 +6310,15 @@ function AIPickEnemyLogic( self, brainbool )
         -- sort the threats for closest
         LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
 
-                    for _,data in threats do
+        for _,data in threats do
 
-                        if data[3] > 20 then
-                        
-                            -- closer targets are worth more
-                            distance = VDist3( testposition, {data[1],0,data[2]} )
-                
-                            -- adjust result against maximum possible distance on this map
-                            threatWeight = (self.dist_comp / distance ) - 1
+            if data[3] > 20 then
+
+                -- closer targets are worth more
+                distance = VDist3( testposition, {data[1],0,data[2]} )
+
+                -- adjust result against maximum possible distance on this map
+                threatWeight = (self.dist_comp / distance ) - 1
 
                 threatWeight = LOUDFLOOR(threatWeight * data[3])
 
@@ -6329,8 +6352,8 @@ function AIPickEnemyLogic( self, brainbool )
 
     if findEnemy then
 
-            local enemyPosition = false
-            local enemyStrength = 0
+        local enemyPosition = false
+        local enemyStrength = 0
         local enemy = false
         local newPosition = false
 
@@ -6359,12 +6382,12 @@ function AIPickEnemyLogic( self, brainbool )
                 x1 = 0
                 x3 = 0
 
-                    for _,v in units do
+                for _,v in units do
 
-                        if not v.Dead then
+                    if not v.Dead then
 
-                            unitPos = GetPosition(v) or false
-                    
+                        unitPos = GetPosition(v) or false
+
                         if unitPos then
                             x1 = x1 + unitPos[1]
                             x3 = x3 + unitPos[3]
@@ -6381,9 +6404,9 @@ function AIPickEnemyLogic( self, brainbool )
                 end
 
                 x1 = LOUDFLOOR(x1/counter)
-                    x3 = LOUDFLOOR(x3/counter)
+                x3 = LOUDFLOOR(x3/counter)
 
-                    -- the averaged centre
+                -- the averaged centre
                 newPosition = { x1,0,x3 }
 
                 if AttackPlanDialog then
@@ -6391,18 +6414,18 @@ function AIPickEnemyLogic( self, brainbool )
                 end
 
                 -- If we don't have an enemy or it's different than the one we already have
-                    if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
+                if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
 				
-                        -- set this as our current enemy
-                        self:SetCurrentEnemy( enemy )
+                    -- set this as our current enemy
+                    self:SetCurrentEnemy( enemy )
+                        
+                    -- remember this enemy index on the brain
+                    self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
 					
-                        -- remember this enemy index on the brain
-                        self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
-					
-                        -- AI will announce the current target to allies
-                        AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
-                    end
-                    
+                    -- AI will announce the current target to allies
+                    AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
+                end
+
                 -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
                 if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, newPosition) > 100 ) then
 
@@ -6415,7 +6438,7 @@ function AIPickEnemyLogic( self, brainbool )
             end
 		end
     end
-	
+
 end
 
 function GetAlliedBases(self)

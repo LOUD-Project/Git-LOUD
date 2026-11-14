@@ -8,6 +8,14 @@ local LUTL  = '/lua/loudutilities.lua'
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
+local ENGINEER      = categories.ENGINEER * categories.MOBILE
+local SACU          = categories.SUBCOMMANDER
+local ACU           = categories.COMMAND
+
+local TECH1         = categories.TECH1
+local TECH2         = categories.TECH2
+local TECH3         = categories.TECH3
+
 -- imbedded into the Builder
 local AboveUnitCap50 = function( self,aiBrain )
 
@@ -17,15 +25,6 @@ local AboveUnitCap50 = function( self,aiBrain )
 	
 	return (self.OldPriority or self.Priority), true
 end
-
-local ENGINEER      = categories.ENGINEER * categories.MOBILE
-local SACU          = categories.SUBCOMMANDER
-local ACU           = categories.COMMAND
-
-local TECH1         = categories.TECH1
-local TECH2         = categories.TECH2
-local TECH3         = categories.TECH3
-
 
 local AboveUnitCap60 = function( self,aiBrain )
 	
