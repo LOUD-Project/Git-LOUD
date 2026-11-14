@@ -42,12 +42,7 @@ the optionsOrder table is just an array of keys in to the option table, and thei
 order the tabs show in the dialog
 --]]
 
-optionsOrder = {
-    "gameplay",
-    "ui",
-    "video",
-    "sound",
-}
+optionsOrder = { "gameplay","ui","video","sound" }
 
 local savedMasterVol = false
 local savedFXVol = false
@@ -648,13 +643,13 @@ options = {
             },
         },
     },
+
     video = {
         title = "Video",
         key = 'video',
         items = {
 
-            {
-                title = "Primary Adapter",
+            { title = "Primary Adapter",
                 key = 'primary_adapter',
                 type = 'toggle',
                 default = '1024,768,60',
@@ -691,8 +686,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Secondary Adapter",
+            { title = "Secondary Adapter",
                 key = 'secondary_adapter',
                 type = 'toggle',
                 default = 'disabled',
@@ -716,8 +710,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Fidelity Presets",
+            { title = "Fidelity Presets",
                 key = 'fidelity_presets',
                 type = 'toggle',
                 default = 4,
@@ -780,10 +773,7 @@ options = {
                     },
                 },
             },
-
-            
-            {
-                title = "Render Sky",
+            { title = "Render Sky",
                 key = 'render_skydome',
                 type = 'toggle',
                 default = 1,
@@ -800,8 +790,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Fidelity",
+            { title = "Fidelity",
                 key = 'fidelity',
                 type = 'toggle',
                 default = 1,
@@ -819,8 +808,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Shadow Fidelity",
+            { title = "Shadow Fidelity",
                 key = 'shadow_quality',
                 type = 'toggle',
                 default = 1,
@@ -839,8 +827,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Anti-Aliasing",
+            { title = "Anti-Aliasing",
                 key = 'antialiasing',
                 type = 'toggle',
                 default = 0,
@@ -864,8 +851,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Texture Detail",
+            { title = "Texture Detail",
                 key = 'texture_level',
                 type = 'toggle',
                 default = 1,
@@ -883,8 +869,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Level Of Detail",
+            { title = "Level Of Detail",
                 key = 'level_of_detail',
                 type = 'toggle',
                 default = 1,
@@ -902,8 +887,7 @@ options = {
                     },
                 },
             },
-            {
-                title = "Vertical Sync",
+            { title = "Vertical Sync",
                 key = 'vsync',
                 type = 'toggle',
                 default = 1,
@@ -919,6 +903,23 @@ options = {
                     },
                 },
             },
+            { title = "Graphics API",
+                key = 'graphics_api',
+                type = 'toggle',
+                default = 'auto',
+                restart = true,
+                tip = "The renderer the game draws with. Automatic uses the newest one this PC can start. "
+                .. "Takes effect after a restart; if the chosen renderer cannot start, the game uses Direct3D 9.",
+                custom = {
+                    states = {
+                        { text = "Automatic (newest available)", key = 'auto' },
+                        { text = "Direct3D 9", key = 'd3d9' },
+                        { text = "Direct3D 11", key = 'd3d11' },
+                        { text = "Direct3D 12", key = 'd3d12' },
+                        { text = "Vulkan", key = 'vulkan' },
+                    },
+                }, 
+            },                
             {
                 title = "Bloom Render",
                 key = 'bloom_render',
@@ -939,6 +940,7 @@ options = {
             }
         },
     },
+
     sound = {
         title = "Sound",
         items = {
