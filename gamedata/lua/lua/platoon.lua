@@ -9042,10 +9042,10 @@ Platoon = Class(PlatoonMethods) {
 		
         local targettypes = {}
         
-        targettypes["AntiAir"] = true
-        targettypes["Economy"] = true
-        targettypes["Commander"] = true
-        targettypes["Land"] = true
+        targettypes["AntiAir"]          = true
+        targettypes["Economy"]          = true
+        targettypes["Commander"]        = true
+        targettypes["Land"]             = true
         targettypes["StructuresNotMex"] = true
 
         while PlatoonExists(aiBrain, self) do
@@ -9278,8 +9278,20 @@ Platoon = Class(PlatoonMethods) {
 
                 targetclass = false
 				targettype = 'DP'
+                
+                if self.RTBLocation != GetPrimaryLandAttackBase(aiBrain) and notargetcount > 1 then
+                
+                    if LandForceAIDialog then
+                        LOG( dialog.." RTBLocation "..self.RTBLocation.." not PrimaryLandAttackBase "..GetPrimaryLandAttackBase(aiBrain).." on tick "..GetGameTick() )
+                    end
+                    
+                    self.RTBLocation = GetPrimaryLandAttackBase(aiBrain)
+                    
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
 
 				notargetcount = notargetcount + 1
+
 			end
 
             -- if no target after 6 tries - RTB --
@@ -9808,6 +9820,18 @@ Platoon = Class(PlatoonMethods) {
                 target = false
                 targetclass = false
 				targettype = 'DP'
+                
+                if self.RTBLocation != GetPrimaryLandAttackBase(aiBrain) and notargetcount > 1 then
+                
+                    if AmphibForceAIDialog then
+                        LOG( dialog.." RTBLocation "..self.RTBLocation.." not PrimaryLandAttackBase "..GetPrimaryLandAttackBase(aiBrain).." on tick "..GetGameTick() )
+                    end
+                    
+                    self.RTBLocation = GetPrimaryLandAttackBase(aiBrain)
+                    
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
+
 				notargetcount = notargetcount + 1
 			end
 			
