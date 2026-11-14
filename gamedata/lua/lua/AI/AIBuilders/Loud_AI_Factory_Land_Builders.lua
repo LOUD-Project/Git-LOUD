@@ -133,7 +133,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
 
             { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 55, DIRECTFIRELAND - AMPHIBIOUS }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 55, DIRECTFIRELAND - AMPHIBIOUS }},
 		},
 		
 		BuilderType = {'LandT1'},
@@ -150,7 +150,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land', BuildersType = 'Fact
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 85, DIRECTFIRELAND - AMPHIBIOUS }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 85, DIRECTFIRELAND - AMPHIBIOUS }},
 
             { UCBC, 'HaveLessThanUnitsWithCategory', { 3, FACTORY * LAND - TECH1 }},
         },
@@ -966,7 +966,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - TECH1 }},
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 64, DIRECTFIRELAND - AMPHIBIOUS }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 64, DIRECTFIRELAND - AMPHIBIOUS }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, LANDT3 }},
 
@@ -1108,7 +1108,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production Land - Water Map', Builders
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, LANDT3 }},
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 64, DIRECTFIRELAND - AMPHIBIOUS }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 64, DIRECTFIRELAND - AMPHIBIOUS }},
 
             --- insures that we're building amphib units first without using priority as a gate
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 1, DIRECTFIRELAND * AMPHIBIOUS }},
