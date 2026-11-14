@@ -255,9 +255,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production Air - Scouts', BuildersRest
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 96}, AIRSCOUT }},
+			{ UCBC, 'PoolLess', { 18, AIRSCOUT } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 9, AIRSCOUT } },
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 48, [2048] = 60, [4096] = 96}, AIRSCOUT }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRSCOUT, AIRT3 }},
         },
