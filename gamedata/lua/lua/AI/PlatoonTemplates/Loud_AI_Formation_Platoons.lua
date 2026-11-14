@@ -55,11 +55,13 @@ PlatoonTemplate { Name = 'BomberAttack Super',
         { AIRBOMBER, 36, 60, 'Unassigned', 'AttackFormation' },
     }
 }
+
 PlatoonTemplate { Name = 'Experimental Bomber',
     GlobalSquads = {
         { AIRBOMBER - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 3, 8, 'Unassigned', 'none' },
     },
 }
+
 PlatoonTemplate { Name = 'BomberReinforce',
     Plan = 'ReinforceAirAI',	-- either Land or Sea bases
     GlobalSquads = {
@@ -86,6 +88,13 @@ PlatoonTemplate { Name = 'GunshipAttack Large',
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 6, 'Attack', 'none' },
     }
 }
+PlatoonTemplate { Name = 'GunshipAttack Super',
+    GlobalSquads = {
+        { AIRGUNSHIP, 42, 60, 'Attack', 'AttackFormation' },
+		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 6, 'Attack', 'none' },
+    }
+}
+
 PlatoonTemplate { Name = 'Experimental Gunship',
     GlobalSquads = {
         { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.GROUNDATTACK) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 4, 8, 'Attack', 'none' },
@@ -160,6 +169,15 @@ PlatoonTemplate { Name = 'CzarTerrorAttack',
 	FactionSquads = {
 		Aeon = {
 			{ categories.uaa0310, 1, 1, 'Attack', 'none' }
+		},
+    }
+}
+
+PlatoonTemplate { Name = 'CzarTerrorAssault',
+
+	FactionSquads = {
+		Aeon = {
+			{ categories.uaa0310, 4, 8, 'Attack', 'none' }
 		},
     }
 }
@@ -263,7 +281,7 @@ PlatoonTemplate { Name = 'T1MassAttack',
 PlatoonTemplate { Name = 'T2MassAttack',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
+        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 24, 48, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 4, 'Support', 'none' },
@@ -275,8 +293,8 @@ PlatoonTemplate { Name = 'T2MassAttack',
 PlatoonTemplate { Name = 'T3MassAttack',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 45, 60, 'Attack', 'none' },
-		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },
+        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 40, 66, 'Attack', 'none' },
+		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 5, 'Guard', 'none'},
@@ -288,8 +306,8 @@ PlatoonTemplate { Name = 'T3MassAttack',
 PlatoonTemplate { Name = 'T1LandAttack',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
-		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
+        { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 5, 20, 'Attack', 'AttackFormation' },
+		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 8, 'Artillery', 'AttackFormation' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 2, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
@@ -300,8 +318,20 @@ PlatoonTemplate { Name = 'T1LandAttack',
 PlatoonTemplate { Name = 'T2LandAttack',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
-		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
+        { LANDDIRECTFIRE - LANDAMPHIB, 24, 40, 'Attack', 'AttackFormation' },
+		{ LANDARTILLERY, 0, 15, 'Artillery', 'AttackFormation' },
+        { LANDANTIAIR, 0, 12, 'Guard', 'none' },
+		{ LANDSHIELD, 0, 4, 'Support', 'none' },
+		{ LANDCOUNTERINTEL, 0, 2, 'Guard', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },        
+    },
+}
+
+PlatoonTemplate { Name = 'T2LandAttackNW',
+
+    GlobalSquads = {
+        { LANDDIRECTFIRE, 24, 40, 'Attack', 'AttackFormation' },
+		{ LANDARTILLERY, 0, 15, 'Artillery', 'AttackFormation' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 4, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 2, 'Guard', 'none' },
@@ -312,8 +342,8 @@ PlatoonTemplate { Name = 'T2LandAttack',
 PlatoonTemplate { Name = 'T3LandAttack',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.AMPHIBIOUS, 40, 60, 'Attack', 'none' },
-		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },
+        { LANDDIRECTFIRE - LANDAMPHIB, 40, 60, 'Attack', 'none' },
+		{ LANDARTILLERY, 10, 20, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 4, 'Guard', 'none'},
@@ -327,7 +357,7 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
         { LANDDIRECTFIRE, 40, 60, 'Attack', 'none' },
-		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
+		{ LANDARTILLERY, 10, 20, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 5, 'Guard', 'none'},
@@ -340,7 +370,7 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
 PlatoonTemplate { Name = 'LandAttackHugeNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { LANDDIRECTFIRE, 55, 66, 'Attack', 'none' },
+        { LANDDIRECTFIRE, 55, 72, 'Attack', 'none' },
 		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},

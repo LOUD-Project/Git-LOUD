@@ -390,6 +390,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 3,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },
+        
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRBOMBER }},
         },
 		
@@ -440,6 +442,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 2.5 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRBOMBER }},            
         },
 		
@@ -490,6 +494,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 3,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 2.5 } },
+        
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, AIRBOMBER }},
         },
 		
@@ -539,6 +545,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 3,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 4 } },
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, AIRBOMBER }},
         },
@@ -590,7 +597,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, AIRBOMBER }},
 
 			-- none of the major SUPER triggers can be true
@@ -653,7 +661,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},            
             
@@ -703,7 +711,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 		
         BuilderConditions = {
           
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},
             
@@ -756,7 +764,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
 		
         BuilderConditions = {
         
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},
             
@@ -805,7 +813,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},
             
@@ -854,7 +862,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},
             
@@ -903,7 +911,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},
             
@@ -952,7 +960,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Bombers', BuildersRestriction
         InstanceCount = 1,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3.5 } },
             
             { LUTL, 'PoolGreater', { 35, AIRBOMBER }},            
             
@@ -1318,6 +1326,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
         InstanceCount = 3,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },        
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRGUNSHIP }},
         },
 		
@@ -1369,6 +1378,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
         InstanceCount = 3,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },        
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRGUNSHIP }},
         },
@@ -1422,7 +1432,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
         InstanceCount = 4,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },        
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRGUNSHIP }},
         },
 		
@@ -1474,6 +1485,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
         InstanceCount = 3,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },        
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },        
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, AIRGUNSHIP }},        
         },
 		
@@ -1498,7 +1511,58 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Gunships', BuildersRestrictio
 		
         BuilderType = 'Any',
     },
+	-- large group for most targets on 20k maps and distress response 
+    -- operates only from a PRIMARY BASE - Land or Naval
+    -- may include ANTIAIR EXPERIMENTALS	
+    Builder {BuilderName = 'Hunt Gunships Super',
 	
+        PlatoonTemplate = 'GunshipAttack Super',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
+		
+		PlatoonAIPlan = 'AttackForceAI_Gunship',		
+
+        Priority = 720,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRGUNSHIP, manager.Location, manager.Radius ) < 45 then 
+                return 10, true
+            end  
+
+        end,
+
+        InstanceCount = 3,
+
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 5 } },        
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, AIRGUNSHIP }},        
+        },
+		
+        BuilderData = {
+			DistressRange = 250,
+            DistressReactionTime = 6,
+			DistressTypes = 'Land',
+			DistressThreshold = 12,
+            
+			LocationType = 'LocationType',
+            
+            MergeLimit = 100,
+            
+            MissionTime = 400,
+            
+            PrioritizedCategories = {categories.MOBILE * categories.SHIELD, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.ANTIAIR, categories.SHIELD, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
+            
+			SearchRadius = 95,
+            
+            UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+		
 	-- this will forward ANY Gunships to either primary land or sea attack base
     Builder {BuilderName = 'Reinforce Primary - Gunship Squadron',
 	
@@ -2111,6 +2175,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         BuilderType = 'Any',
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },        
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 		},
 		
@@ -2123,7 +2188,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         },
     },
 
-    -- lone Czar Attacks when we have huge air advantage
+    -- lone Czar Attacks when we have air advantage
 	Builder {BuilderName = 'Czar Terror Attack',
 	
         PlatoonTemplate = 'CzarTerrorAttack',
@@ -2151,7 +2216,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRT4 }},
 		},
 		
@@ -2159,7 +2225,44 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
             PrioritizedCategories = { 'ANTIAIR STRUCTURE','EXPERIMENTAL MOBILE -AIR', 'FACTORY STRUCTURE -TECH1', 'EXPERIMENTAL STRUCTURE', 'COMMAND' }, -- list in order
         },
     },
+
+    -- group Czar Attacks when we have huge air advantage
+	Builder {BuilderName = 'Czar Terror Assault',
 	
+        PlatoonTemplate = 'CzarTerrorAssault',
+		
+        PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+		FactionIndex = 2,
+		
+		PlatoonAIPlan = 'CzarAttack',
+		
+        Priority = 750,
+
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 4 then 
+                return 10, true
+            end  
+
+        end,
+
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 5 } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, AIRT4 }},
+		},
+		
+        BuilderData = {
+            PrioritizedCategories = { 'ANTIAIR STRUCTURE','SHIELD STRUCTURE','EXPERIMENTAL MOBILE -AIR','EXPERIMENTAL FACTORY', 'FACTORY STRUCTURE -TECH1', 'EXPERIMENTAL STRUCTURE', 'COMMAND' }, -- list in order
+        },
+    },
+		
     -- defensive behavior for individual Czars when attack conditions not met
     -- this is the prototype behavior - but note this - it's only responsive to 'LAND' distress calls
 	Builder {BuilderName = 'Czar Defensive Behavior - Land',
@@ -2189,7 +2292,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.8 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRT4 }},
 		},
 		
@@ -2235,7 +2338,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.8 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRT4 }},            
 		},
 		
