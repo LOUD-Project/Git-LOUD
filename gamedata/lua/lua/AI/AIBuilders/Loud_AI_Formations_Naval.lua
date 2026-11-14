@@ -227,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -236,7 +236,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 1500,		-- 25 minute mission			
+			MissionTime = 1200,		-- 20 minute mission			
 			
 			PointType = 'Unit',
 			PointCategory = ECONOMIC + FACTORY,
@@ -282,6 +282,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
     -- SEA ATTACK formations only appear when there is enemy Naval Activity
 
     -- T1 Sea Attack only forms when Naval Ratio < 4 to conserve units for bigger formations when ratio is higher
+    -- and will not form if there are ANY Battleships at the location
     Builder {BuilderName = 'T1 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Small',
@@ -309,6 +310,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, CRUISER, manager.Location, manager.Radius ) < 2 then 
                     return 11, true
                 end  
+                
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, BATTLESHIP, manager.Location, manager.Radius ) > 0 then
+                    return 11, true
+                end
 
             else
                 return 10, true
@@ -317,14 +322,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 
 		FactionIndex = 1,
 
-        InstanceCount = 3,
+        InstanceCount = 2,
 
 		RTBLocation = 'Any',
 
         BuilderType = 'Any',
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 10 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 4 } },
             { LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
@@ -339,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
-			MissionTime = 600,		-- 10 minute mission
+			MissionTime = 540,		-- 9 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
@@ -375,6 +380,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, CRUISER, manager.Location, manager.Radius ) < 2 then 
                     return 11, true
                 end  
+                
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, BATTLESHIP, manager.Location, manager.Radius ) > 0 then
+                    return 11, true
+                end
 
             else
                 return 10, true
@@ -383,14 +392,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 
 		FactionIndex = 2,
 
-        InstanceCount = 3,
+        InstanceCount = 2,
 
 		RTBLocation = 'Any',
 
         BuilderType = 'Any',
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 10 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 4 } },
             { LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
@@ -404,7 +413,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 600,		-- 10 minute mission
+			MissionTime = 540,		-- 9 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
@@ -440,6 +449,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, CRUISER, manager.Location, manager.Radius ) < 2 then 
                     return 11, true
                 end  
+                
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, BATTLESHIP, manager.Location, manager.Radius ) > 0 then
+                    return 11, true
+                end
 
             else
                 return 10, true
@@ -448,14 +461,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 
 		FactionIndex = 3,
 
-        InstanceCount = 3,
+        InstanceCount = 2,
 
 		RTBLocation = 'Any',
 
         BuilderType = 'Any',
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 10 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 4 } },
             { LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
@@ -470,7 +483,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 
-			MissionTime = 600,		-- 10 minute mission
+			MissionTime = 540,		-- 9 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
             
 			UseFormation = 'AttackFormation',
@@ -510,6 +523,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, DESTROYER, manager.Location, manager.Radius ) < 1 then 
                     return 11, true
                 end  
+                
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, BATTLESHIP, manager.Location, manager.Radius ) > 0 then
+                    return 11, true
+                end
 
             else
                 return 10, true
@@ -518,14 +535,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 
 		FactionIndex = 4,
 
-        InstanceCount = 3,
+        InstanceCount = 2,
 
 		RTBLocation = 'Any',
 
         BuilderType = 'Any',
 
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 10 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 4 } },
             { LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
@@ -539,7 +556,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
-			MissionTime = 600,		-- 10 minute mission
+			MissionTime = 540,		-- 9 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'AttackFormation',
@@ -548,7 +565,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
         },
     },
 
-
+    -- T2 Sea Attack is the first real flotilla with Battleships
     Builder {BuilderName = 'T2 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Medium',
@@ -580,7 +597,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
             
@@ -608,7 +625,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DEFENSIVE }},
         },
 		
@@ -658,7 +675,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
 
@@ -682,7 +699,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -733,7 +750,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
             
@@ -761,7 +778,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, DEFENSIVE }},
         },
 		
@@ -812,7 +829,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
 
@@ -836,7 +853,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -883,11 +900,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 7 then 
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 15 then 
                     return 11, true
                 end  
             
@@ -914,8 +931,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
    			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, FRIGATE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, DEFENSIVE }},
         },
 		
@@ -925,7 +942,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1500,		-- 25 minute mission
+			MissionTime = 1320,		-- 22 minute mission
             SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
@@ -961,11 +978,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 7 then 
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
 
@@ -988,8 +1005,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
    			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, FRIGATE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -998,7 +1015,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1500,		-- 25 minute mission
+			MissionTime = 1320,		-- 22 minute mission
             SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
@@ -1035,11 +1052,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 7 then 
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
             
@@ -1066,8 +1083,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
    			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, FRIGATE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, DEFENSIVE }},
         },
 		
@@ -1077,7 +1094,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1500,		-- 25 minute mission
+			MissionTime = 1320,		-- 22 minute mission
             SearchRadius = 220,     -- use Prioritized Categories as primary target selection
 			
 			UseFormation = 'GrowthFormation',
@@ -1114,11 +1131,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 7 then 
                     return 11, true
                 end  
             
-                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 7 then 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, SUBMARINE, manager.Location, manager.Radius ) < 9 then 
                     return 11, true
                 end  
 
@@ -1141,8 +1158,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
    			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, BATTLESHIP }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, FRIGATE }},
-   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, SUBMARINE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, FRIGATE }},
+   			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, SUBMARINE }},
         },
 		
         BuilderData = {
@@ -1151,7 +1168,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
-			MissionTime = 1500,		-- 25 minute mission
+			MissionTime = 1320,		-- 22 minute mission
             SearchRadius = 220,     -- use Prioritized Categories as primary target selection            
 			
 			UseFormation = 'GrowthFormation',
@@ -1295,7 +1312,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
-                if aiBrain.NavalRatio < 4 or aiBrain.AirRatio < 2 then
+                if aiBrain.NavalRatio < 4 or aiBrain.AirRatio < 3 then
                     return 11, true
                 end
             
@@ -1307,6 +1324,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                    return 11, true
+                end  
+    
             else
                 return 10, true
             end
@@ -1320,7 +1341,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
 		
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioGreaterThan', { 4 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, BOMBARD }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, CRUISER }},
@@ -1332,7 +1353,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
             
             MissionRadius = 1800,
 			
-			MissionTime = 2700,		-- 45 minute mission
+			MissionTime = 2400,		-- 40 minute mission
 			
 			UseFormation = 'LOUDClusterFormation',
 			
@@ -1368,6 +1389,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
                     return 11, true
                 end  
 
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, FRIGATE, manager.Location, manager.Radius ) < 5 then 
+                    return 11, true
+                end  
+    
             else
                 return 10, true
             end
@@ -1393,7 +1418,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations', BuildersType = 'PlatoonForm
             
             MissionRadius = 1800,
 			
-			MissionTime = 2700,		-- 45 minute mission
+			MissionTime = 2400,		-- 40 minute mission
 			
 			UseFormation = 'LOUDClusterFormation',
 			
