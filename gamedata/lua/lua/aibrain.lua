@@ -1828,7 +1828,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		self.BuilderManagers[baseName].EngineerManager:BaseMonitorSetup( self )
 		
         -- check if we need to assign new primary attack bases
-		SetPrimaryLandAttackBase(self)
+		SetPrimaryLandAttackBase(self, 'NewBase'..baseName)
 		SetPrimarySeaAttackBase(self)
     end,
 

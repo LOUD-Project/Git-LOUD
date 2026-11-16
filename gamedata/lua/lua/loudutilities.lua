@@ -1405,35 +1405,47 @@ end
 
 -- This function determines which base is closest to the primary
 -- attack planner goal and sets the flag on that base
-function SetPrimaryLandAttackBase( aiBrain )
-
+function SetPrimaryLandAttackBase( aiBrain, callevent )
+    
+    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+ 
     while aiBrain.AttackPlan.Pending do
         WaitTicks(21)
     end
-    
-    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
 
     -- clear existing base reference if it's no longer active
     if not aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].EngineerManager.Active then
         aiBrain.PrimaryLandAttackBase = false
         aiBrain.PrimaryLandAttackBaseDistance = 99999
     end
-    
-    local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
 
     if aiBrain.AttackPlan.Goal then
+    
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Setting PrimaryLandAttackBase due to "..repr(callevent))
+        AttackPlanDialog = true
+   
+        local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
     
         local goal = aiBrain.AttackPlan.Goal
         
         local Bases = {}
 		local counter = 0
         
-        local path, reason, pathlength
-        local Primary
+        local path, reason, pathlength, Primary
         
         local currentgoaldistance = aiBrain.PrimaryLandAttackBaseDistance or 99999       -- default in case current primary doesn't exist --
         
         local currentlandbasemode = false   -- assume all bases are amphibious mode
+    
+        if AttackPlanDialog then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews Primary Land Attack Base for goal at "..repr(goal).." path distance is "..currentgoaldistance)
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
+
+            if aiBrain.LastPrimaryLandAttackBase and aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
+            end
+        end
         
         if aiBrain.AttackPlan.Method == "Land" then
             currentlandbasemode = true      -- bases will be in land mode
@@ -1461,35 +1473,29 @@ function SetPrimaryLandAttackBase( aiBrain )
                     counter = counter + 1
 
                 end
+                
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews "..Bases[counter].BaseName.." with goal pathdistance of "..Bases[counter].Distance)
+                end
             
                 -- record the current primary base distance
-                if v.BaseName == aiBrain.PrimaryLandAttackBase then
+                --if v.BaseName == aiBrain.PrimaryLandAttackBase then
                 
-                    currentgoaldistance = Bases[counter].Distance
+                  --  currentgoaldistance = Bases[counter].Distance
                     
-                end
+                --end
             end
         end
         
         if counter == 0 then
             return
         end
-    
-        if AttackPlanDialog then
-        
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews Primary Land Attack Base for goal at "..repr(goal))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
-
-            if aiBrain.LastPrimaryLandAttackBase and aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
-            end
-        end
         
 		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
 
-        -- a new primary base must be 10% closer than the existing one -- or don't change --
-        if (currentgoaldistance and Bases[1].Distance < (currentgoaldistance * 0.9)) or LOUDGETN(Bases) == 1 then
+        -- the path from a new primary base must be 1/2 an IMAP block closer than the existing one
+        if (currentgoaldistance and Bases[1].Distance < (currentgoaldistance - (ScenarioInfo.IMAPSize/2))) or LOUDGETN(Bases) == 1 then
         
             -- make this base the Primary
             Primary = Bases[1].BaseName
@@ -1497,15 +1503,12 @@ function SetPrimaryLandAttackBase( aiBrain )
             if AttackPlanDialog then
             
                 if aiBrain.PrimaryLandAttackBase != Primary then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan setting "..repr(Primary).." as Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan records "..repr(aiBrain.PrimaryLandAttackBase).." as previous" )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan setting "..repr(Primary).." as Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode).." Path Distance is "..Bases[1].Distance)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan records "..repr(aiBrain.PrimaryLandAttackBase).." as previous - with path distance of "..currentgoaldistance )
                 end
                 
             end
             
-            -- set the goal distance of the new base
-            currentgoaldistance = Bases[1].Distance
-
             -- mark the base as being Primary --
             aiBrain.BuilderManagers[Primary].PrimaryLandAttackBase = true
 
@@ -1514,9 +1517,12 @@ function SetPrimaryLandAttackBase( aiBrain )
 
             -- store the current base selection and the goal distance on the brain
             aiBrain.PrimaryLandAttackBase = Primary
-            aiBrain.PrimaryLandAttackBaseDistance = currentgoaldistance
+            aiBrain.PrimaryLandAttackBaseDistance = Bases[1].Distance
             
             local builderManager
+
+            -- set the goal distance of the new base
+            currentgoaldistance = Bases[1].Distance
         
             -- loop thru all the bases - set Primary, clear all others
             -- set the base mode according to the attack plan method
@@ -3501,7 +3507,7 @@ function DeadBaseMonitor( aiBrain )
                     
                         aiBrain.BuilderManagers[k].PrimaryLandAttackBase = false
                         
-                        SetPrimaryLandAttackBase(aiBrain)
+                        SetPrimaryLandAttackBase(aiBrain,'DeadBase'..k)
                     end
                     
                     if v.PrimarySeaAttackBase then
@@ -7158,7 +7164,7 @@ function AttackPlanMonitor(self)
             end
             
             -- set primary bases 
-			SetPrimaryLandAttackBase(self)
+			SetPrimaryLandAttackBase(self,'AttackPlanMonitor')
 			SetPrimarySeaAttackBase(self)
             
             -- and wait for next cycle (GoCheckInterval)            
