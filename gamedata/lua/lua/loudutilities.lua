@@ -1421,8 +1421,8 @@ function SetPrimaryLandAttackBase( aiBrain, callevent )
 
     if aiBrain.AttackPlan.Goal then
     
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Setting PrimaryLandAttackBase due to "..repr(callevent))
-        AttackPlanDialog = true
+        ---LOG("*AI DEBUG "..aiBrain.Nickname.." Setting PrimaryLandAttackBase due to "..repr(callevent))
+        ---AttackPlanDialog = true
    
         local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
     
@@ -1475,15 +1475,9 @@ function SetPrimaryLandAttackBase( aiBrain, callevent )
                 end
                 
                 if AttackPlanDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews "..Bases[counter].BaseName.." with goal pathdistance of "..Bases[counter].Distance)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan records "..Bases[counter].BaseName.." with goal pathdistance of "..Bases[counter].Distance)
                 end
-            
-                -- record the current primary base distance
-                --if v.BaseName == aiBrain.PrimaryLandAttackBase then
-                
-                  --  currentgoaldistance = Bases[counter].Distance
-                    
-                --end
+
             end
         end
         
@@ -1503,7 +1497,7 @@ function SetPrimaryLandAttackBase( aiBrain, callevent )
             if AttackPlanDialog then
             
                 if aiBrain.PrimaryLandAttackBase != Primary then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan setting "..repr(Primary).." as Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode).." Path Distance is "..Bases[1].Distance)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan SETTING "..repr(Primary).." as Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode).." Path Distance is "..Bases[1].Distance)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan records "..repr(aiBrain.PrimaryLandAttackBase).." as previous - with path distance of "..currentgoaldistance )
                 end
                 
