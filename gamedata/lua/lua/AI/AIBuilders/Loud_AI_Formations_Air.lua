@@ -2077,12 +2077,14 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'},{BHVR, 'AirForceAI_Bomber_LOUD'}, {BHVR, 'RetreatAI'} },		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
+
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 730,
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4 * AIRBOMBER, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
             end  
 
@@ -2122,7 +2124,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4 * AIRGUNSHIP, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
             end  
 
@@ -2164,7 +2166,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 3 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 3 then 
                 return 10, true
             end  
 
@@ -2205,7 +2207,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
             end  
 
@@ -2243,7 +2245,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 4 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 4 then 
                 return 10, true
             end  
 
@@ -2281,7 +2283,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
             end  
 
@@ -2327,7 +2329,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals', BuildersRestr
 
 		PriorityFunction = function(self, aiBrain, manager)
             
-            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, AIRT4, manager.Location, manager.Radius ) < 1 then 
+            if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, categories.uaa0310, manager.Location, manager.Radius ) < 1 then 
                 return 10, true
             end  
 
