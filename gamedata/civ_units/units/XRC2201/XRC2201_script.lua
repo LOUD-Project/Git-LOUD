@@ -52,10 +52,9 @@ XRC2201 = Class(CCivilianStructureUnit) {
         for k, vBone in bones do
             position = self:GetPosition(vBone)
             offset = utilities.GetDifferenceVector( position, basePosition )
-            velocity = utilities.GetDirectionVector( position, basePosition ) # 
-            velocity.x = velocity.x + utilities.GetRandomFloat(-0.3, 0.3)
-            velocity.z = velocity.z + utilities.GetRandomFloat(-0.3, 0.3)
-            velocity.y = velocity.y + utilities.GetRandomFloat( 0.2, 0.5)
+            -- GetDirectionVector returns a plain table {x, y, z} (utilities.lua NormalizeVector), it has no .x/.y/.z
+            velocity = utilities.GetDirectionVector( position, basePosition )
+            velocity = Vector( velocity[1] + utilities.GetRandomFloat(-0.3, 0.3), velocity[2] + utilities.GetRandomFloat( 0.2, 0.5), velocity[3] + utilities.GetRandomFloat(-0.3, 0.3) )
             proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
             proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(3, 4)):SetCollision(false)
             
