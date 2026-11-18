@@ -185,9 +185,12 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
+        '25D57D85-7D84-27HT-A501-BR3WUISM00006', -- BrewLAN Custom SpawnMenu
         'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
+        'E9410707-B979-462F-B9E8-3DDB886DB31B', -- Enhanced Pause Behavior        
         '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
+        '20dec73e-d4b2-11e5-ab30-625662870761', -- Pause replays at time
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
         'fed32a0d-49e9-44f2-8239-df762c59a58b', -- SUE Keybind
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
@@ -202,8 +205,6 @@ local modSchema = {
     ["Unofficial Rebalance"] = {
         '25D57D85-9JA7-D842-BREW-INTEL00000002', -- BrewLAN: Bletchley Park
         '25D57D85-9JA7-LOUD-BREW-RESEARCH00005', -- BrewLAN: Research and Daiquiris
-        '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
-        '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
     },
     ["Mutators"] = {
         'ffffffff-9d4e-11dc-8314-0800200c0605', -- LOUD Enhanced Black Ops Commanders
@@ -235,8 +236,6 @@ local modSchema = {
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
         'zcbf6277-24e3-437a-b968-Common-v1',     -- Common Mod Tools
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
-        'E9410707-B979-462F-B9E8-3DDB886DB31B', -- Enhanced Pause Behavior
-        '20dec73e-d4b2-11e5-ab30-625662870761', -- Pause replays at time
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- LOUD No Voiceover Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music

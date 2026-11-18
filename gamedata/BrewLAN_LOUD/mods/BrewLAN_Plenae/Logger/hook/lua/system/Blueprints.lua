@@ -32,7 +32,7 @@ function ShouldWeLogThis(id, bp)
 end
 
 function CheckUnitHasCorrectIcon(all_bps)
-    WARN("DO THE ICON CHECK")
+    WARN("BrewLAN Logger - ICON CHECK")
     for id, bp in all_bps do
         if ShouldWeLogThis(id, bp) and bp.Categories then
 
@@ -139,7 +139,7 @@ function CheckUnitHasCorrectIcon(all_bps)
             end]]
         end
     end
-    WARN("DOne")
+    WARN("Icon Check Done")
 end
 
 function IvanCheckUnitWeight(all_bps)

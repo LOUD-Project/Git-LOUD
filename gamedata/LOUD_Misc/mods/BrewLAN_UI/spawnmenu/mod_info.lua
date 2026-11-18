@@ -1,0 +1,14 @@
+name = "BrewLAN UI: Spawn Menu"
+uid = "25D57D85-7D84-27HT-A501-BR3WUISM00006"
+version = 0.6
+copyright = "© 2020–2023 Sean Wheeldon"
+description = "Overhauls the cheat spawn menu."
+author = "Balthazar"
+icon = "/mods/BrewLAN_UI/spawnmenu/BrewUI.png"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+conflicts = {  }
+before = {  }
+after = {  }
