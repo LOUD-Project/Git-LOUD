@@ -1528,6 +1528,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
+                if aiBrain.LandRatio <= 0.7 then
+                    return 12, true
+                end
+                       
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 40 then 
                     return 11, true
                 end  
@@ -1543,9 +1547,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderType = 'Any',
 		
-		BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
-        },
+		BuilderConditions = {},
 		
         BuilderData = {
 		
@@ -1560,7 +1562,55 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UseFormation = 'AttackFormation',
         },
     },
-    
+	
+	-- large amphib attack at 15 km when land ratio low
+    Builder {BuilderName = 'Amphib Attk Large - Low Ratio',
+	
+        PlatoonTemplate = 'T3AmphibAttack',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+        Priority = 802,
+		
+		PriorityFunction = function(self, aiBrain, manager)
+            
+            if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+            
+                if aiBrain.LandRatio > 0.7 then
+                    return 12, true
+                end
+            
+                if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 40 then 
+                    return 11, true
+                end  
+
+            else
+                return 10, true
+            end
+        end,
+
+		RTBLocation = 'Any',
+		
+        InstanceCount = 3,
+		
+        BuilderType = 'Any',
+		
+		BuilderConditions = {},
+		
+        BuilderData = {
+		
+            PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},
+			
+			MaxAttackRange = 750,
+			
+			MergeLimit = 100,
+			
+			AggressiveMove = true,
+			
+			UseFormation = 'AttackFormation',
+        },
+    },
+      
 	--- general amphib attack at 20km 
     Builder {BuilderName = 'Amphib Attk',
 	
@@ -1574,6 +1624,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
+                if aiBrain.LandRatio <= 0.8 then
+                    return 12, true
+                end
+                       
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 30 then 
                     return 11, true
                 end  
@@ -1589,9 +1643,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderType = 'Any',
 		
-        BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-		},
+        BuilderConditions = {},
 		
         BuilderData = {
 		
@@ -1622,6 +1674,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
+                if aiBrain.LandRatio <= 1 then
+                    return 12, true
+                end
+                       
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 20 then 
                     return 11, true
                 end  
@@ -1639,7 +1695,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
         },
 		
         BuilderData = {
@@ -1700,6 +1755,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
             
             if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
             
+                if aiBrain.LandRatio <= 1 then
+                    return 12, true
+                end
+                       
                 if PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, LANDAMPHIB - ANTIAIR, manager.Location, manager.Radius ) < 3 then 
                     return 11, true
                 end  
@@ -1717,8 +1776,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
-
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 200, 'Land', 300 }},
         },
 		
