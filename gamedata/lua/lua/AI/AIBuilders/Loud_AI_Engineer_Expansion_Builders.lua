@@ -320,6 +320,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
 		Priority = 750,
 
         PriorityFunction = function( self, aiBrain, unit, manager )
@@ -336,7 +338,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
                 return 12, true
             end
             
-            --- if the Plan is water based, increase naval DP priority
+            --- if the Plan is land based, increase land DP priority
             if aiBrain.AttackPlan.Method == "Land" then
                 return (self.OldPriority or self.Priority) + 10, true
             end
@@ -974,7 +976,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
                 return 12, true
             end
             
-            --- if the Plan is water based, increase naval DP priority
+            --- if the Plan is NOT land based, increase naval DP priority
             if aiBrain.AttackPlan.Method != "Land" then
                 return (self.OldPriority or self.Priority) + 10, true
             end
@@ -986,8 +988,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
         BuilderConditions = {
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
-            
-            { LUTL, 'NavalStrengthRatioGreaterThan', { 0.5 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -995,7 +995,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
             
-			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE -AIR', 60, 0, -999999, 75, 1, 'AntiSurface' }},
+			{ UCBC, 'NavalDPforExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
         },
 		
         BuilderType = { 'T1','T2','T3' },
@@ -1003,27 +1003,28 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
         BuilderData = {
             Construction = {
 				CountedBase = false,
+
 				ExpansionBase = true,
                 ExpansionRadius = 115,
 				RallyPointRadius = 25,
 
                 NearMarkerType = 'Naval Defensive Point',
 				
-                LocationRadius = 1200,
+                LocationRadius = 1600,
 				
                 MarkerUnitCategory = 'OVERLAYSONAR SONAR INTELLIGENCE -AIR',
                 MarkerRadius = 60,
                 MarkerUnitCount = 0,
 
                 ThreatMin = -999999,
-                ThreatMax = 75,
-                ThreatRings = 1,
+                ThreatMax = 60,
+                ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
 				
-                BuildStructures = {'T1Sonar','T1NavalDefense'}
+                BuildStructures = {'T1NavalDefense','T1Sonar'}
             }
         }
     },

@@ -1580,7 +1580,7 @@ function SetPrimaryLandAttackBase( aiBrain, callevent )
                 
                     if aiBrain.BuilderManagers[base].MarkerID then
 
-                        ForkThread( RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[base].MarkerID)
+                        ForkThread( RemoveBaseMarker, aiBrain, base, aiBrain.BuilderManagers[base].MarkerID)
 
                         aiBrain.BuilderManagers[base].MarkerID = nil
                     end
@@ -3003,13 +3003,13 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             
 			LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
 		
-            local counter = 0
-            local avgposition = { 0,0,0 }
+            local counter   = 0
+            local avgpos    = VectorCached
             
 			for _,v in threats do
 			
-                avgposition[1] = avgposition[1] + v[1]
-                avgposition[3] = avgposition[3] + v[2]
+                avgpos[1] = avgpos[1] + v[1]
+                avgpos[3] = avgpos[3] + v[2]
                 
                 counter = counter + 1
 				
@@ -3018,16 +3018,14 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             --- if there are no threats on the map - then orient towards middle of the map
             if counter == 0 then
        
-                LOG("*AI DEBUG No threats were found for location "..repr(location) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Set Orientation - No threats were found for location "..repr(Basename or location) )
 
-                avgposition[1] = Mx/2
-                avgposition[3] = Mz/2
+                avgpos[1] = Mx/2
+                avgpos[3] = Mz/2
                 counter = 1
             end
             
-			Direction = GetDirectionInDegrees( {avgposition[1]/counter, location[2], avgposition[3]/counter}, location )
-            
-            --LOG("*AI DEBUG Direction is "..repr(Direction))
+			Direction = GetDirectionInDegrees( {avgpos[1]/counter, location[2], avgpos[3]/counter}, location )
 
 			if Direction then
 			
@@ -3160,6 +3158,8 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 		end
 	end
 
+    local x,z
+    
 	-- if we have an orientation build a list of those points that meet that specification
 	-- FRONT will have all points that do not match the OrientvalueREAR (9 points)
 	-- REAR will have all point that DO match the OrientvalueREAR (3 points)
@@ -3167,13 +3167,16 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 	if orientation == 'FRONT' or orientation == 'REAR' then
 		
 		local filterList = {}
+
 		counter = 0
 
 		for k,v in locList do
-			local x = v[1]
-			local z = v[3]
+
+			x = v[1]
+			z = v[3]
 
 			if Orient == 'N' or Orient == 'S' then
+
 				if orientation == 'FRONT' and z != OrientvalueREAR then
 					filterList[counter+1] = v
 					counter = counter + 1
@@ -3181,7 +3184,9 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 					filterList[counter+1] = v
 					counter = counter + 1
 				end
+
 			elseif Orient == 'W' or Orient == 'E' then
+
 				if orientation == 'FRONT' and x != OrientvalueREAR then
 					filterList[counter+1] = v
 					counter = counter + 1
@@ -3189,8 +3194,10 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 					filterList[counter+1] = v
 					counter = counter + 1
 				end
+
 			end
 		end
+
 		locList = filterList
 	end
 	
@@ -3219,32 +3226,32 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 	-- I have kept the original code contained inside this loop but 
 	-- it doesn't run
 	if patroltype or layer == 'Air' then
+
 		local lastX = Mx* 0.5
 		local lastZ = Mz* 0.5
+		
+		local lowest
+        local czX, czZ, pos, distance, key
 	
 		if patroltype or layer == 'Air' then
 			lastX = location[1]
 			lastZ = location[3]
 		end
-		
 	
 		-- Sort points by distance from (lastX, lastZ) - map centre
 		-- or if patrol or 'Air', then from the provided location
 		for i = 1, counter do
 		
-			local lowest
-			local czX, czZ, pos, distance, key
-		
 			for k, v in locList do
-				local x = v[1]
-				local z = v[3]
+				x = v[1]
+				z = v[3]
 				
 				distance = VDist2Sq(lastX, lastZ, x, z)
 				
 				if not lowest or distance < lowest then
-					pos = v
-					lowest = distance
-					key = k
+					key     = k
+					lowest  = distance
+					pos     = v
 				end
 			end
 		
@@ -3259,6 +3266,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 				lastX = pos[1]
 				lastZ = pos[3]
 			end
+
 			LOUDREMOVE(locList, key)
 		end
 	else

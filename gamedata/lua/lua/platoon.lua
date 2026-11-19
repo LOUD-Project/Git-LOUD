@@ -24,6 +24,7 @@ local AIFindBaseAreaForDP                       = AltAIUtilities.AIFindBaseAreaF
 local AIFindBaseAreaForExpansion                = AltAIUtilities.AIFindBaseAreaForExpansion
 local AIFindBasePointNeedsStructure             = AltAIUtilities.AIFindBasePointNeedsStructure
 local AIFindNavalAreaForExpansion               = AltAIUtilities.AIFindNavalAreaForExpansion
+local AIFindNavalDefensivePointForDP            = AltAIUtilities.AIFindNavalDefensivePointForDP
 local AIFindNavalDefensivePointNeedsStructure   = AltAIUtilities.AIFindNavalDefensivePointNeedsStructure
 local AIFindStartPointNeedsStructure            = AltAIUtilities.AIFindStartPointNeedsStructure
 local AISendPing                                = AltAIUtilities.AISendPing
@@ -7490,7 +7491,7 @@ Platoon = Class(PlatoonMethods) {
 
 			elseif NearMarkerType == 'Naval Defensive Point' then	
 			
-				startpos, refName = AIFindNavalDefensivePointNeedsStructure( aiBrain, BuilderLocation, (cons.LocationRadius or 100), cons.MarkerUnitCategory, cons.MarkerRadius, cons.MarkerUnitCount, ThreatMin, ThreatMax, ThreatRings, ThreatType )			
+				startpos, refName = AIFindNavalDefensivePointForDP( aiBrain, BuilderLocation, (cons.LocationRadius or 100), ThreatMin, ThreatMax, ThreatRings, ThreatType, false )			
 				
 			else
 				

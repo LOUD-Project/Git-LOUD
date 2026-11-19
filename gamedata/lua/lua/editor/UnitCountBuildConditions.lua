@@ -18,6 +18,7 @@ local AIFindExpansionPointNeedsStructure        = AltAIUtils.AIFindExpansionPoin
 local AIFindStartPointNeedsStructure            = AltAIUtils.AIFindStartPointNeedsStructure
 local AIFindBasePointNeedsStructure             = AltAIUtils.AIFindBasePointNeedsStructure
 local AIFindNavalAreaForExpansion               = AltAIUtils.AIFindNavalAreaForExpansion
+local AIFindNavalDefensivePointForDP            = AltAIUtils.AIFindNavalDefensivePointForDP
 local AIFindNavalDefensivePointNeedsStructure   = AltAIUtils.AIFindNavalDefensivePointNeedsStructure
 
 AltAIUtils = nil
@@ -264,6 +265,17 @@ function DefensivePointForExpansion( aiBrain, locationType, locationRadius, thre
 	
     return false
 end
+
+-- used to find available Naval DP positions
+function NavalDPforExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
+
+    if AIFindNavalDefensivePointForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
+        return true
+    end
+	
+    return false
+end
+
 
 -- used to find available Naval Area positions
 function NavalAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
