@@ -7488,7 +7488,7 @@ Platoon = Class(PlatoonMethods) {
 			
 				-- Defensive Points with ExpansionBase == true
 				startpos, refName = AIFindDefensivePointForDP( aiBrain, BuilderLocation, (cons.LocationRadius or 100), ThreatMin, ThreatMax, ThreatRings, ThreatType, false )
-
+                
 			elseif NearMarkerType == 'Naval Defensive Point' then	
 			
 				startpos, refName = AIFindNavalDefensivePointForDP( aiBrain, BuilderLocation, (cons.LocationRadius or 100), ThreatMin, ThreatMax, ThreatRings, ThreatType, false )			

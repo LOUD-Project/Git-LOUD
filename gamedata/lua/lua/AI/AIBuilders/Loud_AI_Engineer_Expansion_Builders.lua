@@ -122,7 +122,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
 			-- there must be a vacant start/expansion area with no allied structures within ExpansionRadius range (115)
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 60, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 65, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -156,7 +156,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 				BaseTemplate = 'ExpansionLayout_II',
                 
 				-- these parameters control point selection
-                ThreatMax = 60,
+                ThreatMax = 65,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
@@ -226,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 				BaseTemplate = 'ExpansionLayout_II',
                 
 				-- these parameters control point selection
-                ThreatMax = 60,
+                ThreatMax = 75,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
@@ -266,7 +266,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
             
 			-- there must be an open start/expansion area within 14km
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, 115, -9999, 115, 60, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, 115, -9999, 115, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1' },
@@ -300,7 +300,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land Base', BuildersTy
 				BaseTemplate = 'ExpansionLayout_II',
                 
 				-- these parameters control point selection
-                ThreatMax = 60,
+                ThreatMax = 115,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
@@ -357,7 +357,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 65, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -374,7 +374,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				
 				LocationRadius = 1600,
 				
-                ThreatMax = 60,
+                ThreatMax = 65,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
@@ -427,7 +427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1600, -999999, 75, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -444,7 +444,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				
 				LocationRadius = 1600,
 				
-                ThreatMax = 60,
+                ThreatMax = 75,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
@@ -537,7 +537,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
 		
-			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' } },
+			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 65, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -553,8 +553,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
                 LocationRadius = 2000,
                 NearMarkerType = 'Large Expansion Area',
 
-                ThreatMax = 60,
-                ThreatRings = 0,
+                ThreatMax = 65,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -594,7 +594,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - TECH1 }},
 		
-			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' } },
+			{ UCBC, 'BaseAreaForDP', { 'LocationType', 1000, -999999, 75, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'SubCommander' },
@@ -607,10 +607,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Land DP', BuildersType
 				ExpansionRadius = 100,
 				RallyPointRadius = 44,
 
-                LocationRadius = 2000,
+                LocationRadius = 1000,
                 NearMarkerType = 'Expansion Area',
 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 
@@ -679,7 +679,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 			
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 725, 'Economy', 500 }},
 			
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 725, -250, 60, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -696,7 +696,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 725,
 				
-                ThreatMax = 50,
+                ThreatMax = 60,
                 ThreatRings = 2,
                 ThreatType = 'AntiSurface',
 				
@@ -752,7 +752,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 450, 'Economy', 500 }},
 
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 60, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -769,7 +769,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval Base', BuildersT
                 NearMarkerType = 'Naval Area',
                 LocationRadius = 600,
 				
-                ThreatMax = 50,
+                ThreatMax = 60,
                 ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
@@ -995,7 +995,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - TECH1 }},
             
-			{ UCBC, 'NavalDPforExpansion', { 'LocationType', 1600, -999999, 60, 0, 'AntiSurface' }},
+			{ UCBC, 'NavalDPforExpansion', { 'LocationType', 1600, -999999, 65, 0, 'AntiSurface' }},
         },
 		
         BuilderType = { 'T1','T2','T3' },
@@ -1017,7 +1017,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Construction - Naval DP', BuildersTyp
                 MarkerUnitCount = 0,
 
                 ThreatMin = -999999,
-                ThreatMax = 60,
+                ThreatMax = 65,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				

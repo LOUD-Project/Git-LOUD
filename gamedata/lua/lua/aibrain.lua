@@ -48,7 +48,7 @@
 
     
     -- AI will display the route and goal of his current attack plan
-	ScenarioInfo.DisplayAttackPlans = true
+	ScenarioInfo.DisplayAttackPlans = false
 	LOG("*AI DEBUG      Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
     
     -- the AttackPlanner will dialog their selection and plotting data and decisions to the LOG
@@ -56,7 +56,7 @@
     LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
     -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
-	ScenarioInfo.ReportRatios = true
+	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG      Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 
@@ -79,7 +79,7 @@
 
     
     -- Each AI base will appear on the map with it's name - while active
-	ScenarioInfo.DisplayBaseNames = true
+	ScenarioInfo.DisplayBaseNames = false
 	LOG("*AI DEBUG      Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 
     -- Each AI base will dialog its threat monitor data and decisions to the LOG
@@ -1794,6 +1794,8 @@ AIBrain = Class(moho.aibrain_methods) {
             PlatoonFormManager  = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
+    
+        --LOG("*AI DEBUG "..self.Nickname.." Adding BuilderManagers for "..repr(baseName).." at "..repr(self:GetStartVector3f()) )
         
         if baseName == 'MAIN' then
             
