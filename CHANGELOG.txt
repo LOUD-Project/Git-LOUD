@@ -1,3 +1,39 @@
+### Release 11-20-2026
+
+LUA 8.24
+Black Ops for LOUD 8.02
+BrewLAN for LOUD 0.8.8.9.134
+UNITS 8.04
+LOUDMISC 8.02
+Map - Anussons Low Tide
+Map - Kazam 40
+
+- AI will now orient his base positions towards nearest enemy threat, rather than just towards the centre of the map
+- Added new function to identify when Fog Of War is turned off (allows us to suppress certain builders)
+- several AI builders now respond to NoFogOfWar conditions, to suppress building unnecessary intel units (scouts/radar/sonar/optics) & scout flooding
+- AI will now allow Quantum Gateways to be built at up to 85% of unit cap (previously 75) to alleviate a low unit cap throttle.
+- AI ACT process will only begin after the 'No Rush' period expires
+- AI LandForce & AmphibForce will now RTB, if they find only a DP loiter target, and the Primary Base has changed
+- AI new formation for short-range, amphib attacks when count is good, but ratio is low
+- AI Attack Planner heavily revised, AI will pick expansion positions from the Attack Plan
+- AI finding Naval DP positions will behave similar to finding Land DP, prioritizing positions in the Attack Plan first
+- AI SetPrimaryLandAttackBase function now better manages base positions, and evaluates better pathing choices based on map size
+- AI Naval formations will lean towards larger sizes, and have a larger submarine/antisub component
+- Anussons Low Tide - remarked, terrain edits, now 16 player
+- Kazam 40 - remarked, slight terrain edits
+- Sera T1 sub - recosted to account for it's anti-torpedo ability, slight damage reduction 88 DPS >> 80 DPS
+- XRC2201 - normally a campaign unit, fixed deaththread crash (Paul Mertens)
+- BO Aeon T4 Sniper - fixed RateOfFire so that it adheres to it's 15 second firing cycle
+- BrewLAN Sera T3 Transport - shield now follows shield formula rules for regen & consumption
+- fix to the color picking function in the lobby (Paul Mertens)
+- User 'ping' events are no longer restricted during paused gameplay (Paul Mertens)
+- fix for Multiplayer lobby always exiting to LAN/IP screen, even though Steam Matchmaking was used (Paul Mertens)
+- fixed edge case where UEF Build Cube, on Fatboy, would hide the unit, if build power was really high
+- added new mod 'Enhanced Pause Behavior' in the Misc mods, see the Mod Manager for details (Paul Mertens)
+- Supreme Scoreboard updates unit counts every 8 seconds now, instead of 10
+
+
+
 ### Release 10-25-2026
 
 LUA 8.23
@@ -12,7 +48,7 @@ LUA 8.23
 LUA 8.22
 Black Ops for LOUD 8.01
 BrewLAN for LOUD 0.8.8.9.133
-MAP - Anussons
+Map - Anussons
 
 - typo fix for AEON T1 mine (cloaking not working)
 - removed hooked addition of NUKE category to T3 Demolition mines (they aren't really NUKE anymore)
