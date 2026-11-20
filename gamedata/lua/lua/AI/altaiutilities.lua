@@ -269,9 +269,9 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
         local basename, name, plantype, position
 		local positions = {}
 
+        --- try Attack Plan Stagepoints first
         if aiBrain.AttackPlan.StagePoints then
 
-            -- first, we'll try to fill positions with those in the attack plan
             for k, v in aiBrain.AttackPlan.StagePoints do
 
                 if k > 0 and k < aiBrain.AttackPlan.StageCount + 1 then
@@ -306,7 +306,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
             end
         end
         
-        -- otherwise we'll use the normal selection process
+        --- otherwise normal selection process
         if LOUDGETN(positions) < 1 then
             positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
             positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
@@ -315,9 +315,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
 		-- I put a check in here to eliminate not only the current position but any position within a range of the current position
-		-- I expanded this concept further to base the exclusion radius upon map size
-		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
-		-- than clumping up - this also avoids overlap of the army pools 
+		-- The idea of this is to give the AI an emphasis on expanding to cover a greater portion of the map
+		-- this also minimizes overlap of the army pools 
 
         local removed = false
     
@@ -332,17 +331,28 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 			-- check all the other brains to see if they own it already
 			for index,brain in Brains do
             
-                if brain.Nickname == 'civilian' then
+                if brain.BrainType != 'AI' or brain.Nickname == 'civilian' then
                     continue
                 end
-            
-                local Manager = brain.BuilderManagers
                 
-				-- if co-ordinates are the same as this brains 'MAIN' position -- 
-				if Manager[name] or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
-					removed = true
-					break
-				end
+                local Manager = brain.BuilderManagers
+
+                --- if this AI is actively using this marker, remove it (this won't find the MAIN position)
+                if Manager[name].EngineerManager.Active then
+                    removed = true
+                    break
+                end
+                
+                --- since MAIN (rather than the marker name) is used for a start position, we scan the co-ordinates
+                local base = Manager['MAIN']
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." testing AI "..brain.Nickname.." MAIN at "..repr(base.Position).." against "..name.." at posn "..repr(position))
+                
+                if base.Position[1] == position[1] and base.Position[3] == position[3] then
+                    removed = true
+                    break
+                end
+
 			end
 		
 			if not removed then
@@ -452,17 +462,28 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 			for index,brain in Brains do
             
-                if brain.Nickname == 'civilian' then
+                if brain.BrainType != 'AI' or brain.Nickname == 'civilian' then
                     continue
                 end
                 
                 local Manager = brain.BuilderManagers
+
+                --- if this AI is actively using this marker, remove it (this won't find the MAIN position)
+                if Manager[name].EngineerManager.Active then
+                    removed = true
+                    break
+                end
                 
-				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if Manager[name] or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
-					removed = true
-					break
-				end
+                --- since MAIN (rather than the marker name) is used for a start position, we scan the co-ordinates
+                local base = Manager['MAIN']
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." testing AI "..brain.Nickname.." MAIN at "..repr(base.Position).." against "..name.." at posn "..repr(position))
+                
+                if base.Position[1] == position[1] and base.Position[3] == position[3] then
+                    removed = true
+                    break
+                end
+
 			end
 		
 			if not removed then
@@ -578,20 +599,31 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
             
 			removed     = false
 
-            -- check if it's an existing base for any AI, or it's MAIN position
+            --- check all AI brains
 			for index,brain in Brains do
             
-                if brain.Nickname == 'civilian' then
+                if brain.BrainType != 'AI' or brain.Nickname == 'civilian' then
                     continue
                 end
                 
                 local Manager = brain.BuilderManagers
-                
-				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if Manager[name].EngineerManager.Active or ( Manager['MAIN'].Position and ( Manager['MAIN'].Position[1] == position[1] and Manager['MAIN'].Position[3] == position[3] )) then
+
+                --- if this AI is actively using this marker, remove it (this won't find the MAIN position)
+                if Manager[name].EngineerManager.Active then
                     removed = true
-					break
+                    break
                 end
+                
+                --- since MAIN (rather than the marker name) is used for a start position, we scan the co-ordinates
+                local base = Manager['MAIN']
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." testing AI "..brain.Nickname.." MAIN at "..repr(base.Position).." against "..name.." at posn "..repr(position))
+                
+                if base.Position[1] == position[1] and base.Position[3] == position[3] then
+                    removed = true
+                    break
+                end
+
 			end
 		
             -- check for being too close to my own bases
@@ -604,7 +636,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
 					if test_distance < minimum_baserange then
                     
-                        LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." for minimum range to existing base "..repr(basename).." at "..test_distance )
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." for minimum range to existing base "..repr(basename).." at "..test_distance )
 
 						removed = true
 						break
@@ -617,7 +649,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
                     if test_distance > test_range then  --- if new marker further to goal than existing primary
                     
-                        LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." at range "..test_distance.." >> than primary "..aiBrain.PrimaryLandAttackBase.." range "..test_range )
+                        --LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." at range "..test_distance.." >> than primary "..aiBrain.PrimaryLandAttackBase.." range "..test_range )
 
 						removed = true
 						break
@@ -641,7 +673,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
                         end
                     end
                     
-                    LOG("AI DEBUG "..aiBrain.Nickname.." ignored "..repr(marker.Name).." due to proximal allied structures " )
+                    --LOG("AI DEBUG "..aiBrain.Nickname.." ignored "..repr(marker.Name).." due to proximal allied structures " )
 
 				end	
 			end
@@ -738,7 +770,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
             --- check if base in use already
 			for _,brain in Brains do
 		
-                if brain.Nickname == 'civilian' then
+                if brain.BrainType != 'AI' or brain.Nickname == 'civilian' then
                     continue
                 end
                 
@@ -759,7 +791,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		
 					if test_distance < minimum_baserange then
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." for minimum range to existing base "..repr(basename).." at "..VDist3( base.Position, position ) )
+                        ---LOG("*AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." for minimum range to existing base "..repr(basename).." at "..VDist3( base.Position, position ) )
 
 						removed = true
 						break
@@ -775,7 +807,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 
                         if test_distance > test_range then  --- if new marker further than existing Primary
                     
-                            LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." at range "..test_distance.." >> than primary "..PrimaryBase.." range "..test_range )
+                            --LOG("AI DEBUG "..aiBrain.Nickname.." removed "..repr(name).." at range "..test_distance.." >> than primary "..PrimaryBase.." range "..test_range )
 
                             removed = true
                             break
@@ -833,6 +865,10 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 			removed = false
 
 			for _,brain in Brains do
+            
+                if brain.BrainType != 'AI' or brain.Nickname == 'civilian' then
+                    continue
+                end
 		
 				-- if in use by another brain --
 				if brain.BuilderManagers[marker.Name].EngineerManager.Active then
@@ -853,7 +889,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 					-- too close to one of our other bases
 					if distance_from_base < minimum_baserange then
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." finds position "..repr(position).." too close to "..basename.." at "..distance_from_base )
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds position "..repr(position).." too close to "..basename.." at "..distance_from_base )
 
 						removed = true
 						break
