@@ -730,8 +730,10 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 
                         basename = aiBrain.AttackPlan.StagePoints[k].Name
                         position = aiBrain.AttackPlan.StagePoints[k].Position
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval DP checking Stagepoint "..k.." "..repr(basename))
                     
-                        if not LOUDFIND(basename, 'Naval Defensive') then
+                        if not LOUDFIND(basename, 'NavalDefensive') then
                             continue
                         end
                 
@@ -753,11 +755,13 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
         end
         
         if LOUDGETN(positions) < 1 then
-            local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
+            local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'NavalDefensivePoint', test_position, radius, tMin, tMax, tRings, tType))
         end
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
-	
+
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." NAVAL DP Positions ARE "..repr(positions))
+        
 		-- so we now have a list of ALL the Naval DP positions on the map
 		-- loop thru the list and eliminate any that are already in use
         -- or that aren't closer to the Goal position
@@ -1178,7 +1182,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
         end
         
         if LOUDGETN(positions) < 1 then
-            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position or Position, radius, tMin, tMax, tRings, tType))
+            positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'NavalDefensivePoint', test_position or Position, radius, tMin, tMax, tRings, tType))
             positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', test_position or Position, radius, tMin, tMax, tRings, tType))
         end
     

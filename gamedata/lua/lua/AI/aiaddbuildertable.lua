@@ -142,7 +142,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 		
 	else
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..baseBuilderName.." loading WaterMap Builders "..repr(BaseBuilderTemplates[baseBuilderName].LandOnlyBuilders) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..baseBuilderName.." loading LandOnly Builders "..repr(BaseBuilderTemplates[baseBuilderName].LandOnlyBuilders) )
     	
 		for k,v in BaseBuilderTemplates[baseBuilderName].LandOnlyBuilders do
 		
