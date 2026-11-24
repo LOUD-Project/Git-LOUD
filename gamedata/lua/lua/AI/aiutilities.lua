@@ -882,19 +882,28 @@ function SetupAICheat(aiBrain)
     -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
     if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
         
-        LOG("     "..aiBrain.Nickname.." Cheats modified due to OutnumberedRatio")
+        LOG("     "..aiBrain.Nickname.." Cheats modified due to OutnumberedRatio "..aiBrain.OutnumberedRatio.." to 1")
+      
+        --aiBrain.MajorCheatModifier = (aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier)
+        --aiBrain.MinorCheatModifier = (aiBrain.MinorCheatModifier * aiBrain.MinorCheatModifier)
+     
+        local majmod = ((aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier) - aiBrain.MajorCheatModifier) * (aiBrain.OutnumberedRatio - aiBrain.CheatValue)
+
+        aiBrain.MajorCheatModifier = aiBrain.MajorCheatModifier + majmod
+
+        local minmod = ((aiBrain.MinorCheatModifier * aiBrain.MinorCheatModifier) - aiBrain.MinorCheatModifier) * (aiBrain.OutnumberedRatio - aiBrain.CheatValue)
+    
+        aiBrain.MinorCheatModifier = aiBrain.MinorCheatModifier + minmod
+
         
-        aiBrain.BuildRateModifier = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
+        aiBrain.BuildRateModifier = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MinorCheatModifier )
 
         newbuff.Affects.BuildRate.Mult = aiBrain.BuildRateModifier
-        
-        aiBrain.MajorCheatModifier = (aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier)
-        
-        aiBrain.MinorCheatModifier = (aiBrain.MinorCheatModifier * aiBrain.MinorCheatModifier)
+   
     end
 
-    LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
     LOG("     "..aiBrain.Nickname.." Minor Cheat "..aiBrain.MinorCheatModifier.."  Major Cheat is "..aiBrain.MajorCheatModifier)
+    LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
 
 	--- reduce mass/energy used when maintaining
     local modifier = 1.0 - aiBrain.MajorCheatModifier
