@@ -1,3 +1,11 @@
+### Release 11-24-2026
+
+LUA 8.25
+
+- Hotfix for a bug with how the AI locates Naval DP positions
+- Revisions to how the Outnumbered Ratio scales both the Major & Minor AI cheat values 
+
+
 ### Release 11-20-2026
 
 LUA 8.24
