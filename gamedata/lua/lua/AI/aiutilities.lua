@@ -1108,9 +1108,6 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     modifier = 0.25 * modifier
     modifier = 1.0 + modifier
 
-    local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-    local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
-
     -- Modify Buildrate buff
     local buffDef = Buffs['CheatBuildRate'..aiBrain.ArmyIndex]
     local buffAffects = buffDef.Affects
@@ -1165,25 +1162,18 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Army Pool Buff to "..repr(AIMult).." at time "..GetGameTimeSeconds() )
 
+        local RefreshBuff = import('/lua/sim/buff.lua').RefreshBuff
+
         for _, unit in allUnits do
 
-            -- Remove old build rate and income buffs
-            -- the logic here is simple - if you don't have the buff to remove
-            -- then you don't get a buff to add
-            if RemoveBuff(unit, 'CheatIncome'..ArmyIndex, true) then -- true = removeAllCounts then
-                ApplyBuff(unit, 'CheatIncome'..ArmyIndex)
-            end
-            
-            if RemoveBuff(unit, 'CheatBuildRate'..ArmyIndex, true) then -- true = removeAllCounts
-                ApplyBuff(unit, 'CheatBuildRate'..ArmyIndex)
-            end
-            
-            if RemoveBuff(unit, 'CheatIntel'..ArmyIndex, true) then
-                ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
-            end
-            
-            if RemoveBuff(unit, 'CheatALL'..ArmyIndex, true) then
-                ApplyBuff(unit, 'CheatALL'..ArmyIndex)
+            -- refresh the cheat buffs with the changed definitions - a unit without the buff gets nothing
+            -- (same result as RemoveBuff + ApplyBuff, but each value is set only once)
+            -- dying units are skipped, their buffs are already gone (Unit SetDead)
+            if not unit.Dead then
+                RefreshBuff(unit, 'CheatIncome'..ArmyIndex)
+                RefreshBuff(unit, 'CheatBuildRate'..ArmyIndex)
+                RefreshBuff(unit, 'CheatIntel'..ArmyIndex)
+                RefreshBuff(unit, 'CheatALL'..ArmyIndex)
             end
         end
     end
