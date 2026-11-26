@@ -327,7 +327,8 @@ end
 -- afterRemove is a bool that defines if this buff is affecting after the removal of a buff.
 -- We reaffect the unit to make sure that buff type is recalculated accurately without the buff that was on the unit.
 -- However, this doesn't work for stunned units because it's a fire-and-forget type buff, not a fire-and-keep-track-of type buff.
-function BuffAffectUnit(unit, buffName, instigator, afterRemove)
+-- onlyAffect (optional): set only this affect type of the buff (used by RefreshBuff)
+function BuffAffectUnit(unit, buffName, instigator, afterRemove, onlyAffect)
 
     local BuffDialog = ScenarioInfo.BuffDialog
     
@@ -351,6 +352,10 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     local GetHealth = GetHealth
 
     for atype, vals in buffAffects do
+
+        if onlyAffect and atype != onlyAffect then
+            continue
+        end
 
         if atype == 'Health' then
 
@@ -1051,6 +1056,123 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 		LOG("*AI DEBUG BUFF after Removing "..buffName.." unit data is "..repr(unit) )
 	end
     
+    return true
+end
+
+-- Re-applies a buff the unit already has after its definition (Buffs[buffName]) was changed, e.g. the AI cheat
+-- buffs changed by SetArmyPoolBuff. Same result as RemoveBuff(unit, buffName, true) followed by ApplyBuff(unit, buffName),
+-- but the buff entry is kept and every affected value is set only once. MaxHealth and ShieldHealth are set without and
+-- then with this buff, like RemoveBuff + ApplyBuff do. Buffs with a duration, effects, callbacks, an icon, REPLACE
+-- stacking or instant affects (Health, Energy, FuelRatio) are re-applied with RemoveBuff + ApplyBuff.
+-- Returns false if the unit doesn't have the buff.
+local RefreshInstant = { Health = true, Energy = true, FuelRatio = true }
+local RefreshTwoStep = { MaxHealth = true, ShieldHealth = true }
+
+function RefreshBuff(unit, buffName)
+
+    local def = Buffs[buffName]
+
+    local ubt = unit.Buffs and unit.Buffs.BuffTable
+    local data = def and ubt and ubt[def.BuffType] and ubt[def.BuffType][buffName]
+
+    if not data then
+        return false
+    end
+
+    local simple = not (def.Duration and def.Duration > 0) and not def.Effects and not def.Icon and def.Stacks != 'REPLACE'
+                   and not def.OnBuffAffect and not def.OnApplyBuff and not def.OnBuffRemove
+
+    if simple then
+
+        for atype, _ in def.Affects do
+
+            if RefreshInstant[atype] then
+                simple = false
+                break
+            end
+        end
+    end
+
+    if not simple then
+
+        if RemoveBuff(unit, buffName, true) then
+            ApplyBuff(unit, buffName)
+        end
+
+        return true
+    end
+
+    local bp = __blueprints[unit.BlueprintID]
+    local uaffects = unit.Buffs.Affects
+    local count = 0
+
+    for atype, v in def.Affects do
+
+        -- the affect as ApplyBuff would store it (only if it passes its check)
+        local new = false
+
+        if not v.BuffCheckFunction or v:BuffCheckFunction(unit, bp, nil) then
+
+            new = { Count = 1 }
+
+            for k, val in v do
+
+                if k != 'BuffCheckFunction' then
+                    new[k] = val
+                end
+            end
+
+            count = count + 1
+        end
+
+        -- like RemoveBuff: value without this buff first
+        if RefreshTwoStep[atype] then
+
+            if uaffects[atype] then
+
+                uaffects[atype][buffName] = nil
+
+                if LOUDEMPTY(uaffects[atype]) then
+                    uaffects[atype] = nil
+                end
+            end
+
+            BuffAffectUnit(unit, buffName, unit, true, atype)
+        end
+
+        if new then
+
+            if not uaffects[atype] then
+                uaffects[atype] = {}
+            end
+
+            uaffects[atype][buffName] = new
+
+        elseif uaffects[atype] then
+
+            uaffects[atype][buffName] = nil
+
+            if LOUDEMPTY(uaffects[atype]) then
+                uaffects[atype] = nil
+            end
+        end
+
+        BuffAffectUnit(unit, buffName, unit, true, atype)
+    end
+
+    if count > 0 then
+
+        data.Count = count
+
+    else
+
+        ubt[def.BuffType][buffName] = nil
+
+        if LOUDEMPTY(ubt[def.BuffType]) then
+            ubt[def.BuffType] = nil
+        end
+    end
+
     return true
 end
 
