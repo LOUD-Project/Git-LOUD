@@ -637,7 +637,9 @@ function RefreshOptions( skipRefresh, singlePlayer )
 
     end
 
-    if not skipRefresh then
+    -- OptionContainer only exists once the map selection dialog has been opened (SetupOptionsPanel);
+    -- OnModsChanged in lobby.lua calls this on every peer, also when the dialog was never opened
+    if not skipRefresh and OptionContainer then
         OptionContainer:CalcVisible()
     end
 end
