@@ -5385,7 +5385,10 @@ function CreateBigPreview(parent)
 		CloseBigPreview()
 	end
 	
-	scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
+	bMP.massmarkers = {}
+	bMP.hydros = {}
+
+	local scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
 	
 	if scenarioInfo and scenarioInfo.map and (scenarioInfo.map ~= "") then
 	
@@ -5395,6 +5398,11 @@ function CreateBigPreview(parent)
 			
 		end
 		
+	end
+	
+	-- map not available on this machine (e.g. a guest without the map): no markers, no start positions
+	if not scenarioInfo then
+		return
 	end
 	
 	local mapdata = {}
