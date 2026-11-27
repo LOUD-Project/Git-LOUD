@@ -148,6 +148,87 @@ local EXPERIMENTALS = categories.EXPERIMENTAL
 -- types of threat to look at based on composition of platoon
 local ThreatTable = { Land = 'AntiSurface', Water = 'AntiSurface', Amphibious = 'AntiSurface', Air = 'AntiAir', }
 
+-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
+-- Runs in its own thread, started with eng:ForkThread( WatchForNotBuilding, platoon ). It only uses its
+-- arguments and own locals: it used to be a local function of ProcessBuildCommand, and when the platoon
+-- thread was killed while that call was still open, its upvalues (eng, self, count, engPos ...) pointed
+-- to freed memory - e.g. self was a number and eng some other table ("Expected a game object").
+local function WatchForNotBuilding( eng, platoon )
+
+    local BeenDestroyed = BeenDestroyed
+    local GetPosition = GetPosition
+	local GetWorkProgress = moho.unit_methods.GetWorkProgress
+    local IsIdleState = IsIdleState
+	local IsUnitState = IsUnitState
+    local LOUDCOPY = LOUDCOPY
+    local WaitTicks = WaitTicks
+	
+	local engPos = GetPosition(eng) or false
+	local engLastPos = false
+	
+    local count = 0
+
+	WaitTicks(4)
+		
+	while eng and (not eng.Dead) and (not IsIdleState(eng)) and not eng.Fighting do	
+		
+		WaitTicks(20)
+
+		if (not BeenDestroyed(eng)) and (not eng.Dead) and engLastPos then
+		
+			if (not IsUnitState( eng, "Capturing" )) and (not IsUnitState( eng, "Reclaiming" ))
+				and (not IsUnitState( eng, "Repairing" )) and (not IsUnitState( eng, "Moving" ))
+				and (not IsUnitState( eng, "Building" )) and GetWorkProgress(eng) == 0
+				and VDist3( engLastPos, engPos ) < 1
+				then
+	
+				engPos = GetPosition(eng) or false
+			
+				if count > 10 and not eng.Dead then
+			
+					LOG("*AI DEBUG Eng "..eng.EntityID.." "..eng.PlatoonHandle.BuilderName.." Stuck in WatchForNotBuilding on tick "..GetGameTick() )
+					
+					platoon:ProcessBuildCommand( eng, false )
+				
+					return
+				else
+					count = count + 1
+				end
+			end
+		else
+			count = 0
+		end
+        
+        if IsIdleState(eng) then
+            eng.failedmoves = eng.failedmoves + 1
+        end
+
+		engLastPos = LOUDCOPY(engPos)
+	end
+	
+	if (not BeenDestroyed(eng)) and (not eng.Dead) and ( IsIdleState(eng) or eng.Fighting ) then
+		
+		-- we didn't issue a build or we did a reclaim then just run PBC as is --
+		if eng.IssuedReclaimCommand then
+			
+			platoon:ProcessBuildCommand( eng, false )
+			return
+	
+		-- we had issued a build/repair order -- remove it and then PBC --
+		elseif eng.IssuedBuildCommand then
+			
+			platoon:ProcessBuildCommand( eng, true )
+			return
+        end
+	end
+	
+	if (not BeenDestroyed(eng)) and not eng.Dead then
+	
+		WARN("*AI DEBUG Eng "..repr(eng.EntityID).." exits WFNB from ????? - dead is "..repr(eng.Dead).." on tick "..GetGameTick() )
+	end
+	
+end
+
 Platoon = Class(PlatoonMethods) {
     
     OnCreate = function( self, plan)
@@ -8240,82 +8321,6 @@ Platoon = Class(PlatoonMethods) {
 
 			-- LOCAL FUNCTIONS FOR PBC --
 			
-			-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
-			local function WatchForNotBuilding()
-            
-                local BeenDestroyed = BeenDestroyed
-                local GetPosition = GetPosition
-				local GetWorkProgress = moho.unit_methods.GetWorkProgress
-                local IsIdleState = IsIdleState
-				local IsUnitState = IsUnitState
-                local LOUDCOPY = LOUDCOPY
-                local WaitTicks = WaitTicks
-	
-				engPos = GetPosition(eng) or false
-				engLastPos = false
-				
-                count = 0
-
-				WaitTicks(4)
-		
-				while eng and (not eng.Dead) and (not IsIdleState(eng)) and not eng.Fighting do	
-		
-					WaitTicks(20)
-			
-					if (not BeenDestroyed(eng)) and (not eng.Dead) and engLastPos then
-					
-						if (not IsUnitState( eng, "Capturing" )) and (not IsUnitState( eng, "Reclaiming" ))
-							and (not IsUnitState( eng, "Repairing" )) and (not IsUnitState( eng, "Moving" ))
-							and (not IsUnitState( eng, "Building" )) and GetWorkProgress(eng) == 0
-							and VDist3( engLastPos, engPos ) < 1
-							then
-				
-							engPos = GetPosition(eng) or false
-						
-							if count > 10 and not eng.Dead then
-						
-								LOG("*AI DEBUG Eng "..eng.EntityID.." "..eng.PlatoonHandle.BuilderName.." Stuck in WatchForNotBuilding on tick "..GetGameTick() )
-								
-								ProcessBuildCommand( self, eng, false )
-							
-								return
-							else
-								count = count + 1
-							end
-						end
-					else
-						count = 0
-					end
-                    
-                    if IsIdleState(eng) then
-                        eng.failedmoves = eng.failedmoves + 1
-                    end
-			
-					engLastPos = LOUDCOPY(engPos)
-				end
-				
-				if (not BeenDestroyed(eng)) and (not eng.Dead) and ( IsIdleState(eng) or eng.Fighting ) then
-					
-					-- we didn't issue a build or we did a reclaim then just run PBC as is --
-					if eng.IssuedReclaimCommand then
-						
-						ProcessBuildCommand( self, eng, false )
-						return
-				
-					-- we had issued a build/repair order -- remove it and then PBC --
-					elseif eng.IssuedBuildCommand then
-						
-						ProcessBuildCommand( self, eng, true )
-						return
-                    end
-				end
-				
-				if (not BeenDestroyed(eng)) and not eng.Dead then
-				
-					WARN("*AI DEBUG Eng "..repr(eng.EntityID).." exits WFNB from ????? - dead is "..repr(eng.Dead).." on tick "..GetGameTick() )
-				end
-				
-			end
 
 			local function EngineerThreatened()
                 
@@ -8418,7 +8423,7 @@ Platoon = Class(PlatoonMethods) {
 
 					-- if we actually issued the reclaim then we'll terminate
 					-- WFNB will relaunch the PBC for us
-					eng.NotBuildingThread = eng:ForkThread(WatchForNotBuilding)
+					eng.NotBuildingThread = eng:ForkThread( WatchForNotBuilding, self )
 				end
 				
 				if test then
@@ -8445,7 +8450,7 @@ Platoon = Class(PlatoonMethods) {
 						eng.IssuedBuildCommand = true
 						eng.IssuedReclaimCommand = false
 
-						eng.NotBuildingThread = eng:ForkThread(WatchForNotBuilding)
+						eng.NotBuildingThread = eng:ForkThread( WatchForNotBuilding, self )
 					end
 				end
 				
@@ -8859,7 +8864,7 @@ Platoon = Class(PlatoonMethods) {
 
 									BuildStructure( aiBrain, eng, buildItem, buildLocation, false)
 								
-									eng.NotBuildingThread = eng:ForkThread(WatchForNotBuilding)
+									eng.NotBuildingThread = eng:ForkThread( WatchForNotBuilding, self )
 								else
                                     if EngineerDialog then    
                                         WARN( dialog.." fails CanBuildStructureAt "..repr(buildPosition).." for "..repr(buildItem) )
