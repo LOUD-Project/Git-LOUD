@@ -3001,7 +3001,22 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 
             --LOG("AI DEBUG Threats around position are "..repr(threats))
             
-			LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
+			-- the sort key of an entry is the same in every comparison: computed once per entry
+			local sortkey = {}
+			LOUDSORT( threats, function(a,b)
+				local VDist2Sq = VDist2Sq
+				local ka = sortkey[a]
+				if not ka then
+					ka = VDist2(a[1],a[2],location[1],location[3]) + a[3]
+					sortkey[a] = ka
+				end
+				local kb = sortkey[b]
+				if not kb then
+					kb = VDist2(b[1],b[2],location[1],location[3]) + b[3]
+					sortkey[b] = kb
+				end
+				return ka < kb
+			end )
 		
             local counter   = 0
             local avgpos    = VectorCached
@@ -7233,7 +7248,22 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
 	local allthreat, airthreat, bp, ecothreat, newPos, subthreat, surthreat, targets, targetcount, unitcount, unitPos, x1, x2, x3
     local EntityCheck, TPosition, TType
 
-	LOUDSORT( threatlist, function(a,b) local VDist3 = VDist3 return VDist3(a.Position,location) < VDist3(b.Position,location) end )
+	-- the sort key of an entry is the same in every comparison: computed once per entry
+	local sortkey = {}
+	LOUDSORT( threatlist, function(a,b)
+		local VDist3 = VDist3
+		local ka = sortkey[a]
+		if not ka then
+			ka = VDist3(a.Position,location)
+			sortkey[a] = ka
+		end
+		local kb = sortkey[b]
+		if not kb then
+			kb = VDist3(b.Position,location)
+			sortkey[b] = kb
+		end
+		return ka < kb
+	end )
     
     --LOG("*AI DEBUG "..aiBrain.Nickname.." HiPri List is "..repr(threatlist))
 

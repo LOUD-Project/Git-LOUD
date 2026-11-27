@@ -390,7 +390,22 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
 	
 	if markerlist[1] then
     
-		LOUDSORT(markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
+		-- the sort key of an entry is the same in every comparison: computed once per entry
+		local sortkey = {}
+		LOUDSORT( markerlist, function(a,b)
+			local VDist2Sq = VDist2Sq
+			local ka = sortkey[a]
+			if not ka then
+				ka = VDist2Sq(a.Position[1],a.Position[3],startX,startZ)
+				sortkey[a] = ka
+			end
+			local kb = sortkey[b]
+			if not kb then
+				kb = VDist2Sq(b.Position[1],b.Position[3],startX,startZ)
+				sortkey[b] = kb
+			end
+			return ka < kb
+		end )
 
 		return markerlist[1].Position, markerlist[1].Name
 	end
@@ -404,7 +419,22 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
 
     local GetThreatAtPosition = GetThreatAtPosition
     
-    LOUDSORT(markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
+    -- the sort key of an entry is the same in every comparison: computed once per entry
+    local sortkey = {}
+    LOUDSORT( markerlist, function(a,b)
+    	local VDist2Sq = VDist2Sq
+    	local ka = sortkey[a]
+    	if not ka then
+    		ka = VDist2Sq(a.Position[1],a.Position[3],startX,startZ)
+    		sortkey[a] = ka
+    	end
+    	local kb = sortkey[b]
+    	if not kb then
+    		kb = VDist2Sq(b.Position[1],b.Position[3],startX,startZ)
+    		sortkey[b] = kb
+    	end
+    	return ka < kb
+    end )
     
     local position, threat
 

@@ -123,7 +123,22 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
         if threatTable[1] then
 
             -- sort the table by closest first so we can abort as soon as we pass the distance check
-            LOUDSORT(threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3]) end)
+            -- the sort key of an entry is the same in every comparison: computed once per entry
+            local sortkey = {}
+            LOUDSORT( threatTable, function(a,b)
+            	local VDist2Sq = VDist2Sq
+            	local ka = sortkey[a]
+            	if not ka then
+            		ka = VDist2Sq(a[1],a[2], position[1],position[3])
+            		sortkey[a] = ka
+            	end
+            	local kb = sortkey[b]
+            	if not kb then
+            		kb = VDist2Sq(b[1],b[2], position[1],position[3])
+            		sortkey[b] = kb
+            	end
+            	return ka < kb
+            end )
     
             -- this code makes this function dynamic via LandRatio and AIMult --
             -- adjusting the triggers when ratio is above 1
