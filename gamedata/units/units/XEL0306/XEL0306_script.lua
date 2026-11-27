@@ -42,6 +42,41 @@ XEL0306 = Class(TLandUnit) {
                 end,            
             },
 
+            -- the launcher is raised in PlayFxRackSalvoChargeSequence, but a weapon that is
+            -- already charged goes from IdleState.OnGotTarget straight to this state and skips
+            -- the charge state - so raise it here if it is still down, before the weapon can fire
+            RackSalvoFireReadyState = State(TIFCruiseMissileUnpackingLauncher.RackSalvoFireReadyState) {
+
+                Main = function(self)
+
+                    if not self.WeaponUnpacked then
+
+                        -- OnFire events during the unpack must not start the firing state
+                        self.WeaponCanFire = false
+
+                        self:PlayFxWeaponUnpackSequence()
+                    end
+
+                    TIFCruiseMissileUnpackingLauncher.RackSalvoFireReadyState.Main(self)
+
+                end,
+
+                -- OnFire can arrive in the same tick as OnGotTarget, before Main has run
+                -- (WeaponCanFire is still true from the last salvo) - only note it while the
+                -- launcher is down, Main fires once it is raised
+                OnFire = function(self)
+
+                    if not self.WeaponUnpacked then
+
+                        self.OnFireEvent = true
+                        return
+                    end
+
+                    TIFCruiseMissileUnpackingLauncher.RackSalvoFireReadyState.OnFire(self)
+
+                end,
+            },
+
             -- changed so that it can pack the weapon
 			-- just after lost target - no need to be complicated
 			-- no reason it cant be moving & pack weapon at same time
