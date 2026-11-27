@@ -53,7 +53,21 @@ function GetClosestPathNodeInRadiusByLayer(location, layer, distance_override)
         
         local VDist3 = VDist3		
 
-		LOUDSORT( nodes, function(a,b) return VDist3( a.position, location ) < VDist3( b.position, location ) end )
+		-- the sort key of an entry is the same in every comparison: computed once per entry
+		local sortkey = {}
+		LOUDSORT( nodes, function(a,b)
+			local ka = sortkey[a]
+			if not ka then
+				ka = VDist3( a.position, location )
+				sortkey[a] = ka
+			end
+			local kb = sortkey[b]
+			if not kb then
+				kb = VDist3( b.position, location )
+				sortkey[b] = kb
+			end
+			return ka < kb
+		end )
         
         local position = nodes[1].position
 
@@ -816,7 +830,22 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         local EntityCategoryFilterDown  = EntityCategoryFilterDown
         local GetPosition               = GetPosition        
 
-		LOUDSORT(enemyunits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
+		-- the sort key of an entry is the same in every comparison: computed once per entry
+		local sortkey = {}
+		LOUDSORT( enemyunits, function(a,b)
+			local GetPosition = GetPosition local VDist3Sq = VDist3Sq
+			local ka = sortkey[a]
+			if not ka then
+				ka = VDist3Sq( GetPosition(a), position )
+				sortkey[a] = ka
+			end
+			local kb = sortkey[b]
+			if not kb then
+				kb = VDist3Sq( GetPosition(b), position )
+				sortkey[b] = kb
+			end
+			return ka < kb
+		end )
         
         unitPos = false
 

@@ -193,9 +193,21 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 
         local a,b
         
+        -- the sort key of a mass point is the same in every comparison: computed once per point
+        local sortkey = {}
         local function DOSORT(a,b)
             local VDist3 = VDist3
-            return VDist3( a.Position, baseposition) < VDist3( b.Position, baseposition)
+            local ka = sortkey[a]
+            if not ka then
+            	ka = VDist3( a.Position, baseposition)
+            	sortkey[a] = ka
+            end
+            local kb = sortkey[b]
+            if not kb then
+            	kb = VDist3( b.Position, baseposition)
+            	sortkey[b] = kb
+            end
+            return ka < kb
         end
         
         LOUDSORT( markerlist, DOSORT )

@@ -6685,7 +6685,22 @@ function NavalBombardAILOUD( self, aiBrain )
 				if PlatoonExists( aiBrain, self ) then
 
 					-- sort the markers to see if any are within range of the Target.Position
-					LOUDSORT( navalAreas, function(a,b) local VDist3 = VDist3 return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
+					-- the sort key of an entry is the same in every comparison: computed once per entry
+					local sortkey = {}
+					LOUDSORT( navalAreas, function(a,b)
+						local VDist3 = VDist3
+						local ka = sortkey[a]
+						if not ka then
+							ka = VDist3(a.Position, Target.Position)
+							sortkey[a] = ka
+						end
+						local kb = sortkey[b]
+						if not kb then
+							kb = VDist3(b.Position, Target.Position)
+							sortkey[b] = kb
+						end
+						return ka < kb
+					end )
 					
 					if LOUDEQUAL( navalAreas[1].Position, previousbombardmentposition) then
 						continue	-- dont pick the same location as last time
