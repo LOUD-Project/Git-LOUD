@@ -331,7 +331,7 @@ BuilderManager = Class {
 						LOG( dialog.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
 					end
 
-					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
+					task:SetPriority( newPri, temporary )
 					
 					self.BuilderData[BuilderType].NeedSort = true
                     self.BuilderData[BuilderType].displayed = false
@@ -379,7 +379,16 @@ BuilderManager = Class {
 						LOG( dialog.." Removing "..repr(TaskName).." on tick "..GetGameTick() )
 					end
 					
-                    self.BuilderData[BuilderType].Builders[k] = nil
+                    -- remove the task itself - index k of TaskList is not valid in a rebuilt Builders table
+                    local CurrentBuilders = self.BuilderData[BuilderType].Builders
+
+                    for i, v in CurrentBuilders do
+
+                        if v == task then
+                            CurrentBuilders[i] = nil
+                            break
+                        end
+                    end
 
 					self.BuilderData[BuilderType].NeedSort = true
                     self.BuilderData[BuilderType].displayed = false
