@@ -3804,9 +3804,10 @@ Platoon = Class(PlatoonMethods) {
 
             platLoc = GetPlatoonPosition(self) or false
             
-            if platLoc then
+            -- marker is false when no path was found (or the move thread did not start)
+            if platLoc and marker then
                 distance = VDist3( platLoc, marker )
-                oldplatpos = LOUDCOPY(platLoc)
+                oldPlatPos = LOUDCOPY(platLoc)
             else
                 marker = false
             end
@@ -3851,7 +3852,7 @@ Platoon = Class(PlatoonMethods) {
                         break
                     end
 				
-					if marker and self:CheckForStuckPlatoon( platLoc, oldplatpos ) then
+					if marker and self:CheckForStuckPlatoon( platLoc, oldPlatPos ) then
 				
 						StuckCount = StuckCount + 1
 					
@@ -3870,7 +3871,7 @@ Platoon = Class(PlatoonMethods) {
 						end	
 					else
 					
-                        oldplatpos = LOUDCOPY(platLoc)
+                        oldPlatPos = LOUDCOPY(platLoc)
 						StuckCount = 0
 					end
 
