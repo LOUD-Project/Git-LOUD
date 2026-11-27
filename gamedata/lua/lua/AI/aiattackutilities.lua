@@ -552,7 +552,24 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if pointlist[1] and PointSource then
 
 				-- sort the list by distance from source 
-				LOUDSORT( pointlist, function(a,b) local LOUDV2 = LOUDV2 return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
+				-- the distance of a point is the same in every comparison: computed once per point
+				local dist = {}
+				local LOUDV2 = LOUDV2
+				local da, db
+
+				LOUDSORT( pointlist, function(a,b)
+					da = dist[a]
+					if not da then
+						da = LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3])
+						dist[a] = da
+					end
+					db = dist[b]
+					if not db then
+						db = LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] )
+						dist[b] = db
+					end
+					return da < db
+				end)
 				
 				for k,v in pointlist do
                

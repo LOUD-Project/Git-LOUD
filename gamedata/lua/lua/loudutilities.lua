@@ -388,12 +388,26 @@ function AISortScoutingAreas( aiBrain, list )
     local StartPosZ = aiBrain.StartPosZ
     local VDist2Sq = VDist2Sq
     
+    -- the distance of an area is the same in every comparison: computed once per area
+    local dist = {}
+    local da, db
+
     LOUDSORT( list, function(a,b)
 	
 		if a.LastScouted and b.LastScouted then
 		
 			if a.LastScouted == b.LastScouted then
-				return VDist2Sq( StartPosX, StartPosZ, a.Position[1], a.Position[3]) < VDist2Sq( StartPosX, StartPosZ, b.Position[1], b.Position[3])
+				da = dist[a]
+				if not da then
+					da = VDist2Sq( StartPosX, StartPosZ, a.Position[1], a.Position[3])
+					dist[a] = da
+				end
+				db = dist[b]
+				if not db then
+					db = VDist2Sq( StartPosX, StartPosZ, b.Position[1], b.Position[3])
+					dist[b] = db
+				end
+				return da < db
 			else
 				return a.LastScouted < b.LastScouted
 			end
