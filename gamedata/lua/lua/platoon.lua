@@ -38,6 +38,7 @@ local SendPlatoonWithTransportsLOUD     = import('/lua/ai/transportutilities.lua
 
 local AIBuildAdjacency                  = import('/lua/ai/aibuildstructures.lua').AIBuildAdjacency
 local AIBuildBaseTemplateFromLocation   = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateFromLocation
+local AIBuildBaseTemplateFromLocationRotated = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateFromLocationRotated
 local AIBuildBaseTemplateOrdered        = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateOrdered
 local AIExecuteBuildStructure           = import('/lua/ai/aibuildstructures.lua').AIExecuteBuildStructure
 local AINewExpansionBase                = import('/lua/ai/aibuildstructures.lua').AINewExpansionBase
@@ -7368,7 +7369,6 @@ Platoon = Class(PlatoonMethods) {
         local GetPlatoonUnits = GetPlatoonUnits
         local PlatoonExists = PlatoonExists
         
-        local LOUDDEEPCOPY = LOUDDEEPCOPY
         local LOUDENTITY = LOUDENTITY
         local LOUDGETN = LOUDGETN
 		
@@ -7419,8 +7419,8 @@ Platoon = Class(PlatoonMethods) {
 		
 		-- the specific reference within the basetemplates file that contains the relative positions for specific groups of structures
 		-- this is what allows you to have faction specific building layouts with unique facility names
-		-- we'll take a copy of this table so that we can modify it for rotations without altering the source
-        local baseTmpl = LOUDDEEPCOPY( baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex] )
+        -- it is only read here: the layouts below are built from it by AIBuildBaseTemplateFromLocationRotated
+        local baseTmpl = baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex]
 
 		eng.EngineerBuildQueue = {} 	-- clear the engineers build queue		
 
@@ -7480,13 +7480,11 @@ Platoon = Class(PlatoonMethods) {
 			end
 
 			local repeatbuilds = 0
-            local layout, rotatefactor
+            local rotatefactor
 
 			for k,v in reference do
 			
 				if not buildpoint or buildpoint == k then
-
-					layout = LOUDDEEPCOPY(baseTmpl)
 
 					if rotation then
 					
@@ -7514,29 +7512,10 @@ Platoon = Class(PlatoonMethods) {
 							rotatefactor = rotatefactor - 4
 						end
 					
-						-- loop thru each building in the template - each building(s) is accompanied by a table of possible positions
-						for _,building in layout do
-						
-							if rotatefactor > 0 then
-							
-								for r = 2, LOUDGETN(building) do
-								
-									for s = 1, rotatefactor do
-									
-										local x = building[r][1]
-										local y = building[r][2]
-								
-										building[r][1] = 0 - y
-										building[r][2] = x
-									end
-								end
-							end
-						end
-						
 					end
 
 					counter = counter + 1
-					baseTmplList[counter] = AIBuildBaseTemplateFromLocation( layout, v )
+					baseTmplList[counter] = AIBuildBaseTemplateFromLocationRotated( baseTmpl, v, rotation and rotatefactor or 0 )
 
 					repeatbuilds = repeatbuilds + 1
 				end
@@ -7672,15 +7651,12 @@ Platoon = Class(PlatoonMethods) {
 			end
 
 			local repeatbuilds = 0
-            local layout, rotatefactor
+            local rotatefactor
 
 		    for k,v in reference do
 			
 				if not buildpoint or buildpoint == k then
 				
-					-- get a copy of the potential build locations
-					layout = LOUDDEEPCOPY(baseTmpl)
-					
 					-- the rotation flag tells us we might have some rotation to do
 					if rotation then
 					
@@ -7722,29 +7698,10 @@ Platoon = Class(PlatoonMethods) {
 							rotatefactor = rotatefactor - 4
 						end
 					
-						-- loop thru each building in the template - each building(s) is accompanied by a table of possible positions
-						for _,building in layout do
-							-- if there is a rotation to do
-							if rotatefactor > 0 then
-								--LOG("*AI DEBUG Doing a rotation of "..rotatefactor.." for building "..repr(building).." to layout "..repr(layout))
-								-- loop thru all the position entries for this building
-								for r = 2, LOUDGETN(building) do
-						
-									-- and do the rotation
-									for s = 1, rotatefactor do
-										local x = building[r][1]
-										local y = building[r][2]
-								
-										building[r][1] = 0 - y
-										building[r][2] = x
-									end
-								end
-							end
-						end
 					end			
 
 					counter = counter + 1
-					baseTmplList[counter] = AIBuildBaseTemplateFromLocation( layout, v )
+					baseTmplList[counter] = AIBuildBaseTemplateFromLocationRotated( baseTmpl, v, rotation and rotatefactor or 0 )
 
 					repeatbuilds = repeatbuilds + 1
 				end
@@ -7792,7 +7749,6 @@ Platoon = Class(PlatoonMethods) {
 		
 		local builditem = buildingTmpl
 
-		
         for _, baseListData in baseTmplList do
 		
             for _,v in BuildStructures do

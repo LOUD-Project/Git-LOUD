@@ -351,6 +351,58 @@ function AIBuildBaseTemplateFromLocation( baseTemplate, location )
     return baseT
 end
 
+-- The same result as AIBuildBaseTemplateFromLocation( layout, location ) for a layout that is a deep copy of
+-- baseTemplate with rotatefactor quarter turns applied to the position rows 2..n of every building (as EngineerBuildAI
+-- does it), but without copying the whole template first: the position rows are created new anyway, all other rows
+-- are copied as before. baseTemplate itself is not changed.
+function AIBuildBaseTemplateFromLocationRotated( baseTemplate, location, rotatefactor )
+
+	local LOUDFLOOR = LOUDFLOOR
+    local LOUDGETN = LOUDGETN
+    local deepcopy = table.deepcopy
+    local type = type
+
+    local baseT = {}
+
+    if location and baseTemplate then
+
+        local turns = rotatefactor or 0
+        local rows, last, x, y
+
+        for templateNum, template in baseTemplate do
+
+            rows = {}
+            baseT[templateNum] = rows
+
+            last = LOUDGETN(template)
+
+            for rowNum, rowData in template do
+
+                if type(rowData[1]) == 'number' then
+
+                    x = rowData[1]
+                    y = rowData[2]
+
+                    if turns > 0 and type(rowNum) == 'number' and rowNum >= 2 and rowNum <= last and LOUDFLOOR(rowNum) == rowNum then
+
+                        for s = 1, turns do
+                            x, y = 0 - y, x
+                        end
+                    end
+
+                    rows[rowNum] = { LOUDFLOOR( x + location[1] ) + 0.5, LOUDFLOOR( y + location[3] ) + 0.5, 0 }
+
+                else
+
+                    rows[rowNum] = deepcopy( rowData )
+                end
+            end
+        end
+    end
+
+    return baseT
+end
+
 function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = DecideWhatToBuild( aiBrain, builder, buildingType, buildingTemplate )
